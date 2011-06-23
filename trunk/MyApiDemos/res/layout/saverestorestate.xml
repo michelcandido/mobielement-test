@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="This text field saves its state:"
+    />
+<EditText
+	android:id="@+id/save_yes"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"	
+	android:layout_weight="1"
+	android:background="@drawable/green"
+	android:gravity="center_vertical|left"
+	android:text="Initial text."
+	android:freezesText="true">
+    <requestFocus />
+</EditText>
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="This text field does not save its state:"
+    />	  
+<EditText	
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"	
+	android:layout_weight="1"
+	android:background="@drawable/red"
+	android:gravity="center_vertical|left"
+	android:text="Initial text."
+	/>    
+</LinearLayout>
