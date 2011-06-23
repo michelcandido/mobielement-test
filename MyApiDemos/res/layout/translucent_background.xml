@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/trans_text"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:text="Example of how you can make an activity have a translucent background, compositing over whatever is behind it."
+    >
+</TextView>

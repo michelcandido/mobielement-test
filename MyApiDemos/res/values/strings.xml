@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MyApiDemos!</string>
+    <string name="app_name">My API Demos</string>
+    <string name="activity_helloworld">App/Activity/Hello World</string>
+    <string name="activity_saverestorestate">App/Activity/Save &amp; Restore State</string>
+    <string name="activity_receiveresult">App/Activity/Receive Result</string>
+    <string name="activity_forwarding">App/Activity/Forwarding</string>
+    <string name="activity_redirect">App/Activity/Redirection</string>
+    <string name="activity_translucent">App/Activity/Translucent</string>
+    <string name="activity_translucentblur">App/Activity/Translucent Blur</string>
+    <string name="activity_dialog">App/Activity/Dialog</string>
+    <string name="activity_customtitle">App/Activity/Custom Title</string>
+</resources>
