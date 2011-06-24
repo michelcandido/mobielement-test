@@ -1,0 +1,73 @@
+@charset "utf-8";
+#outerWrapper {
+	margin: 50px auto;
+	width: 320px;
+	padding: 20px;
+	background: white;
+}
+body {
+	background: #000 url(../images/tpa_bg.jpg) repeat-x center top;
+	font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#header, header {
+	width: 100%;
+	text-align: center;
+	background: url(../images/full_logo_small.jpg) no-repeat center top;
+	padding-top: 150px;
+}
+#contentWrapper {
+	width: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	margin-top: 20px;
+	overflow: hidden;
+}
+#mainContent {
+	width: 280px;
+	margin-left: 20px;
+}
+#footer, footer {
+	width: 100%;
+}
+#footer p, footer p {
+	font-size: 10px;
+	color: #000;
+	text-align: center;
+}
+#mainContent h1, h2 {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	line-height: 120%;
+}
+.imageRight {
+	/* [disabled]float: right; */
+	margin-bottom: 20px;
+	display: block;
+}
+div#nav {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: white;
+	width: 320px;
+	font-size: 30px;
+	margin: 20px 0 20px -20px;
+	overflow: hidden;
+}
+div#nav ul {
+	margin: 0 auto;
+	width: 320px;
+	list-style: none;
+}
+div#nav ul li, nav ul li {
+	/* [disabled]float: left; */
+	width: 320px;
+	text-align: center;
+}
+div#nav ul li a, nav ul li a {
+	line-height: 40px;
+	display: block;
+	color: white;
+	background-color: #00F;
+	text-decoration: none;
+}
+div#nav ul li a:hover, nav ul li a:hover {
+	color: #FFF;
+	background-color: #F70816;
+}

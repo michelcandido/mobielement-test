@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Video Playback - HTML Tag Method</title>
+</head>
+
+<body>
+<h1>Video Playback with Plug-In<br />
+  - &lt;object&gt; and &lt;embed&gt; Method</h1>
+<div id="myVideo">
+  <object id="player1" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="480" height="270">
+    <param name="movie" value="player.swf" />
+    <param name="quality" value="high" />
+    <param name="wmode" value="opaque" />
+    <param name="swfversion" value="6.0.65.0" />
+    <param name="flashvars" value="file=Star2.flv&autostart=true" />
+    <param name="allowfullscreen" value="true" />
+    <param name="allowscriptaccess" value="always" />
+    <embed
+flashvars="file=Star2.flv&autostart=true"
+allowfullscreen="true"
+allowscriptaccess="always"
+id="player1"
+name="player1"
+src="player.swf"
+width="480"
+height="270"
+/>
+  </object>
+</div>
+</body>
+</html>

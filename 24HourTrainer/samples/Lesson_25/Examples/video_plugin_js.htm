@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Video Playback via Plug-In and JavaScript</title>
+<script type="text/javascript"
+src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js">
+</script>
+</head>
+
+<body>
+<h1>Video Playback with Plug-In<br />
+- JavaScript Method</h1>
+<div id="myVideo">
+<script type="text/javascript">
+var flashvars = { file:'../assets/Star2.flv',autostart:'true' };
+var params = { allowfullscreen:'true', allowscriptaccess:'always' };
+var attributes = { id:'player1', name:'player1' };
+swfobject.embedSWF('../mediaplayer-5.3/player.swf','myVideo','480','270','9.0.115','false',
+flashvars, params, attributes);
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>JavaScript OnClick</title>
+<script type="text/javascript">
+<!--
+function getCurrentTime() {
+var theAM_PM;
+var theDate = new Date();
+var theHour = theDate.getHours();
+if (theHour < 12) {
+   theAM_PM = "AM";
+   }
+else {
+   theAM_PM = "PM";
+   }
+if (theHour == 0) {
+   theHour = 12;
+   }
+if (theHour > 12) {
+   theHour = theHour - 12;
+   }
+alert("After: " + theAM_PM);
+var theMinutes = theDate.getMinutes();
+theMinutes = theMinutes + "";
+if (theMinutes < 10)
+   {
+   theMinutes = "0" + theMinutes;
+   }
+var theFullTime = theHour + ":" + theMinutes + " " + theAM_PM;
+document.theForm.currentTime.value = theFullTime;
+}
+//-->
+</script>
+
+<style type="text/css">
+h1, input {
+	border: none;
+	color: black;
+	font: 36px "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+</style>
+</head>
+
+<body onload="getCurrentTime();">
+<form id="theForm" name="theForm" method="post" action="">
+<h1>The time is 
+<noscript>
+unavailable because JavaScript is disabled on your computer. Please enable JavaScript and refresh this page to see the current date and time.
+</noscript>
+<input type="text" name="currentTime" id="currentTime" />
+</h1>
+<button onclick="getCurrentTime();">Click for current time</button>
+</form>
+</body>
+</html>

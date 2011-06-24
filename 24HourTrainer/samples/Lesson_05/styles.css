@@ -1,0 +1,22 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+}
+body {
+	text-align: left;
+	background: #fff;
+	font: 12px/22px Arial, Helvetica, sans-serif;
+	color: #000;
+}
+#outerWrapper {
+	margin: 0 auto;
+	witdh: 1019px;
+}
+#outerWrapper_top {
+	width: 100%;
+	background: url(../images/bg_top3.jpg) no-repeat;
+	height: 20px;
+}

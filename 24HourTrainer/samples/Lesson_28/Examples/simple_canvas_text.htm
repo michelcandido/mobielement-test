@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Simple Canvas Demo - Text</title>
+<style type="text/css">
+canvas {
+	margin-bottom: 5px;
+	border: 1px dashed #000;
+}
+</style>
+<script type="text/javascript">
+function doCanvas() {
+  var my_canvas = document.getElementById("myCanvas");
+  var myCanvas_context = my_canvas.getContext("2d");
+  myCanvas_context.strokeStyle = "#000000";
+  myCanvas_context.fillStyle = "#FFFF00";
+  myCanvas_context.beginPath();
+  myCanvas_context.arc(150,150,100,0,Math.PI*2,true);
+  myCanvas_context.closePath();
+  myCanvas_context.stroke();
+  myCanvas_context.fill();
+   myCanvas_context.fillStyle = "#000";
+  myCanvas_context.font = "bold 36px sans-serif";
+  myCanvas_context.fillText("Welcome", 75, 160);
+}
+</script>
+
+</head>
+
+<body onLoad="doCanvas();">
+<h1>Simple Canvas Demo - Text</h1>
+<canvas id="myCanvas" width="300" height="300"></canvas>
+<p>The full canvas is outlined with a CSS border property.</p>
+</body>
+</html>
