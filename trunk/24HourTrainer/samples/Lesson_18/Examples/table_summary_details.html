@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Table Caption, Summary and Details</title>
+<style type="text/css">
+table {
+	margin: 20px auto;
+	border: 1px solid black;
+	border-collapse: collapse;
+	/* [disabled]border-spacing: 10px 20px; */
+}
+td, th {
+	padding: 10px;
+	border: 1px solid black;
+}
+h1 {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	border-bottom: solid 1px black;
+}
+caption {
+	font-size: 14px;
+	margin-bottom: 3px;
+	caption-side: left;
+}
+</style></head>
+
+<body>
+<h1>Caption, Summary and Details</h1>
+<table>
+ <caption>
+  <strong>Characteristics with positive and negative sides.</strong>
+  <details>
+   <summary>Help</summary>
+   <p>Characteristics are given in the second column, with the
+   negative side in the left column and the positive side in the right
+   column.</p>
+  </details>
+ </caption>
+ <thead>
+  <tr>
+   <th id="n"> Negative
+   <th> Characteristic
+   <th> Positive
+ <tbody>
+  <tr>
+   <td headers="n r1"> Sad
+   <th id="r1"> Mood
+   <td> Happy
+  <tr>
+   <td headers="n r2"> Failing
+   <th id="r2"> Grade
+   <td> Passing
+</table>
+<!--
+
+</body>
+</html>

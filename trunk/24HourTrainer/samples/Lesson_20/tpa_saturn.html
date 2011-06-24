@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TPA - Saturn Contest</title>
+<style type="text/css">
+#outerWrapper {
+	margin: 50px auto;
+	width: 800px;
+	padding: 20px;
+	background: white;
+}
+body {
+	background: #000 url(../images/tpa_bg.jpg) repeat-x center top;
+	font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#header {
+	width: 100%;
+	text-align: center;
+}
+#content {
+	width: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	margin-top: 20px;
+}
+#footer {
+	width: 100%;
+}
+#footer p {
+	font-size: 10px;
+	color: #000;
+	text-align: center;
+}
+#content h1 {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+.imageRight {
+	float: right;
+	padding-bottom: 15px;
+	padding-left: 15px;
+}
+button img {
+	vertical-align: middle;
+}
+</style>
+</head>
+
+<body>
+<div id="outerWrapper">
+  <div id="header"><img src="images/logo.png" width="410" height="181" alt="TPA: Trans Planet Airlines" /><br>
+    <img src="images/tpa_name.gif" width="373" height="37" alt="Trans Planet Airlines"> </div>
+  <div id="content">
+    <h1>Win a Trip to Saturn!</h1>
+    <p><img src="images/saturn.jpg" alt="Visit Mars!" width="200" height="109" class="imageRight">Get ready to skate the rings of Saturn! Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? </p>
+    <h2>Contest Entry Form:</h2>
+<form name="form1" method="post" action="">
+  <p>
+    <label for="fullName">Name: </label>
+    <input type="text" name="fullName" id="fullName">
+  </p>
+  <p>
+    <label for="email">Email: </label>
+    <input type="text" name="email" id="email">
+  </p>
+  <p>
+    <label for="entry">Entry: </label>
+    <textarea name="entry" id="entry" cols="50" rows="5">Why do you want to visit Saturn? (100 words or less)</textarea>
+  </p>
+<p>
+<label for="age">Age</label>
+<select name="age" id="age">
+  <option value="Under_12">Under 12 not allowed</option>
+  <option value="12_18" selected>12 - 18</option>
+  <option value="19_25">19 - 25</option>
+  <option value="26_40">26 - 40</option>
+  <option value="40 - 60">40 - 60</option>
+  <option value="61_100">61 - 100</option>
+  <option value="Over_100">Over 100</option>
+</select>
+</p>
+<p>What other planets have you visited?<br>
+<label for="venus">Venus</label>
+<input type="checkbox" name="planets" value="venus" id="venus"><br />
+<label for="mars">Mars</label>
+  <input type="checkbox" name="planets" value="mars" id="mars"><br />
+<label for="jupiter">Jupiter</label>
+  <input type="checkbox" name="planets" value="jupiter" id="jupiter"><br />
+<label for="neptune">Neptune</label>
+  <input type="checkbox" name="planets" value="neptune" id="neptune">
+</p>
+<p>
+    <button type="submit" name="submitButton">
+    <img src="images/tick.png" width="16" height="16" /> Submit your entry
+    </button>
+    <button type="reset" name="resetButton">
+    <img src="images/arrow_refresh.png" width="16" height="16" /> Start over
+    </button>
+</p>
+</form>
+    <p>&nbsp;</p>
+  </div>
+  <div id="footer">
+    <p>Copyright &copy; 2054 Trans Planet Airlines, LLC. All rights reserved</p>
+  </div>
+</div>
+</body>
+</html>

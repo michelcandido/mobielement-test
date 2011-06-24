@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TPA: Trans Planet Airlines</title>
+<style type="text/css">
+#outerWrapper {
+	margin: 50px auto;
+	width: 800px;
+	padding: 20px;
+	background: white;
+}
+body {
+	background: #000 url(../images/tpa_bg.jpg) repeat-x center top;
+	font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#header {
+	width: 100%;
+	text-align: center;
+}
+#content {
+	width: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#footer {
+	width: 100%;
+}
+#footer p {
+	font-size: 10px;
+	color: #000;
+	text-align: center;
+}
+#content h1 {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+.imageRight {
+	float: right;
+	padding-bottom: 15px;
+	padding-left: 15px;
+}
+hr {
+ background: url(../images/saturn_outline.gif) no-repeat center center;
+ height: 50px;
+ border: none;
+}
+form {
+	background: url(../images/mars_large.jpg) no-repeat center top;
+	padding: 25px 5px 5px 5px;
+}
+fieldset {
+	margin-bottom: 25px;
+	padding: 20px;
+	
+}
+legend {
+	background-color: white;	
+	padding: 5px;
+	color: black;
+	font-size: 14px;
+	font-weight: bold;
+}
+form p {
+	width: 200px;
+	margin: 0 auto;	
+	color: black;
+	font-size: 14px;
+	font-weight: bold;
+	padding-bottom: 20px;
+	text-align: center;
+}
+input[type="text"] {
+	text-align: center;	
+}
+</style>
+<script type="text/javascript">
+<!--
+
+function getMarsWeight() {
+	var theEarthWeight;
+	theEarthWeight = document.theForm.earthWeight.value;
+	if (theEarthWeight == 0) {
+		alert("Please enter your Earth weight in pounds");
+		document.theForm.earthWeight.focus();
+	}
+	var theMarsWeight = theEarthWeight * .38;
+	document.theForm.marsWeight.value = theMarsWeight + " lbs";
+}
+//-->
+</script>
+</head>
+
+<body>
+<div id="outerWrapper">
+  <div id="header"><img src="../images/logo.png" width="410" height="181" alt="TPA: Trans Planet Airlines" /><br>
+  <img src="../images/tpa_name.gif" width="373" height="37" alt="Trans Planet Airlines"> </div>
+<div id="content">
+  <h1>Get on the Martian Diet!</h1>
+  <p>Our Mars portal is now accepting flights! </p>
+  <form name="theForm" method="post" action="">
+    <fieldset>
+      <legend> Find your weight on Mars </legend>
+      
+      <p>
+        <label for="earthWeight">Your Weight on Earth: </label><br />
+        <input type="text" name="earthWeight" id="earthWeight">
+      </p>
+      <p>
+        <button type="button" name="calculateWeight" id="calculateWeight" onclick="getMarsWeight();">Click to See Your Weight on Mars!</button>
+      </p>
+      <p>
+        <label for="marsWeight">Your Weight on Mars: </label><br />
+        <input type="text" name="marsWeight" id="marsWeight">
+      </p>
+    </fieldset>
+  </form>
+  <p>&nbsp;</p>
+</div>
+<div id="footer">
+  <p>Copyright &copy; 2054 Trans Planet Airlines, LLC. All rights reserved</p>
+</div></div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+@charset "utf-8";
+#outerWrapper {
+	margin: 50px auto;
+	width: 800px;
+	padding: 20px;
+	background: white;
+}
+body {
+	background: #000 url(../images/tpa_bg.jpg) repeat-x center top;
+	font: 12px/18px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#header, header {
+	width: 100%;
+	text-align: center;
+	background: url(../images/full_logo.jpg) no-repeat top center;
+	/* [disabled]height: 300px; */
+	padding-top: 210px;
+}
+#contentWrapper {
+	width: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	margin-top: 20px;
+	overflow: hidden;
+}
+#mainContent, section {
+	width: 560px;
+	float: left;
+	padding-right: 20px;
+}
+#footer, footer {
+	width: 100%;
+}
+#footer p, footer p {
+	font-size: 10px;
+	color: #000;
+	text-align: center;
+}
+#mainContent h1, section h1 {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+.imageRight {
+	float: right;
+	padding-bottom: 15px;
+	padding-left: 15px;
+}
+div#nav, nav {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: white;
+	width: 740px;
+	font-size: 30px;
+	margin: 20px auto;
+	overflow: hidden;
+}
+div#nav ul, nav ul {
+	margin: auto;
+	width: 688px;
+	list-style: none;
+}
+div#nav ul li, nav ul li {
+	float: left;
+	width: 170px;
+	text-align: center;
+}
+div#nav ul li a, nav ul li a {
+	line-height: 40px;
+	display: block;
+	color: white;
+	background-color: #00F;
+	text-decoration: none;
+}
+div#nav ul li a:hover, nav ul li a:hover {
+	color: #FFF;
+	background-color: #F70816;
+}

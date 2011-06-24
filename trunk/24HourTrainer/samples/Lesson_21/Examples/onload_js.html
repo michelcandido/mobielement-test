@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>JavaScript OnLoad</title>
+<script type="text/javascript">
+<!--
+function getTodaysDate() {
+	var theDate = new Date();
+	var theMonth = theDate.getMonth() + 1;
+	var theDay = theDate.getDate();
+	var theYear = theDate.getFullYear();
+	var theFullDate = theMonth + "/" + theDay + "/" + theYear;
+	document.theForm.todaysDate.value = theFullDate;
+}
+//-->
+</script>
+
+<style type="text/css">
+h1, input {
+	border: none;
+	color: black;
+	font: 36px "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+</style>
+</head>
+
+<body onload="getTodaysDate();">
+<form id="theForm" name="theForm" method="post" action="">
+<h1>The date is <input type="text" name="todaysDate" id="todaysDate"  />
+</h1>
+</form>
+</body>
+</html>

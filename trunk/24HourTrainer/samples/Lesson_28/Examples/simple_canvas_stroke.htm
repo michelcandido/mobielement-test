@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Simple Canvas Demo - Stroke</title>
+<style type="text/css">
+canvas {
+	margin-bottom: 5px;
+	border: 1px dashed #000;
+}
+</style>
+<script type="text/javascript">
+function doCanvas() {
+  var my_canvas = document.getElementById("myCanvas");
+  var myCanvas_context = my_canvas.getContext("2d");
+myCanvas_context.strokeRect(50, 50, 150, 150);
+}
+</script>
+
+</head>
+
+<body onLoad="doCanvas();">
+<h1>Simple Canvas Demo - Stroke Only</h1>
+<canvas id="myCanvas" width="300" height="225"></canvas>
+<p>The full canvas is outlined with a CSS border property.</p>
+</body>
+</html>
