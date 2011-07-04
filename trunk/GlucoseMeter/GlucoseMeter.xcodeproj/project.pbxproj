@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		607A45DC13BDA19800471C5E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607A45DB13BDA19800471C5E /* UIKit.framework */; };
+		607A45DE13BDA19800471C5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607A45DD13BDA19800471C5E /* Foundation.framework */; };
+		607A45E013BDA19800471C5E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607A45DF13BDA19800471C5E /* CoreGraphics.framework */; };
+		607A45E613BDA19800471C5E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 607A45E413BDA19800471C5E /* InfoPlist.strings */; };
+		607A45E813BDA19800471C5E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 607A45E713BDA19800471C5E /* main.m */; };
+		607A45EC13BDA19800471C5E /* GlucoseMeterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 607A45EB13BDA19800471C5E /* GlucoseMeterAppDelegate.m */; };
+		607A45EF13BDA19800471C5E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607A45ED13BDA19800471C5E /* MainWindow.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		607A45D713BDA19800471C5E /* GlucoseMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		607A45DB13BDA19800471C5E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		607A45DD13BDA19800471C5E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		607A45DF13BDA19800471C5E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		607A45E313BDA19800471C5E /* GlucoseMeter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GlucoseMeter-Info.plist"; sourceTree = "<group>"; };
+		607A45E513BDA19800471C5E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		607A45E713BDA19800471C5E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		607A45E913BDA19800471C5E /* GlucoseMeter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GlucoseMeter-Prefix.pch"; sourceTree = "<group>"; };
+		607A45EA13BDA19800471C5E /* GlucoseMeterAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlucoseMeterAppDelegate.h; sourceTree = "<group>"; };
+		607A45EB13BDA19800471C5E /* GlucoseMeterAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlucoseMeterAppDelegate.m; sourceTree = "<group>"; };
+		607A45EE13BDA19800471C5E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		607A45D413BDA19700471C5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607A45DC13BDA19800471C5E /* UIKit.framework in Frameworks */,
+				607A45DE13BDA19800471C5E /* Foundation.framework in Frameworks */,
+				607A45E013BDA19800471C5E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		607A45CC13BDA19700471C5E = {
+			isa = PBXGroup;
+			children = (
+				607A45E113BDA19800471C5E /* GlucoseMeter */,
+				607A45DA13BDA19800471C5E /* Frameworks */,
+				607A45D813BDA19800471C5E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		607A45D813BDA19800471C5E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				607A45D713BDA19800471C5E /* GlucoseMeter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		607A45DA13BDA19800471C5E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				607A45DB13BDA19800471C5E /* UIKit.framework */,
+				607A45DD13BDA19800471C5E /* Foundation.framework */,
+				607A45DF13BDA19800471C5E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		607A45E113BDA19800471C5E /* GlucoseMeter */ = {
+			isa = PBXGroup;
+			children = (
+				607A45EA13BDA19800471C5E /* GlucoseMeterAppDelegate.h */,
+				607A45EB13BDA19800471C5E /* GlucoseMeterAppDelegate.m */,
+				607A45ED13BDA19800471C5E /* MainWindow.xib */,
+				607A45E213BDA19800471C5E /* Supporting Files */,
+			);
+			path = GlucoseMeter;
+			sourceTree = "<group>";
+		};
+		607A45E213BDA19800471C5E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				607A45E313BDA19800471C5E /* GlucoseMeter-Info.plist */,
+				607A45E413BDA19800471C5E /* InfoPlist.strings */,
+				607A45E713BDA19800471C5E /* main.m */,
+				607A45E913BDA19800471C5E /* GlucoseMeter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		607A45D613BDA19700471C5E /* GlucoseMeter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 607A45F213BDA19800471C5E /* Build configuration list for PBXNativeTarget "GlucoseMeter" */;
+			buildPhases = (
+				607A45D313BDA19700471C5E /* Sources */,
+				607A45D413BDA19700471C5E /* Frameworks */,
+				607A45D513BDA19700471C5E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GlucoseMeter;
+			productName = GlucoseMeter;
+			productReference = 607A45D713BDA19800471C5E /* GlucoseMeter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		607A45CE13BDA19700471C5E /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 607A45D113BDA19700471C5E /* Build configuration list for PBXProject "GlucoseMeter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 607A45CC13BDA19700471C5E;
+			productRefGroup = 607A45D813BDA19800471C5E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				607A45D613BDA19700471C5E /* GlucoseMeter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		607A45D513BDA19700471C5E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607A45E613BDA19800471C5E /* InfoPlist.strings in Resources */,
+				607A45EF13BDA19800471C5E /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		607A45D313BDA19700471C5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				607A45E813BDA19800471C5E /* main.m in Sources */,
+				607A45EC13BDA19800471C5E /* GlucoseMeterAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		607A45E413BDA19800471C5E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				607A45E513BDA19800471C5E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		607A45ED13BDA19800471C5E /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				607A45EE13BDA19800471C5E /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		607A45F013BDA19800471C5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		607A45F113BDA19800471C5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		607A45F313BDA19800471C5E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GlucoseMeter/GlucoseMeter-Prefix.pch";
+				INFOPLIST_FILE = "GlucoseMeter/GlucoseMeter-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		607A45F413BDA19800471C5E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GlucoseMeter/GlucoseMeter-Prefix.pch";
+				INFOPLIST_FILE = "GlucoseMeter/GlucoseMeter-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		607A45D113BDA19700471C5E /* Build configuration list for PBXProject "GlucoseMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607A45F013BDA19800471C5E /* Debug */,
+				607A45F113BDA19800471C5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		607A45F213BDA19800471C5E /* Build configuration list for PBXNativeTarget "GlucoseMeter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				607A45F313BDA19800471C5E /* Debug */,
+				607A45F413BDA19800471C5E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 607A45CE13BDA19700471C5E /* Project object */;
+}
