@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		601B22A813C22443006DCE6A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 601B22A713C22443006DCE6A /* Default.png */; };
 		6029CDC713C193D40040B79B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC613C193D40040B79B /* UIKit.framework */; };
 		6029CDC913C193D40040B79B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC813C193D40040B79B /* Foundation.framework */; };
 		6029CDCB13C193D40040B79B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDCA13C193D40040B79B /* CoreGraphics.framework */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		601B22A713C22443006DCE6A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6029CDC213C193D40040B79B /* GlucoseMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6029CDC613C193D40040B79B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6029CDC813C193D40040B79B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				6029CDCE13C193D40040B79B /* GlucoseMeter-Info.plist */,
+				601B22A713C22443006DCE6A /* Default.png */,
 				6029CDCF13C193D40040B79B /* InfoPlist.strings */,
 				6029CDD213C193D40040B79B /* main.m */,
 				6029CDD413C193D40040B79B /* GlucoseMeter-Prefix.pch */,
@@ -142,6 +145,7 @@
 			files = (
 				6029CDD113C193D40040B79B /* InfoPlist.strings in Resources */,
 				6029CDDA13C193D50040B79B /* MainWindow.xib in Resources */,
+				601B22A813C22443006DCE6A /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +267,7 @@
 				6029CDDF13C193D50040B79B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

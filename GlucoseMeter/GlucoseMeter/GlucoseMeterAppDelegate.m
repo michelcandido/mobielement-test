@@ -14,6 +14,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [NSThread sleepForTimeInterval: 2.0];
     // Override point for customization after application launch.
     [self.window makeKeyAndVisible];
     return YES;
