@@ -13,7 +13,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "607A45D613BDA19700471C5E"
+               BlueprintIdentifier = "6029CDC113C193D40040B79B"
                BuildableName = "GlucoseMeter.app"
                BlueprintName = "GlucoseMeter"
                ReferencedContainer = "container:GlucoseMeter.xcodeproj">
@@ -39,7 +39,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607A45D613BDA19700471C5E"
+            BlueprintIdentifier = "6029CDC113C193D40040B79B"
             BuildableName = "GlucoseMeter.app"
             BlueprintName = "GlucoseMeter"
             ReferencedContainer = "container:GlucoseMeter.xcodeproj">
@@ -57,7 +57,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "607A45D613BDA19700471C5E"
+            BlueprintIdentifier = "6029CDC113C193D40040B79B"
             BuildableName = "GlucoseMeter.app"
             BlueprintName = "GlucoseMeter"
             ReferencedContainer = "container:GlucoseMeter.xcodeproj">
