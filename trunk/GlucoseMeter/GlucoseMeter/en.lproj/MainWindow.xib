@@ -79,18 +79,20 @@
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							<object class="NSMutableArray" key="IBUIItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="IBUIBarButtonItem" id="924117675">
+								<object class="IBUIBarButtonItem" id="781229407">
+									<int key="IBUITag">1</int>
 									<string key="IBUITitle">Home</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUIToolbar" ref="685125465"/>
 								</object>
-								<object class="IBUIBarButtonItem" id="528268294">
+								<object class="IBUIBarButtonItem" id="1063363946">
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<reference key="IBUIToolbar" ref="685125465"/>
 									<int key="IBUISystemItemIdentifier">5</int>
 								</object>
 								<object class="IBUIBarButtonItem" id="54695651">
+									<int key="IBUITag">2</int>
 									<string key="IBUITitle">Run Test</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
@@ -102,6 +104,7 @@
 									<int key="IBUISystemItemIdentifier">5</int>
 								</object>
 								<object class="IBUIBarButtonItem" id="66315490">
+									<int key="IBUITag">3</int>
 									<string key="IBUITitle">View Log</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
@@ -113,6 +116,7 @@
 									<int key="IBUISystemItemIdentifier">5</int>
 								</object>
 								<object class="IBUIBarButtonItem" id="933666653">
+									<int key="IBUITag">4</int>
 									<string key="IBUITitle">Settings</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
@@ -197,7 +201,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">switchViews:</string>
-						<reference key="source" ref="924117675"/>
+						<reference key="source" ref="781229407"/>
 						<reference key="destination" ref="872404989"/>
 					</object>
 					<int key="connectionID">43</int>
@@ -264,8 +268,8 @@
 							<reference ref="66315490"/>
 							<reference ref="1061124610"/>
 							<reference ref="933666653"/>
-							<reference ref="924117675"/>
-							<reference ref="528268294"/>
+							<reference ref="781229407"/>
+							<reference ref="1063363946"/>
 						</object>
 						<reference key="parent" ref="1028298605"/>
 					</object>
@@ -296,12 +300,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">41</int>
-						<reference key="object" ref="924117675"/>
+						<reference key="object" ref="781229407"/>
 						<reference key="parent" ref="685125465"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">42</int>
-						<reference key="object" ref="528268294"/>
+						<reference key="object" ref="1063363946"/>
 						<reference key="parent" ref="685125465"/>
 					</object>
 				</object>
