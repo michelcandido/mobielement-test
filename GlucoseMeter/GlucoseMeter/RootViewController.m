@@ -42,88 +42,82 @@
     GlucoseMeterAppDelegate *appDelegate = (GlucoseMeterAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     NSString *titleText = [[NSString alloc] initWithString:((UIBarButtonItem*)sender).title];
+    NSInteger tag = ((UIView*)sender).tag;
+        
+    //if ([titleText caseInsensitiveCompare:@"Run Test"] == NSOrderedSame)
+    switch (tag) {
+        case 1:
+            if (self.homeViewController.view.superview == nil) 
+            { 
+                if (self.homeViewController == nil) 
+                { 
+                    HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil]; 
+                    self.homeViewController = homeController;  
+                    [homeController release]; 
+                }             
+                [self animateSwitch:homeViewController];
+            }
+            break;
+        case 2:
+            if (self.testViewController.view.superview == nil) 
+            { 
+                if (self.testViewController == nil) 
+                { 
+                    TestViewController *testController = [[TestViewController alloc] initWithNibName:@"TestView" bundle:nil]; 
+                    self.testViewController = testController;  
+                    [testController release]; 
+                } 
+                [self animateSwitch:testViewController];
+            }
+            break;
+        case 3:
+            if (self.logViewController.view.superview == nil) 
+            { 
+                if (self.logViewController == nil) 
+                { 
+                    LogViewController *logController = [[LogViewController alloc] initWithNibName:@"LogView" bundle:nil]; 
+                    self.logViewController = logController;  
+                    [logController release]; 
+                }     
+                [self animateSwitch:logViewController];
+            }
+            break;
+        case 4:
+            if (self.settingViewController.view.superview == nil) 
+            { 
+                if (self.settingViewController == nil) 
+                { 
+                    SettingViewController *settingController = [[SettingViewController alloc] initWithNibName:@"SettingView" bundle:nil]; 
+                    self.settingViewController = settingController;  
+                    [settingController release]; 
+                }            
+                [self animateSwitch:settingViewController];
+            }
+            break;
+        default:
+            break;
+    }
     
+    [appDelegate release];
+    [titleText release];
+}
+
+- (void)animateSwitch:(UIViewController*)targetViewController
+{
     [UIView beginAnimations:@"View Flip" context:nil]; 
     [UIView setAnimationDuration:1.25]; 
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     
     [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];  
-    [currentViewController viewWillAppear:YES]; 
-    
-    if ([titleText caseInsensitiveCompare:@"Run Test"] == NSOrderedSame)
-    {
-        if (self.testViewController.view.superview == nil) 
-        { 
-            if (self.testViewController == nil) 
-            { 
-                TestViewController *testController = [[TestViewController alloc] initWithNibName:@"TestView" bundle:nil]; 
-                self.testViewController = testController;  
-                [testController release]; 
-            } 
-            [testViewController viewWillDisappear:YES];
-            [currentViewController.view removeFromSuperview];
-            [self.view insertSubview:testViewController.view atIndex:0]; 
-            [testViewController viewDidDisappear:YES]; 
-            [currentViewController viewDidAppear:YES];
-            currentViewController = testViewController;
-        }
-        
-    } else if ([titleText caseInsensitiveCompare:@"View Log"] == NSOrderedSame)
-    {
-        if (self.logViewController.view.superview == nil) 
-        { 
-            if (self.logViewController == nil) 
-            { 
-                LogViewController *logController = [[LogViewController alloc] initWithNibName:@"LogView" bundle:nil]; 
-                self.logViewController = logController;  
-                [logController release]; 
-            } 
-            [logViewController viewWillDisappear:YES];            
-            [currentViewController.view removeFromSuperview];
-            [self.view insertSubview:logViewController.view atIndex:0]; 
-            [logViewController viewDidDisappear:YES]; 
-            [currentViewController viewDidAppear:YES];
-            currentViewController = logViewController;
-        }
-        
-    } else if ([titleText caseInsensitiveCompare:@"Settings"] == NSOrderedSame)
-    {
-        if (self.settingViewController.view.superview == nil) 
-        { 
-            if (self.settingViewController == nil) 
-            { 
-                SettingViewController *settingController = [[SettingViewController alloc] initWithNibName:@"SettingView" bundle:nil]; 
-                self.settingViewController = settingController;  
-                [settingController release]; 
-            } 
-            [settingViewController viewWillDisappear:YES];            
-            [currentViewController.view removeFromSuperview];
-            [self.view insertSubview:settingViewController.view atIndex:0];
-            [settingViewController viewDidDisappear:YES]; 
-            [currentViewController viewDidAppear:YES];
-            currentViewController = settingViewController;
-        }
-    } else if ([titleText caseInsensitiveCompare:@"Home"] == NSOrderedSame)
-    {
-        if (self.homeViewController.view.superview == nil) 
-        { 
-            if (self.homeViewController == nil) 
-            { 
-                HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil]; 
-                self.homeViewController = homeController;  
-                [homeController release]; 
-            } 
-            [homeViewController viewWillDisappear:YES];            
-            [currentViewController.view removeFromSuperview];
-            [self.view insertSubview:homeViewController.view atIndex:0];            
-            [homeViewController viewDidDisappear:YES]; 
-            [currentViewController viewDidAppear:YES];
-            currentViewController = homeViewController;
-        }
-    }
+    [currentViewController viewWillAppear:YES];     
+    [targetViewController viewWillDisappear:YES];            
+    [currentViewController.view removeFromSuperview];
+    [self.view insertSubview:targetViewController.view atIndex:0];            
+    [targetViewController viewDidDisappear:YES]; 
+    [currentViewController viewDidAppear:YES];
+    currentViewController = targetViewController;
     
     [UIView commitAnimations];
-    [titleText release];
 }
 
 #pragma mark - View lifecycle
