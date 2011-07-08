@@ -10,12 +10,15 @@
 #import "TestViewController.h"
 #import "LogViewController.h"
 #import "SettingViewController.h"
+#import "HomeViewController.h"
 #import "GlucoseMeterAppDelegate.h"
 
 @implementation RootViewController
 @synthesize testViewController;
 @synthesize logViewController;
 @synthesize settingViewController;
+@synthesize homeViewController;
+@synthesize currentViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,13 +41,50 @@
 {
     GlucoseMeterAppDelegate *appDelegate = (GlucoseMeterAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *titleText = [[NSString alloc] initWithString:((UIButton*)sender).titleLabel.text];
-     
-    if ([titleText caseInsensitiveCompare:@"Test"] == NSOrderedSame)
+    NSString *titleText = [[NSString alloc] initWithString:((UIBarButtonItem*)sender).title];
+    
+    [UIView beginAnimations:@"View Flip" context:nil]; 
+    [UIView setAnimationDuration:1.25]; 
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    
+    [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];  
+    [currentViewController viewWillAppear:YES]; 
+    
+    if ([titleText caseInsensitiveCompare:@"Run Test"] == NSOrderedSame)
     {
+        if (self.testViewController.view.superview == nil) 
+        { 
+            if (self.testViewController == nil) 
+            { 
+                TestViewController *testController = [[TestViewController alloc] initWithNibName:@"TestView" bundle:nil]; 
+                self.testViewController = testController;  
+                [testController release]; 
+            } 
+            [testViewController viewWillDisappear:YES];
+            [currentViewController.view removeFromSuperview];
+            [self.view insertSubview:testViewController.view atIndex:0]; 
+            [testViewController viewDidDisappear:YES]; 
+            [currentViewController viewDidAppear:YES];
+            currentViewController = testViewController;
+        }
         
-    } else if ([titleText caseInsensitiveCompare:@"Log"] == NSOrderedSame)
+    } else if ([titleText caseInsensitiveCompare:@"View Log"] == NSOrderedSame)
     {
+        if (self.logViewController.view.superview == nil) 
+        { 
+            if (self.logViewController == nil) 
+            { 
+                LogViewController *logController = [[LogViewController alloc] initWithNibName:@"LogView" bundle:nil]; 
+                self.logViewController = logController;  
+                [logController release]; 
+            } 
+            [logViewController viewWillDisappear:YES];            
+            [currentViewController.view removeFromSuperview];
+            [self.view insertSubview:logViewController.view atIndex:0]; 
+            [logViewController viewDidDisappear:YES]; 
+            [currentViewController viewDidAppear:YES];
+            currentViewController = logViewController;
+        }
         
     } else if ([titleText caseInsensitiveCompare:@"Settings"] == NSOrderedSame)
     {
@@ -56,14 +96,16 @@
                 self.settingViewController = settingController;  
                 [settingController release]; 
             } 
-            
-            //[blueViewController.view removeFromSuperview]; 
-            //[self.view insertSubview:settingViewController.view atIndex:0]; 
-            [appDelegate.window addSubview:settingViewController.view];
-            [appDelegate.window makeKeyAndVisible];
+            [settingViewController viewWillDisappear:YES];            
+            [currentViewController.view removeFromSuperview];
+            [self.view insertSubview:settingViewController.view atIndex:0];
+            currentViewController = settingViewController;
+            [settingViewController viewDidDisappear:YES]; 
+            [currentViewController viewDidAppear:YES];            
         }
     }
     
+    [UIView commitAnimations];
     [titleText release];
 }
 
@@ -76,13 +118,18 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil];
+    self.homeViewController = homeController;
+    [self.view insertSubview:homeController.view atIndex:0];
+    currentViewController = homeViewController;
+    [homeController release];
     [super viewDidLoad];
 }
-*/
+
 
 - (void)viewDidUnload
 {
