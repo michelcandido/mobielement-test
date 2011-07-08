@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60003FD113C6D14800A3F76A /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60003FD013C6D14700A3F76A /* HomeView.xib */; };
+		60003FD513C6D2CD00A3F76A /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60003FD413C6D2CD00A3F76A /* HomeViewController.m */; };
 		601B22A813C22443006DCE6A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 601B22A713C22443006DCE6A /* Default.png */; };
 		6029CDC713C193D40040B79B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC613C193D40040B79B /* UIKit.framework */; };
 		6029CDC913C193D40040B79B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC813C193D40040B79B /* Foundation.framework */; };
@@ -26,6 +28,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		60003FD013C6D14700A3F76A /* HomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
+		60003FD313C6D2CD00A3F76A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		60003FD413C6D2CD00A3F76A /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		601B22A713C22443006DCE6A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6029CDC213C193D40040B79B /* GlucoseMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6029CDC613C193D40040B79B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -111,6 +116,9 @@
 				604319F413C4B7890005089B /* TestView.xib */,
 				604319F613C4B79D0005089B /* LogView.xib */,
 				604319F813C4B7B20005089B /* SettingView.xib */,
+				60003FD013C6D14700A3F76A /* HomeView.xib */,
+				60003FD313C6D2CD00A3F76A /* HomeViewController.h */,
+				60003FD413C6D2CD00A3F76A /* HomeViewController.m */,
 			);
 			path = GlucoseMeter;
 			sourceTree = "<group>";
@@ -182,6 +190,7 @@
 				604319F713C4B79D0005089B /* LogView.xib in Resources */,
 				604319F913C4B7B20005089B /* SettingView.xib in Resources */,
 				604319FB13C5451E0005089B /* RootViewBG.png in Resources */,
+				60003FD113C6D14800A3F76A /* HomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +207,7 @@
 				604319ED13C4B7060005089B /* TestViewController.m in Sources */,
 				604319F013C4B7200005089B /* LogViewController.m in Sources */,
 				604319F313C4B7430005089B /* SettingViewController.m in Sources */,
+				60003FD513C6D2CD00A3F76A /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -99,9 +99,26 @@
             [settingViewController viewWillDisappear:YES];            
             [currentViewController.view removeFromSuperview];
             [self.view insertSubview:settingViewController.view atIndex:0];
-            currentViewController = settingViewController;
             [settingViewController viewDidDisappear:YES]; 
-            [currentViewController viewDidAppear:YES];            
+            [currentViewController viewDidAppear:YES];
+            currentViewController = settingViewController;
+        }
+    } else if ([titleText caseInsensitiveCompare:@"Home"] == NSOrderedSame)
+    {
+        if (self.homeViewController.view.superview == nil) 
+        { 
+            if (self.homeViewController == nil) 
+            { 
+                HomeViewController *homeController = [[HomeViewController alloc] initWithNibName:@"HomeView" bundle:nil]; 
+                self.homeViewController = homeController;  
+                [homeController release]; 
+            } 
+            [homeViewController viewWillDisappear:YES];            
+            [currentViewController.view removeFromSuperview];
+            [self.view insertSubview:homeViewController.view atIndex:0];            
+            [homeViewController viewDidDisappear:YES]; 
+            [currentViewController viewDidAppear:YES];
+            currentViewController = homeViewController;
         }
     }
     
