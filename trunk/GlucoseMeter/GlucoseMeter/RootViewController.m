@@ -35,11 +35,21 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+    
+    if (self.testViewController.view.superview == nil)
+        self.testViewController = nil;
+    else if (self.logViewController.view.superview == nil)
+        self.logViewController = nil;
+    else if (self.settingViewController.view.superview == nil)
+        self.settingViewController = nil;    
+    else if (self.homeViewController.view.superview == nil)
+        self.homeViewController = nil;
+    
 }
 
 - (IBAction)switchViews:(id)sender
 {
-    GlucoseMeterAppDelegate *appDelegate = (GlucoseMeterAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //GlucoseMeterAppDelegate *appDelegate = (GlucoseMeterAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     NSString *titleText = [[NSString alloc] initWithString:((UIBarButtonItem*)sender).title];
     NSInteger tag = ((UIView*)sender).tag;
@@ -98,7 +108,7 @@
             break;
     }
     
-    [appDelegate release];
+    //[appDelegate release];
     [titleText release];
 }
 
@@ -153,6 +163,16 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+-(void)dealloc
+{
+    [homeViewController release];
+    [testViewController release];
+    [logViewController release];
+    [settingViewController release];
+    [currentViewController release];
+    [super dealloc];
 }
 
 @end
