@@ -21,6 +21,7 @@
 @property (retain, nonatomic) HomeViewController *homeViewController;
 @property (retain, nonatomic) UIViewController *currentViewController;
 
+
 -(IBAction)switchViews:(id)sender;
 -(void)animateSwitch:(UIViewController*)targetViewController;
 
