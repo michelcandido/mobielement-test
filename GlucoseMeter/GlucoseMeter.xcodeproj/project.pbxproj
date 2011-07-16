@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		60003FD113C6D14800A3F76A /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60003FD013C6D14700A3F76A /* HomeView.xib */; };
-		60003FD513C6D2CD00A3F76A /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60003FD413C6D2CD00A3F76A /* HomeViewController.m */; };
 		601B22A813C22443006DCE6A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 601B22A713C22443006DCE6A /* Default.png */; };
 		6029CDC713C193D40040B79B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC613C193D40040B79B /* UIKit.framework */; };
 		6029CDC913C193D40040B79B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC813C193D40040B79B /* Foundation.framework */; };
@@ -17,20 +15,19 @@
 		6029CDD313C193D40040B79B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6029CDD213C193D40040B79B /* main.m */; };
 		6029CDD713C193D50040B79B /* GlucoseMeterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6029CDD613C193D50040B79B /* GlucoseMeterAppDelegate.m */; };
 		6029CDDA13C193D50040B79B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6029CDD813C193D50040B79B /* MainWindow.xib */; };
-		604319E913C4B67D0005089B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 604319E813C4B67D0005089B /* RootViewController.m */; };
-		604319ED13C4B7060005089B /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 604319EC13C4B7060005089B /* TestViewController.m */; };
-		604319F013C4B7200005089B /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 604319EF13C4B7200005089B /* LogViewController.m */; };
-		604319F313C4B7430005089B /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 604319F213C4B7430005089B /* SettingViewController.m */; };
-		604319F513C4B7890005089B /* TestView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 604319F413C4B7890005089B /* TestView.xib */; };
-		604319F713C4B79D0005089B /* LogView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 604319F613C4B79D0005089B /* LogView.xib */; };
-		604319F913C4B7B20005089B /* SettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 604319F813C4B7B20005089B /* SettingView.xib */; };
 		604319FB13C5451E0005089B /* RootViewBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 604319FA13C5451E0005089B /* RootViewBG.png */; };
+		6096641713CC114200157033 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6096641613CC114200157033 /* TestCell.xib */; };
+		60BB3E1113D04D4F00B57E46 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E0F13D04D4F00B57E46 /* LogViewController.m */; };
+		60BB3E1213D04D4F00B57E46 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E1013D04D4F00B57E46 /* LogViewController.xib */; };
+		60BB3E1613D04E6800B57E46 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E1413D04E6800B57E46 /* SettingViewController.m */; };
+		60BB3E1713D04E6800B57E46 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E1513D04E6800B57E46 /* SettingViewController.xib */; };
+		60BB3E1B13D1667F00B57E46 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E1913D1667F00B57E46 /* HomeViewController.m */; };
+		60BB3E1C13D1667F00B57E46 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E1A13D1667F00B57E46 /* HomeViewController.xib */; };
+		60BB3E2013D16A7E00B57E46 /* TestSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E1E13D16A7E00B57E46 /* TestSetupViewController.m */; };
+		60BB3E2113D16A7E00B57E46 /* TestSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E1F13D16A7E00B57E46 /* TestSetupViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		60003FD013C6D14700A3F76A /* HomeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeView.xib; sourceTree = "<group>"; };
-		60003FD313C6D2CD00A3F76A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		60003FD413C6D2CD00A3F76A /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		601B22A713C22443006DCE6A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6029CDC213C193D40040B79B /* GlucoseMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6029CDC613C193D40040B79B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -43,18 +40,20 @@
 		6029CDD513C193D40040B79B /* GlucoseMeterAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlucoseMeterAppDelegate.h; sourceTree = "<group>"; };
 		6029CDD613C193D50040B79B /* GlucoseMeterAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlucoseMeterAppDelegate.m; sourceTree = "<group>"; };
 		6029CDD913C193D50040B79B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		604319E713C4B67D0005089B /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		604319E813C4B67D0005089B /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		604319EB13C4B7060005089B /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		604319EC13C4B7060005089B /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		604319EE13C4B7200005089B /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
-		604319EF13C4B7200005089B /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
-		604319F113C4B7430005089B /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		604319F213C4B7430005089B /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		604319F413C4B7890005089B /* TestView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestView.xib; sourceTree = "<group>"; };
-		604319F613C4B79D0005089B /* LogView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogView.xib; sourceTree = "<group>"; };
-		604319F813C4B7B20005089B /* SettingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingView.xib; sourceTree = "<group>"; };
 		604319FA13C5451E0005089B /* RootViewBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RootViewBG.png; sourceTree = "<group>"; };
+		6096641613CC114200157033 /* TestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
+		60BB3E0E13D04D4F00B57E46 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
+		60BB3E0F13D04D4F00B57E46 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
+		60BB3E1013D04D4F00B57E46 /* LogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
+		60BB3E1313D04E6700B57E46 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		60BB3E1413D04E6800B57E46 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		60BB3E1513D04E6800B57E46 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		60BB3E1813D1667E00B57E46 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		60BB3E1913D1667F00B57E46 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		60BB3E1A13D1667F00B57E46 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		60BB3E1D13D16A7D00B57E46 /* TestSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestSetupViewController.h; sourceTree = "<group>"; };
+		60BB3E1E13D16A7E00B57E46 /* TestSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSetupViewController.m; sourceTree = "<group>"; };
+		60BB3E1F13D16A7E00B57E46 /* TestSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestSetupViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,24 +100,23 @@
 		6029CDCC13C193D40040B79B /* GlucoseMeter */ = {
 			isa = PBXGroup;
 			children = (
+				60BB3E0E13D04D4F00B57E46 /* LogViewController.h */,
+				60BB3E0F13D04D4F00B57E46 /* LogViewController.m */,
+				60BB3E1013D04D4F00B57E46 /* LogViewController.xib */,
 				6029CDD513C193D40040B79B /* GlucoseMeterAppDelegate.h */,
 				6029CDD613C193D50040B79B /* GlucoseMeterAppDelegate.m */,
 				6029CDD813C193D50040B79B /* MainWindow.xib */,
 				6029CDCD13C193D40040B79B /* Supporting Files */,
-				604319E713C4B67D0005089B /* RootViewController.h */,
-				604319E813C4B67D0005089B /* RootViewController.m */,
-				604319EB13C4B7060005089B /* TestViewController.h */,
-				604319EC13C4B7060005089B /* TestViewController.m */,
-				604319EE13C4B7200005089B /* LogViewController.h */,
-				604319EF13C4B7200005089B /* LogViewController.m */,
-				604319F113C4B7430005089B /* SettingViewController.h */,
-				604319F213C4B7430005089B /* SettingViewController.m */,
-				604319F413C4B7890005089B /* TestView.xib */,
-				604319F613C4B79D0005089B /* LogView.xib */,
-				604319F813C4B7B20005089B /* SettingView.xib */,
-				60003FD013C6D14700A3F76A /* HomeView.xib */,
-				60003FD313C6D2CD00A3F76A /* HomeViewController.h */,
-				60003FD413C6D2CD00A3F76A /* HomeViewController.m */,
+				6096641613CC114200157033 /* TestCell.xib */,
+				60BB3E1313D04E6700B57E46 /* SettingViewController.h */,
+				60BB3E1413D04E6800B57E46 /* SettingViewController.m */,
+				60BB3E1513D04E6800B57E46 /* SettingViewController.xib */,
+				60BB3E1813D1667E00B57E46 /* HomeViewController.h */,
+				60BB3E1913D1667F00B57E46 /* HomeViewController.m */,
+				60BB3E1A13D1667F00B57E46 /* HomeViewController.xib */,
+				60BB3E1D13D16A7D00B57E46 /* TestSetupViewController.h */,
+				60BB3E1E13D16A7E00B57E46 /* TestSetupViewController.m */,
+				60BB3E1F13D16A7E00B57E46 /* TestSetupViewController.xib */,
 			);
 			path = GlucoseMeter;
 			sourceTree = "<group>";
@@ -186,11 +184,12 @@
 				6029CDD113C193D40040B79B /* InfoPlist.strings in Resources */,
 				6029CDDA13C193D50040B79B /* MainWindow.xib in Resources */,
 				601B22A813C22443006DCE6A /* Default.png in Resources */,
-				604319F513C4B7890005089B /* TestView.xib in Resources */,
-				604319F713C4B79D0005089B /* LogView.xib in Resources */,
-				604319F913C4B7B20005089B /* SettingView.xib in Resources */,
 				604319FB13C5451E0005089B /* RootViewBG.png in Resources */,
-				60003FD113C6D14800A3F76A /* HomeView.xib in Resources */,
+				6096641713CC114200157033 /* TestCell.xib in Resources */,
+				60BB3E1213D04D4F00B57E46 /* LogViewController.xib in Resources */,
+				60BB3E1713D04E6800B57E46 /* SettingViewController.xib in Resources */,
+				60BB3E1C13D1667F00B57E46 /* HomeViewController.xib in Resources */,
+				60BB3E2113D16A7E00B57E46 /* TestSetupViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,11 +202,10 @@
 			files = (
 				6029CDD313C193D40040B79B /* main.m in Sources */,
 				6029CDD713C193D50040B79B /* GlucoseMeterAppDelegate.m in Sources */,
-				604319E913C4B67D0005089B /* RootViewController.m in Sources */,
-				604319ED13C4B7060005089B /* TestViewController.m in Sources */,
-				604319F013C4B7200005089B /* LogViewController.m in Sources */,
-				604319F313C4B7430005089B /* SettingViewController.m in Sources */,
-				60003FD513C6D2CD00A3F76A /* HomeViewController.m in Sources */,
+				60BB3E1113D04D4F00B57E46 /* LogViewController.m in Sources */,
+				60BB3E1613D04E6800B57E46 /* SettingViewController.m in Sources */,
+				60BB3E1B13D1667F00B57E46 /* HomeViewController.m in Sources */,
+				60BB3E2013D16A7E00B57E46 /* TestSetupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
