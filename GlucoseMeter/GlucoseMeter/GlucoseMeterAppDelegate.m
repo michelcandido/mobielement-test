@@ -7,18 +7,20 @@
 //
 
 #import "GlucoseMeterAppDelegate.h"
-#import "RootViewController.h"
+//#import "RootViewController.h"
 
 @implementation GlucoseMeterAppDelegate
 
 @synthesize window = _window;
-@synthesize rootViewController;
+//@synthesize rootViewController;
+@synthesize tabController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [NSThread sleepForTimeInterval: 1.0];
+    [NSThread sleepForTimeInterval: 0.0];
     // Override point for customization after application launch.
-    [self.window addSubview:rootViewController.view];
+    //[self.window addSubview:rootViewController.view];
+    [self.window addSubview:tabController.view];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -65,7 +67,8 @@
 - (void)dealloc
 {
     [_window release];
-    [rootViewController release];
+    //[rootViewController release];
+    [tabController release];
     [super dealloc];
 }
 

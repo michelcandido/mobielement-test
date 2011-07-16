@@ -89,7 +89,8 @@
                     self.logViewController = logController;  
                     [logController release]; 
                 }     
-                [self animateSwitch:logViewController];
+                //[self animateSwitch:logViewController];
+                [self presentModalViewController:logViewController animated:true];
             }
             break;
         case 4:
@@ -114,20 +115,22 @@
 
 - (void)animateSwitch:(UIViewController*)targetViewController
 {
-    [UIView beginAnimations:@"View Flip" context:nil]; 
-    [UIView setAnimationDuration:1.25]; 
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    //[UIView beginAnimations:@"View Flip" context:nil]; 
+    //[UIView setAnimationDuration:1.25]; 
+    //[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     
-    [UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];  
-    [currentViewController viewWillAppear:YES];     
-    [targetViewController viewWillDisappear:YES];            
+    //[UIView setAnimationTransition: UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];  
+    //[currentViewController viewWillAppear:YES];     
+    //[targetViewController viewWillDisappear:YES];            
     [currentViewController.view removeFromSuperview];
-    [self.view insertSubview:targetViewController.view atIndex:0];            
-    [targetViewController viewDidDisappear:YES]; 
-    [currentViewController viewDidAppear:YES];
+    [self.view addSubview:targetViewController.view];
+    //[self.view insertSubview:targetViewController.view atIndex:0];            
+    //[targetViewController viewDidDisappear:YES]; 
+    //[currentViewController viewDidAppear:YES];
     currentViewController = targetViewController;
-    
-    [UIView commitAnimations];
+    [currentViewController loadView];
+    currentViewController.view.hidden = NO;
+    //[UIView commitAnimations];
 }
 
 #pragma mark - View lifecycle
