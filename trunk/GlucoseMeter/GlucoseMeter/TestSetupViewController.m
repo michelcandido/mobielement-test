@@ -59,6 +59,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     UITableView *tv = (UITableView *)[self.view.subviews objectAtIndex:0];
+    UITableViewCell* cell = [tv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
+    [cell setSelected:false animated:false];
+
     for (int i = 0; i < 5; i++) {
         if (i != 1) {
             UITableViewCell* cell = [tv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
