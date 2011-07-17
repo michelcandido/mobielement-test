@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSArray *testInstructions;
 @property (nonatomic, retain) IBOutlet UITableViewCell *tvCell;
 @property (nonatomic) int currentStep;
+@property (nonatomic, retain) IBOutlet UITableView *theTableView;
 
 -(IBAction)readyBtnTapped:(id)sender;
 -(void)nextStep;
