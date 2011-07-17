@@ -7,11 +7,13 @@
 //
 
 #import "TestSetupViewController.h"
+#import "TestResultViewController.h"
 
 @implementation TestSetupViewController
 @synthesize testInstructions;
 @synthesize tvCell;
 @synthesize currentStep;
+@synthesize theTableView;
 
 
 - (IBAction)readyBtnTapped:(id)sender 
@@ -26,13 +28,19 @@
         [self nextStep];    
     }
     
+    if (buttonRow == 4) 
+    {
+        TestResultViewController *resultView = [[TestResultViewController alloc] initWithNibName:@"testResultViewController" bundle:nil];
+        [self presentModalViewController:resultView animated:true];
+        [resultView release];
+    }
+    
     [buttonText release];    
 }
 
 -(void)nextStep
 {
-    UITableView *tv = (UITableView *)[self.view.subviews objectAtIndex:0];
-    UITableViewCell* cell = [tv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
+    UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
     [cell setSelected:false animated:true];
     
     currentStep++;
@@ -40,7 +48,7 @@
         currentStep++;
     
     //NSArray *newIndexPaths = [NSArray arrayWithObjects:[NSIndexPath indexPathForRow:currentStep-1 inSection:0],nil];
-    cell = [tv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
+    cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
     [cell setSelected:true animated:true];
     
 }
@@ -48,8 +56,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0]; 
-    UITableView *tv = (UITableView *)[self.view.subviews objectAtIndex:0];
-    [tv selectRowAtIndexPath:index animated:true scrollPosition:UITableViewScrollPositionNone];
+    [theTableView selectRowAtIndexPath:index animated:true scrollPosition:UITableViewScrollPositionNone];
     currentStep = 0;
     
     [index release];
@@ -58,13 +65,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    UITableView *tv = (UITableView *)[self.view.subviews objectAtIndex:0];
-    UITableViewCell* cell = [tv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
+    UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
     [cell setSelected:false animated:false];
 
     for (int i = 0; i < 5; i++) {
         if (i != 1) {
-            UITableViewCell* cell = [tv cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             UIButton *button = (UIButton*)cell.accessoryView;
             [button setTitle:@"Done" forState:UIControlStateNormal];
         }
@@ -115,12 +121,14 @@
     // e.g. self.myOutlet = nil;
     self.testInstructions = nil; 
     self.tvCell = nil;
+    self.theTableView = nil;
 }
 
 - (void)dealloc 
 { 
     [testInstructions release]; 
     [tvCell release];
+    [theTableView release];
     [super dealloc]; 
 }
 
@@ -181,12 +189,7 @@
     
     if (row == 0 && currentStep == 1)
         [cell setSelected:true];
-    /*
-     if (row < currentStep)
-     return cell;
-     else
-     return nil;
-     */
+        
     return cell;
 } 
 
@@ -196,12 +199,7 @@
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 { 
     return nil;
-    /*
-     NSUInteger row = [indexPath row];  
-     if (row == 0) 
-     return nil;  
-     return indexPath;
-     */
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { return 70; }
