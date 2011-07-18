@@ -7,8 +7,18 @@
 //
 
 #import "TestResultViewController.h"
+#import "QuartzCore/QuartzCore.h"
 
 @implementation TestResultViewController
+@synthesize textView;
+@synthesize appDelegate;
+
+@synthesize maxAlarm;
+@synthesize minAlarm;
+@synthesize maxTarget;
+@synthesize minTarget;
+@synthesize midTarget;
+@synthesize testResult;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +43,29 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    textView.layer.borderWidth = 1;
+    textView.layer.borderColor = [[UIColor grayColor] CGColor];
+    textView.layer.cornerRadius = 8;
+    
+    appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
+    maxAlarm.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.maxAlarm] autorelease];
+    maxTarget.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.maxTarget] autorelease];
+    minAlarm.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.minAlarm] autorelease];
+    minTarget.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.minTarget] autorelease];
+    int midTargetValue = (appDelegate.maxTarget + appDelegate.minTarget) / 2;
+    midTarget.text = [[[NSString alloc] initWithFormat:@"%d",midTargetValue] autorelease];
+    
+    appDelegate.testResult = arc4random() % 100;
+    testResult.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.testResult] autorelease];
+    if (appDelegate.testResult <= appDelegate.minAlarm || appDelegate.testResult >= appDelegate.maxAlarm)
+        testResult.textColor = [UIColor redColor];
+    else if (appDelegate.testResult < appDelegate.minTarget && appDelegate.testResult > appDelegate.minAlarm)
+        testResult.textColor = [UIColor yellowColor];
+    else if (appDelegate.testResult <= appDelegate.maxTarget && appDelegate.testResult >= appDelegate.minTarget)
+        testResult.textColor = [UIColor greenColor];
+    else if (appDelegate.testResult < appDelegate.maxAlarm && appDelegate.testResult > appDelegate.maxTarget)
+        testResult.textColor = [UIColor yellowColor];
+    
 }
 
 - (void)viewDidUnload
