@@ -13,12 +13,24 @@
 @synthesize window = _window;
 @synthesize tabController;
 
+@synthesize maxAlarm;
+@synthesize minAlarm;
+@synthesize maxTarget;
+@synthesize minTarget;
+@synthesize testResult;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [NSThread sleepForTimeInterval: 0.0];
     // Override point for customization after application launch.
     [self.window addSubview:tabController.view];
     [self.window makeKeyAndVisible];
+    
+    maxAlarm = 100;
+    minAlarm = 60;
+    maxTarget = 90;
+    minTarget = 70;
+        
     return YES;
 }
 
