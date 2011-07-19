@@ -14,6 +14,7 @@
 @synthesize tvCell;
 @synthesize currentStep;
 @synthesize theTableView;
+@synthesize appDelegate;
 
 
 - (IBAction)readyBtnTapped:(id)sender 
@@ -31,11 +32,21 @@
     if (buttonRow == 4) 
     {
         TestResultViewController *resultView = [[TestResultViewController alloc] initWithNibName:@"testResultViewController" bundle:nil];
+        resultView.delegate = self;
         [self presentModalViewController:resultView animated:true];
         [resultView release];
     }
     
     [buttonText release];    
+}
+
+-(void)didDismissTestResultView:(BOOL)cancel
+{
+    [self dismissModalViewControllerAnimated:true];
+    if (!cancel) 
+    {
+        appDelegate.tabController.selectedIndex = 0;
+    }
 }
 
 -(void)nextStep
@@ -111,6 +122,8 @@
     [step1 release]; [step2 release]; [step3 release]; [step4 release]; [step5 release]; [array release];
     
     currentStep = 0;
+    
+    appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
    
 }
 
