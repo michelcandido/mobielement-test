@@ -9,7 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "GlucoseMeterAppDelegate.h"
 
-@interface TestResultViewController : UIViewController
+@protocol TestResultViewControllerDelegate <NSObject>
+-(void)didDismissTestResultView:(BOOL)cancel;
+@end
+
+@interface TestResultViewController : UIViewController {
+    id<TestResultViewControllerDelegate> delegate;
+}
 
 @property (nonatomic, retain) IBOutlet UITextView *textView;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
@@ -21,4 +27,10 @@
 @property (nonatomic, retain) IBOutlet UILabel *midTarget;
 @property (nonatomic, retain) IBOutlet UILabel *testResult;
 
+@property (nonatomic, assign) id<TestResultViewControllerDelegate> delegate;
+
+-(IBAction)doneWithResult:(id)sender;
+
 @end
+
+

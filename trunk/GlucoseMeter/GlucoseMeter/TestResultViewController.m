@@ -19,6 +19,16 @@
 @synthesize minTarget;
 @synthesize midTarget;
 @synthesize testResult;
+@synthesize delegate;
+
+-(IBAction)doneWithResult:(id)sender
+{
+    //[self dismissModalViewControllerAnimated:true];
+    if ([sender selectedSegmentIndex] == 0)
+        [delegate didDismissTestResultView:false];
+    else
+        [delegate didDismissTestResultView:true];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
