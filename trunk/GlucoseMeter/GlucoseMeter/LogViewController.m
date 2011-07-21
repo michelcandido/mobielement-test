@@ -10,6 +10,8 @@
 
 @implementation LogViewController
 
+@synthesize coordinateSystem;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,12 +29,23 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    CoordinateSystem *system = [[CoordinateSystem alloc] initWithFrame:CGRectMake(0, 80, 320, 320)];
+    self.coordinateSystem = system;
+    [system release];
+    [self.view addSubview:self.coordinateSystem];
+   
 }
 
 - (void)viewDidUnload

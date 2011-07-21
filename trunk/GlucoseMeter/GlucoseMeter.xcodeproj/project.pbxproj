@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		601B22A813C22443006DCE6A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 601B22A713C22443006DCE6A /* Default.png */; };
+		6025B2BF13D80A470056A335 /* CoordinateSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6025B2BE13D80A470056A335 /* CoordinateSystem.m */; };
 		6029CDC713C193D40040B79B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC613C193D40040B79B /* UIKit.framework */; };
 		6029CDC913C193D40040B79B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC813C193D40040B79B /* Foundation.framework */; };
 		6029CDCB13C193D40040B79B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDCA13C193D40040B79B /* CoreGraphics.framework */; };
@@ -32,6 +33,9 @@
 
 /* Begin PBXFileReference section */
 		601B22A713C22443006DCE6A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		6025B2BD13D80A3C0056A335 /* CoordinateSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinateSystem.h; sourceTree = "<group>"; };
+		6025B2BE13D80A470056A335 /* CoordinateSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoordinateSystem.m; sourceTree = "<group>"; };
+		6025B2C013D80AEB0056A335 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6029CDC213C193D40040B79B /* GlucoseMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlucoseMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6029CDC613C193D40040B79B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6029CDC813C193D40040B79B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -107,6 +111,9 @@
 		6029CDCC13C193D40040B79B /* GlucoseMeter */ = {
 			isa = PBXGroup;
 			children = (
+				6025B2C013D80AEB0056A335 /* Constants.h */,
+				6025B2BE13D80A470056A335 /* CoordinateSystem.m */,
+				6025B2BD13D80A3C0056A335 /* CoordinateSystem.h */,
 				60BB3E0E13D04D4F00B57E46 /* LogViewController.h */,
 				60BB3E0F13D04D4F00B57E46 /* LogViewController.m */,
 				60BB3E1013D04D4F00B57E46 /* LogViewController.xib */,
@@ -220,6 +227,7 @@
 				60BB3E1B13D1667F00B57E46 /* HomeViewController.m in Sources */,
 				60BB3E2013D16A7E00B57E46 /* TestSetupViewController.m in Sources */,
 				60BB3E2513D2CA1200B57E46 /* TestResultViewController.m in Sources */,
+				6025B2BF13D80A470056A335 /* CoordinateSystem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
