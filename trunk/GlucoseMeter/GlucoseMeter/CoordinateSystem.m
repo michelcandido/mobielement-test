@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Constants.h"
 
-#define xAxisLength 290
+#define xAxisLength 280
 #define yAxisLength 210
 
 @implementation CoordinateSystem

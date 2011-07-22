@@ -41,7 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    CoordinateSystem *system = [[CoordinateSystem alloc] initWithFrame:CGRectMake(0, 80, 320, 320)];
+    CoordinateSystem *system = [[CoordinateSystem alloc] initWithFrame:CGRectMake(0, 80, 320, 280)];
     self.coordinateSystem = system;
     [system release];
     [self.view addSubview:self.coordinateSystem];
