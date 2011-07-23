@@ -17,7 +17,11 @@
 @synthesize minAlarm;
 @synthesize maxTarget;
 @synthesize minTarget;
+@synthesize testInterval;
+@synthesize contactEmail;
+@synthesize contactPhone;
 @synthesize testResult;
+@synthesize unitMode;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -26,11 +30,13 @@
     [self.window addSubview:tabController.view];
     [self.window makeKeyAndVisible];
     
-    maxAlarm = 100;
-    minAlarm = 60;
-    maxTarget = 90;
-    minTarget = 70;
-        
+    maxAlarm = 180;
+    minAlarm = 90;
+    maxTarget = 150;
+    minTarget = 100;
+    testInterval = 6;
+    unitMode = 1;
+    
     return YES;
 }
 

@@ -16,10 +16,13 @@
 @synthesize interval;
 @synthesize email;
 @synthesize phone;
+@synthesize targetUnit;
+@synthesize alarmUnit;
 
 @synthesize currentTextField;
 @synthesize keyboardIsShown;
 @synthesize scrollView;
+@synthesize appDelegate;
 
 -(IBAction) bgTouched:(id) sender 
 { 
@@ -30,6 +33,32 @@
     [interval resignFirstResponder];
     [email resignFirstResponder];
     [phone resignFirstResponder];
+}
+
+-(IBAction) unitChanged:(id)sender
+{
+    
+    appDelegate.unitMode = ((UISwitch*)sender).isOn? 1:0;
+    NSString *strUnit = [[NSString alloc] initWithFormat:@"(%@)",appDelegate.unitMode?@"mg/dl":@"mmol/l"];
+    targetUnit.text = strUnit;
+    alarmUnit.text = strUnit;
+    [strUnit release];
+    
+    if (appDelegate.unitMode) {
+        appDelegate.minTarget *= 18.0;        
+        appDelegate.maxTarget *= 18.0;
+        appDelegate.minAlarm *= 18.0;
+        appDelegate.maxAlarm *= 18.0;
+    } else {
+        appDelegate.minTarget /= 18.0;
+        appDelegate.maxTarget /= 18.0;
+        appDelegate.minAlarm /= 18.0;
+        appDelegate.maxAlarm /= 18.0;        
+    }
+    minTarget.text = [[[NSString alloc] initWithFormat:@"%3.1f", appDelegate.minTarget] autorelease];
+    maxTarget.text = [[[NSString alloc] initWithFormat:@"%3.1f", appDelegate.maxTarget] autorelease];
+    minAlarm.text = [[[NSString alloc] initWithFormat:@"%3.1f", appDelegate.minAlarm] autorelease];
+    maxAlarm.text = [[[NSString alloc] initWithFormat:@"%3.1f", appDelegate.maxAlarm] autorelease];
 }
 
 //---before the View window appears--- 
@@ -94,6 +123,15 @@
     //---removes the notifications for keyboard--- 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];  
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil]; 
+    
+    appDelegate.minTarget = [minTarget.text floatValue];
+    appDelegate.maxTarget = [maxTarget.text floatValue];
+    appDelegate.minAlarm = [minAlarm.text floatValue];
+    appDelegate.maxAlarm = [maxAlarm.text floatValue];
+    appDelegate.testInterval = [interval.text intValue];
+    appDelegate.contactEmail = email.text;
+    appDelegate.contactPhone = phone.text;
+    
     [super viewWillDisappear:animated];
 }
 
@@ -121,8 +159,21 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSString *strUnit = [[NSString alloc] initWithFormat:@"(%@)",appDelegate.unitMode?@"mg/dl":@"mmol/l"];
+    targetUnit.text = strUnit;
+    alarmUnit.text = strUnit;
+    
+    minTarget.text = [[[[NSNumber alloc] initWithInt:appDelegate.minTarget] autorelease]  stringValue]; 
+    maxTarget.text = [[[[NSNumber alloc] initWithInt:appDelegate.maxTarget] autorelease]  stringValue];
+    minAlarm.text = [[[[NSNumber alloc] initWithInt:appDelegate.minAlarm] autorelease]  stringValue];
+    maxAlarm.text = [[[[NSNumber alloc] initWithInt:appDelegate.maxAlarm] autorelease]  stringValue];
+    interval.text = [[[[NSNumber alloc] initWithInt:appDelegate.testInterval] autorelease]  stringValue];
+    
     scrollView.frame = CGRectMake(0, 0, 320, 460); 
     [scrollView setContentSize:CGSizeMake(320, 460)];
+    
+    [strUnit release];
 }
 
 - (void)viewDidUnload
