@@ -13,10 +13,14 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabController;
 
-@property (nonatomic) int maxAlarm;
-@property (nonatomic) int minAlarm;
-@property (nonatomic) int maxTarget;
-@property (nonatomic) int minTarget;
+@property (nonatomic) float maxAlarm;
+@property (nonatomic) float minAlarm;
+@property (nonatomic) float maxTarget;
+@property (nonatomic) float minTarget;
+@property (nonatomic) int testInterval;
 @property (nonatomic) int testResult;
+@property (nonatomic) int unitMode;
+@property (nonatomic,retain) NSString *contactEmail;
+@property (nonatomic,retain) NSString *contactPhone;
            
 @end

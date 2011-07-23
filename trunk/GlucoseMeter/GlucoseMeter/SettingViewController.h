@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GlucoseMeterAppDelegate.h"
 
 @interface SettingViewController : UIViewController
 
@@ -17,10 +18,16 @@
 @property (nonatomic, retain) IBOutlet UITextField *interval;
 @property (nonatomic, retain) IBOutlet UITextField *phone;
 @property (nonatomic, retain) IBOutlet UITextField *email;
+@property (nonatomic, retain) IBOutlet UILabel *targetUnit;
+@property (nonatomic, retain) IBOutlet UILabel *alarmUnit;
 
 @property (nonatomic, retain) UITextField *currentTextField;
 @property (nonatomic) BOOL keyboardIsShown;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 
+@property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
+
 -(IBAction) bgTouched:(id) sender;
+-(IBAction) unitChanged:(id) sender;
+
 @end
