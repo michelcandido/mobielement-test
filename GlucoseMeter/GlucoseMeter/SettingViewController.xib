@@ -530,7 +530,6 @@
 								<string key="NSFrame">{{168, 373}, {97, 31}}</string>
 								<reference key="NSSuperview" ref="219458261"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:294</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -741,6 +740,14 @@
 						<reference key="destination" ref="652286704"/>
 					</object>
 					<int key="connectionID">69</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">unitSwitch</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="931324427"/>
+					</object>
+					<int key="connectionID">70</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -989,7 +996,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">69</int>
+			<int key="maxID">70</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1043,6 +1050,7 @@
 							<string>phone</string>
 							<string>scrollView</string>
 							<string>targetUnit</string>
+							<string>unitSwitch</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1056,6 +1064,7 @@
 							<string>UITextField</string>
 							<string>UIScrollView</string>
 							<string>UILabel</string>
+							<string>UISwitch</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -1072,6 +1081,7 @@
 							<string>phone</string>
 							<string>scrollView</string>
 							<string>targetUnit</string>
+							<string>unitSwitch</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1114,6 +1124,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">targetUnit</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">unitSwitch</string>
+								<string key="candidateClassName">UISwitch</string>
 							</object>
 						</object>
 					</object>

@@ -30,6 +30,11 @@
         [delegate didDismissTestResultView:true];
 }
 
+-(IBAction)doneEditing:(id)sender
+{
+    [sender resignFirstResponder];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
