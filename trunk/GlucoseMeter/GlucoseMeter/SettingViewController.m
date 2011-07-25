@@ -18,6 +18,7 @@
 @synthesize phone;
 @synthesize targetUnit;
 @synthesize alarmUnit;
+@synthesize unitSwitch;
 
 @synthesize currentTextField;
 @synthesize keyboardIsShown;
@@ -173,6 +174,8 @@
     scrollView.frame = CGRectMake(0, 0, 320, 460); 
     [scrollView setContentSize:CGSizeMake(320, 460)];
     
+    [unitSwitch setOn:appDelegate.unitMode?true:false];
+        
     [strUnit release];
 }
 

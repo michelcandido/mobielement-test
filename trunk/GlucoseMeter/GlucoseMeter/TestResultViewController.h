@@ -30,6 +30,7 @@
 @property (nonatomic, assign) id<TestResultViewControllerDelegate> delegate;
 
 -(IBAction)doneWithResult:(id)sender;
+-(IBAction) doneEditing:(id) sender;
 
 @end
 

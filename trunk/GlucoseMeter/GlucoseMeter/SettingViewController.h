@@ -20,6 +20,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *email;
 @property (nonatomic, retain) IBOutlet UILabel *targetUnit;
 @property (nonatomic, retain) IBOutlet UILabel *alarmUnit;
+@property (nonatomic, retain) IBOutlet UISwitch *unitSwitch;
 
 @property (nonatomic, retain) UITextField *currentTextField;
 @property (nonatomic) BOOL keyboardIsShown;
