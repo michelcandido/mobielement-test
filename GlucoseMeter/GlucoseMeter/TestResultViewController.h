@@ -17,7 +17,7 @@
     id<TestResultViewControllerDelegate> delegate;
 }
 
-@property (nonatomic, retain) IBOutlet UITextView *textView;
+@property (nonatomic, retain) IBOutlet UITextView *note;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
 @property (nonatomic, retain) IBOutlet UILabel *maxAlarm;
@@ -27,10 +27,14 @@
 @property (nonatomic, retain) IBOutlet UILabel *midTarget;
 @property (nonatomic, retain) IBOutlet UILabel *testResult;
 
+@property (nonatomic) BOOL keyboardIsShown;
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+
 @property (nonatomic, assign) id<TestResultViewControllerDelegate> delegate;
 
--(IBAction)doneWithResult:(id)sender;
+-(IBAction) doneWithResult:(id)sender;
 -(IBAction) doneEditing:(id) sender;
+-(IBAction) bgTouched:(id) sender;
 
 @end
 
