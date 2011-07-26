@@ -94,7 +94,7 @@
     //---obtain the size of the keyboard---
     NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey]; 
     CGRect keyboardRect = [self.view convertRect:[aValue CGRectValue] fromView:nil];  
-    NSLog(@"%f", keyboardRect.size.height);  
+    //NSLog(@"%f", keyboardRect.size.height);  
     //---resize the scroll view (with keyboard)--- 
     CGRect viewFrame = [scrollView frame]; 
     viewFrame.size.height -= keyboardRect.size.height; 

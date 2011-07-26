@@ -32,7 +32,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    [coordinateSystem setNeedsDisplay];
 }
 
 #pragma mark - View lifecycle
