@@ -10,7 +10,7 @@
 #import "QuartzCore/QuartzCore.h"
 
 @implementation TestResultViewController
-@synthesize textView;
+@synthesize note;
 @synthesize appDelegate;
 
 @synthesize maxAlarm;
@@ -19,6 +19,9 @@
 @synthesize minTarget;
 @synthesize midTarget;
 @synthesize testResult;
+
+@synthesize scrollView;
+@synthesize keyboardIsShown;
 @synthesize delegate;
 
 -(IBAction)doneWithResult:(id)sender
@@ -33,6 +36,62 @@
 -(IBAction)doneEditing:(id)sender
 {
     [sender resignFirstResponder];
+}
+
+-(IBAction) bgTouched:(id) sender { 
+    [note resignFirstResponder]; 
+}
+
+//---before the View window appears--- 
+-(void) viewWillAppear:(BOOL)animated { 
+    //---registers the notifications for keyboard--- 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:self.view.window];  
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil]; 
+    [super viewWillAppear:animated];
+}  
+
+
+
+//---when the keyboard appears--- 
+-(void) keyboardDidShow:(NSNotification *) notification { 
+    if (keyboardIsShown) 
+        return;  
+    NSDictionary* info = [notification userInfo];  
+    //---obtain the size of the keyboard---
+    NSValue *aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey]; 
+    CGRect keyboardRect = [self.view convertRect:[aValue CGRectValue] fromView:nil];  
+    NSLog(@"%f", keyboardRect.size.height);  
+    //---resize the scroll view (with keyboard)--- 
+    CGRect viewFrame = [scrollView frame]; 
+    viewFrame.size.height -= keyboardRect.size.height; 
+    scrollView.frame = viewFrame;  
+    //---scroll to the current text field--- 
+    CGRect textFieldRect = [note frame]; 
+    [scrollView scrollRectToVisible:textFieldRect animated:YES];  
+    keyboardIsShown = YES; 
+}
+
+//---when the keyboard disappears--- 
+-(void) keyboardDidHide:(NSNotification *) notification { 
+    NSDictionary* info = [notification userInfo];  
+    //---obtain the size of the keyboard--- 
+    NSValue* aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey]; 
+    CGRect keyboardRect = [self.view convertRect:[aValue CGRectValue] fromView:nil];  
+    //---resize the scroll view back to the original size 
+    // (without keyboard)--- 
+    CGRect viewFrame = [scrollView frame]; 
+    viewFrame.size.height += keyboardRect.size.height; 
+    scrollView.frame = viewFrame;  
+    keyboardIsShown = NO; 
+}
+
+//---before the View window disappear--- 
+-(void) viewWillDisappear:(BOOL)animated { 
+    //---removes the notifications for keyboard--- 
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];  
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil]; 
+   
+    [super viewWillDisappear:animated];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -58,20 +117,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    textView.layer.borderWidth = 1;
-    textView.layer.borderColor = [[UIColor grayColor] CGColor];
-    textView.layer.cornerRadius = 8;
+    note.layer.borderWidth = 1;
+    note.layer.borderColor = [[UIColor grayColor] CGColor];
+    note.layer.cornerRadius = 8;
     
     appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
-    maxAlarm.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.maxAlarm] autorelease];
-    maxTarget.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.maxTarget] autorelease];
-    minAlarm.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.minAlarm] autorelease];
-    minTarget.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.minTarget] autorelease];
-    int midTargetValue = (appDelegate.maxTarget + appDelegate.minTarget) / 2;
-    midTarget.text = [[[NSString alloc] initWithFormat:@"%d",midTargetValue] autorelease];
+    maxAlarm.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.maxAlarm] autorelease];
+    maxTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.maxTarget] autorelease];
+    minAlarm.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minAlarm] autorelease];
+    minTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minTarget] autorelease];
+    float midTargetValue = (appDelegate.maxTarget + appDelegate.minTarget) / 2;
+    midTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",midTargetValue] autorelease];
     
     appDelegate.testResult = arc4random() % 100;
-    testResult.text = [[[NSString alloc] initWithFormat:@"%d",appDelegate.testResult] autorelease];
+    testResult.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
     if (appDelegate.testResult <= appDelegate.minAlarm || appDelegate.testResult >= appDelegate.maxAlarm)
         testResult.textColor = [UIColor redColor];
     else if (appDelegate.testResult < appDelegate.minTarget && appDelegate.testResult > appDelegate.minAlarm)
@@ -81,6 +140,8 @@
     else if (appDelegate.testResult < appDelegate.maxAlarm && appDelegate.testResult > appDelegate.maxTarget)
         testResult.textColor = [UIColor yellowColor];
     
+    scrollView.frame = CGRectMake(0, 0, 320, 460); 
+    [scrollView setContentSize:CGSizeMake(320, 460)];
 }
 
 - (void)viewDidUnload
@@ -95,5 +156,15 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+- (void)dealloc { 
+    [scrollView release]; 
+    [note release];
+    [maxAlarm release];
+    [maxTarget release];
+    [minAlarm release];
+    [minTarget release];
+    [testResult release];
+    [super dealloc]; }
 
 @end
