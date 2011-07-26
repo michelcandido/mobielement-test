@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "GlucoseMeterAppDelegate.h"
 
 @interface CoordinateSystem : UIView {
 	CGPoint startPoint;
 	CGContextRef myContext;
-
 }
+
+@property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
 @end
