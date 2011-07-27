@@ -18,6 +18,7 @@
 		6029CDDA13C193D50040B79B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6029CDD813C193D50040B79B /* MainWindow.xib */; };
 		604319FB13C5451E0005089B /* RootViewBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 604319FA13C5451E0005089B /* RootViewBG.png */; };
 		6096641713CC114200157033 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6096641613CC114200157033 /* TestCell.xib */; };
+		60B1793A13DFE5630096F87C /* TestReading.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B1793913DFE5630096F87C /* TestReading.m */; };
 		60BB3E1113D04D4F00B57E46 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E0F13D04D4F00B57E46 /* LogViewController.m */; };
 		60BB3E1213D04D4F00B57E46 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E1013D04D4F00B57E46 /* LogViewController.xib */; };
 		60BB3E1613D04E6800B57E46 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E1413D04E6800B57E46 /* SettingViewController.m */; };
@@ -49,6 +50,8 @@
 		6029CDD913C193D50040B79B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		604319FA13C5451E0005089B /* RootViewBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RootViewBG.png; sourceTree = "<group>"; };
 		6096641613CC114200157033 /* TestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
+		60B1793813DFE5620096F87C /* TestReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestReading.h; sourceTree = "<group>"; };
+		60B1793913DFE5630096F87C /* TestReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestReading.m; sourceTree = "<group>"; };
 		60BB3E0E13D04D4F00B57E46 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		60BB3E0F13D04D4F00B57E46 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
 		60BB3E1013D04D4F00B57E46 /* LogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				60BB3E2213D2CA1100B57E46 /* TestResultViewController.h */,
 				60BB3E2313D2CA1200B57E46 /* TestResultViewController.m */,
 				60BB3E2413D2CA1200B57E46 /* TestResultViewController.xib */,
+				60B1793813DFE5620096F87C /* TestReading.h */,
+				60B1793913DFE5630096F87C /* TestReading.m */,
 			);
 			path = GlucoseMeter;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				60BB3E2013D16A7E00B57E46 /* TestSetupViewController.m in Sources */,
 				60BB3E2513D2CA1200B57E46 /* TestResultViewController.m in Sources */,
 				6025B2BF13D80A470056A335 /* CoordinateSystem.m in Sources */,
+				60B1793A13DFE5630096F87C /* TestReading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

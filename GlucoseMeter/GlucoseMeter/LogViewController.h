@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CoordinateSystem.h"
 
-@interface LogViewController : UIViewController
+@interface LogViewController : UIViewController {
+    CoordinateSystem *coordinateSystem;
+}
 @property (nonatomic, retain) CoordinateSystem *coordinateSystem;
 @end

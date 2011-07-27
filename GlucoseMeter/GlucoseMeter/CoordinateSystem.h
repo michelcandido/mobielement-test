@@ -12,6 +12,7 @@
 @interface CoordinateSystem : UIView {
 	CGPoint startPoint;
 	CGContextRef myContext;
+    GlucoseMeterAppDelegate *appDelegate;
 }
 
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;

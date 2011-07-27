@@ -193,7 +193,22 @@
 }
 
 - (void)dealloc { 
-    [scrollView release]; 
+    [maxTarget release];
+    [minTarget release];
+    [maxAlarm release];
+    [minAlarm release];
+    [interval release];
+    [phone release];
+    [email release];
+    [targetUnit release];
+    [alarmUnit release];
+    [unitSwitch release];
+    
+    [scrollView release];
+    [currentTextField release];
+    
+    [appDelegate release];
+     
     [super dealloc]; 
 }
 

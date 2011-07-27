@@ -16,12 +16,15 @@
 <UITableViewDelegate, UITableViewDataSource, TestResultViewControllerDelegate> 
 {
     NSArray *testInstructions; 
-    UITableViewCell *tvCell;
+    IBOutlet UITableViewCell *tvCell;
+    int currentStep;
+    IBOutlet UITableView *theTableView;
+    GlucoseMeterAppDelegate *appDelegate;
 } 
 @property (nonatomic, retain) NSArray *testInstructions;
-@property (nonatomic, retain) IBOutlet UITableViewCell *tvCell;
+@property (nonatomic, retain) UITableViewCell *tvCell;
 @property (nonatomic) int currentStep;
-@property (nonatomic, retain) IBOutlet UITableView *theTableView;
+@property (nonatomic, retain) UITableView *theTableView;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
 -(IBAction)readyBtnTapped:(id)sender;
