@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GlucoseMeterAppDelegate : NSObject <UIApplicationDelegate>
+@interface GlucoseMeterAppDelegate : NSObject <UIApplicationDelegate> {
+    float maxAlarm,minAlarm,maxTarget,minTarget;
+    int testInterval;
+    float testResult;
+    int unitMode;
+    NSString *contactEmail;
+    NSString *contactPhone;
+    
+    IBOutlet UITabBarController *tabController;
+}
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabController;
+@property (nonatomic, retain) UITabBarController *tabController;
 
 @property (nonatomic) float maxAlarm;
 @property (nonatomic) float minAlarm;

@@ -137,13 +137,6 @@
     self.theTableView = nil;
 }
 
-- (void)dealloc 
-{ 
-    [testInstructions release]; 
-    [tvCell release];
-    [theTableView release];
-    [super dealloc]; 
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -216,4 +209,13 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { return 70; }
+
+-(void)dealloc {
+    [testInstructions release]; 
+    [tvCell release];
+    [theTableView release];
+    [appDelegate release];
+    [super dealloc];
+}
+
 @end

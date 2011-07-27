@@ -15,20 +15,34 @@
 
 @interface TestResultViewController : UIViewController {
     id<TestResultViewControllerDelegate> delegate;
+    
+    IBOutlet UITextView *note;
+    GlucoseMeterAppDelegate *appDelegate;
+    
+    IBOutlet UILabel *maxAlarm;
+    IBOutlet UILabel *minAlarm;
+    IBOutlet UILabel *maxTarget;
+    IBOutlet UILabel *minTarget;
+    IBOutlet UILabel *midTarget;
+    IBOutlet UILabel *testResult;
+    
+    BOOL keyboardIsShown;
+    IBOutlet UIScrollView *scrollView;
+
 }
 
-@property (nonatomic, retain) IBOutlet UITextView *note;
+@property (nonatomic, retain)  UITextView *note;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
-@property (nonatomic, retain) IBOutlet UILabel *maxAlarm;
-@property (nonatomic, retain) IBOutlet UILabel *minAlarm;
-@property (nonatomic, retain) IBOutlet UILabel *maxTarget;
-@property (nonatomic, retain) IBOutlet UILabel *minTarget;
-@property (nonatomic, retain) IBOutlet UILabel *midTarget;
-@property (nonatomic, retain) IBOutlet UILabel *testResult;
+@property (nonatomic, retain)  UILabel *maxAlarm;
+@property (nonatomic, retain)  UILabel *minAlarm;
+@property (nonatomic, retain)  UILabel *maxTarget;
+@property (nonatomic, retain)  UILabel *minTarget;
+@property (nonatomic, retain)  UILabel *midTarget;
+@property (nonatomic, retain)  UILabel *testResult;
 
 @property (nonatomic) BOOL keyboardIsShown;
-@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain)  UIScrollView *scrollView;
 
 @property (nonatomic, assign) id<TestResultViewControllerDelegate> delegate;
 

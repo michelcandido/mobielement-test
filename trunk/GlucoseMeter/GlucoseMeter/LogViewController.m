@@ -61,4 +61,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc {
+    [coordinateSystem release];
+    [super dealloc];
+}
+
 @end

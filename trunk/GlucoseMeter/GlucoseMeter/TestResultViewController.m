@@ -165,6 +165,7 @@
     [minAlarm release];
     [minTarget release];
     [testResult release];
+    //[appDelegate release];
     [super dealloc]; }
 
 @end

@@ -9,22 +9,40 @@
 #import <UIKit/UIKit.h>
 #import "GlucoseMeterAppDelegate.h"
 
-@interface SettingViewController : UIViewController
+@interface SettingViewController : UIViewController {
+    IBOutlet UITextField *maxTarget;
+    IBOutlet UITextField *minTarget;
+    IBOutlet UITextField *maxAlarm;
+    IBOutlet UITextField *minAlarm;
+    IBOutlet UITextField *interval;
+    IBOutlet UITextField *phone;
+    IBOutlet UITextField *email;
+    IBOutlet UILabel *targetUnit;
+    IBOutlet UILabel *alarmUnit;
+    IBOutlet UISwitch *unitSwitch;
+    
+    IBOutlet UIScrollView *scrollView;
+    
+    UITextField *currentTextField;
+    BOOL keyboardIsShown;
+    
+    GlucoseMeterAppDelegate *appDelegate;
+}
 
-@property (nonatomic, retain) IBOutlet UITextField *maxTarget;
-@property (nonatomic, retain) IBOutlet UITextField *minTarget;
-@property (nonatomic, retain) IBOutlet UITextField *maxAlarm;
-@property (nonatomic, retain) IBOutlet UITextField *minAlarm;
-@property (nonatomic, retain) IBOutlet UITextField *interval;
-@property (nonatomic, retain) IBOutlet UITextField *phone;
-@property (nonatomic, retain) IBOutlet UITextField *email;
-@property (nonatomic, retain) IBOutlet UILabel *targetUnit;
-@property (nonatomic, retain) IBOutlet UILabel *alarmUnit;
-@property (nonatomic, retain) IBOutlet UISwitch *unitSwitch;
+@property (nonatomic, retain)  UITextField *maxTarget;
+@property (nonatomic, retain)  UITextField *minTarget;
+@property (nonatomic, retain)  UITextField *maxAlarm;
+@property (nonatomic, retain)  UITextField *minAlarm;
+@property (nonatomic, retain)  UITextField *interval;
+@property (nonatomic, retain)  UITextField *phone;
+@property (nonatomic, retain)  UITextField *email;
+@property (nonatomic, retain)  UILabel *targetUnit;
+@property (nonatomic, retain)  UILabel *alarmUnit;
+@property (nonatomic, retain)  UISwitch *unitSwitch;
 
 @property (nonatomic, retain) UITextField *currentTextField;
 @property (nonatomic) BOOL keyboardIsShown;
-@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain)  UIScrollView *scrollView;
 
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 

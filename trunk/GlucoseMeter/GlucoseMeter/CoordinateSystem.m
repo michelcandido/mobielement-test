@@ -91,6 +91,7 @@
 }
 
 - (void)dealloc {
+    [appDelegate release];
     [super dealloc];
 }
 

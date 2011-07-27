@@ -30,10 +30,10 @@
     [self.window addSubview:tabController.view];
     [self.window makeKeyAndVisible];
     
-    maxAlarm = 180;
-    minAlarm = 90;
-    maxTarget = 150;
-    minTarget = 100;
+    maxAlarm = 150;
+    minAlarm = 70;
+    maxTarget = 130;
+    minTarget = 90;
     testInterval = 6;
     unitMode = 1;
     
