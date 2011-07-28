@@ -22,6 +22,7 @@
 @synthesize contactPhone;
 @synthesize testResult;
 @synthesize unitMode;
+@synthesize monthlyReadings;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -34,9 +35,12 @@
     minAlarm = 70;
     maxTarget = 130;
     minTarget = 90;
+    testResult = 120;
     testInterval = 6;
     unitMode = 1;
     
+    //monthlyReadings = [NSMutableArray arrayWithCapacity:NUMBER_OF_DAYS]; 
+    monthlyReadings = [[NSMutableArray alloc] initWithCapacity:NUMBER_OF_DAYS];
     return YES;
 }
 

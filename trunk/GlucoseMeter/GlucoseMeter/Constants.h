@@ -25,3 +25,9 @@
 
 // 坐标轴Y上的刻度的间隔
 #define GAPFORY 30
+
+// Days of a month
+#define NUMBER_OF_DAYS 30
+
+// Readings of a day
+#define NUMBER_OF_READINGS 6
