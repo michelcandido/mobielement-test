@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TestReading : NSObject
+@interface TestReading : NSObject {
+    float reading;
+    int mealMode; //0: pre-meal; 1: post-meal
+}
+
+@property (nonatomic) float reading;
+@property (nonatomic) int mealMode;
 
 @end

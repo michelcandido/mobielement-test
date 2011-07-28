@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
 @interface GlucoseMeterAppDelegate : NSObject <UIApplicationDelegate> {
     float maxAlarm,minAlarm,maxTarget,minTarget;
@@ -17,6 +18,7 @@
     NSString *contactPhone;
     
     IBOutlet UITabBarController *tabController;
+    NSMutableArray *monthlyReadings;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -31,5 +33,7 @@
 @property (nonatomic) int unitMode;
 @property (nonatomic,retain) NSString *contactEmail;
 @property (nonatomic,retain) NSString *contactPhone;
+
+@property (nonatomic, retain) NSMutableArray *monthlyReadings;
            
 @end

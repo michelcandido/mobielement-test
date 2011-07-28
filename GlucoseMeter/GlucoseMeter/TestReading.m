@@ -10,6 +10,9 @@
 
 @implementation TestReading
 
+@synthesize reading;
+@synthesize mealMode;
+
 - (id)init
 {
     self = [super init];

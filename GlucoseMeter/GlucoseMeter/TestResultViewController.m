@@ -129,7 +129,7 @@
     float midTargetValue = (appDelegate.maxTarget + appDelegate.minTarget) / 2;
     midTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",midTargetValue] autorelease];
     
-    appDelegate.testResult = arc4random() % 100;
+    appDelegate.testResult = arc4random() % ((int)appDelegate.maxAlarm + 20 - (int)appDelegate.minAlarm + 20)+appDelegate.minAlarm - 20;
     testResult.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
     if (appDelegate.testResult <= appDelegate.minAlarm || appDelegate.testResult >= appDelegate.maxAlarm)
         testResult.textColor = [UIColor redColor];
