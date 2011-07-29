@@ -30,6 +30,7 @@
 		60BB3E2513D2CA1200B57E46 /* TestResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E2313D2CA1200B57E46 /* TestResultViewController.m */; };
 		60BB3E2613D2CA1200B57E46 /* TestResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E2413D2CA1200B57E46 /* TestResultViewController.xib */; };
 		60BB3E2813D2D3F800B57E46 /* Scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E2713D2D3F800B57E46 /* Scale.png */; };
+		60F799B313E25EEB00F59C92 /* Background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60F799B213E25EEB00F59C92 /* Background1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		60BB3E2313D2CA1200B57E46 /* TestResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestResultViewController.m; sourceTree = "<group>"; };
 		60BB3E2413D2CA1200B57E46 /* TestResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestResultViewController.xib; sourceTree = "<group>"; };
 		60BB3E2713D2D3F800B57E46 /* Scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scale.png; sourceTree = "<group>"; };
+		60F799B213E25EEB00F59C92 /* Background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		6029CDCD13C193D40040B79B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				60F799B213E25EEB00F59C92 /* Background1.png */,
 				60BB3E2713D2D3F800B57E46 /* Scale.png */,
 				604319FA13C5451E0005089B /* RootViewBG.png */,
 				6029CDCE13C193D40040B79B /* GlucoseMeter-Info.plist */,
@@ -215,6 +218,7 @@
 				60BB3E2113D16A7E00B57E46 /* TestSetupViewController.xib in Resources */,
 				60BB3E2613D2CA1200B57E46 /* TestResultViewController.xib in Resources */,
 				60BB3E2813D2D3F800B57E46 /* Scale.png in Resources */,
+				60F799B313E25EEB00F59C92 /* Background1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

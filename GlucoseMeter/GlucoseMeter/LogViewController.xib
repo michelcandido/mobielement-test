@@ -45,7 +45,7 @@
 					<object class="IBUISegmentedControl" id="540017245">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 0}, {280, 44}}</string>
+						<string key="NSFrame">{{20, 10}, {280, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="689402385"/>
@@ -88,7 +88,7 @@
 					<object class="IBUISegmentedControl" id="689402385">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 368}, {280, 44}}</string>
+						<string key="NSFrame">{{20, 358}, {280, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
