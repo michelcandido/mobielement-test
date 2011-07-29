@@ -11,7 +11,7 @@
 #import "Constants.h"
 
 #define xAxisLength 280
-#define yAxisLength 210
+#define yAxisLength 250
 
 @implementation CoordinateSystem
 @synthesize appDelegate;
@@ -21,7 +21,7 @@
     self = [super initWithFrame:frame];
     if (self) {
 		self.backgroundColor = [UIColor clearColor];
-        startPoint = CGPointMake(STARTPOINTX + 1, 213.0f);
+        startPoint = CGPointMake(STARTPOINTX + 1, 253.0f);
     }
     appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
     return self;
@@ -63,7 +63,7 @@
 		//CGContextSetTextMatrix(context, CGAffineTransformMakeTranslation(-80, 80));
 		CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0, -1.0));
 		
-		NSString *str = [NSString stringWithFormat:@"%d", appDelegate.unitMode?i + 10 * (i / 30):i/10];
+		NSString *str = [NSString stringWithFormat:@"%d", appDelegate.unitMode?i + 10 * (i / 30):i/15];
 		CGContextShowTextAtPoint(context, 3, startPoint.y - i + 5, [str UTF8String], [str length]);
 	}
 	
