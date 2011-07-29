@@ -122,12 +122,21 @@
     note.layer.cornerRadius = 8;
     
     appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
-    maxAlarm.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.maxAlarm] autorelease];
-    maxTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.maxTarget] autorelease];
-    minAlarm.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minAlarm] autorelease];
-    minTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minTarget] autorelease];
     float midTargetValue = (appDelegate.maxTarget + appDelegate.minTarget) / 2;
-    midTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",midTargetValue] autorelease];
+    
+    if (appDelegate.unitMode) {
+        maxAlarm.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.maxAlarm] autorelease];
+        maxTarget.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.maxTarget] autorelease];
+        minAlarm.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.minAlarm] autorelease];
+        minTarget.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.minTarget] autorelease];
+        midTarget.text = [[[NSString alloc] initWithFormat:@"%.0f",midTargetValue] autorelease];
+    } else {
+        maxAlarm.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.maxAlarm] autorelease];
+        maxTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.maxTarget] autorelease];
+        minAlarm.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minAlarm] autorelease];
+        minTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minTarget] autorelease];        
+        midTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",midTargetValue] autorelease];            
+    }
     
     appDelegate.testResult = arc4random() % ((int)appDelegate.maxAlarm + 20 - (int)appDelegate.minAlarm + 20)+appDelegate.minAlarm - 20;
     testResult.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
