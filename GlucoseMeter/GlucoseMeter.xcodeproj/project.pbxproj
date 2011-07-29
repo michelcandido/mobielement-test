@@ -31,6 +31,9 @@
 		60BB3E2613D2CA1200B57E46 /* TestResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E2413D2CA1200B57E46 /* TestResultViewController.xib */; };
 		60BB3E2813D2D3F800B57E46 /* Scale.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E2713D2D3F800B57E46 /* Scale.png */; };
 		60F799B313E25EEB00F59C92 /* Background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60F799B213E25EEB00F59C92 /* Background1.png */; };
+		60F799B613E2606A00F59C92 /* Scale_And_Board.png in Resources */ = {isa = PBXBuildFile; fileRef = 60F799B513E2606A00F59C92 /* Scale_And_Board.png */; };
+		60F799B813E266A500F59C92 /* Home_Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 60F799B713E266A500F59C92 /* Home_Button.png */; };
+		60F799BA13E2684600F59C92 /* Test_Result.png in Resources */ = {isa = PBXBuildFile; fileRef = 60F799B913E2684600F59C92 /* Test_Result.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +73,9 @@
 		60BB3E2413D2CA1200B57E46 /* TestResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestResultViewController.xib; sourceTree = "<group>"; };
 		60BB3E2713D2D3F800B57E46 /* Scale.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scale.png; sourceTree = "<group>"; };
 		60F799B213E25EEB00F59C92 /* Background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background1.png; sourceTree = "<group>"; };
+		60F799B513E2606A00F59C92 /* Scale_And_Board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scale_And_Board.png; sourceTree = "<group>"; };
+		60F799B713E266A500F59C92 /* Home_Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home_Button.png; sourceTree = "<group>"; };
+		60F799B913E2684600F59C92 /* Test_Result.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Test_Result.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +154,9 @@
 		6029CDCD13C193D40040B79B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				60F799B913E2684600F59C92 /* Test_Result.png */,
+				60F799B713E266A500F59C92 /* Home_Button.png */,
+				60F799B513E2606A00F59C92 /* Scale_And_Board.png */,
 				60F799B213E25EEB00F59C92 /* Background1.png */,
 				60BB3E2713D2D3F800B57E46 /* Scale.png */,
 				604319FA13C5451E0005089B /* RootViewBG.png */,
@@ -219,6 +228,9 @@
 				60BB3E2613D2CA1200B57E46 /* TestResultViewController.xib in Resources */,
 				60BB3E2813D2D3F800B57E46 /* Scale.png in Resources */,
 				60F799B313E25EEB00F59C92 /* Background1.png in Resources */,
+				60F799B613E2606A00F59C92 /* Scale_And_Board.png in Resources */,
+				60F799B813E266A500F59C92 /* Home_Button.png in Resources */,
+				60F799BA13E2684600F59C92 /* Test_Result.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
