@@ -17,4 +17,5 @@
 
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
+-(int) getScreenY:(float) value;
 @end
