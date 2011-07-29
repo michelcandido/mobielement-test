@@ -322,7 +322,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Note:</string>
+								<string key="IBUIText">Note</string>
 								<reference key="IBUITextColor" ref="375196730"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
@@ -770,9 +770,9 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{640, 920}</string>
-				<string>{600, 408}</string>
-				<string>{640, 386}</string>
+				<string>{320, 460}</string>
+				<string>{300, 204}</string>
+				<string>{320, 193}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">521</string>
