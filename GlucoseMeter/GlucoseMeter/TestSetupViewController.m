@@ -53,6 +53,7 @@
 {
     UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
     [cell setSelected:false animated:true];
+   
     
     currentStep++;
     if (currentStep == 1)
@@ -184,13 +185,18 @@
     }
     else
     {
-        UIButton *buttonView = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIImage *btnImage = [UIImage imageNamed:@"Step_Button.png"];
+        UIButton *buttonView = [UIButton buttonWithType:UIButtonTypeCustom];
         buttonView.frame =  CGRectMake(0.0, 0.0,80.0,30.0);
+        [buttonView setBackgroundImage:btnImage forState:UIControlStateNormal];
+        buttonView.adjustsImageWhenDisabled = NO;
+        buttonView.adjustsImageWhenHighlighted = NO;
         [buttonView setTitle:@"Done" forState:UIControlStateNormal];
         [buttonView setTag:row];
         [buttonView addTarget:self action:@selector(readyBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = buttonView;
         [buttonView release];
+        [btnImage release];
     }
     
     if (row == 0 && currentStep == 1)

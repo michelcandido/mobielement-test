@@ -139,15 +139,19 @@
     }
     
     appDelegate.testResult = arc4random() % ((int)appDelegate.maxAlarm + 20 - (int)appDelegate.minAlarm + 20)+appDelegate.minAlarm - 20;
-    testResult.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
+    if (appDelegate.unitMode)
+        testResult.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.testResult] autorelease];
+    else
+        testResult.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
+    
     if (appDelegate.testResult <= appDelegate.minAlarm || appDelegate.testResult >= appDelegate.maxAlarm)
         testResult.textColor = [UIColor redColor];
     else if (appDelegate.testResult < appDelegate.minTarget && appDelegate.testResult > appDelegate.minAlarm)
-        testResult.textColor = [UIColor yellowColor];
+        testResult.textColor = [UIColor orangeColor];
     else if (appDelegate.testResult <= appDelegate.maxTarget && appDelegate.testResult >= appDelegate.minTarget)
         testResult.textColor = [UIColor greenColor];
     else if (appDelegate.testResult < appDelegate.maxAlarm && appDelegate.testResult > appDelegate.maxTarget)
-        testResult.textColor = [UIColor yellowColor];
+        testResult.textColor = [UIColor orangeColor];
     
     scrollView.frame = CGRectMake(0, 0, 320, 460); 
     [scrollView setContentSize:CGSizeMake(320, 460)];
