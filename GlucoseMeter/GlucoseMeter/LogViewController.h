@@ -13,8 +13,10 @@
 
 @interface LogViewController : UIViewController {
     CoordinateSystem *coordinateSystem;
-    GlucoseMeterAppDelegate *appDelegate;
+    GlucoseMeterAppDelegate *appDelegate;    
 }
 @property (nonatomic, retain) CoordinateSystem *coordinateSystem;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
+
+-(IBAction) doneWithSelection:(id)sender;
 @end

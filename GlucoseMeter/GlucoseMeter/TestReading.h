@@ -11,9 +11,13 @@
 @interface TestReading : NSObject {
     float reading;
     int mealMode; //0: pre-meal; 1: post-meal
+    NSString *time;
+    NSString *date;
 }
 
 @property (nonatomic) float reading;
 @property (nonatomic) int mealMode;
+@property (nonatomic, retain) NSString *time;
+@property (nonatomic, retain) NSString *date;
 
 @end

@@ -27,7 +27,7 @@
 #define GAPFORY 30
 
 // Days of a month
-#define NUMBER_OF_DAYS 30
+#define NUMBER_OF_DAYS 31
 
 // Readings of a day
 #define NUMBER_OF_READINGS 6

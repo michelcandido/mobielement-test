@@ -41,6 +41,8 @@
     
     //monthlyReadings = [NSMutableArray arrayWithCapacity:NUMBER_OF_DAYS]; 
     monthlyReadings = [[NSMutableArray alloc] initWithCapacity:NUMBER_OF_DAYS];
+    contactEmail = @"contact@microchip.com";
+    contactPhone = @"480-792-7200";
     return YES;
 }
 

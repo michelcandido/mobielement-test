@@ -13,9 +13,16 @@
 	CGPoint startPoint;
 	CGContextRef myContext;
     GlucoseMeterAppDelegate *appDelegate;
+    int dayMode;
+    int mealMode;
+    int sampleSize;
 }
 
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
+@property (nonatomic) int dayMode;
+@property (nonatomic) int mealMode;
+@property (nonatomic) int sampleSize;
 
 -(int) getScreenY:(float) value;
+-(int) getScreenX:(int) index;
 @end

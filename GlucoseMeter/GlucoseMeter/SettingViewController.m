@@ -170,6 +170,8 @@
     minAlarm.text = [[[[NSNumber alloc] initWithInt:appDelegate.minAlarm] autorelease]  stringValue];
     maxAlarm.text = [[[[NSNumber alloc] initWithInt:appDelegate.maxAlarm] autorelease]  stringValue];
     interval.text = [[[[NSNumber alloc] initWithInt:appDelegate.testInterval] autorelease]  stringValue];
+    email.text = appDelegate.contactEmail;
+    phone.text = appDelegate.contactPhone;
     
     scrollView.frame = CGRectMake(0, 0, 320, 460); 
     [scrollView setContentSize:CGSizeMake(320, 460)];
