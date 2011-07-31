@@ -12,6 +12,8 @@
 
 @synthesize reading;
 @synthesize mealMode;
+@synthesize date;
+@synthesize time;
 
 - (id)init
 {

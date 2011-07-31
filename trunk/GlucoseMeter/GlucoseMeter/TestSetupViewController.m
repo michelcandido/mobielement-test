@@ -113,7 +113,7 @@
     [super viewDidLoad];    
     // Do any additional setup after loading the view from its nib.
     NSDictionary *step1 = [[NSDictionary alloc] initWithObjectsAndKeys: @"1", @"Step", @"Insert strip.", @"Instruction", nil];
-    NSDictionary *step2 = [[NSDictionary alloc] initWithObjectsAndKeys: @"2", @"Step", @"Select meal status.", @"Instruction", nil];
+    NSDictionary *step2 = [[NSDictionary alloc] initWithObjectsAndKeys: @"2", @"Step", @"Post-meal test?", @"Instruction", nil];
     NSDictionary *step3 = [[NSDictionary alloc] initWithObjectsAndKeys: @"3", @"Step", @"Provide blood sample.", @"Instruction", nil];
     NSDictionary *step4 = [[NSDictionary alloc] initWithObjectsAndKeys: @"4", @"Step", @"Sufficient blood has been collected.", @"Instruction", nil];
     NSDictionary *step5 = [[NSDictionary alloc] initWithObjectsAndKeys: @"5", @"Step", @"Run the test.", @"Instruction", nil];
