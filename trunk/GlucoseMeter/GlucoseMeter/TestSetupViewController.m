@@ -9,12 +9,16 @@
 #import "TestSetupViewController.h"
 #import "TestResultViewController.h"
 
+//PZ
+#import "GlucoseMeterAppDelegate.h"
 @implementation TestSetupViewController
 @synthesize testInstructions;
 @synthesize tvCell;
 @synthesize currentStep;
 @synthesize theTableView;
 @synthesize appDelegate;
+//PZ
+@synthesize bCancelResultView;
 
 
 - (IBAction)readyBtnTapped:(id)sender 
@@ -42,11 +46,60 @@
 
 -(void)didDismissTestResultView:(BOOL)cancel
 {
+    // From the result view: 
+    // cancel:0  user clicked Home
+    // cancel:1  user cliecked Cancel
     [self dismissModalViewControllerAnimated:true];
+    //PZ
+    bCancelResultView = TRUE;
     if (!cancel) 
     {
         appDelegate.tabController.selectedIndex = 0;
     }
+}
+
+//PZ
+-(void)setStep: (uint8_t) step
+{
+    currentStep = step;
+    
+    /* Obtain the cell to set */
+    /*
+    UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentStep inSection:0]];
+    UILabel *stepLabel = (UILabel *)[cell viewWithTag:kStepTag];
+    */
+    
+    // update the buttons and text on the test setup UI
+    switch (step) {
+        case STEP_CHECK_RESULT:
+        {
+            if (!bCancelResultView){
+                
+                TestResultViewController *resultView = [[TestResultViewController alloc] initWithNibName:@"TestResultViewController" bundle:nil];
+                resultView.delegate = self;
+                [self presentModalViewController:resultView animated:true];
+                [resultView release];
+            }
+            
+            break;
+        }
+
+        case STEP_INSERT_STRIP:
+            [theTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:FALSE scrollPosition:UITableViewScrollPositionMiddle];
+            break;
+        case STEP_SELECT_MEAL_STATUS:
+            [theTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] animated:FALSE scrollPosition:UITableViewScrollPositionMiddle];
+            break;
+        case STEP_DROP_BLOOD:
+            [theTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0] animated:FALSE scrollPosition:UITableViewScrollPositionMiddle];
+            break;
+        case STEP_JUST_WAIT:
+            [theTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0] animated:FALSE scrollPosition:UITableViewScrollPositionMiddle];
+            break;
+        default:
+            break;
+    }
+    
 }
 
 -(void)nextStep
@@ -67,11 +120,20 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0]; 
-    [theTableView selectRowAtIndexPath:index animated:true scrollPosition:UITableViewScrollPositionNone];
-    currentStep = 0;
-    
-    [index release];
+    //PZ
+    // In case we return to this view, we need to update the view
+    // Note the AppDelegate always set currentStep to appropriate value even the TestSetupView is not on screen
+    if(isDemoMode){
+        currentStep = STEP_CHECK_RESULT;
+    }
+        
+    @synchronized (self)
+    {
+        [self setStep:currentStep];
+        
+        // Reset to be able to see result view if a test is performed
+        bCancelResultView = FALSE;
+    }
     [super viewDidAppear:animated];
 }
 
@@ -123,6 +185,9 @@
     [step1 release]; [step2 release]; [step3 release]; [step4 release]; [step5 release]; [array release];
     
     currentStep = 0;
+    
+    //PZ
+    bCancelResultView = FALSE;
     
     appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
    

@@ -137,8 +137,8 @@
         minTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minTarget] autorelease];        
         midTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",midTargetValue] autorelease];            
     }
-    
-    appDelegate.testResult = arc4random() % ((int)appDelegate.maxAlarm + 20 - (int)appDelegate.minAlarm + 20)+appDelegate.minAlarm - 20;
+    if(isDemoMode)
+	    appDelegate.testResult = arc4random() % ((int)appDelegate.maxAlarm + 20 - (int)appDelegate.minAlarm + 20)+appDelegate.minAlarm - 20;
     if (appDelegate.unitMode)
         testResult.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.testResult] autorelease];
     else

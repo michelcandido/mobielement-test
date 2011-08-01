@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TestResultViewController.h"
 
+//PZ
+#import "protocolDemo1.h"
 #define kStepTag 1
 #define kInstructionTag 2
 
@@ -20,6 +22,8 @@
     int currentStep;
     IBOutlet UITableView *theTableView;
     GlucoseMeterAppDelegate *appDelegate;
+    //PZ
+    bool bCancelResultView;
 } 
 @property (nonatomic, retain) NSArray *testInstructions;
 @property (nonatomic, retain) UITableViewCell *tvCell;
@@ -27,7 +31,11 @@
 @property (nonatomic, retain) UITableView *theTableView;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
+//PZ
+@property (nonatomic) bool bCancelResultView;
 -(IBAction)readyBtnTapped:(id)sender;
 -(void)nextStep;
 
+//PZ
+-(void)setStep:(uint8_t)step;
 @end
