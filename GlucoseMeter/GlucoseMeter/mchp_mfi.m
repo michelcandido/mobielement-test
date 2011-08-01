@@ -225,7 +225,7 @@
 /* this is the notification function if we register for the did disconnect notification event */
 - (void)accessoryDidDisconnect:(NSNotification *)notification
 {
-    NSLog(@"[PZ]: Accessory Disconnected");
+    NSLog(@"[PZ]: Accessory Disconnected. Close session.");
     [[eas inputStream] close];
     [[eas outputStream] close];
     [eas release];
