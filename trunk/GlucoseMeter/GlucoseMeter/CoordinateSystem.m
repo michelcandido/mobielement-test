@@ -35,45 +35,141 @@
     return self;
 }
 
--(void)drawCurve:(CGContextRef) context {
+-(void)updateData {
     time_t rawtime;
 	struct tm * timeinfo;
 	time ( &rawtime );
 	timeinfo = localtime ( &rawtime );
-    int x, y, x1,y1, step;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"mealMode == %d", mealMode];
+    if (dayMode == 0) {
+        displayPoints = [NSMutableArray arrayWithCapacity:sampleSize];
+        NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday - 1)]];
+        if (mealMode == 1 || mealMode == 2) {            
+            dailyReadings = [dailyReadings filteredArrayUsingPredicate:predicate];
+        }
+        for (int i = 0; i < [dailyReadings count]; i++)
+            [displayPoints addObject:[dailyReadings objectAtIndex:i]];
+        sampleSize = [displayPoints count];
+    } else if (dayMode == 1) {
+        displayPoints =  [[NSMutableArray alloc] initWithCapacity:sampleSize];
+        for (int i = 0; i < sampleSize; i++) {
+            NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday >= 7)?(timeinfo->tm_mday - 7 + i):(timeinfo->tm_mday + i)]];
+            if (mealMode == 1 || mealMode == 2)
+                dailyReadings = [dailyReadings filteredArrayUsingPredicate:predicate];
+            [displayPoints addObject:dailyReadings];
+        }
+    } else if (dayMode == 2) {
+        displayPoints = [[NSMutableArray alloc] initWithCapacity:sampleSize];
+        for (int i = 0; i < sampleSize; i++) {
+            NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:i]];
+            if (mealMode == 1 || mealMode == 2)
+                dailyReadings = [dailyReadings filteredArrayUsingPredicate:predicate];
+            [displayPoints addObject:dailyReadings];            
+        }
+    }
+}
+
+-(void)drawCurve:(CGContextRef) context {
+    
+    int x, y, x1,y1;
     TestReading *aReading, *nextReading;
     
-    CGContextSetStrokeColorWithColor(context, [UIColor greenColor].CGColor);
     CGContextSelectFont(context, "Helvetica", 10, kCGEncodingMacRoman);
     CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0, -1.0));
+        
     
-    if (dayMode == 0) {        
-        NSMutableArray *dailyReadings = [appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday - 1)];
-        for (int i = 0; i < NUMBER_OF_READINGS; i++) {
-            aReading = [dailyReadings objectAtIndex:i];
-            if (mealMode == 1 && aReading.mealMode == 2) {                
-                continue;
-            }
-            else if (mealMode == 2 && aReading.mealMode == 1) {
-                continue;
-            }
-            else {                
-                x = [self getScreenX:i];
-                y = [self getScreenY:aReading.reading];
-                CGContextMoveToPoint(context, x, y);
-                CGContextAddEllipseInRect(context, CGRectMake(x-2, y-2, 5, 5));
-            }
-            if (i + 1 < NUMBER_OF_READINGS) {
-                nextReading = [dailyReadings objectAtIndex:i+1];
+    if (dayMode == 0) {
+        CGContextSetStrokeColorWithColor(context, [UIColor greenColor].CGColor);
+        for (int i = 0; i < [displayPoints count]; i++) {
+            aReading = [displayPoints objectAtIndex:i];
+                            
+            x = [self getScreenX:i];
+            y = [self getScreenY:aReading.reading];
+            CGContextMoveToPoint(context, x, y);
+            CGContextAddEllipseInRect(context, CGRectMake(x-2, y-2, 5, 5));
+        
+            if (i + 1 < [displayPoints count]) {
+                nextReading = [displayPoints objectAtIndex:i+1];
                 x1 = [self getScreenX:i+1];
                 y1 = [self getScreenY:nextReading.reading];
                 CGContextAddLineToPoint(context, x1, y1);
-            }
-            
+            }            
             CGContextStrokePath(context);
             CGContextShowTextAtPoint(context, x - (10 / (dayMode + 1)), startPoint.y + 12, [aReading.date UTF8String], [aReading.date length]);
             CGContextShowTextAtPoint(context, x - (12 / (dayMode + 1)), startPoint.y + 25, [aReading.time UTF8String], [aReading.time length]);
         }        
+    } else if (dayMode == 1 || dayMode == 2) {
+        NSMutableArray *min, *max, *ave;
+        min = [NSMutableArray arrayWithCapacity:sampleSize];
+        max = [NSMutableArray arrayWithCapacity:sampleSize];
+        ave = [NSMutableArray arrayWithCapacity:sampleSize];
+        for (int i = 0; i < sampleSize; i++) {
+            NSArray *dailyReadings = [NSArray arrayWithArray:[displayPoints objectAtIndex:i]];
+            NSArray *sortedArray = [dailyReadings sortedArrayUsingComparator:^(id obj1, id obj2) {
+                NSNumber *num1 = [NSNumber numberWithFloat:[(TestReading*)obj1 reading]];
+                NSNumber *num2 = [NSNumber numberWithFloat:[(TestReading*)obj2 reading]];
+                return (NSComparisonResult)[num1 compare:num2];
+            }];
+            [min addObject:[sortedArray objectAtIndex:0]];
+            [max addObject:[sortedArray lastObject]];
+            float average = 0;
+            for (int j = 0; j < [sortedArray count]; j++) {
+                TestReading *t = [sortedArray objectAtIndex:j];
+                average += t.reading;
+                [t release];
+            }
+            TestReading *aveReading = [TestReading alloc];
+            aveReading.reading = average / [sortedArray count];
+            [ave addObject:aveReading];
+        }
+        for (int i = 0; i < sampleSize; i++) {
+            CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
+            aReading = [min objectAtIndex:i];
+            x = [self getScreenX:i];
+            y = [self getScreenY:aReading.reading];
+            CGContextMoveToPoint(context, x, y);
+            CGContextAddEllipseInRect(context, CGRectMake(x-2, y-2, 5, 5));
+            
+            if (i + 1 < [min count]) {
+                nextReading = [min objectAtIndex:i+1];
+                x1 = [self getScreenX:i+1];
+                y1 = [self getScreenY:nextReading.reading];
+                CGContextAddLineToPoint(context, x1, y1);
+            }
+            CGContextStrokePath(context);
+            if (dayMode == 1 || (dayMode == 2 && (i % 4 == 0)))
+                CGContextShowTextAtPoint(context, x - (10 / (dayMode + 1)), startPoint.y + 12, [aReading.date UTF8String], [aReading.date length]);
+            
+            CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
+            aReading = [max objectAtIndex:i];
+            x = [self getScreenX:i];
+            y = [self getScreenY:aReading.reading];
+            CGContextMoveToPoint(context, x, y);
+            CGContextAddEllipseInRect(context, CGRectMake(x-2, y-2, 5, 5));
+            
+            if (i + 1 < [max count]) {
+                nextReading = [max objectAtIndex:i+1];
+                x1 = [self getScreenX:i+1];
+                y1 = [self getScreenY:nextReading.reading];
+                CGContextAddLineToPoint(context, x1, y1);
+            }
+            CGContextStrokePath(context);
+            
+            CGContextSetStrokeColorWithColor(context, [UIColor greenColor].CGColor);
+            aReading = [ave objectAtIndex:i];
+            x = [self getScreenX:i];
+            y = [self getScreenY:aReading.reading];
+            CGContextMoveToPoint(context, x, y);
+            CGContextAddEllipseInRect(context, CGRectMake(x-2, y-2, 5, 5));
+            
+            if (i + 1 < [ave count]) {
+                nextReading = [ave objectAtIndex:i+1];
+                x1 = [self getScreenX:i+1];
+                y1 = [self getScreenY:nextReading.reading];
+                CGContextAddLineToPoint(context, x1, y1);
+            }
+            CGContextStrokePath(context);
+        }
     }
     
     //[aReading release];
@@ -104,17 +200,7 @@
 		
 		CGContextSelectFont(context, "Helvetica", 10, kCGEncodingMacRoman);
 		CGContextSetTextMatrix(context, CGAffineTransformMakeScale(1.0, -1.0));
-		/*
-		NSString *date = [NSString stringWithString:@"8/1"];
-		NSString *time = [NSString stringWithString:@"12:10"];
-        
-        if (dayMode == 2 && i % 3 != 0)
-            continue;
-        
-		CGContextShowTextAtPoint(context, x - (10 / (dayMode + 1)), startPoint.y + 12, [date UTF8String], [date length]);
-		CGContextShowTextAtPoint(context, x - (15 / (dayMode + 1)), startPoint.y + 25, [time UTF8String], [time length]);
-         */
-	}
+    }
 }
 
 - (void)drawAxisY:(CGContextRef)context {
@@ -147,15 +233,19 @@
 	str = [NSString stringWithFormat:@"%d", 0];
     CGContextShowTextAtPoint(context, 3, startPoint.y, [str UTF8String], [str length]);
     
+    str = [NSString stringWithString:appDelegate.unitMode?@"mg/dl":@"mmol/l"];
+    CGContextSelectFont(context, "Helvetica", 12, kCGEncodingMacRoman);
+    CGContextShowTextAtPoint(context, 15, startPoint.y+25, [str UTF8String], [str length]);
+    
     CGContextSetStrokeColorWithColor(context, [UIColor orangeColor].CGColor);
-    int yMax = [self getScreenY: appDelegate.maxTarget];
+    int yMax = [self getScreenY: appDelegate.unitMode?appDelegate.maxTarget:appDelegate.maxTarget * 18];
     CGContextMoveToPoint(context, startPoint.x, yMax);
     CGContextAddLineToPoint(context, startPoint.x+xAxisLength-12, yMax);
     CGContextStrokePath(context);
     str = [NSString stringWithFormat:appDelegate.unitMode?@"%.0f":@"%.1f", appDelegate.maxTarget];
 	CGContextShowTextAtPoint(context, startPoint.x+xAxisLength-10, yMax+2, [str UTF8String], [str length]);
     
-    int yMin = [self getScreenY: appDelegate.minTarget];
+    int yMin = [self getScreenY: appDelegate.unitMode?appDelegate.minTarget:appDelegate.minTarget * 18];
     CGContextMoveToPoint(context, startPoint.x, yMin);
     CGContextAddLineToPoint(context, startPoint.x+xAxisLength-12, yMin);
     CGContextStrokePath(context);
@@ -169,7 +259,7 @@
     if  (appDelegate.unitMode) {
         y = startPoint.y - 0.75 * value + 1;
     } else {
-        y = startPoint.y - 15 * value + 1;
+        y = startPoint.y - 15 * value /18 + 1;
     }
     return y;
 }
@@ -186,9 +276,13 @@
 	
 	CGContextSetLineCap(context, kCGLineCapRound);
 	CGContextSetLineWidth(context, 2);
-	[self drawAxisX:context];
-	[self drawAxisY:context];
+	
+	[self updateData];
+    
+    [self drawAxisX:context];
+    [self drawAxisY:context];
     [self drawCurve:context];
+    
 }
 
 
@@ -201,6 +295,7 @@
 
 - (void)dealloc {
     [appDelegate release];
+    [displayPoints release];
     [super dealloc];
 }
 

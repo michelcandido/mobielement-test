@@ -16,6 +16,7 @@
     int dayMode;
     int mealMode;
     int sampleSize;
+    NSMutableArray *displayPoints;
 }
 
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
@@ -25,4 +26,5 @@
 
 -(int) getScreenY:(float) value;
 -(int) getScreenX:(int) index;
+-(void) updateData;
 @end
