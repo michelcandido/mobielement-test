@@ -8,6 +8,7 @@
 
 #import "TestResultViewController.h"
 #import "QuartzCore/QuartzCore.h"
+#import "EventKit/EventKit.h"
 
 @implementation TestResultViewController
 @synthesize note;
@@ -27,8 +28,39 @@
 -(IBAction)doneWithResult:(id)sender
 {
     //[self dismissModalViewControllerAnimated:true];
-    if ([sender selectedSegmentIndex] == 0)
+    if ([sender selectedSegmentIndex] == 0) {
+        EKEventStore *eventDB = [[EKEventStore alloc] init];
+        
+        EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
+        
+        myEvent.title     = @"Glucose Test";
+        myEvent.startDate = [[NSDate alloc] initWithTimeIntervalSinceNow:3600*appDelegate.testInterval];
+        myEvent.endDate   = [[NSDate alloc] initWithTimeInterval:600 sinceDate:myEvent.startDate];
+        
+        
+        [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
+        
+        NSError *err;        
+        [eventDB saveEvent:myEvent span:EKSpanThisEvent error:&err];
+        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
+        NSString *dateString = [NSString stringWithFormat:@"Your next glucose test will be at %@",[dateFormat stringFromDate:myEvent.startDate]];
+        
+        if (err == noErr) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Reminder Created"
+                                  message:dateString
+                                  delegate:nil
+                                  cancelButtonTitle:@"Okay"
+                                  otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+        
+        
         [delegate didDismissTestResultView:false];
+    }
     else
         [delegate didDismissTestResultView:true];
 }

@@ -173,8 +173,8 @@
     email.text = appDelegate.contactEmail;
     phone.text = appDelegate.contactPhone;
     
-    scrollView.frame = CGRectMake(0, 0, 320, 460); 
-    [scrollView setContentSize:CGSizeMake(320, 460)];
+    scrollView.frame = CGRectMake(0, 0, 320, 480); 
+    [scrollView setContentSize:CGSizeMake(320, 480)];
     
     [unitSwitch setOn:appDelegate.unitMode?true:false];
         
