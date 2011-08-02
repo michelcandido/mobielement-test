@@ -45,6 +45,7 @@
 		606A1F3113E6254C00274216 /* icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 606A1F2E13E6254C00274216 /* icon_small.png */; };
 		606A1F3213E6254C00274216 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 606A1F2F13E6254C00274216 /* icon.png */; };
 		606A1F3413E625A100274216 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606A1F3313E625A100274216 /* ExternalAccessory.framework */; };
+		606A1F3613E7C66E00274216 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606A1F3513E7C66E00274216 /* EventKit.framework */; };
 		6096641713CC114200157033 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6096641613CC114200157033 /* TestCell.xib */; };
 		60B1793A13DFE5630096F87C /* TestReading.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B1793913DFE5630096F87C /* TestReading.m */; };
 		60BB3E1113D04D4F00B57E46 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E0F13D04D4F00B57E46 /* LogViewController.m */; };
@@ -115,6 +116,7 @@
 		606A1F2E13E6254C00274216 /* icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_small.png; sourceTree = "<group>"; };
 		606A1F2F13E6254C00274216 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		606A1F3313E625A100274216 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		606A1F3513E7C66E00274216 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		6096641613CC114200157033 /* TestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
 		60B1793813DFE5620096F87C /* TestReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestReading.h; sourceTree = "<group>"; };
 		60B1793913DFE5630096F87C /* TestReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestReading.m; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606A1F3613E7C66E00274216 /* EventKit.framework in Frameworks */,
 				606A1F3413E625A100274216 /* ExternalAccessory.framework in Frameworks */,
 				6029CDC713C193D40040B79B /* UIKit.framework in Frameworks */,
 				6029CDC913C193D40040B79B /* Foundation.framework in Frameworks */,
@@ -162,6 +165,7 @@
 		6029CDB713C193D40040B79B = {
 			isa = PBXGroup;
 			children = (
+				606A1F3513E7C66E00274216 /* EventKit.framework */,
 				606A1F3313E625A100274216 /* ExternalAccessory.framework */,
 				6029CDCC13C193D40040B79B /* GlucoseMeter */,
 				6029CDC513C193D40040B79B /* Frameworks */,
