@@ -27,6 +27,7 @@
     BOOL keyboardIsShown;
     
     GlucoseMeterAppDelegate *appDelegate;
+    
 }
 
 @property (nonatomic, retain)  UITextField *maxTarget;
