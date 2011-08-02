@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6010D42B13E7DDF700851B9C /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6010D42913E7DDF700851B9C /* icon.png */; };
+		6010D42C13E7DDF700851B9C /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6010D42A13E7DDF700851B9C /* icon@2x.png */; };
 		601B22A813C22443006DCE6A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 601B22A713C22443006DCE6A /* Default.png */; };
 		6025B2BF13D80A470056A335 /* CoordinateSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6025B2BE13D80A470056A335 /* CoordinateSystem.m */; };
 		6029CDC713C193D40040B79B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6029CDC613C193D40040B79B /* UIKit.framework */; };
@@ -41,9 +43,6 @@
 		6053C98913E278EF008F80B6 /* Step_Cell@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = 6053C98713E278EF008F80B6 /* Step_Cell@2X.png */; };
 		606A1F2A13E6253800274216 /* mchp_mfi.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A1F2713E6253800274216 /* mchp_mfi.m */; };
 		606A1F2B13E6253800274216 /* protocolDemo1.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A1F2913E6253800274216 /* protocolDemo1.m */; };
-		606A1F3013E6254C00274216 /* icon_small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 606A1F2D13E6254C00274216 /* icon_small-50.png */; };
-		606A1F3113E6254C00274216 /* icon_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 606A1F2E13E6254C00274216 /* icon_small.png */; };
-		606A1F3213E6254C00274216 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 606A1F2F13E6254C00274216 /* icon.png */; };
 		606A1F3413E625A100274216 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606A1F3313E625A100274216 /* ExternalAccessory.framework */; };
 		606A1F3613E7C66E00274216 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606A1F3513E7C66E00274216 /* EventKit.framework */; };
 		6096641713CC114200157033 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6096641613CC114200157033 /* TestCell.xib */; };
@@ -70,6 +69,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6010D42913E7DDF700851B9C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		6010D42A13E7DDF700851B9C /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		601B22A713C22443006DCE6A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		6025B2BD13D80A3C0056A335 /* CoordinateSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoordinateSystem.h; sourceTree = "<group>"; };
 		6025B2BE13D80A470056A335 /* CoordinateSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoordinateSystem.m; sourceTree = "<group>"; };
@@ -112,9 +113,6 @@
 		606A1F2713E6253800274216 /* mchp_mfi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mchp_mfi.m; sourceTree = "<group>"; };
 		606A1F2813E6253800274216 /* protocolDemo1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = protocolDemo1.h; sourceTree = "<group>"; };
 		606A1F2913E6253800274216 /* protocolDemo1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = protocolDemo1.m; sourceTree = "<group>"; };
-		606A1F2D13E6254C00274216 /* icon_small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_small-50.png"; sourceTree = "<group>"; };
-		606A1F2E13E6254C00274216 /* icon_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_small.png; sourceTree = "<group>"; };
-		606A1F2F13E6254C00274216 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		606A1F3313E625A100274216 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		606A1F3513E7C66E00274216 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		6096641613CC114200157033 /* TestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
@@ -194,9 +192,8 @@
 		6029CDCC13C193D40040B79B /* GlucoseMeter */ = {
 			isa = PBXGroup;
 			children = (
-				606A1F2D13E6254C00274216 /* icon_small-50.png */,
-				606A1F2E13E6254C00274216 /* icon_small.png */,
-				606A1F2F13E6254C00274216 /* icon.png */,
+				6010D42913E7DDF700851B9C /* icon.png */,
+				6010D42A13E7DDF700851B9C /* icon@2x.png */,
 				606A1F2613E6253800274216 /* mchp_mfi.h */,
 				606A1F2713E6253800274216 /* mchp_mfi.m */,
 				606A1F2813E6253800274216 /* protocolDemo1.h */,
@@ -362,9 +359,8 @@
 				6029FF1813E3E01D004C7F2C /* Setting_phone1@2X.png in Resources */,
 				60EADEC813E3E4830086AB0B /* Log_Background_Pic.png in Resources */,
 				60EADEC913E3E4830086AB0B /* Log_Background_Pic@2X.png in Resources */,
-				606A1F3013E6254C00274216 /* icon_small-50.png in Resources */,
-				606A1F3113E6254C00274216 /* icon_small.png in Resources */,
-				606A1F3213E6254C00274216 /* icon.png in Resources */,
+				6010D42B13E7DDF700851B9C /* icon.png in Resources */,
+				6010D42C13E7DDF700851B9C /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
