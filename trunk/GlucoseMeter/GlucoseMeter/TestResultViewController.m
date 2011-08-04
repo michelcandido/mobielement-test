@@ -34,9 +34,13 @@
         EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
         
         myEvent.title     = @"Glucose Test";
-        myEvent.startDate = [[NSDate alloc] initWithTimeIntervalSinceNow:3600*appDelegate.testInterval];
-        myEvent.endDate   = [[NSDate alloc] initWithTimeInterval:600 sinceDate:myEvent.startDate];
+        NSDate *startDate = [[NSDate alloc] initWithTimeIntervalSinceNow:3600*appDelegate.testInterval];
+        NSDate *endDate = [[NSDate alloc] initWithTimeInterval:600 sinceDate:startDate];
+        myEvent.startDate = startDate;
+        myEvent.endDate   = endDate;
         myEvent.notes = note.text;
+        [startDate release];
+        [endDate release];
         
         
         [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
@@ -47,7 +51,7 @@
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
         NSString *dateString = [NSString stringWithFormat:@"Your next glucose test will be at %@",[dateFormat stringFromDate:myEvent.startDate]];
-        
+        [dateFormat release];
         if (err == noErr) {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Reminder Created"
@@ -59,6 +63,7 @@
             [alert release];
         }
         
+        [eventDB release];
         
         [delegate didDismissTestResultView:false];
     }
