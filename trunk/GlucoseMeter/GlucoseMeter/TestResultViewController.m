@@ -36,6 +36,7 @@
         myEvent.title     = @"Glucose Test";
         myEvent.startDate = [[NSDate alloc] initWithTimeIntervalSinceNow:3600*appDelegate.testInterval];
         myEvent.endDate   = [[NSDate alloc] initWithTimeInterval:600 sinceDate:myEvent.startDate];
+        myEvent.notes = note.text;
         
         
         [myEvent setCalendar:[eventDB defaultCalendarForNewEvents]];
@@ -52,7 +53,7 @@
                                   initWithTitle:@"Reminder Created"
                                   message:dateString
                                   delegate:nil
-                                  cancelButtonTitle:@"Okay"
+                                  cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
             [alert show];
             [alert release];
