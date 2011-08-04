@@ -27,4 +27,5 @@
 -(int) getScreenY:(float) value;
 -(int) getScreenX:(int) index;
 -(void) updateData;
+-(int) getTouchIndex:(int) x;
 @end

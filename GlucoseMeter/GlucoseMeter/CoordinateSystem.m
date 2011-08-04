@@ -26,6 +26,7 @@
     if (self) {
 		self.backgroundColor = [UIColor clearColor];
         startPoint = CGPointMake(STARTPOINTX + 1, 253.0f);
+        NSLog(@"%.1f,%.1f",startPoint.x,startPoint.y);
     }
     appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
     dayMode = 0;
@@ -268,6 +269,24 @@
     int x;    
     x = startPoint.x + xAxisLength * (index + 1) / (sampleSize + 1);
     return x;
+}
+
+-(int) getTouchIndex:(int) x {
+    int index;
+    index = (x - startPoint.x) * (sampleSize + 1) / xAxisLength - 1;
+    if (dayMode == 2)
+        return index;
+    else {
+        time_t rawtime;
+        struct tm * timeinfo;
+        time ( &rawtime );
+        timeinfo = localtime ( &rawtime );
+        
+        if (timeinfo->tm_mday >= 7)
+            return timeinfo->tm_mday - 7 + index;
+        else
+            return timeinfo->tm_mday + index;
+    }
 }
 
 - (void)drawCoordinateSystem:(CGContextRef)context {
