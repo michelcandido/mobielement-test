@@ -41,7 +41,7 @@
         [resultView release];
     }
     
-    [buttonText release];    
+       
 }
 
 -(void)didDismissTestResultView:(BOOL)cancel

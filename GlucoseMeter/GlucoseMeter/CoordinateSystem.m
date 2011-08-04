@@ -26,12 +26,11 @@
     if (self) {
 		self.backgroundColor = [UIColor clearColor];
         startPoint = CGPointMake(STARTPOINTX + 1, 253.0f);
-        NSLog(@"%.1f,%.1f",startPoint.x,startPoint.y);
     }
-    appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
-    dayMode = 0;
-    mealMode = 0;
-    sampleSize = 6;
+    self.appDelegate = (GlucoseMeterAppDelegate*)[[UIApplication sharedApplication] delegate];
+    self.dayMode = 0;
+    self.mealMode = 0;
+    self.sampleSize = 6;
     
     return self;
 }
@@ -116,12 +115,12 @@
             float average = 0;
             for (int j = 0; j < [sortedArray count]; j++) {
                 TestReading *t = [sortedArray objectAtIndex:j];
-                average += t.reading;
-                [t release];
+                average += t.reading;              
             }
-            TestReading *aveReading = [TestReading alloc];
+            TestReading *aveReading = [[TestReading alloc] init];
             aveReading.reading = average / [sortedArray count];
             [ave addObject:aveReading];
+            [aveReading release];
         }
         for (int i = 0; i < sampleSize; i++) {
             CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
@@ -171,10 +170,8 @@
             }
             CGContextStrokePath(context);
         }
+        
     }
-    
-    //[aReading release];
-    //[nextReading release];
 }
  
 - (void)drawAxisX:(CGContextRef)context {
@@ -187,11 +184,7 @@
 	CGContextAddLineToPoint(context, startPoint.x, startPoint.y - yAxisLength);
 	CGContextAddLineToPoint(context, startPoint.x + 5, startPoint.y - yAxisLength + 5);
 	CGContextStrokePath(context);
-    
-    time_t rawtime;
-	struct tm * timeinfo;
-	time ( &rawtime );
-	timeinfo = localtime ( &rawtime );
+   
     
     for(int i = 0; i < sampleSize; i++) {
 		int x = [self getScreenX:i];
