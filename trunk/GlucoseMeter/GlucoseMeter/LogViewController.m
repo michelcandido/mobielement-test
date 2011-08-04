@@ -50,7 +50,7 @@
         for (int i = 0; i < [dailyReadings count]; i++)
         {
             TestReading *aReading = (TestReading *)[dailyReadings objectAtIndex:i];
-            msg = [msg stringByAppendingFormat:@"(%d) %@ at %@: %.1f %@\n", i, (aReading.mealMode == 1)?@"Pre-meal  ":@"Post-meal", aReading.time, (appDelegate.unitMode)?aReading.reading:aReading.reading/18, (appDelegate.unitMode)?@"mg/dl":@"mmol/l"];
+            msg = [msg stringByAppendingFormat:@"(%d) %@ at %@: %.1f %@\n", i, (aReading.mealMode == 1)?@"Pre-meal":@"Post-meal", aReading.time, (appDelegate.unitMode)?aReading.reading:aReading.reading/18, (appDelegate.unitMode)?@"mg/dl":@"mmol/l"];
         }
                             
        
@@ -60,6 +60,7 @@
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
+        ((UILabel*)[[alert subviews] objectAtIndex:1]).textAlignment = UITextAlignmentLeft;
         [alert show];
         [alert release];
     } 
