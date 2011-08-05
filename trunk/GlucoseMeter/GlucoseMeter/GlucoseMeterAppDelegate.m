@@ -34,7 +34,7 @@
 
 
 
-#define kAppUpdateTimer 0.5
+#define kAppUpdateTimer 1.5
 @synthesize monthlyReadings;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -63,6 +63,11 @@
     if(!isDemoMode){
         // startup the external accessory manager
         _protocol = [[protocolDemo1 alloc] init];
+        if( _protocol != nil)
+        {
+            _protocol.notifDelegate = self;
+            [_protocol notifDelegate];
+        }
     }
     return YES;
 }
@@ -99,13 +104,11 @@
     //PZ
     
     NSLog(@"App Became Active");
-	// startup my application update timer
+
     
-    updateTimer = [NSTimer scheduledTimerWithTimeInterval:kAppUpdateTimer 
-												   target:self
-												 selector:@selector(appUpdate:)
-												 userInfo:nil
-												  repeats:YES];
+
+
+    
     
 }
 //PZ
@@ -121,7 +124,7 @@
 
 // configure a periodic timer to poll the accessory
 // the timer func calls isConnected to check
-- (void)appUpdate:(NSTimer*)theTimer
+- (void)NotifyAppOfAccessoryStatusChanges/*:(NSTimer*)theTimer*/
 {
     
     if(isDemoMode)
@@ -137,7 +140,7 @@
             }
             
             if (_protocol.StripStatus == accPreviousStripStatus \
-                && tabController.selectedIndex == 1)
+                /*&& tabController.selectedIndex == 1*/)
                 return; //wait more
             
             if (_protocol.StripStatus != accPreviousStripStatus){
@@ -188,8 +191,8 @@
             else {
                 NSLog(@"[PZ]: Accssory unknown state.");
             }
-            
-            [self updateTestView];
+            if(tabController.selectedIndex == 1)
+                [self updateTestView];
             
             
         }

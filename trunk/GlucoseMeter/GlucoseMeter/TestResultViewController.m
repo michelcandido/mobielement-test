@@ -175,12 +175,20 @@
         minTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minTarget] autorelease];        
         midTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",midTargetValue] autorelease];            
     }
-    if(isDemoMode)
-	    appDelegate.testResult = arc4random() % ((int)appDelegate.maxAlarm + 20 - (int)appDelegate.minAlarm + 20)+appDelegate.minAlarm - 20;
-    if (appDelegate.unitMode)
-        testResult.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.testResult] autorelease];
-    else
-        testResult.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
+    if(isDemoModelt.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
+    
+    @synchronized (appDelegate)
+    {
+        if(isDemoMode)
+            appDelegate.testResult = arc4random() % ((int)appDelegate.maxAlarm + 20 - (int)appDelegate.minAlarm + 20)+appDelegate.minAlarm - 20;
+        
+        NSLog(@"[PZ]: we will show result: %d", (int)appDelegate.testResult);
+        
+        if (appDelegate.unitMode)
+            testResult.text = [[[NSString alloc] initWithFormat:@"%.0f",appDelegate.testResult] autorelease];
+        else
+            testResult.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
+    }
     
     if (appDelegate.testResult <= appDelegate.minAlarm || appDelegate.testResult >= appDelegate.maxAlarm)
         testResult.textColor = [UIColor redColor];

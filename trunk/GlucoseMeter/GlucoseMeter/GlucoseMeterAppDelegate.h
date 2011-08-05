@@ -10,7 +10,7 @@
 //PZ
 #import "protocolDemo1.h" 
 #import "Constants.h"
-#define isDemoMode TRUE
+#define isDemoMode FALSE //To run in demo mode, set this to TRUE
 
 typedef enum {
     STEP_INSERT_STRIP = 0,
@@ -22,7 +22,7 @@ typedef enum {
     STEP_NUM_STEPS = 5
 } tagTestSteps;
 
-@interface GlucoseMeterAppDelegate : NSObject <UIApplicationDelegate> {
+@interface GlucoseMeterAppDelegate : NSObject <UIApplicationDelegate, AccessoryProtocolDelegate> {
     float maxAlarm,minAlarm,maxTarget,minTarget;
     int testInterval;
     float testResult;

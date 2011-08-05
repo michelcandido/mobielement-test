@@ -29,7 +29,11 @@ typedef enum {
     ACC_STATUS_NUM_STATES
 } tagAccStatusTable;
 
+
+
+
 @interface protocolDemo1 : mchp_mfi {
+      
     uint8_t AccStatus;
     uint8_t StripStatus;
     tagStripStatusTable StripStatusTable;
@@ -40,7 +44,7 @@ typedef enum {
     uint8_t AccRev;
     int BoardID;
 	
-	NSAutoreleasePool *thePool;
+	//NSAutoreleasePool *thePool;
 	NSThread *updateThread;
 	
     int LSB;
