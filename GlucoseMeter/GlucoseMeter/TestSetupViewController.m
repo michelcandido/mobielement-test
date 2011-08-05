@@ -279,12 +279,15 @@
     
  
     instructionLabel.text = [rowData objectForKey:@"Instruction1"];    
-    instructionLabel.font = [UIFont systemFontOfSize:20];
+    //instructionLabel.font = [UIFont systemFontOfSize:20];
     
     if (row == 1)
     {
         UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];    
         cell.accessoryView = switchview;
+        CGRect r = cell.accessoryView.frame;
+        r.origin.y -= 20;
+        cell.accessoryView.frame = r;
         [switchview release];
     }
     else
@@ -321,7 +324,8 @@
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { return 70; }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath { return 103; }
+
 
 -(void)dealloc {
     [testInstructions release]; 

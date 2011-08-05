@@ -51,7 +51,7 @@
 							<object class="IBUIImageView" id="1053604658">
 								<reference key="NSNextResponder" ref="655945434"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{320, 70}</string>
+								<string key="NSFrameSize">{320, 103}</string>
 								<reference key="NSSuperview" ref="655945434"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="41087770"/>
@@ -60,13 +60,13 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Step_Cell.png</string>
+									<string key="NSResourceName">Settings_ContactCell.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="41087770">
 								<reference key="NSNextResponder" ref="655945434"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 9}, {42, 21}}</string>
+								<string key="NSFrame">{{20, 9}, {70, 38}}</string>
 								<reference key="NSSuperview" ref="655945434"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="894103965"/>
@@ -77,9 +77,9 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Step:</string>
-								<object class="NSFont" key="IBUIFont" id="1047361600">
+								<object class="NSFont" key="IBUIFont" id="85870991">
 									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">17</double>
+									<double key="NSSize">20</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<object class="NSColor" key="IBUITextColor" id="879274687">
@@ -93,7 +93,7 @@
 							<object class="IBUILabel" id="576330202">
 								<reference key="NSNextResponder" ref="655945434"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{70, 9}, {42, 21}}</string>
+								<string key="NSFrame">{{82, 9}, {84, 38}}</string>
 								<reference key="NSSuperview" ref="655945434"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -105,7 +105,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Label</string>
-								<reference key="IBUIFont" ref="1047361600"/>
+								<reference key="IBUIFont" ref="85870991"/>
 								<reference key="IBUITextColor" ref="879274687"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
@@ -114,7 +114,7 @@
 							<object class="IBUILabel" id="894103965">
 								<reference key="NSNextResponder" ref="655945434"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 23}, {188, 50}}</string>
+								<string key="NSFrame">{{20, 46}, {179, 47}}</string>
 								<reference key="NSSuperview" ref="655945434"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="576330202"/>
@@ -128,10 +128,13 @@
 								<string key="IBUIText">Label</string>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">14</double>
+									<double key="NSSize">24</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<reference key="IBUITextColor" ref="879274687"/>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">10</float>
@@ -208,8 +211,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="41087770"/>
 							<reference ref="576330202"/>
-							<reference ref="894103965"/>
 							<reference ref="1053604658"/>
+							<reference ref="894103965"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -282,8 +285,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">Step_Cell.png</string>
-			<string key="NS.object.0">{320, 74}</string>
+			<string key="NS.key.0">Settings_ContactCell.png</string>
+			<string key="NS.object.0">{320, 115}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">521</string>
 	</data>
