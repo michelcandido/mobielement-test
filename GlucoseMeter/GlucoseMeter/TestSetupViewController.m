@@ -86,7 +86,17 @@
         
         UILabel *instructionLabel = (UILabel *)[cell viewWithTag:kInstructionTag];
         instructionLabel.text =[rowData objectForKey:@"Instruction2"];   
+        
+        [(UIActivityIndicatorView*)cell.accessoryView stopAnimating];
+        cell.accessoryView.hidden = YES;
     }
+    
+    UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:step inSection:0]];
+    UIActivityIndicatorView *progress = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [progress startAnimating];
+    cell.accessoryView = progress;
+    [progress release];
+    
     
     if(step == 0) // Reset all the instruction text
     {
@@ -220,6 +230,7 @@
     [step4 release]; [array release];
     
     currentStep = 0;
+    [self setStep:currentStep];
     
     //PZ
     bCancelResultView = FALSE;
@@ -284,10 +295,7 @@
     if (row == 1)
     {
         UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];    
-        cell.accessoryView = switchview;
-        CGRect r = cell.accessoryView.frame;
-        r.origin.y -= 20;
-        cell.accessoryView.frame = r;
+        cell.accessoryView = switchview;      
         [switchview release];
     }
     else
