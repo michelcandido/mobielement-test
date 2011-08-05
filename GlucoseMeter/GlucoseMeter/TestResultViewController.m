@@ -178,7 +178,7 @@
         minTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.minTarget] autorelease];        
         midTarget.text = [[[NSString alloc] initWithFormat:@"%.1f",midTargetValue] autorelease];            
     }
-    if(isDemoModelt.text = [[[NSString alloc] initWithFormat:@"%.1f",appDelegate.testResult] autorelease];
+    
     
     @synchronized (appDelegate)
     {
