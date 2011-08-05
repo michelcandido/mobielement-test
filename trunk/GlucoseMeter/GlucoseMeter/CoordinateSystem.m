@@ -19,6 +19,7 @@
 @synthesize dayMode;
 @synthesize mealMode;
 @synthesize sampleSize;
+@synthesize displayPoints;
 
 - (id)initWithFrame:(CGRect)frame {
     
@@ -51,20 +52,22 @@
             [displayPoints addObject:[dailyReadings objectAtIndex:i]];
         sampleSize = [displayPoints count];
     } else if (dayMode == 1) {
-        displayPoints =  [[NSMutableArray alloc] initWithCapacity:sampleSize];
+        displayPoints =  [NSMutableArray arrayWithCapacity:sampleSize];
+        NSArray *dailyReadings;
         for (int i = 0; i < sampleSize; i++) {
-            NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday >= 7)?(timeinfo->tm_mday - 7 + i):(timeinfo->tm_mday + i)]];
+            dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday >= 7)?(timeinfo->tm_mday - 7 + i):(timeinfo->tm_mday + i)]];
             if (mealMode == 1 || mealMode == 2)
                 dailyReadings = [dailyReadings filteredArrayUsingPredicate:predicate];
             [displayPoints addObject:dailyReadings];
         }
     } else if (dayMode == 2) {
-        displayPoints = [[NSMutableArray alloc] initWithCapacity:sampleSize];
+        displayPoints = [NSMutableArray arrayWithCapacity:sampleSize];
+        //NSArray *dailyReadings;
         for (int i = 0; i < sampleSize; i++) {
             NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:i]];
             if (mealMode == 1 || mealMode == 2)
                 dailyReadings = [dailyReadings filteredArrayUsingPredicate:predicate];
-            [displayPoints addObject:dailyReadings];            
+            [displayPoints addObject:dailyReadings];
         }
     }
 }

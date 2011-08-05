@@ -52,12 +52,15 @@
         [dateFormat setDateFormat:@"MMM dd, yyyy HH:mm"];
         NSString *dateString = [NSString stringWithFormat:@"Your next glucose test will be at %@",[dateFormat stringFromDate:myEvent.startDate]];
         [dateFormat release];
+        
+        NSString *title = [NSString stringWithString:@"Reminder Created"];
+        NSString *btn = [NSString stringWithString:@"OK"];
         if (err == noErr) {
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Reminder Created"
+                                  initWithTitle:title
                                   message:dateString
                                   delegate:nil
-                                  cancelButtonTitle:@"OK"
+                                  cancelButtonTitle:btn
                                   otherButtonTitles:nil];
             [alert show];
             [alert release];

@@ -23,6 +23,7 @@
 @property (nonatomic) int dayMode;
 @property (nonatomic) int mealMode;
 @property (nonatomic) int sampleSize;
+@property (nonatomic, retain) NSMutableArray *displayPoints;
 
 -(int) getScreenY:(float) value;
 -(int) getScreenX:(int) index;
