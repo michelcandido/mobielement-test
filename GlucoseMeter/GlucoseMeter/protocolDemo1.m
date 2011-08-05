@@ -143,23 +143,25 @@
 // there will be some delay when the accessory is connected 
 // so we need to check it periodically
 - (void) updateData
-{
+{/*
     float updateRate = kUPDATERATE_SLOW;
     thePool = [[NSAutoreleasePool alloc] init];
     
-    while (eas == nil){
-        @synchronized (self){
+ 
+    @synchronized (self){
+        while (_session == nil){
+            
             AccStatus = -1;
             StripStatus = -1;
-            id initX = [super initWithProtocol:@"com.microchip.ipodaccessory.glucose_meter"];
-            if(initX == nil)
+            BOOL initResult = [super initWithProtocol:@"com.microchip.ipodaccessory.glucose_meter"];
+            if(!initResult)
             {   
                 NSLog(@"[PZ]: initProtocol failed in update timer. Recheck soon ...");
                 [NSThread sleepForTimeInterval:updateRate];
             }   
             else
             {
-                
+                [self openSession];
                 [self sendCommand:0];
                     NSLog(@"[PZ]: initProtocol succeeded in update timer. Sending init command.");
                 break;
@@ -170,7 +172,7 @@
         
     }
         
-    
+  */  
 }
 
 
@@ -201,6 +203,7 @@
 					BoardID = buf[5];
                     NSLog(@"[PZ]: Acc Status: %d", AccStatus);
                     [self getPrintAccStatus];
+                  
 				}
 				break;
 			case 2: // Strip status
@@ -231,10 +234,14 @@
                 }
 				break;
 			default: // unknown command
-				NSLog(@"[PZ]: %@ : Unknown Command %d",theProtocol,buf[0]);
+				NSLog(@"[PZ]: %@ : Unknown Command %d",_protocolString,buf[0]);
 				break;
 		}
-	}
+    
+        // notify the app ...
+        [[self notifDelegate]NotifyAppOfAccessoryStatusChanges];
+    
+    }
 	return ret;
 }
 
@@ -243,26 +250,29 @@
 - (id) init
 {
     NSLog(@"[PZ]:----------- Start Init -------------");
+    //thePool = [[NSAutoreleasePool alloc] init];
     
     StripStatus = -1;
     AccStatus = -1;
     
-	id initX = [super initWithProtocol:@"com.microchip.ipodaccessory.glucose_meter"];
-    if(initX == nil)
+	BOOL initResult = [super initWithProtocol:@"com.microchip.ipodaccessory.glucose_meter"];
+    if(!initResult)
     {
         NSLog(@"[PZ]: initProtocol failed.");
     }
     else
     {
-        // Send init command 
+        // Send init command
+        [self openSession];
         [self sendCommand:0];
         
         NSLog(@"[PZ]: initProtocol succeeded. Sending init command.");
     }
-	NSLog(@"[PZ]: starting update thread");
+	/*
+    NSLog(@"[PZ]: starting update thread");
 	updateThread = [[NSThread alloc] initWithTarget:self selector:@selector(updateData) object:nil];
-	[updateThread start];
-
+    */
+  
 	BoardID = MFI_UNKNOWN_HW;
 	 
 	return self;
@@ -270,9 +280,9 @@
 }
 
 -(void) dealloc
-{
+{   NSLog(@"[PZ]: dealloc in protocolDemo");
     [super dealloc];
-	[thePool drain];
+	//[thePool drain];
 }
 
 @end

@@ -24,6 +24,7 @@
     GlucoseMeterAppDelegate *appDelegate;
     //PZ
     bool bCancelResultView;
+    bool bStepDone;
 } 
 @property (nonatomic, retain) NSArray *testInstructions;
 @property (nonatomic, retain) UITableViewCell *tvCell;

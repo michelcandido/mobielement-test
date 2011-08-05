@@ -8,7 +8,11 @@
 
 #import "mchp_mfi.h"
 
+NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotification";
+
 @implementation mchp_mfi
+
+@synthesize notifDelegate;
 
 
 // OVERLOAD ME!!
@@ -17,7 +21,19 @@
 	return [data length];
 }
 
-- (id) initWithProtocol:(NSString *)protocol
+- (void) dealloc
+{
+    NSLog(@"[PZ]: dealloc in mchp_mfi");
+
+    [self closeSession];
+    [_accessory release];
+    [_protocolString release];
+    
+    [super dealloc];
+    
+}
+
+- (BOOL) initWithProtocol:(NSString *)protocol
 {
     // redirect stderr to file
     /*
@@ -25,63 +41,16 @@
     NSString *logPath = [cacheDir stringByAppendingPathComponent:@"application.log"];
     freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
 	*/
-    theProtocol = protocol;
-	// see if an accessory is already attached
-	eas = [self openSessionForProtocol:theProtocol];
-    if(eas == nil)
-    {
-        // we did not find an appropriate accessory
-        NSLog(@"[PZ]: openSessionForProtocol return nil");
-        return nil;
-        
-    }
-	// install notification events.
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(accessoryDidConnect:)
-												 name:EAAccessoryDidConnectNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(accessoryDidDisconnect:)
-                                                 name:EAAccessoryDidDisconnectNotification object:nil];
+    _protocolString = protocol;
+    assert(_session == nil);
     
-    [[EAAccessoryManager sharedAccessoryManager] registerForLocalNotifications];
-    return self;	
-}
-
-- (bool) isConnected
-{
-    if(eas != nil)
-        return [[eas accessory] isConnected];
-    else{
-        // we don't do init here. The protocol has its own timer to do this
-         NSLog(@"[PZ]: session object not initialized.");
-         return FALSE;
-    }
-
-       
-}
-
-- (NSString *) name { return (eas)?[[eas accessory] name]:@"-"; }
-- (NSString *) manufacturer { return (eas)?[[eas accessory] manufacturer]:@"-";}
-- (NSString *) modelNumber {return (eas)?[[eas accessory] modelNumber]:@"-";}
-- (NSString *) serialNumber {return (eas)?[[eas accessory] serialNumber]:@"-";}
-- (NSString *) firmwareRevision {return (eas)?[[eas accessory] firmwareRevision]:@"-";}
-- (NSString *) hardwareRevision {return (eas)?[[eas accessory] hardwareRevision]:@"-";}
-
-/***********************************************************************/
-#pragma mark External Accessory Basic Identification 
-/***********************************************************************/
-
-- (EASession *)openSessionForProtocol:(NSString *)protocolString 
-{
+	// see if an accessory is already attached
     NSLog(@"[PZ]: Getting a list of accessories");
     NSArray *accessories = [[EAAccessoryManager sharedAccessoryManager]
                             connectedAccessories];
 	
-    EAAccessory *accessory = nil;
-    EASession *session = nil;
-    
 	NSLog(@"[PZ]: Found %d accessories",[accessories count]);
-    NSLog(@"[PZ]: Looking for %@",protocolString);
+    NSLog(@"[PZ]: Looking for %@",_protocolString);
     
 	for (EAAccessory *obj in accessories)
     {
@@ -93,53 +62,105 @@
 			NSLog(@"[PZ]: %@",s);
 		}
 		
-        if ([sa containsObject:protocolString])
+        if ([sa containsObject:_protocolString])
         {
-            accessory = obj;
+            _accessory = obj;
             NSLog(@"[PZ]: Found accessory matching the protocol");
             break;
         }
-        accessory = obj;
+        
     }
-    if (accessory != nil) {
+    if (_accessory != nil) {
         NSLog(@"[PZ]: Found a compatible accessory.");
-    }
-    else 
-        NSLog(@"[PZ]: Failed to find a compatible accessory.");
-    
-    if (accessory)
-    {
-        session = [[EASession alloc] initWithAccessory:accessory
-                                           forProtocol:protocolString];
-        if (session)
-        {
-            NSLog(@"[PZ]: opening the streams for this accessory");
-            [[session inputStream] setDelegate:self];
-            [[session inputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                             forMode:NSDefaultRunLoopMode];
-            [[session inputStream] open];
-            [[session outputStream] setDelegate:self];
-            [[session outputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop]
-                                              forMode:NSDefaultRunLoopMode];
-            [[session outputStream] open];
-            [session retain];
-            streamReady = true;
-            receivedAccPkt = true;
-            
-           
-        }
-        else {
-            NSLog(@"[PZ]: Init acc failed for %@.", protocolString);
-        }
+        return TRUE;
     }
     else {
-        NSLog(@"[PZ]: failed to find acc that matches the protocol.");
+        NSLog(@"[PZ]: Failed to find a compatible accessory.");
+        return FALSE;
     }
         
     
-        
-    return session;
+ }
+
+// This is called by app to check accessory status
+- (bool) isConnected
+{
+    if(_session!= nil)
+        return [[_session accessory] isConnected];
+    else{
+        // we don't do init here. The protocol has its own timer to do this
+        //[self init];
+        //NSLog(@"[PZ]: chekcing if accessory is connected: session object not initialized.");
+        return FALSE;
+    }
+ 
 }
+
+- (NSString *) name { return (_session)?[[_session accessory] name]:@"-"; }
+- (NSString *) manufacturer { return (_session)?[[_session accessory] manufacturer]:@"-";}
+- (NSString *) modelNumber {return (_session)?[[_session accessory] modelNumber]:@"-";}
+- (NSString *) serialNumber {return (_session)?[[_session accessory] serialNumber]:@"-";}
+- (NSString *) firmwareRevision {return (_session)?[[_session accessory] firmwareRevision]:@"-";}
+- (NSString *) hardwareRevision {return (_session)?[[_session accessory] hardwareRevision]:@"-";}
+
+/***********************************************************************/
+#pragma mark External Accessory Basic Identification 
+/***********************************************************************/
+
+- (BOOL)openSession 
+{
+    [_accessory setDelegate:self];
+    
+    if(!_session){
+        _session = [[EASession alloc] initWithAccessory:_accessory forProtocol:_protocolString];
+                    
+    }
+      
+    if (_session)
+    {
+        NSLog(@"[PZ]: opening the streams for this accessory");
+        [[_session inputStream] setDelegate:self];
+        [[_session inputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop]
+                                         forMode:NSDefaultRunLoopMode];
+        [[_session inputStream] open];
+        [[_session outputStream] setDelegate:self];
+        [[_session outputStream] scheduleInRunLoop:[NSRunLoop currentRunLoop]
+                                          forMode:NSDefaultRunLoopMode];
+        [[_session outputStream] open];
+      
+        streamReady = true;
+        receivedAccPkt = true;
+        
+    }
+    
+    else
+        NSLog(@"[PZ]: Create Session Failed.");
+    return (_session != nil);
+
+
+}
+
+- (void) closeSession {
+    [[_session inputStream] removeFromRunLoop:[NSRunLoop currentRunLoop]
+                                      forMode:NSDefaultRunLoopMode];
+    [[_session inputStream] setDelegate:nil];
+    [[_session inputStream] close];
+     
+    [[_session outputStream] removeFromRunLoop:[NSRunLoop currentRunLoop]
+                                       forMode:NSDefaultRunLoopMode];
+    [[_session outputStream] setDelegate:nil];
+    [[_session outputStream] close];
+    
+    [_session release];
+    _session = nil;
+    
+    [_accessory setDelegate:nil];
+    [_accessory release];
+    _accessory = nil;
+  
+}
+
+
 
 #pragma mark Stream Processing
 // Handle communications from the streams.
@@ -226,17 +247,20 @@
 - (void)accessoryDidDisconnect:(NSNotification *)notification
 {
     NSLog(@"[PZ]: Accessory Disconnected. Close session. ");
-    [[eas inputStream] close];
-    [[eas outputStream] close];
-    [eas release];
-    eas = nil;
+    
+    [[self notifDelegate] NotifyAppOfAccessoryStatusChanges];
+    
+    [self closeSession];
 }
 
 - (void)accessoryDidConnect:(NSNotification *)notification
 {
     NSLog(@"[PZ]: Accessory Connected");
-    if (eas == nil) {
+    [[self notifDelegate] NotifyAppOfAccessoryStatusChanges];
+
+    if (_session == nil) {
         [self init];
+        [self openSession];
         // The update thread will take care of polling the accesory
         return;
     }
@@ -260,7 +284,7 @@
 			txData = [NSMutableData dataWithBytes:p length:sizeof(p)];
 			[txData appendData:buf];
 			[txData retain];
-			if([[eas outputStream] hasSpaceAvailable])
+			if([[_session outputStream] hasSpaceAvailable])
 			{
 				@synchronized(self)
 				{
@@ -279,7 +303,7 @@
     {
         if([txData length])
         {
-            len = [[eas outputStream] write:[txData bytes] maxLength:[txData length]];
+            len = [[_session outputStream] write:[txData bytes] maxLength:[txData length]];
 
             if (len < [txData length])
 			{
