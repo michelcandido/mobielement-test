@@ -100,7 +100,7 @@
     
     if(step == 0) // Reset all the instruction text
     {
-        for(int i = STEP_INSERT_STRIP; i <STEP_JUST_WAIT; i ++)
+        for(int i = STEP_INSERT_STRIP; i <=STEP_JUST_WAIT; i ++)
         {
             UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             
@@ -179,6 +179,8 @@
         // Note the AppDelegate always set currentStep to appropriate value even the TestSetupView is not on screen
         if(isDemoMode){
             currentStep = STEP_CHECK_RESULT;
+        } else {
+            currentStep = STEP_INSERT_STRIP;
         }
 
         [self setStep:currentStep];
