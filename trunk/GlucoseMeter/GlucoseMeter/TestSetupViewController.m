@@ -88,7 +88,7 @@
         instructionLabel.text =[rowData objectForKey:@"Instruction2"];   
         
         [(UIActivityIndicatorView*)cell.accessoryView stopAnimating];
-        cell.accessoryView.hidden = YES;
+        //cell.accessoryView.hidden = YES;
     }
     
     UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:step inSection:0]];
@@ -109,6 +109,12 @@
             
             UILabel *instructionLabel = (UILabel *)[cell viewWithTag:kInstructionTag];
             instructionLabel.text =[rowData objectForKey:@"Instruction1"];
+            
+            if (cell.accessoryView != NULL && i != STEP_SELECT_MEAL_STATUS && i != STEP_INSERT_STRIP) {
+                UIActivityIndicatorView* indicator = (UIActivityIndicatorView*)cell.accessoryView;
+                if ([indicator isAnimating])
+                    [indicator stopAnimating];
+            }
         }
     }
     // Update the highlight bar

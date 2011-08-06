@@ -10,7 +10,7 @@
 //PZ
 #import "protocolDemo1.h" 
 #import "Constants.h"
-#define isDemoMode TRUE //To run in demo mode, set this to TRUE
+#define isDemoMode FALSE //To run in demo mode, set this to TRUE
 
 typedef enum {
     STEP_INSERT_STRIP = 0,
