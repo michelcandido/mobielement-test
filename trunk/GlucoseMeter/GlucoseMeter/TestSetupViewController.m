@@ -261,7 +261,7 @@
     [step4 release]; [array release];
     
     currentStep = -1; //no strip yet
-    [self setStep:currentStep];
+    
     
     //PZ
     bCancelResultView = FALSE;
