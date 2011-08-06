@@ -12,12 +12,12 @@
 #import "Constants.h"
 #define isDemoMode FALSE //To run in demo mode, set this to TRUE
 
-typedef enum {
-    STEP_INSERT_STRIP = 0,
-    STEP_SELECT_MEAL_STATUS = 1,
-    STEP_DROP_BLOOD = 2,
-    STEP_JUST_WAIT = 3,
-    STEP_CHECK_RESULT = 4,
+typedef enum { //User's action
+    STEP_INSERT_STRIP = 0, //mapped to strip_status_idle
+    STEP_SELECT_MEAL_STATUS = 1,  //mapped to nothing
+    STEP_DROP_BLOOD = 2, //mapped to strip_status_present
+    STEP_JUST_WAIT = 3, //mapped to strip_status_computing
+    STEP_CHECK_RESULT = 4, //mapped to strip_status_finished (that is after the getResult command is replied, NOT the meter's reported status)
     
     STEP_NUM_STEPS = 5
 } tagTestSteps;
@@ -61,6 +61,8 @@ typedef enum {
 @property (readwrite) uint8_t curTestStep;
 @property (nonatomic, readonly) tagTestSteps TestSteps;
 
--(void) updateTestView;           
+-(void) updateTestView;
+-(void) showAccessoryNotFoundDialog;
+-(BOOL) detectAndInitAccessory;
            
 @end
