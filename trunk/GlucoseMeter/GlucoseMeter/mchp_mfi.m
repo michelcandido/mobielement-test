@@ -2,9 +2,7 @@
 //  mchp_mfi.m
 //  MCHP MFI
 //
-//  Created by Joseph Julicher on 6/10/10.
-//  Copyright 2010 Microchip Technology. All rights reserved.
-//
+
 
 #import "mchp_mfi.h"
 
@@ -36,13 +34,16 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
 - (BOOL) initWithProtocol:(NSString *)protocol
 {
     // redirect stderr to file
-    /*
-    NSString *cacheDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *logPath = [cacheDir stringByAppendingPathComponent:@"application.log"];
-    freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
-	*/
+    if(LOG_TO_FILE == 1)
+    {
+        NSString *cacheDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *logPath = [cacheDir stringByAppendingPathComponent:@"application.log"];
+        freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+	}
     _protocolString = protocol;
-    assert(_session == nil);
+    [_accessory release];
+    [_session release];
+    
     
 	// see if an accessory is already attached
     NSLog(@"[PZ]: Getting a list of accessories");
@@ -65,6 +66,7 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
         if ([sa containsObject:_protocolString])
         {
             _accessory = obj;
+            [_accessory retain];
             NSLog(@"[PZ]: Found accessory matching the protocol");
             break;
         }
@@ -85,6 +87,7 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
 // This is called by app to check accessory status
 - (bool) isConnected
 {
+    
     if(_session!= nil)
         return [[_session accessory] isConnected];
     else{
@@ -112,6 +115,7 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
     [_accessory setDelegate:self];
     
     if(!_session){
+        NSLog(@"[PZ]: opening the session for this accessory");
         _session = [[EASession alloc] initWithAccessory:_accessory forProtocol:_protocolString];
                     
     }
@@ -141,6 +145,8 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
 }
 
 - (void) closeSession {
+    
+    NSLog(@"[PZ]: protocol closing session...");
     [[_session inputStream] removeFromRunLoop:[NSRunLoop currentRunLoop]
                                       forMode:NSDefaultRunLoopMode];
     [[_session inputStream] setDelegate:nil];
@@ -246,7 +252,7 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
 /* this is the notification function if we register for the did disconnect notification event */
 - (void)accessoryDidDisconnect:(NSNotification *)notification
 {
-    NSLog(@"[PZ]: Accessory Disconnected. Close session. ");
+    NSLog(@"[PZ]: Accessory Disconnected. Notifying app. Close session. ");
     
     [[self notifDelegate] NotifyAppOfAccessoryStatusChanges];
     
@@ -255,10 +261,11 @@ NSString *EADSessionDataReceivedNotification = @"EADSessionDataReceivedNotificat
 
 - (void)accessoryDidConnect:(NSNotification *)notification
 {
-    NSLog(@"[PZ]: Accessory Connected");
+    NSLog(@"[PZ]: Accessory Connected. Notifying app");
     [[self notifDelegate] NotifyAppOfAccessoryStatusChanges];
 
     if (_session == nil) {
+        NSLog(@"[PZ]: null session. init ...");
         [self init];
         [self openSession];
         // The update thread will take care of polling the accesory

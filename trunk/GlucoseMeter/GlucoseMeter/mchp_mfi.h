@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <ExternalAccessory/ExternalAccessory.h>
 
+#define LOG_TO_FILE 0
 
 extern NSString *EADSessionDataReceivedNotification;
 
