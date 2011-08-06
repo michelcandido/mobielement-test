@@ -28,7 +28,7 @@
 } 
 @property (nonatomic, retain) NSArray *testInstructions;
 @property (nonatomic, retain) UITableViewCell *tvCell;
-@property (nonatomic) int currentStep;
+@property (nonatomic) int currentStep; //0: please insert a strip ...
 @property (nonatomic, retain) UITableView *theTableView;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
@@ -38,5 +38,5 @@
 -(void)nextStep;
 
 //PZ
--(void)setStep:(uint8_t)step;
+-(void)updateView:(uint8_t)step;
 @end
