@@ -2,9 +2,6 @@
 //  protocolDemo1.h
 //  MCHP MFI
 //
-//  Created by Joseph Julicher on 6/10/10.
-//  Copyright 2010 Microchip Technology. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "mchp_mfi.h"
@@ -64,7 +61,7 @@ typedef enum {
 @property (readonly) int MSB;
 
 
-- (void) updateData;
+
 - (uint8_t) getPrintStripStatus;
 - (uint8_t) getPrintAccStatus;
 
@@ -72,5 +69,6 @@ typedef enum {
 - (void) sendInitCommand;
 - (void) sendGetStatusCommand;
 - (void) sendGetResultCommand;
+- (BOOL) findMatchingAccessory;
 
 @end
