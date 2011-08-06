@@ -49,7 +49,7 @@
     // cancel:0  user clicked Home
     // cancel:1  user cliecked Cancel
     [self dismissModalViewControllerAnimated:true];
-    //[self updateView:-1]; // Reset view state to init state (need to detect strip status)
+    [self updateView:0]; // Reset view state to init state (need to detect strip status)
     
     bCancelResultView = TRUE;
     if (!cancel) 
@@ -189,17 +189,14 @@
         //PZ
         // In case we return to this view, we need to update the view
         // Note the AppDelegate always set currentStep to appropriate value even the TestSetupView is not on screen
-        if(isDemoMode){
+        if(isDemoMode)
             currentStep = STEP_CHECK_RESULT;
-        } else {
-            currentStep = STEP_INSERT_STRIP;
-        }
-        
+         
             
         if ([appDelegate detectAndInitAccessory]) //appDelegate can change currentStep as it reacts to protocol change
         {
             // Found an accessory; state infor has been set in the app delegate
-            [self updateView:STRIP_STATUS_IDLE];
+            //[self updateView:STRIP_STATUS_IDLE];
             // Reset to be able to see result view if a test is performed
             bCancelResultView = FALSE;
         }
