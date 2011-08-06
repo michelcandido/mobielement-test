@@ -39,6 +39,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"[PZ]: app finish launching with options...");
     [NSThread sleepForTimeInterval: 0.0];
     // Override point for customization after application launch.
     [self.window addSubview:tabController.view];
@@ -56,24 +57,65 @@
     monthlyReadings = [[NSMutableArray alloc] initWithCapacity:NUMBER_OF_DAYS];
     contactEmail = @"contact@microchip.com";
     contactPhone = @"480-792-7200";
-    //PZ
-    accWasConnected = 0;
-    accPreviousStripStatus = -1;
     
+    //PZ
+    //protocol initialization; not detecting accessory yet
+    _protocol = [[protocolDemo1 alloc] init ];
+    accWasConnected = 0; //not connected
+    accPreviousStripStatus = -1; //null strip state
+    
+    return (_protocol != nil);
+}
+
+- (BOOL) detectAndInitAccessory
+{
+    // Start to detect accessory and init a session
     if(!isDemoMode){
-        // startup the external accessory manager
-        _protocol = [[protocolDemo1 alloc] init];
-        if( _protocol != nil)
+        @synchronized(_protocol)
         {
-            _protocol.notifDelegate = self;
-            [_protocol notifDelegate];
-        }
+
+            // start the external accessory manager
+            if(_protocol == nil)
+            {
+                _protocol = [[protocolDemo1 alloc] init ];
+                if(_protocol == nil)
+                {
+                    NSLog(@"Ini protocol failed. Please close the app and try again.");
+                    return FALSE;
+                }
+            }
+            if([_protocol isConnected])  // connected means we have a session
+            {
+                _protocol.notifDelegate = self;
+                //[_protocol notifDelegate];
+                [self NotifyAppOfAccessoryStatusChanges]; //Update app's protocol state
+                return TRUE;
+            }
+            // Session not init yet; now init
+            if (![_protocol findMatchingAccessory]) // got a session?
+            {
+                [self showAccessoryNotFoundDialog];
+                return FALSE;
+
+            }
+            else
+            {
+                _protocol.notifDelegate = self;
+                //[_protocol notifDelegate];
+                [self NotifyAppOfAccessoryStatusChanges]; //Update app's protocol state
+                return TRUE;
+   
+            }
+            
+          }
     }
-    return YES;
+    return TRUE; // Demo mode; always TRUE
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    NSLog(@"[PZ]: app will resign active ...");
     /*
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -82,6 +124,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+         NSLog(@"[PZ]: app entering background...");
     /*
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
@@ -90,6 +133,22 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+     NSLog(@"[PZ]: app entering foreground...");
+    //PZ To support suspend and resume ...
+    /*
+    accWasConnected = 0;
+    accPreviousStripStatus = -1;
+    
+    if(!isDemoMode){
+        // startup the external accessory manager
+        _protocol = [[protocolDemo1 alloc] init ];
+        if( _protocol != nil)
+        {
+            _protocol.notifDelegate = self;
+            [_protocol notifDelegate];
+        }
+    }
+     */
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
@@ -102,14 +161,8 @@
      */
     
     //PZ
-    
     NSLog(@"App Became Active");
 
-    
-
-
-    
-    
 }
 //PZ
 - (void) updateTestView {
@@ -117,14 +170,14 @@
     if (tabController.selectedIndex != 1 ) return;
     
     TestSetupViewController *tsView = (TestSetupViewController*) [tabController selectedViewController];
-    [ tsView setStep:curTestStep];
+    [ tsView updateView:curTestStep];
     
 }
 
 
 // configure a periodic timer to poll the accessory
 // the timer func calls isConnected to check
-- (void)NotifyAppOfAccessoryStatusChanges/*:(NSTimer*)theTimer*/
+- (void)NotifyAppOfAccessoryStatusChanges
 {
     
     if(isDemoMode)
@@ -147,9 +200,6 @@
                 NSLog(@"[PZ]: AppDelegate: Strip Status Changed.");
                 accPreviousStripStatus = _protocol.StripStatus;
             }
-            
-            // Switch to the test setup view
-            //tabController.selectedIndex = 1;
             
             if(_protocol.StripStatus == STRIP_STATUS_IDLE) {
                 
@@ -191,6 +241,8 @@
             else {
                 NSLog(@"[PZ]: Accssory unknown state.");
             }
+            
+            // Now update the view 
             if(tabController.selectedIndex == 1)
                 [self updateTestView];
             
@@ -198,25 +250,35 @@
         }
         else if(accWasConnected == 1 && (![_protocol isConnected]))
         {
-            // Just disconnected! Show alert
-            alertView = [[UIAlertView alloc] initWithTitle:@"Glucose Meter Not Found"
-                                                   message:@"No matching accessory hardware is attached. Attach it if you want to use it."
-                                                  delegate:self 
-                                         cancelButtonTitle:@"OK"
-                                         otherButtonTitles:nil]; 
             accWasConnected = 0;
             accPreviousStripStatus = -1;
             curTestStep = 0;
-            [alertView show];                            
-            
+            [self showAccessoryNotFoundDialog];
         }
+        else if (accWasConnected == 0 && (![_protocol isConnected]))
+        {
+            curTestStep = 0;
+            [self showAccessoryNotFoundDialog];
+         }
     }
     
 }
 
+- (void) showAccessoryNotFoundDialog
+{
+    // Just disconnected! Show alert
+    alertView = [[UIAlertView alloc] initWithTitle:@"Glucose Meter Not Found"
+                                           message:@"No matching accessory hardware is attached. Attach it if you want to use it."
+                                          delegate:self 
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil]; 
+    [alertView  show];
+
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+     NSLog(@"[PZ]: App will terminate ...");
     /*
      Called when the application is about to terminate.
      Save data if appropriate.
@@ -226,6 +288,8 @@
 
 - (void)dealloc
 {
+    NSLog(@"[PZ]: Deallc app ...");
+    [_protocol release];
     [_window release];
     [tabController release];
     [super dealloc];
