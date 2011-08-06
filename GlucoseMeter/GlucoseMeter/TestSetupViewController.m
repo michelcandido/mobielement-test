@@ -49,6 +49,7 @@
     // cancel:0  user clicked Home
     // cancel:1  user cliecked Cancel
     [self dismissModalViewControllerAnimated:true];
+    //[self updateView:-1]; // Reset view state to init state (need to detect strip status)
     
     bCancelResultView = TRUE;
     if (!cancel) 
@@ -58,8 +59,8 @@
     }
 }
 
-
--(void)setStep: (uint8_t) step
+// Update the view according to the test step; also update state variable
+-(void)updateView: (uint8_t) step
 {
     @synchronized(self)
     {
@@ -100,7 +101,7 @@
     
     if(step == 0) // Reset all the instruction text
     {
-        for(int i = STEP_INSERT_STRIP; i <=STEP_JUST_WAIT; i ++)
+        for(int i = STEP_INSERT_STRIP; i <= STEP_JUST_WAIT; i ++)
         {
             UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
             
@@ -116,6 +117,16 @@
                     [indicator stopAnimating];
             }
         }
+    }
+    else if (step == STEP_JUST_WAIT) // for this step, we also need to change the CURRENT string
+    {
+        UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:step inSection:0]];
+        
+        NSUInteger row = step; 
+        NSDictionary *rowData = [self.testInstructions objectAtIndex:row];
+        
+        UILabel *instructionLabel = (UILabel *)[cell viewWithTag:kInstructionTag];
+        instructionLabel.text =[rowData objectForKey:@"Instruction2"];
     }
     // Update the highlight bar
     switch (step) {
@@ -171,6 +182,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    NSLog(@"[PZ]: TestSetupViewControll viewDidAppear.");
         
     @synchronized (self)
     {
@@ -182,11 +194,22 @@
         } else {
             currentStep = STEP_INSERT_STRIP;
         }
-
-        [self setStep:currentStep];
         
-        // Reset to be able to see result view if a test is performed
-        bCancelResultView = FALSE;
+            
+        if ([appDelegate detectAndInitAccessory]) //appDelegate can change currentStep as it reacts to protocol change
+        {
+            // Found an accessory; state infor has been set in the app delegate
+            [self updateView:STRIP_STATUS_IDLE];
+            // Reset to be able to see result view if a test is performed
+            bCancelResultView = FALSE;
+        }
+        else
+        {
+            // Back to Home
+            appDelegate.tabController.selectedIndex = 0;
+        }
+        
+        
     }
     [super viewDidAppear:animated];
 }
@@ -237,7 +260,7 @@
     [step1 release]; [step2 release]; [step3 release]; 
     [step4 release]; [array release];
     
-    currentStep = 0;
+    currentStep = -1; //no strip yet
     [self setStep:currentStep];
     
     //PZ
