@@ -59,12 +59,18 @@
     }
 }
 
+-(void) updateView
+{
+    [self updateView:currentStep];
+}
+
 // Update the view according to the test step; also update state variable
 -(void)updateView: (uint8_t) step
 {
     @synchronized(self)
     {
-        currentStep = step;
+        if(currentStep != step)
+            currentStep = step;
     }
   
     int lastStep = -1; 
@@ -183,6 +189,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     NSLog(@"[PZ]: TestSetupViewControll viewDidAppear.");
+    [super viewDidAppear:animated];
         
     @synchronized (self)
     {
@@ -196,7 +203,11 @@
         if ([appDelegate detectAndInitAccessory]) //appDelegate can change currentStep as it reacts to protocol change
         {
             // Found an accessory; state infor has been set in the app delegate
-            //[self updateView:STRIP_STATUS_IDLE];
+            if(currentStep == -1) //initial state; set it to Step1; other cases we use the protocol's state
+            {    
+                currentStep = STEP_INSERT_STRIP;
+                [self performSelector:@selector(updateView) withObject:nil afterDelay:0.0]; //[self updateView:STEP_INSERT_STRIP];
+            }
             // Reset to be able to see result view if a test is performed
             bCancelResultView = FALSE;
         }
@@ -208,7 +219,7 @@
         
         
     }
-    [super viewDidAppear:animated];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
