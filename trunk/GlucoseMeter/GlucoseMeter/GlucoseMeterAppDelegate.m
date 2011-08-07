@@ -161,7 +161,7 @@
      */
     
     //PZ
-    NSLog(@"App Became Active");
+    NSLog(@"[PZ]: App Became Active");
 
 }
 //PZ
@@ -183,6 +183,8 @@
     if(isDemoMode)
         return;
     
+    NSLog(@"[PZ]: Notify App of Accessory State Change Handler.");
+    
     @synchronized(_protocol)
     {
         if([_protocol isConnected] )
@@ -192,12 +194,14 @@
                 accWasConnected = 1;
             }
             
-            if (_protocol.StripStatus == accPreviousStripStatus \
-                /*&& tabController.selectedIndex == 1*/)
+            if (_protocol.StripStatus == accPreviousStripStatus )
+            {   
+                NSLog(@"[PZ]: App's recorded strip status does not change. NO TEST STEP UPDATE."); 
                 return; //wait more
+            }
             
             if (_protocol.StripStatus != accPreviousStripStatus){
-                NSLog(@"[PZ]: AppDelegate: Strip Status Changed.");
+
                 accPreviousStripStatus = _protocol.StripStatus;
             }
             
@@ -230,11 +234,13 @@
                 
             }
             
-            else if (_protocol.AccStatus == ACC_STATUS_ERROR) {
+            else if (_protocol.AccStatus == ACC_STATUS_ERROR) //protocol's strip status is -1 (no_session) 
+            {
                 NSLog(@"[PZ]: Accessory Error.");
             }
             
-            else if (_protocol.AccStatus == ACC_STATUS_UNSUPPORTED_APP_VERSION) {
+            else if (_protocol.AccStatus == ACC_STATUS_UNSUPPORTED_APP_VERSION) //protocol's strip status is -1 (no session) 
+            {
                 NSLog(@"[PZ]: Accssory has unsupported app version.");
             }
             
@@ -245,20 +251,25 @@
             // Now update the view 
             if(tabController.selectedIndex == 1)
                 [self updateTestView];
-            
+            NSLog(@"[PZ]: App's observed strip status changed. Update test step state: %d and test setup view (if active).", curTestStep);
             
         }
         else if(accWasConnected == 1 && (![_protocol isConnected]))
         {
             accWasConnected = 0;
             accPreviousStripStatus = -1;
-            curTestStep = 0;
+            curTestStep = -1;
             [self showAccessoryNotFoundDialog];
+            if(tabController.selectedIndex == 1)
+                tabController.selectedIndex = 0; //back to home
+
         }
         else if (accWasConnected == 0 && (![_protocol isConnected]))
         {
-            curTestStep = 0;
+            curTestStep = -1;
             [self showAccessoryNotFoundDialog];
+            if(tabController.selectedIndex == 1)
+                tabController.selectedIndex = 0; //back to home
          }
     }
     
