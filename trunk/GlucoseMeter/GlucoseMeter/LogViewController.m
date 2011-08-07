@@ -109,20 +109,9 @@
                 [aReading release];
             }
             [appDelegate.monthlyReadings addObject:dailyReadings];
-            //[dailyReadings release];
+            
         }
     }
-    /*
-    for (int i = 0; i < NUMBER_OF_DAYS; i++) {
-        NSMutableArray *dailyReadings = [appDelegate.monthlyReadings objectAtIndex:i];
-        for (int j = 0; j < NUMBER_OF_READINGS; j++) {
-            TestReading *aReading = [dailyReadings objectAtIndex:j];
-            NSLog(@"reading:%.1f mealmode:%d date:%@ time:%@",aReading.reading,aReading.mealMode, aReading.date, aReading.time);
-            [aReading release];
-        }
-        //[dailyReadings release];
-    }
-    */
     [array release];
 }
 

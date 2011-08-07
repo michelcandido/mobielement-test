@@ -18,5 +18,5 @@
 @property (nonatomic, retain) CoordinateSystem *coordinateSystem;
 @property (nonatomic, retain) GlucoseMeterAppDelegate *appDelegate;
 
--(IBAction) doneWithSelection:(id)sender;
+-(IBAction) doneWithSelection:(id)sender; //update daymode and mealmode
 @end
