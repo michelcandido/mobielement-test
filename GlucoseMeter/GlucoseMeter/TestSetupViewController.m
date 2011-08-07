@@ -99,11 +99,13 @@
     }
     
     UITableViewCell* cell = [theTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:step inSection:0]];
+    [(UIActivityIndicatorView*)cell.accessoryView startAnimating];
+    /*
     UIActivityIndicatorView *progress = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [progress startAnimating];
     cell.accessoryView = progress;
     [progress release];
-    
+    */
     
     if(step == 0) // Reset all the instruction text
     {
@@ -206,7 +208,7 @@
             if(currentStep == -1) //initial state; set it to Step1; other cases we use the protocol's state
             {    
                 currentStep = STEP_INSERT_STRIP;
-                [self performSelector:@selector(updateView) withObject:nil afterDelay:0.0]; //[self updateView:STEP_INSERT_STRIP];
+                [self performSelector:@selector(updateView) withObject:nil afterDelay:0.5]; //[self updateView:STEP_INSERT_STRIP];
             }
             // Reset to be able to see result view if a test is performed
             bCancelResultView = FALSE;
@@ -339,21 +341,10 @@
     }
     else
     {
-        // Let's remove the buttons
-        /*
-        UIImage *btnImage = [UIImage imageNamed:@"Step_Button.png"];
-        UIButton *buttonView = [UIButton buttonWithType:UIButtonTypeCustom];
-        buttonView.frame =  CGRectMake(0.0, 0.0,80.0,30.0);
-        [buttonView setBackgroundImage:btnImage forState:UIControlStateNormal];
-        buttonView.adjustsImageWhenDisabled = NO;
-        buttonView.adjustsImageWhenHighlighted = NO;
-        [buttonView setTitle:@"Done" forState:UIControlStateNormal];
-        [buttonView setTag:row];
-        [buttonView addTarget:self action:@selector(readyBtnTapped:) forControlEvents:UIControlEventTouchUpInside];
-        cell.accessoryView = buttonView;
-        [buttonView release];
-        [btnImage release];
-         */
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [indicator stopAnimating];
+        cell.accessoryView = indicator;
+        [indicator release];
     }
     
     if (row == 0 && currentStep == 1)
