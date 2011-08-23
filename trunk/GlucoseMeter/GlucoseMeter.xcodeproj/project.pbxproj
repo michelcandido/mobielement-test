@@ -46,6 +46,7 @@
 		606A1F3413E625A100274216 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606A1F3313E625A100274216 /* ExternalAccessory.framework */; };
 		606A1F3613E7C66E00274216 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606A1F3513E7C66E00274216 /* EventKit.framework */; };
 		6096641713CC114200157033 /* TestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6096641613CC114200157033 /* TestCell.xib */; };
+		609710FF13F0E65600FFCD20 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 609710FE13F0E65600FFCD20 /* iTunesArtwork.png */; };
 		60B1793A13DFE5630096F87C /* TestReading.m in Sources */ = {isa = PBXBuildFile; fileRef = 60B1793913DFE5630096F87C /* TestReading.m */; };
 		60BB3E1113D04D4F00B57E46 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BB3E0F13D04D4F00B57E46 /* LogViewController.m */; };
 		60BB3E1213D04D4F00B57E46 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60BB3E1013D04D4F00B57E46 /* LogViewController.xib */; };
@@ -116,6 +117,7 @@
 		606A1F3313E625A100274216 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		606A1F3513E7C66E00274216 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		6096641613CC114200157033 /* TestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestCell.xib; sourceTree = "<group>"; };
+		609710FE13F0E65600FFCD20 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		60B1793813DFE5620096F87C /* TestReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestReading.h; sourceTree = "<group>"; };
 		60B1793913DFE5630096F87C /* TestReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestReading.m; sourceTree = "<group>"; };
 		60BB3E0E13D04D4F00B57E46 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 		6029CDCD13C193D40040B79B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				609710FE13F0E65600FFCD20 /* iTunesArtwork.png */,
 				60EADEC613E3E4830086AB0B /* Log_Background_Pic.png */,
 				60EADEC713E3E4830086AB0B /* Log_Background_Pic@2X.png */,
 				6029FF1113E3E01C004C7F2C /* Setting_Email1.png */,
@@ -361,6 +364,7 @@
 				60EADEC913E3E4830086AB0B /* Log_Background_Pic@2X.png in Resources */,
 				6010D42B13E7DDF700851B9C /* icon.png in Resources */,
 				6010D42C13E7DDF700851B9C /* icon@2x.png in Resources */,
+				609710FF13F0E65600FFCD20 /* iTunesArtwork.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

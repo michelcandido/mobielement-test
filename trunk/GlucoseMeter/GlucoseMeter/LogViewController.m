@@ -82,11 +82,18 @@
 	struct tm * timeinfo;
 	time ( &rawtime );
 	timeinfo = localtime ( &rawtime );
+    
+    NSTimeInterval secondsPerDay = 24*60*60;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"M/dd"];
 
     NSArray *array = [[NSArray alloc] initWithObjects:@"06:30", @"08:00", @"12:00", @"13:00", @"19:00", @"20:00",nil]; 
     // generate data for logs        
     if ([appDelegate.monthlyReadings count] == 0) {        
         for (int i = 0; i < NUMBER_OF_DAYS; i++) {
+            NSDate *day = [[NSDate alloc] initWithTimeIntervalSinceNow:-secondsPerDay*(NUMBER_OF_DAYS - i - 1)];
+            NSString *dayStr = [dateFormatter stringFromDate:day];
+            NSLog(@"date:%@",dayStr);
             NSMutableArray *dailyReadings = [NSMutableArray arrayWithCapacity:NUMBER_OF_READINGS];
             for (int j = 0; j < NUMBER_OF_READINGS/2; j++) {
                 TestReading *aReading = [[TestReading alloc] init];
@@ -94,7 +101,8 @@
                 if (i == timeinfo->tm_mday - 1 && j == 0)
                     aReading.reading = appDelegate.testResult;
                 aReading.mealMode = 1;
-                aReading.date = [NSString stringWithFormat:@"%d/%d",timeinfo->tm_mon+1,i+1];
+                //aReading.date = [NSString stringWithFormat:@"%d/%d",timeinfo->tm_mon+1,i+1];
+                aReading.date = [dateFormatter stringFromDate:day];
                 aReading.time = [array objectAtIndex:j*2];
                 [dailyReadings insertObject:aReading atIndex:j];                
                 [aReading release];
@@ -103,16 +111,18 @@
                 TestReading *aReading = [[TestReading alloc] init];
                 aReading.reading =  arc4random() % 50+appDelegate.testResult - 10;
                 aReading.mealMode = 2;
-                aReading.date = [NSString stringWithFormat:@"%d/%d",timeinfo->tm_mon+1,i+1];                
+                //aReading.date = [NSString stringWithFormat:@"%d/%d",timeinfo->tm_mon+1,i+1];                
+                aReading.date = [dateFormatter stringFromDate:day];
                 aReading.time = [array objectAtIndex:j];
                 [dailyReadings insertObject:aReading atIndex:j];
                 [aReading release];
             }
             [appDelegate.monthlyReadings addObject:dailyReadings];
-            
+            [day release];
         }
     }
     [array release];
+    [dateFormatter release];
 }
 
 -(void)viewDidDisappear:(BOOL)animated

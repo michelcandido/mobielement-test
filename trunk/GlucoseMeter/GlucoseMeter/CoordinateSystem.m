@@ -44,7 +44,8 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"mealMode == %d", mealMode];
     if (dayMode == 0) { // for day view, just get the data for the given day
         displayPoints = [NSMutableArray arrayWithCapacity:sampleSize];
-        NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday - 1)]];
+        //NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday - 1)]];
+        NSArray *dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings lastObject]];
         if (mealMode == 1 || mealMode == 2) { //filter out data according to meal mode           
             dailyReadings = [dailyReadings filteredArrayUsingPredicate:predicate];
         }
@@ -54,8 +55,10 @@
     } else if (dayMode == 1) { // for the weekly view, get 7 days data from before/after the given day
         displayPoints =  [NSMutableArray arrayWithCapacity:sampleSize];
         NSArray *dailyReadings;
+        int count = [appDelegate.monthlyReadings count];
         for (int i = 0; i < sampleSize; i++) {
-            dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday >= 7)?(timeinfo->tm_mday - 7 + i):(timeinfo->tm_mday + i)]];
+            //dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(timeinfo->tm_mday >= 7)?(timeinfo->tm_mday - 7 + i):(timeinfo->tm_mday + i)]];
+            dailyReadings = [NSArray arrayWithArray:[appDelegate.monthlyReadings objectAtIndex:(count-sampleSize+i)]];
             if (mealMode == 1 || mealMode == 2)
                 dailyReadings = [dailyReadings filteredArrayUsingPredicate:predicate];
             [displayPoints addObject:dailyReadings];
