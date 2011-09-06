@@ -1,3 +1,5 @@
+#include <stack>;
+using namespace std;
 class IntTreeNode {
 public:
 	int value;
@@ -12,6 +14,8 @@ public:
 	void printLeftEdges(IntTreeNode *root, bool print);
 	void printRightEdges(IntTreeNode *root, bool print);
 	void clockPrint(IntTreeNode *root);
+
+	void printZigZag();
 };
 
 IntTreeNode::IntTreeNode(int value) {
@@ -21,11 +25,11 @@ IntTreeNode::IntTreeNode(int value) {
 }
 
 void IntTreeNode::init() {	
-	this->left = new IntTreeNode(10);	
+	this->left = new IntTreeNode(9);	
 	this->right = new IntTreeNode(20);	
-	this->left->left = new IntTreeNode(50);	
-	this->right->left = new IntTreeNode(45);	
-	this->right->right = new IntTreeNode(35);
+	
+	this->right->left = new IntTreeNode(15);	
+	this->right->right = new IntTreeNode(7);
 }
 
 void IntTreeNode::inorder(IntTreeNode *root) {
@@ -59,4 +63,30 @@ void IntTreeNode::clockPrint(IntTreeNode *root) {
 		printf("%d ", root->value);
 		root->printLeftEdges(root->left, true);
 		root->printRightEdges(root->right, true);
+}
+
+void IntTreeNode::printZigZag() {
+	stack<IntTreeNode*> current, next;
+	bool left2right = true;
+	current.push(this);
+	while (!current.empty()) {
+		IntTreeNode *node = current.top();
+		current.pop();
+		if (node!=NULL) {
+			printf("%d ", node->value);
+			if (left2right) {
+				next.push(node->left);
+				next.push(node->right);
+			} else {
+				next.push(node->right);
+				next.push(node->left);
+			}
+		}
+		if (current.empty()) {
+			printf("\n");
+			left2right = !left2right;
+			current.swap(next);
+		}
+
+	}
 }

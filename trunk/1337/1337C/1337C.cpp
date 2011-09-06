@@ -79,7 +79,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	tree->inorder(tree);
 	tree->clockPrint(tree);
 	*/
-	printf("%s\n", myStrstr("aabbaabbaaabbbaabb", "aaabb"));
+	
+	//printf("%s\n", myStrstr("aabbaabbaaabbbaabb", "aaabb"));
+
+	IntTreeNode root(3);
+	IntTreeNode *tree = &root;	
+	tree->init();
+	tree->printZigZag();
 	return 0;
 }
 
