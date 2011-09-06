@@ -44,6 +44,23 @@ int backtrack(int r, int c, int m, int n) {
   return backtrack(r+1, c, m, n) + backtrack(r, c+1, m, n);
 }
 
+const char* myStrstr(const char *src, const char *pat) {
+	const char *pSrc = src, const *pPat = pat;
+	int len = 0;
+	while (*pSrc != '\0') {
+		if (*pSrc == *pPat) {
+			if (*(++pPat) == '\0') {
+				return pSrc-len;
+			}
+			len++;
+		} else {
+			pPat = pat;
+			len = 0;
+		}
+		pSrc++;
+	}
+	return 0;
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -54,19 +71,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	printf("%d",backtrack(1,1,3,7));
 	*/
-	IntTreeNode root(30);
-	IntTreeNode *tree = &root;
+
 	/*
-	tree->left = &IntTreeNode(10);
-	tree->right = &IntTreeNode(20);
-	tree->left->left = &IntTreeNode(50);
-	tree->right->left = &IntTreeNode(45);
-	tree->right->right = &IntTreeNode(35);
-	*/
+	IntTreeNode root(30);
+	IntTreeNode *tree = &root;	
 	tree->init();
 	tree->inorder(tree);
 	tree->clockPrint(tree);
+	*/
+	printf("%s\n", myStrstr("aabbaabbaaabbbaabb", "aaabb"));
 	return 0;
 }
+
 
 
