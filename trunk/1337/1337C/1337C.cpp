@@ -63,8 +63,36 @@ const char* myStrstr(const char *src, const char *pat) {
 	return 0;
 }
 
+void dec2Bin(int num) {
+	int remainder;
+	if (num <= 1) {
+		printf("%d",num);
+		return;
+	}
+	remainder = num % 2;
+	dec2Bin(num >> 1 );
+	printf("%d",remainder);
+}
+
+void reversebits(int num) {
+	if (num <= 1) {
+		printf("%d",num);
+	}
+
+	while (num > 0) {
+		printf("%d",num%2);
+		num = num >> 1;
+	}
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	int num = 100;
+	dec2Bin(num);
+	printf("\n");
+	reversebits(num);
+	printf("\n");
+
 	/*
 	char str[] = "ababa";
 	char *pattern = "a";
@@ -97,12 +125,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	printf("isBST=%x\n", tree->isBST(tree)); 
 	*/
 
+	/*
 	IntCyclicList *list = new IntCyclicList();
 	list->print();
 	list->insert(0);
 	list->print();
+	*/
 	
-
+	
+	
 	return 0;
 }
 
