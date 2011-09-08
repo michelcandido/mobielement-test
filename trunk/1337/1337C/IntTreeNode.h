@@ -1,5 +1,6 @@
 #include <stack>;
 using namespace std;
+
 class IntTreeNode {
 public:
 	int value;
@@ -16,6 +17,9 @@ public:
 	void clockPrint(IntTreeNode *root);
 
 	void printZigZag();
+	
+	bool isBSTHelper(IntTreeNode *node, int low, int high);
+	bool isBST(IntTreeNode *node);
 };
 
 IntTreeNode::IntTreeNode(int value) {
@@ -25,11 +29,11 @@ IntTreeNode::IntTreeNode(int value) {
 }
 
 void IntTreeNode::init() {	
-	this->left = new IntTreeNode(9);	
-	this->right = new IntTreeNode(20);	
+	this->left = new IntTreeNode(5);	
+	this->right = new IntTreeNode(15);	
 	
-	this->right->left = new IntTreeNode(15);	
-	this->right->right = new IntTreeNode(7);
+	this->right->left = new IntTreeNode(12);	
+	this->right->right = new IntTreeNode(20);
 }
 
 void IntTreeNode::inorder(IntTreeNode *root) {
@@ -84,9 +88,24 @@ void IntTreeNode::printZigZag() {
 		}
 		if (current.empty()) {
 			printf("\n");
+
 			left2right = !left2right;			
 			swap(current, next);
+
 		}
 
 	}
+}
+
+bool IntTreeNode::isBSTHelper(IntTreeNode *node, int low, int high) {
+	if (node == NULL) 
+		return true;
+	if (low < node->value && node->value < high)
+		return isBSTHelper(node->left, low, node->value) && isBSTHelper(node->right, node->value, high);
+	else return false;
+}
+
+bool IntTreeNode::isBST(IntTreeNode *node)
+{	
+	return isBSTHelper(node, -9999, 9999);
 }

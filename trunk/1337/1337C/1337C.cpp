@@ -88,6 +88,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	IntTreeNode *tree = &root;	
 	tree->init();
 	tree->printZigZag();
+
+	*/
+	/*
+	IntTreeNode root(10);
+	IntTreeNode *tree = &root;	
+	tree->init();
+	printf("isBST=%x\n", tree->isBST(tree)); 
 	*/
 
 	IntCyclicList *list = new IntCyclicList();
@@ -95,6 +102,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	list->insert(0);
 	list->print();
 	
+
 	return 0;
 }
 
