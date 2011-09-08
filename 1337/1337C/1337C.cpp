@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <string.h>
 #include "IntTreeNode.h"
+#include "IntLinkedList.h";
 
 bool isMatch(char *str, const char* pattern) {
   while (*pattern)
@@ -82,10 +83,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	//printf("%s\n", myStrstr("aabbaabbaaabbbaabb", "aaabb"));
 
+	/*
 	IntTreeNode root(3);
 	IntTreeNode *tree = &root;	
 	tree->init();
 	tree->printZigZag();
+	*/
+
+	IntCyclicList *list = new IntCyclicList();
+	list->print();
+	list->insert(0);
+	list->print();
+	
 	return 0;
 }
 

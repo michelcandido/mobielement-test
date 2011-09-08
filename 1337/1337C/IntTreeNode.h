@@ -84,8 +84,8 @@ void IntTreeNode::printZigZag() {
 		}
 		if (current.empty()) {
 			printf("\n");
-			left2right = !left2right;
-			current.swap(next);
+			left2right = !left2right;			
+			swap(current, next);
 		}
 
 	}
