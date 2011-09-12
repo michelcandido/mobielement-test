@@ -4,7 +4,8 @@
 #include "stdafx.h"
 #include <string.h>
 #include "IntTreeNode.h"
-#include "IntLinkedList.h";
+#include "IntLinkedList.h"
+#include <hash_set>
 
 bool isMatch(char *str, const char* pattern) {
   while (*pattern)
@@ -46,7 +47,8 @@ int backtrack(int r, int c, int m, int n) {
 }
 
 const char* myStrstr(const char *src, const char *pat) {
-	const char *pSrc = src, const *pPat = pat;
+	const char *pSrc = src;
+	const char *pPat = pat;
 	int len = 0;
 	while (*pSrc != '\0') {
 		if (*pSrc == *pPat) {
@@ -85,13 +87,45 @@ void reversebits(int num) {
 	}
 }
 
+int kthSmallest(const int a[], int m, const int b[], int n, int k) {
+	int idx = 0, pa = 0, pb = 0, result;
+
+	while (idx <= k) {
+		if (pa < m && pb < n) {
+			if (a[pa] < b[pb]) {
+				result = a[pa];
+				pa++;
+			} else {
+				result = b[pb];
+				pb++;
+			}
+		} else if (pa >= m) {
+			result = b[pb];
+			pb++;
+		} else if (pb >= n) {
+			result = a[pa];
+			pa++;
+		}
+		idx++;
+	}
+	
+	return result;
+}
+
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	
+	int a[] = {0};
+	int b[] = {1,2,3};
+	printf("%d\n", kthSmallest(a,1,b,3,3));
+	/*
 	int num = 100;
 	dec2Bin(num);
 	printf("\n");
 	reversebits(num);
 	printf("\n");
+	*/
 
 	/*
 	char str[] = "ababa";
