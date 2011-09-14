@@ -112,13 +112,37 @@ int kthSmallest(const int a[], int m, const int b[], int n, int k) {
 	return result;
 }
 
+void twoSum(int numbers[], int size, int target, int &index1, int &index2) {
+	for (int i = 0; i < size; i++) {
+		int t = target - numbers[i];
+		for (int j = i + 1; j < size; j++) {
+			if (numbers[j] == t) {
+				index1 = i;
+				index2 = j;
+				return;
+			}
+		}
+	}
+}
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	
+	int num[] = {1, 3, 5, 2, 4, 6};
+	int target = 11;
+	int index1 = -1, index2 = -1;
+	twoSum(num,6,target, index1, index2);
+	if (index1 == -1 || index2 == -1) {
+		printf("cannot found\n");
+	} else {
+		printf("%d = %d + %d\n", target, num[index1], num[index2]);
+	}
+	/*
 	int a[] = {0};
 	int b[] = {1,2,3};
 	printf("%d\n", kthSmallest(a,1,b,3,3));
+	*/
+
 	/*
 	int num = 100;
 	dec2Bin(num);
