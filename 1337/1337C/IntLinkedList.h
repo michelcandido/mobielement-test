@@ -7,12 +7,45 @@ public:
 	IntLinkedListNode *next;
 
 	IntLinkedListNode(int v);
+	void initSortedLinkedList();
+	IntTreeNode* sortedListToBST(IntLinkedListNode *& list, int start, int end);
 };
 
 IntLinkedListNode::IntLinkedListNode(int v) {
 	this->value = v;
 	this->prev = NULL;
 	this->next = NULL;
+}
+
+void IntLinkedListNode::initSortedLinkedList() {
+	this->next = new IntLinkedListNode(3);
+	this->next->next = new IntLinkedListNode(5);
+	this->next->next->next = new IntLinkedListNode(9);
+}
+
+class IntSortedLinkedList {
+public: 
+	IntLinkedListNode *root;
+	IntSortedLinkedList();
+	IntTreeNode* sortedListToBST(IntSortedLinkedList *& list, int start, int end);
+};
+
+IntSortedLinkedList::IntSortedLinkedList() {
+	root = new IntLinkedListNode(1);
+	root->next = new IntLinkedListNode(3);
+	root->next->next = new IntLinkedListNode(5);
+	root->next->next->next = new IntLinkedListNode(9);
+}
+
+IntTreeNode* IntLinkedListNode::sortedListToBST(IntLinkedListNode *& list, int start, int end) {
+	if (start > end) return NULL;
+	int mid = start + (end - start) / 2;
+	IntTreeNode *left = sortedListToBST(list, start, mid - 1);
+	IntTreeNode *parent = new IntTreeNode(list->value);
+	parent->left = left;
+	list = list->next;
+	parent->right = sortedListToBST(list, mid + 1, end);
+	return parent;
 }
 
 class IntCyclicList {
