@@ -125,9 +125,84 @@ void twoSum(int numbers[], int size, int target, int &index1, int &index2) {
 	}
 }
 
+void buyAndSell(const int price[], int size, int &buy, int &sell) {
+	int max = 0;
+	for (int i = 0; i < size - 1; i++) {
+		for (int j = i + 1; j < size; j++) {
+			if ((price[j] - price[i]) > max) {
+				buy = i;
+				sell = j;
+				max = price[j] - price[i];
+			}
+		}
+	}
+}
 
+void buyAndSell2(const int price[], int size, int &buy, int &sell) {
+	int min = 0;
+  int maxDiff = 0;
+  buy = sell = 0;
+  for (int i = 0; i < size; i++) {
+    if (price[i] < price[min])
+      min = i;
+    int diff = price[i] - price[min];
+    if (diff > maxDiff) {
+      buy = min;
+      sell = i;
+      maxDiff = diff;
+    }
+  }
+}
+
+void subString(char src[]) {
+	if (*src == '\0') 
+		return;
+	else if (*(src+1) != '\0')
+		printf("%s\n",src);
+	printf("%c\n", *src);
+	subString(++src);
+}
+
+bool containsElement(char src[], char pat[]) {
+	long iSrc = 0;
+	while (*src != '\0') {
+		iSrc = iSrc | (1 << *src);
+		src++;
+	}
+	while (*pat != '\0') {
+		if (!(iSrc & (1 << *pat)))
+			return false;		
+		pat++;
+	}
+
+	return true;
+}
+
+void minWindow(char src[], char pat[]) {
+}
 int _tmain(int argc, _TCHAR* argv[])
 {
+	char src[] = "ADOBECODEBANC";
+	char pat[] = "ABC";
+	printf("%s contains %s: %d\n", src, pat, containsElement(src, pat));
+	
+	//subString("abc");
+	
+	/*
+	int buy = 0, sell = 0;
+	int price[] = {3,  2, 5, 6, 7, 3, 8, 7, 4,1};
+	buyAndSell2(price, 10, buy, sell);
+	printf("buy at %d, sell at %d\n", price[buy], price[sell]);
+	*/
+	
+	/*
+	IntLinkedListNode *list = new IntLinkedListNode(1);
+	list->initSortedLinkedList();
+	IntTreeNode *root = list->sortedListToBST(list, 0, 3);
+	root->inorder(root);
+	*/
+
+	/*
 	int num[] = {1, 3, 5, 2, 4, 6};
 	int target = 11;
 	int index1 = -1, index2 = -1;
@@ -137,6 +212,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	} else {
 		printf("%d = %d + %d\n", target, num[index1], num[index2]);
 	}
+	*/
+
 	/*
 	int a[] = {0};
 	int b[] = {1,2,3};
