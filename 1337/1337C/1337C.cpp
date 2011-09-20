@@ -178,14 +178,57 @@ bool containsElement(char src[], char pat[]) {
 	return true;
 }
 
-void minWindow(char src[], char pat[]) {
+bool minWindow(const char *s, const char *t, int &minBegin, int &minEnd) {
+	int sLen = strlen(s);
+	int tLen = strlen(t);
+	int needToFind[256] = {0};
+	int hasFound[256] = {0};
+	int minWindowLen = sLen;
+	int count = 0;
+
+	for (int i = 0; i < tLen; i++)
+		needToFind[t[i]]++;
+
+	for (int begin = 0, end = 0; end < sLen; end++) {
+		if (needToFind[s[end]] == 0)
+			continue;
+		hasFound[s[end]]++;
+		if (hasFound[s[end]] <= needToFind[s[end]])
+			count++;
+
+		if (count == tLen) {
+			while (needToFind[s[begin]] == 0 || hasFound[s[begin]] > needToFind[s[begin]]) {
+				if (hasFound[s[begin]] > needToFind[s[begin]])
+					hasFound[s[begin]]--;
+				begin++;
+			}
+
+			int windowLen = end - begin + 1;
+			if (windowLen < minWindowLen) {
+				minBegin = begin;
+				minEnd = end;
+				minWindowLen = windowLen;
+			}
+		}
+	}
+	return (count == tLen)? true:false;
+
 }
 int _tmain(int argc, _TCHAR* argv[])
 {
 	char src[] = "ADOBECODEBANC";
 	char pat[] = "ABC";
 	printf("%s contains %s: %d\n", src, pat, containsElement(src, pat));
-	
+	int minBegin = 0, minEnd = 0;
+	if (minWindow(src, pat, minBegin, minEnd)) {
+		char *result = (char*)(malloc(strlen(src)*sizeof(char)));
+		result = src+minBegin;
+		*(result+(minEnd - minBegin) + 1) = '\0';
+		printf("found: start at %d, end at %d. It is %s\n", minBegin, minEnd, result);
+	}
+	else 
+		printf("not found.\n");
+
 	//subString("abc");
 	
 	/*
