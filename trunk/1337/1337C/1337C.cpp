@@ -2,7 +2,8 @@
 //
 
 #include "stdafx.h"
-#include <string.h>
+#include <string>
+#include <iostream>
 #include "IntTreeNode.h"
 #include "IntLinkedList.h"
 #include <hash_set>
@@ -212,10 +213,22 @@ bool minWindow(const char *s, const char *t, int &minBegin, int &minEnd) {
 		}
 	}
 	return (count == tLen)? true:false;
-
 }
+
+string numToStr(int n) {
+  string str(1, 'a' + n%26);
+  n = n/26;
+  while (n != 0) {
+    str = (char)('a' + (n-1)%26) + str;
+    n = (n-1)/26;
+  } 
+  return str;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	cout << numToStr(52) << endl;
+	/*
 	char src[] = "ADOBECODEBANC";
 	char pat[] = "ABC";
 	printf("%s contains %s: %d\n", src, pat, containsElement(src, pat));
@@ -228,7 +241,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	else 
 		printf("not found.\n");
-
+	*/
 	//subString("abc");
 	
 	/*
