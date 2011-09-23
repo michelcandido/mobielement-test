@@ -225,9 +225,34 @@ string numToStr(int n) {
   return str;
 }
 
+bool binSearch(int data[], int target, int start, int end, int &idx) {
+	if (start > end)
+		return false;
+	int mid = start + (end - start) / 2;
+	if (data[mid] == target) {
+		idx = mid;
+		return true;
+	} else {
+		if (target > data[mid])
+			return binSearch(data, target, mid + 1, end, idx);
+		else
+			return binSearch(data, target, start, mid - 1, idx);
+	}
+	
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	cout << numToStr(52) << endl;
+	int data[][5] = {{1,4,7,11,15},{2,5,6,12,19}};
+	/*
+	int data[] = {1,3,4,5,7,8};
+	int result;
+	if (binSearch(data,2,0,5,result))
+		cout << "idx:" << result << endl;
+	else 
+		cout << "not found" << endl;
+	*/
+	//cout << numToStr(52) << endl;
 	/*
 	char src[] = "ADOBECODEBANC";
 	char pat[] = "ABC";
