@@ -241,9 +241,22 @@ bool binSearch(int data[], int target, int start, int end, int &idx) {
 	
 }
 
+int numOfOne(int num) {
+	int checker = 1;
+	int result = 0;
+	while (num != 0) {
+		if ((checker & num) == 1)
+			result++;
+		num = (num >> 1);
+	}
+	return result;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	int data[][5] = {{1,4,7,11,15},{2,5,6,12,19}};
+	int num = 11;
+	printf("there are %d 1s in number %d\n", numOfOne(num), num);  
+	//int data[][5] = {{1,4,7,11,15},{2,5,6,12,19}};
 	/*
 	int data[] = {1,3,4,5,7,8};
 	int result;
