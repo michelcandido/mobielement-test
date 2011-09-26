@@ -254,8 +254,18 @@ int numOfOne(int num) {
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	IntLinkedListNode *head = new IntLinkedListNode(1);
+	head->initSortedLinkedList();
+	head->print();
+	head->reverse(head);
+	head->print();
+	head->reverse2(head);
+	head->print();
+	/*
 	int num = 11;
-	printf("there are %d 1s in number %d\n", numOfOne(num), num);  
+	printf("there are %d 1s in number %d\n", numOfOne(num), num); 
+	*/
+
 	//int data[][5] = {{1,4,7,11,15},{2,5,6,12,19}};
 	/*
 	int data[] = {1,3,4,5,7,8};

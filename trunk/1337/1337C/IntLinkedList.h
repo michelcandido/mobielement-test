@@ -9,7 +9,45 @@ public:
 	IntLinkedListNode(int v);
 	void initSortedLinkedList();
 	IntTreeNode* sortedListToBST(IntLinkedListNode *& list, int start, int end);
+	void reverse(IntLinkedListNode *&head);
+	void reverse2(IntLinkedListNode *&head);
+	void print();
 };
+
+void IntLinkedListNode::print() {
+	IntLinkedListNode *node = this;
+	while (node != NULL) {
+		cout << node->value << " ";
+		node = node->next;
+	}
+	cout << endl;
+}
+
+void IntLinkedListNode::reverse(IntLinkedListNode *&head){
+	if (head == NULL)
+		return;
+	IntLinkedListNode *cur = head;
+	IntLinkedListNode *prev = NULL;
+	while (cur != NULL) {
+		IntLinkedListNode *next = cur->next;
+		cur->next = prev;
+		prev = cur;
+		cur = next;
+	}
+	head = prev;
+}
+
+void IntLinkedListNode::reverse2(IntLinkedListNode *&head) {
+	if (head == NULL)
+		return;
+	IntLinkedListNode *next = head->next;
+	if (next == NULL)
+		return;
+	reverse2(next);
+	head->next->next = head;
+	head->next = NULL;
+	head = next;
+}
 
 IntLinkedListNode::IntLinkedListNode(int v) {
 	this->value = v;
