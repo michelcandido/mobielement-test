@@ -55,13 +55,45 @@ void Q3(char *src)
 	}
 }
 
+char* sort(char *src)
+{
+	int len = strlen(src);
+	char *target = (char*)malloc((len+1)*sizeof(char));
+	int count[256] = {0};
+	while (*src) {
+		count[*src]++;
+		src++;
+	}
+	for (int i = 0; i < 256; i++)
+	{
+		if (count[i])
+		{
+			memset(target, i, count[i]);			
+			target+=count[i];
+		}
+	}
+	*target = '\0';
+	target -= len;
+	return target;
+}
+
+bool Q4(char *s1, char *s2)
+{
+	return strncmp(sort(s1),sort(s2), 256)==0;
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	char s1[] = "aBcDgef";
+	char s2[] = "gefaBcD";
+	printf("%s and %s is anagrams: %d\n", s1, s2, Q4(s1, s2));
+
+	/*
 	char src[] = "abccde";
 	printf("remove duplicates in %s is: ", src);
 	Q3(src);
 	printf("%s\n",src);
+	*/
 	/*
 	char src[] = "abcd";		
 	printf("reverse %s is: ", src);
