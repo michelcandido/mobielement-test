@@ -86,8 +86,19 @@ void maxSubArray(int src[], int size)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	BinaryTreeNode *bst = new BinaryTreeNode(5);
+	bst->createBST();
+
+	cout << bst->isBST(bst) << endl;
+
+	BinaryTreeNode *bt = new BinaryTreeNode(5);
+	bt->createBT();
+
+	cout << bt->isBST(bt) << endl;
+	/*
 	int src[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 	maxSubArray(src, 9);
+	*/
 	/*
 	int src[] = { 5, 1, 2, 1, 1, 5, 2};
 	swapSort(src, 7);
