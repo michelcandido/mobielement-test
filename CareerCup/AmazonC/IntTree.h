@@ -1,6 +1,69 @@
 #include <iostream>
 using namespace std;
 
+class BinaryTreeNode
+{
+public:
+	int data;
+	BinaryTreeNode *left, *right;
+	BinaryTreeNode(int value);
+
+	void createBST();
+	void createBT();
+	bool isBST(BinaryTreeNode *root);
+};
+
+BinaryTreeNode::BinaryTreeNode(int value)
+{
+	data = value;
+	left = 0;
+	right = 0;
+}
+
+void BinaryTreeNode::createBST()
+{
+	BinaryTreeNode *one = new BinaryTreeNode(1);
+	BinaryTreeNode *four = new BinaryTreeNode(4);
+	BinaryTreeNode *three = new BinaryTreeNode(3);
+	three->left = one;
+	three->right = four;
+
+	BinaryTreeNode *six = new BinaryTreeNode(6);
+	BinaryTreeNode *seven = new BinaryTreeNode(7);
+	BinaryTreeNode *nine = new BinaryTreeNode(9);
+
+	this->left = three;
+	this->right = seven;
+	seven->left = six;
+	seven->right = nine;
+}
+
+void BinaryTreeNode::createBT()
+{
+	BinaryTreeNode *eight = new BinaryTreeNode(8);
+	BinaryTreeNode *one = new BinaryTreeNode(1);
+	BinaryTreeNode *sixteen = new BinaryTreeNode(16);
+	BinaryTreeNode *three = new BinaryTreeNode(3);
+	BinaryTreeNode *nine = new BinaryTreeNode(9);
+	BinaryTreeNode *two = new BinaryTreeNode(2);
+	
+
+	this->left = eight;
+	this->right = three;
+	eight->left = one;
+	eight->right = sixteen;
+	three->left = nine;
+	three->right = two;
+}
+
+bool BinaryTreeNode::isBST(BinaryTreeNode *root)
+{
+	if (!root) return true;
+	if (root->left && root->left->data > root->data) return false;
+	if (root->right && root->right->data < root->data) return false;
+	return isBST(root->left) && isBST(root->right);
+}
+
 class SuccessorTreeNode
 {
 public:
