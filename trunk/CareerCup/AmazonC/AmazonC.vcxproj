@@ -14,6 +14,7 @@
     <ProjectGuid>{C54C60C3-7A61-4411-8999-BE08F601612A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AmazonC</RootNamespace>
+    <ProjectName>CPP</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,12 +76,14 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IntArray.h" />
+    <ClInclude Include="IntList.h" />
     <ClInclude Include="IntTree.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AmazonC.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
