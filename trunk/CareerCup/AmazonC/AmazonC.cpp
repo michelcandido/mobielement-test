@@ -84,8 +84,56 @@ void maxSubArray(int src[], int size)
 	cout << src[start] << " " << src[end] << " " << maxSoFar << endl;
 }
 
+bool isPalindrome(const char *src, int start, int end) 
+{
+	if (end < start) return true;
+	if (*(src+start) == *(src+end))
+		return isPalindrome(src, start + 1, end - 1);
+	else
+		return false;
+}
+
+void matrixTransposition(int src[], int N)
+{
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << src[i*N+j] << " ";
+		}
+		cout << endl;
+	}
+	cout << endl;
+	
+	for (int n = 0; n <= N -2;n++) {
+		for (int m = n + 1; m <= N - 1; m++) {
+			swap(src[n*N+m], src[m*N+n]);
+		}
+	}
+
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << src[i*N+j] << " ";
+		}
+		cout << endl;
+	}
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	int src[] = {11,12,13,21,22,23,31,32,33};
+	matrixTransposition(src, 3);
+	/*
+	BinaryTreeNode *bst = new BinaryTreeNode(5);
+	bst->createBST();
+	bst->preOrder(bst);
+	cout << endl;
+	*/
+
+	/*
+	char *src = "boob";
+	cout << isPalindrome(src, 0, strlen(src)-1) << endl;
+	*/
+
+	/*
 	BinaryTreeNode *bst = new BinaryTreeNode(5);
 	bst->createBST();
 
@@ -95,6 +143,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	bt->createBT();
 
 	cout << bt->isBST(bt) << endl;
+	*/
+	
 	/*
 	int src[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 	maxSubArray(src, 9);

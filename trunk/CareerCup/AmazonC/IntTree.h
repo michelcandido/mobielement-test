@@ -11,6 +11,7 @@ public:
 	void createBST();
 	void createBT();
 	bool isBST(BinaryTreeNode *root);
+	void preOrder(BinaryTreeNode *root);
 };
 
 BinaryTreeNode::BinaryTreeNode(int value)
@@ -63,6 +64,17 @@ bool BinaryTreeNode::isBST(BinaryTreeNode *root)
 	if (root->right && root->right->data < root->data) return false;
 	return isBST(root->left) && isBST(root->right);
 }
+
+void BinaryTreeNode::preOrder(BinaryTreeNode *root)
+{
+	if (root)
+	{
+		cout << root->data << " ";
+		preOrder(root->left);
+		preOrder(root->right);
+	}
+}
+
 
 class SuccessorTreeNode
 {
