@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 class IntArray
@@ -7,7 +8,76 @@ public:
 	void swapSort(int src[], int size);
 	void maxSubArray(int src[], int size);
 	void matrixTransposition(int src[], int N);
+	int findMinDistance(int src[], int size, int x, int y);
+	void maxOfSubArray(int src[], int size, int k);
+
 };
+
+void IntArray::maxOfSubArray(int src[], int size, int k) {
+	int max = 0;
+	int i = 0;
+	for (i = 0; i < k; i++)
+	{
+		if (src[i] > max)
+			max = src[i];
+	}
+	cout << max << " ";
+	for (; i < size; i++)
+	{
+		if (src[i] > max)
+			max = src[i];
+		cout << max << " ";
+	}
+}
+
+int IntArray::findMinDistance(int src[], int size, int x, int y)
+{
+	int min = size;
+	int prev;
+	int i = 0;
+	for (i = 0; i < size; i++)
+	{
+		if (src[i] == x || src[i] == y)
+		{
+			prev = i;
+			break;
+		}
+	}
+	for (; i < size; i++)
+	{
+		if (src[i] == x || src[i] == y) {
+			if (src[i] != src[prev] && (i - prev) < min) {
+				min = i - prev;
+			}
+			prev = i;
+		}
+	}
+
+	return min;
+	/*
+	int min = size;
+	for (int i = 0; i < size; i++)
+	{
+		if (src[i] == x)
+		{
+			int pos = 1;
+			int left = i - pos, right = i + pos;
+			while (left >= 0 || right < size)
+			{
+				if (left < 0) left = 0;
+				if (right >= size) right = size - 1;
+				if (src[left] == y || src[right] == y)
+					if (pos < min)
+						min = pos;
+				pos++;
+				left--;
+				right++;
+			}
+		}
+	}
+	return min;
+	*/
+}
 
 void IntArray::swapSort(int src[], int size)
 {

@@ -15,8 +15,30 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	IntArray *arr = new IntArray();
+	int src[] = {8, 5, 10, 7, 9, 4, 15, 12, 90, 13};
+	
+	arr->maxOfSubArray(src, 10, 4);
+
+	//cout << arr->findMinDistance(src, 12,3,6) << endl;
+
+	/*
+	IntListNode *l1 = new IntListNode(1);
+	l1->init();
+	l1->print();
+
+	IntListNode *l2 = new IntListNode(2);
+	l2->init2();
+	l2->print();
+
+	l1->merge(l1,l2);
+	l1->print();
+	*/
+
+	/*
+	IntArray *arr = new IntArray();
 	int src[] = {11,12,13,21,22,23,31,32,33};
 	arr->matrixTransposition(src, 3);
+	*/
 	/*
 	BinaryTreeNode *bst = new BinaryTreeNode(5);
 	bst->createBST();
