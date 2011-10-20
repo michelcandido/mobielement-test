@@ -15,9 +15,15 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 	IntArray *arr = new IntArray();
-	int src[] = {8, 5, 10, 7, 9, 4, 15, 12, 90, 13};
+	int src[] = {1, 2, 3, 1, 3, 0, 6};
+
+	arr->findDuplicates(src, 7);
 	
-	arr->maxOfSubArray(src, 10, 4);
+	//cout << arr->equilibrium(src, 7) << endl;
+
+	//arr->nextGreaterElement(src, 4);
+	
+	//arr->maxOfSubArray(src, 10, 4);
 
 	//cout << arr->findMinDistance(src, 12,3,6) << endl;
 
