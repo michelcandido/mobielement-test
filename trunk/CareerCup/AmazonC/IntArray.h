@@ -10,8 +10,65 @@ public:
 	void matrixTransposition(int src[], int N);
 	int findMinDistance(int src[], int size, int x, int y);
 	void maxOfSubArray(int src[], int size, int k);
-
+	void nextGreaterElement(int src[], int size);
+	int binSearchGreater(int src[], int ele, int low, int high);
+	int equilibrium(int src[], int n);
+	void findDuplicates(int src[], int n);
 };
+
+void IntArray::findDuplicates(int src[], int n)
+{
+	long checker = 0;
+	for (int i  = 0; i < n; i++) {
+		if ((1 << src[i]) & checker) 
+			cout << src[i] << " ";
+		checker = checker | (1 << src[i]);
+	}
+	cout << endl;
+}
+
+int IntArray::equilibrium(int src[], int n)
+{
+	int low = src[0];
+	int high = 0;
+	for (int i = 1; i < n; i++)
+		high += src[i];
+	for (int i = 1; i < n; i++)
+	{
+		if (low == high)
+			return i;
+		if (i + 1 <= n)
+		{
+			low += src[i+1];
+			high -= src[i+1];
+		}
+	}
+	return -1;
+}
+
+int IntArray::binSearchGreater(int src[], int ele, int low, int high)
+{
+	if (low > high) return -1;
+	int mid = low + (high - low) / 2;
+	if (src[mid] <= ele) {
+		return binSearchGreater(src, ele, mid + 1, high);
+	} else {
+		int t = binSearchGreater(src, ele, low, mid - 1);
+		if (t == -1)
+			return src[mid];
+		else 
+			return t;
+	}
+}
+
+void IntArray::nextGreaterElement(int src[], int size)
+{
+	for (int i = 0; i < size - 1; i++)
+	{
+		cout << binSearchGreater(src, src[i], i+1, size-1) << " ";
+	}
+	cout << -1 << endl;
+}
 
 void IntArray::maxOfSubArray(int src[], int size, int k) {
 	int max = 0;
