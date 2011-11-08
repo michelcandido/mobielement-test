@@ -1,5 +1,6 @@
 #include <iostream>
 #include <math.h>
+#include <vector>
 using namespace std;
 
 class IntArray
@@ -14,7 +15,32 @@ public:
 	int binSearchGreater(int src[], int ele, int low, int high);
 	int equilibrium(int src[], int n);
 	void findDuplicates(int src[], int n);
+	vector<vector<int>> findSubSets(int src[], int size, int i);
 };
+
+vector<vector<int>> IntArray::findSubSets(int src[], int size, int i) {
+	vector<vector<int>> subsets;
+	vector<int> aset;
+
+	//int size = sizeof(src) / sizeof(int);
+	if (i == size - 1) {
+		aset.push_back(src[i]);
+		subsets.push_back(aset);
+		return subsets;
+	} 
+	vector<vector<int>> sets = findSubSets(src, size, i + 1);
+	for (int j = 0; j < sets.size(); j++) {
+		aset = sets[j];
+		subsets.push_back(aset);
+		aset.push_back(src[i]);
+		subsets.push_back(aset);
+	}
+	vector<int> own;
+	own.push_back(src[i]);
+	subsets.push_back(own);
+
+	return subsets;
+}
 
 void IntArray::findDuplicates(int src[], int n)
 {
