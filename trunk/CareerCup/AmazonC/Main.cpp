@@ -8,17 +8,68 @@
 
 #include <hash_map>
 
+using namespace std;
 
+class Base
+{
+       public:
+          Base(){ cout<<"Constructor: Base"<<endl;}
+          virtual ~Base(){ cout<<"Destructor : Base"<<endl;}
+};
+class Derived: public Base
+{
+     //Doing a lot of jobs by extending the functionality
+       public:
+           Derived(){ cout<<"Constructor: Derived"<<endl;}
+           ~Derived(){ cout<<"Destructor : Derived"<<endl;}
+};
 
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	IntArray *arr = new IntArray();
+	int src[] = {1,2,3,4};
+	vector<vector<int>> subsets = arr->findSubSets(src,sizeof(src)/sizeof(int),0);
+	for (int i = 0; i < subsets.size(); i++) {
+		vector<int> sets = subsets[i];
+		for (int j = 0; j < sets.size(); j++) {
+			cout << sets[j] << " ";
+		}
+		cout << endl;
+	}
+	cout << endl;
+
+	/*
+	int src[] = {4,8,10,12,14,20,22};
+	BinaryTreeNode *node = new BinaryTreeNode(0);
+	BinaryTreeNode *newNode = node->createBST(src,0,sizeof(src)/sizeof(int)-1);
+	newNode->inOrder(newNode);
+	//cout << endl << sizeof(src) << endl;
+	BinaryTreeNode *lca = newNode->findLCA(newNode, 20, 22);
+	if (lca)
+		cout << endl << lca->data << endl;
+	else
+		cout << endl << "not found." << endl;
+	*/
+
+	/*
+	cout << strlen("hello") << endl;
+	cout << sizeof("hello") << endl;
+	*/
+
+	/*
+	Base *Var = new Derived();
+    delete Var;
+	*/
+	
+	/*
+	IntArray *arr = new IntArray();
 	int src[] = {1, 2, 3, 1, 3, 0, 6};
 
 	arr->findDuplicates(src, 7);
-	
+	*/
+
 	//cout << arr->equilibrium(src, 7) << endl;
 
 	//arr->nextGreaterElement(src, 4);

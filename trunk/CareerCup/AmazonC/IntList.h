@@ -15,7 +15,22 @@ public:
 	IntListNode* reverseRecursive(IntListNode *root, IntListNode *prev);
 	IntListNode* merge(IntListNode *l1, IntListNode *l2);
 	IntListNode* sort(IntListNode *l);
+	IntListNode* getLastNth(IntListNode *head, int n);
 };
+
+IntListNode* IntListNode::getLastNth(IntListNode *head, int n) {
+	if (n < 1) return NULL;
+	IntListNode *p1 = head;
+	IntListNode *p2 = head;
+	while (p1 && n-- > 0)
+		p1 = p1->next;
+	if (n > 0) return NULL;
+	while (p1) {
+		p1 = p1->next;
+		p2 = p2->next;
+	}
+	return p2;
+}
 
 IntListNode* IntListNode::sort(IntListNode *l){
 	if (!l) return 0;

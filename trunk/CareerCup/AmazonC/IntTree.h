@@ -12,6 +12,9 @@ public:
 	void createBT();
 	bool isBST(BinaryTreeNode *root);
 	void preOrder(BinaryTreeNode *root);
+	void inOrder(BinaryTreeNode *root);
+	BinaryTreeNode* createBST(int src[], int begin, int end);
+	BinaryTreeNode* findLCA(BinaryTreeNode *root, int n1, int n2);
 };
 
 BinaryTreeNode::BinaryTreeNode(int value)
@@ -19,6 +22,31 @@ BinaryTreeNode::BinaryTreeNode(int value)
 	data = value;
 	left = 0;
 	right = 0;
+}
+
+BinaryTreeNode* BinaryTreeNode::findLCA(BinaryTreeNode *root, int n1, int n2) {
+	if (!root || root->data == n1 || root->data == n2)
+		return 0;
+	if (root->right && (root->right->data == n1 || root->right->data == n2))
+		return root;
+	if (root->left && (root->left->data == n1 || root->left->data == n2))
+		return root;
+	if (root->data > n1 && root->data < n2)
+		return root;
+	if (root->data > n1 && root->data > n2)
+		return findLCA(root->left, n1, n2);
+	if (root->data < n1 && root->data < n2)
+		return findLCA(root->right, n1, n2);
+	return 0;
+}
+
+BinaryTreeNode* BinaryTreeNode::createBST(int src[], int begin, int end) {
+	if (begin > end) return 0;
+	int mid = begin + (end - begin) / 2;
+	BinaryTreeNode *node = new BinaryTreeNode(src[mid]);
+	node->left = createBST(src, begin, mid - 1);
+	node->right = createBST(src, mid + 1, end);
+	return node;
 }
 
 void BinaryTreeNode::createBST()
@@ -73,6 +101,14 @@ void BinaryTreeNode::preOrder(BinaryTreeNode *root)
 		preOrder(root->left);
 		preOrder(root->right);
 	}
+}
+
+void BinaryTreeNode::inOrder(BinaryTreeNode *root)
+{
+	if (!root) return;
+	inOrder(root->left);
+	cout << root->data << " ";	
+	inOrder(root->right);
 }
 
 
