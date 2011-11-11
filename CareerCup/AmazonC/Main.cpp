@@ -29,17 +29,22 @@ class Derived: public Base
 int _tmain(int argc, _TCHAR* argv[])
 {
 	IntArray *arr = new IntArray();
+	int a1[] = {1,2,3,5,6,7};
+	int a2[] = {3,6,7,8};
+	arr->findIntersection(a1, 6, a2, 3);
+	/*
+	IntArray *arr = new IntArray();
 	int src[] = {1,2,3,4};
 	vector<vector<int>> subsets = arr->findSubSets(src,sizeof(src)/sizeof(int),0);
-	for (int i = 0; i < subsets.size(); i++) {
+	for (unsigned int i = 0; i < subsets.size(); i++) {
 		vector<int> sets = subsets[i];
-		for (int j = 0; j < sets.size(); j++) {
+		for (unsigned int j = 0; j < sets.size(); j++) {
 			cout << sets[j] << " ";
 		}
 		cout << endl;
 	}
 	cout << endl;
-
+	*/
 	/*
 	int src[] = {4,8,10,12,14,20,22};
 	BinaryTreeNode *node = new BinaryTreeNode(0);
