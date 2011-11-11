@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stack>
+#include <hash_set>
 using namespace std;
 
 class BinaryTreeNode
@@ -6,6 +8,7 @@ class BinaryTreeNode
 public:
 	int data;
 	BinaryTreeNode *left, *right;
+	BinaryTreeNode *last, *next;
 	BinaryTreeNode(int value);
 
 	void createBST();
@@ -15,6 +18,7 @@ public:
 	void inOrder(BinaryTreeNode *root);
 	BinaryTreeNode* createBST(int src[], int begin, int end);
 	BinaryTreeNode* findLCA(BinaryTreeNode *root, int n1, int n2);
+	void linkSameLevel(BinaryTreeNode *root);
 };
 
 BinaryTreeNode::BinaryTreeNode(int value)
@@ -22,6 +26,11 @@ BinaryTreeNode::BinaryTreeNode(int value)
 	data = value;
 	left = 0;
 	right = 0;
+	last = 0;
+	next = 0;
+}
+
+void BinaryTreeNode::linkSameLevel(BinaryTreeNode *root) {
 }
 
 BinaryTreeNode* BinaryTreeNode::findLCA(BinaryTreeNode *root, int n1, int n2) {

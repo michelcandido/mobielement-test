@@ -16,7 +16,23 @@ public:
 	int equilibrium(int src[], int n);
 	void findDuplicates(int src[], int n);
 	vector<vector<int>> findSubSets(int src[], int size, int i);
+	void findIntersection(int a1[], int size1, int a2[], int size2);
 };
+
+void IntArray::findIntersection(int a1[], int size1, int a2[], int size2) {
+	int p1 = 0, p2 = 0;
+	while (p1 < size1 && p2 < size2) {
+		if (a1[p1] == a2[p2]) {
+			cout << a1[p1] << endl;
+			p1++;
+			p2++;
+		}
+		else if (a1[p1] < a2[p2])
+			p1++;
+		else 
+			p2++;
+	}
+}
 
 vector<vector<int>> IntArray::findSubSets(int src[], int size, int i) {
 	vector<vector<int>> subsets;
@@ -29,7 +45,7 @@ vector<vector<int>> IntArray::findSubSets(int src[], int size, int i) {
 		return subsets;
 	} 
 	vector<vector<int>> sets = findSubSets(src, size, i + 1);
-	for (int j = 0; j < sets.size(); j++) {
+	for (unsigned int j = 0; j < sets.size(); j++) {
 		aset = sets[j];
 		subsets.push_back(aset);
 		aset.push_back(src[i]);
