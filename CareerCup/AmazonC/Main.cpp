@@ -29,9 +29,18 @@ class Derived: public Base
 int _tmain(int argc, _TCHAR* argv[])
 {
 	IntArray *arr = new IntArray();
+	stack<int> src;
+	src.push(7);
+	src.push(5);
+	src.push(10);
+	src.push(9);
+	arr->sortStack(src);
+	/*
+	IntArray *arr = new IntArray();
 	int a1[] = {1,2,3,5,6,7};
 	int a2[] = {3,6,7,8};
 	arr->findIntersection(a1, 6, a2, 3);
+	*/
 	/*
 	IntArray *arr = new IntArray();
 	int src[] = {1,2,3,4};

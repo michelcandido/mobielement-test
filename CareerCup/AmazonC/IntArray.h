@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include <stack>
 using namespace std;
 
 class IntArray
@@ -17,7 +18,45 @@ public:
 	void findDuplicates(int src[], int n);
 	vector<vector<int>> findSubSets(int src[], int size, int i);
 	void findIntersection(int a1[], int size1, int a2[], int size2);
+	void sortStack(stack<int> src);
 };
+
+void IntArray::sortStack(stack<int> src) {
+	stack<int> dest, temp;
+	while (!src.empty()) {
+		if (dest.empty()) {
+			dest.push(src.top());
+			src.pop();
+		} else {
+			if (src.top() >= dest.top() && (temp.empty() || src.top() <= temp.top())) {
+				dest.push(src.top());
+				src.pop();
+			} else if (src.top() < dest.top()) {
+				while (!dest.empty() && src.top() < dest.top()) {
+					temp.push(dest.top());
+					dest.pop();
+				}
+				dest.push(src.top());
+				src.pop();
+			} else if (!temp.empty() && src.top() > temp.top()) {
+				while (!temp.empty() && src.top() > temp.top()) {
+					dest.push(temp.top());
+					temp.pop();
+				}
+				dest.push(src.top());
+				src.pop();
+			}
+		}
+	}
+	while (!temp.empty()) {
+		dest.push(temp.top());
+		temp.pop();
+	}
+	while (!dest.empty()) {
+		cout << dest.top() << endl;
+		dest.pop();
+	}
+}
 
 void IntArray::findIntersection(int a1[], int size1, int a2[], int size2) {
 	int p1 = 0, p2 = 0;
