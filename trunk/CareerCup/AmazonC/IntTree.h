@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stack>
-#include <hash_set>
+#include <queue>
 using namespace std;
 
 class BinaryTreeNode
@@ -31,6 +31,37 @@ BinaryTreeNode::BinaryTreeNode(int value)
 }
 
 void BinaryTreeNode::linkSameLevel(BinaryTreeNode *root) {
+	queue<BinaryTreeNode*> q1;
+	q1.push(root);
+	while (!q1.empty()) {
+		BinaryTreeNode* prev = 0;
+		queue<BinaryTreeNode*> q2;
+		BinaryTreeNode* cur = q1.front();
+		q1.pop();
+		cur->last = prev;
+
+		if (cur->left)
+			q2.push(cur->left);
+		if (cur->right)
+			q2.push(cur->right);
+
+		while (!q1.empty()) {
+			prev = cur;
+			cur = q1.front();
+			q1.pop();
+			
+			if (cur->left)
+				q2.push(cur->left);
+			if (cur->right)
+				q2.push(cur->right);
+			
+			cur->last = prev;
+			prev->next = cur;
+		}
+		cur->next = 0;
+		q1 = q2;
+	}
+
 }
 
 BinaryTreeNode* BinaryTreeNode::findLCA(BinaryTreeNode *root, int n1, int n2) {

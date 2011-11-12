@@ -6,17 +6,56 @@ class IntListNode
 public:
 	int data;
 	IntListNode *next;
+	IntListNode *extra;
 
 	IntListNode(int value);
 	void init();
 	void init2();
+	void init3();
 	void print();
 	IntListNode* reverse(IntListNode *root);
 	IntListNode* reverseRecursive(IntListNode *root, IntListNode *prev);
 	IntListNode* merge(IntListNode *l1, IntListNode *l2);
 	IntListNode* sort(IntListNode *l);
 	IntListNode* getLastNth(IntListNode *head, int n);
+	void copyExtra(IntListNode *head);
 };
+
+void IntListNode::copyExtra(IntListNode *head) {
+	IntListNode *newHead,  *current = head, *prev;
+	while (current) {
+		IntListNode *newCurrent = new IntListNode(current->data);		
+		if (current != head)
+			prev->next = newCurrent;
+		else
+			newHead = newCurrent;
+		prev = newCurrent;
+		current = current->next;
+	}
+	current = head;
+	newCurrent = newHead;
+	while (current) {
+		IntListNode *next = current->next;
+		current->next = newCurrent;
+
+	}
+}
+
+void IntListNode::init3()
+{
+	IntListNode *p1 = new IntListNode(3);
+	IntListNode *p2 = new IntListNode(9);
+	IntListNode *p3 = new IntListNode(7);
+	
+	this->next = p1;
+	this->extra = p1;
+	p1->next = p2;
+	p1->extra = p3;
+	p2->next = p3;
+	p2->extra = p1;
+	p3->next = 0;
+	p3->extra = p2;	
+}
 
 IntListNode* IntListNode::getLastNth(IntListNode *head, int n) {
 	if (n < 1) return NULL;
