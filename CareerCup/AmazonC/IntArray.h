@@ -19,8 +19,71 @@ public:
 	vector<vector<int>> findSubSets(int src[], int size, int i);
 	void findIntersection(int a1[], int size1, int a2[], int size2);
 	void sortStack(stack<int> src);
+	void findCoins();
+	void findNonDecreasing(); 
+	void findMinPairs(int s1[], int size1, int s2[], int size2, int m);
 };
 
+void IntArray::findMinPairs(int s1[], int size1, int s2[], int size2, int m) {
+	int p1 = 0, p2 = 0;
+	int found = 1;
+	cout << "{" << s1[0] << "," << s2[0] << "}" << endl;
+	while (p1 < size1 && p2 < size2 && found < m) {
+		int a = 9999,b = 9999,c = 9999;
+		if (p2+1 < size2)
+			a = s1[p1] + s2[p2+1];
+		if (p1+1 < size1)
+			b = s1[p1+1] + s2[p2];
+		if (p1+1 < size1 && p2+1 < size2)
+			c = s1[p1+1] + s2[p2+1];
+
+		if (a < b && a < c) {
+			p2++;
+			cout << "{" << s1[p1] << "," << s2[p2] << "}" << endl;
+		} else if (b < a && b < c) {
+			p1++;
+			cout << "{" << s1[p1] << "," << s2[p2] << "}" << endl;
+		} else {
+			p1++;
+			p2++;
+			cout << "{" << s1[p1] << "," << s2[p2] << "}" << endl;
+		}
+		found++;
+	}
+
+}
+
+void IntArray::findNonDecreasing() {
+	int A[] = {5,3,4,8,6,7};
+	int N = 6, S[6];
+	for (int i = 0; i < N; i++) {
+		S[i] = 1;
+	}
+	for (int i = 1; i < N; i++) {
+		if (A[i] > A[i - 1])
+			S[i] = S[i - 1] + 1;
+	}
+	for (int i = 0; i < N; i++)
+		cout << S[i] << endl;
+}
+
+void IntArray::findCoins() {
+	int S = 11, min[11], N = 4;
+	int V[] = {1,5,10,25};
+	for (int i = 0; i < S; i++) {
+		min[i] = 99999;
+	}
+	min[0] = 0;
+
+	for (int i = 1; i < S; i++) {
+		for (int j = 0; j < N; j++) {
+			if (V[j] <= i && min[i-V[j]] + 1 < min[i])
+				min[i] = min[i-V[j]] + 1;
+		}
+	}
+	for (int i = 1; i < S; i++) 
+		cout << min[i] << endl;
+}
 void IntArray::sortStack(stack<int> src) {
 	stack<int> dest, temp;
 	while (!src.empty()) {

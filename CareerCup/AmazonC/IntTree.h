@@ -19,7 +19,28 @@ public:
 	BinaryTreeNode* createBST(int src[], int begin, int end);
 	BinaryTreeNode* findLCA(BinaryTreeNode *root, int n1, int n2);
 	void linkSameLevel(BinaryTreeNode *root);
+	void findPath(BinaryTreeNode *root, int sum, vector<int> &nums);
 };
+
+void BinaryTreeNode::findPath(BinaryTreeNode *root, int sum, vector<int> &nums) {
+	if (!root)
+		return;
+	int total = 0;
+	nums.push_back(root->data);
+	for (int i = 0; i < nums.size(); i++)
+		total += nums[i];
+	if (total == sum) {
+		for (int i = 0; i < nums.size(); i++)
+			cout << nums[i] << " ";
+		cout << endl;
+		nums.pop_back();
+		return;
+	}
+			
+	findPath(root->left, sum, nums);
+	findPath(root->right, sum, nums);
+	nums.pop_back();	
+}
 
 BinaryTreeNode::BinaryTreeNode(int value)
 {
