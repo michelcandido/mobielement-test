@@ -22,22 +22,31 @@ public:
 };
 
 void IntListNode::copyExtra(IntListNode *head) {
-	IntListNode *newHead,  *current = head, *prev;
+	IntListNode *newHead,  *current = head, *newCurrent, *prev, *next;
 	while (current) {
-		IntListNode *newCurrent = new IntListNode(current->data);		
+		newCurrent = new IntListNode(current->data);		
 		if (current != head)
 			prev->next = newCurrent;
 		else
 			newHead = newCurrent;
 		prev = newCurrent;
-		current = current->next;
+
+		newCurrent->extra = current->next;
+		current->next = newCurrent;
+		current = newCurrent->extra;
 	}
 	current = head;
 	newCurrent = newHead;
-	while (current) {
-		IntListNode *next = current->next;
-		current->next = newCurrent;
-
+	while (newCurrent) {
+		next = newCurrent->extra;
+		newCurrent->extra = current->extra->next;
+		newCurrent = newCurrent->next;
+		current = next;
+	}
+	newCurrent = newHead;
+	while (newCurrent) {
+		cout << newCurrent->data << " extra:" << newCurrent->extra->data << endl;
+		newCurrent = newCurrent->next;
 	}
 }
 

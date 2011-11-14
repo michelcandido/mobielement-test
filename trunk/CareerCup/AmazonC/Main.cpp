@@ -28,6 +28,28 @@ class Derived: public Base
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	int s1[] = {1, 2, 4, 5, 6};
+	int s2[] = {3, 5, 7, 9};
+	IntArray *arr = new IntArray();
+	arr->findMinPairs(s1, sizeof(s1)/sizeof(int), s2, sizeof(s2)/sizeof(int),3);
+	/*
+	BinaryTreeNode *bst = new BinaryTreeNode(5);
+	bst->createBST();
+	vector<int> nums;
+	bst->findPath(bst, 12, nums);
+	*/
+	/*
+	IntArray *arr = new IntArray();
+	//arr->findNonDecreasing();
+	arr->findCoins();
+	*/
+	/*
+	IntListNode *head = new IntListNode(1);
+	head->init3();
+	head->copyExtra(head);
+	*/
+
+	/*
 	IntArray *arr = new IntArray();
 	stack<int> src;
 	src.push(7);
@@ -35,6 +57,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	src.push(10);
 	src.push(9);
 	arr->sortStack(src);
+	*/
 	/*
 	IntArray *arr = new IntArray();
 	int a1[] = {1,2,3,5,6,7};
