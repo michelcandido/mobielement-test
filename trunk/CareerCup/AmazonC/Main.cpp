@@ -28,10 +28,15 @@ class Derived: public Base
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	IntArray *arr = new IntArray();
+	char src[] = "AbcD1eF2";
+	arr->sort1aA(src, strlen(src));
+	/*
 	int s1[] = {1, 2, 4, 5, 6};
 	int s2[] = {3, 5, 7, 9};
 	IntArray *arr = new IntArray();
 	arr->findMinPairs(s1, sizeof(s1)/sizeof(int), s2, sizeof(s2)/sizeof(int),3);
+	*/
 	/*
 	BinaryTreeNode *bst = new BinaryTreeNode(5);
 	bst->createBST();

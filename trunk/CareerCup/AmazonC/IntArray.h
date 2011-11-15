@@ -22,7 +22,26 @@ public:
 	void findCoins();
 	void findNonDecreasing(); 
 	void findMinPairs(int s1[], int size1, int s2[], int size2, int m);
+	void sort1aA(char src[], int size);
 };
+
+void IntArray::sort1aA(char src[], int size) {
+	cout << src << endl;
+	int l = 0, m = 0, h = size - 1;
+	while (m <= h) {
+		if (islower(src[m]))
+			m++;
+		else if (isupper(src[m])) {
+			swap(src[m], src[h]);
+			h--;
+		} else {
+			swap(src[m], src[l]);
+			m++;
+			l++;
+		}
+	}
+	cout << src << endl;
+}
 
 void IntArray::findMinPairs(int s1[], int size1, int s2[], int size2, int m) {
 	int p1 = 0, p2 = 0;
