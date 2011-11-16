@@ -28,9 +28,26 @@ class Derived: public Base
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	Trie *node = new Trie();
+	node->initialize(node);
+	char w1[] = "tree";
+	char w2[] = "trie";
+	node->addWord(node, w1, 0, strlen(w1) );
+	node->addWord(node, w2, 0, strlen(w2) );
+	char t[] = "trie";
+	cout << node->countWords(node,t, 0, strlen(t)) << endl; 
+	/*
+	IntListNode *head = new IntListNode(0);
+	head->init4();
+	head->deleteDups(head);
+	if (head)
+		head->print();
+		*/
+	/*
 	IntArray *arr = new IntArray();
 	char src[] = "AbcD1eF2";
 	arr->sort1aA(src, strlen(src));
+	*/
 	/*
 	int s1[] = {1, 2, 4, 5, 6};
 	int s2[] = {3, 5, 7, 9};
