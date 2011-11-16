@@ -28,6 +28,12 @@ class Derived: public Base
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	IntArray *arr = new IntArray();
+	int input[] = {10,5,2,1};
+	vector<int> v;
+	int sum = 0;
+	arr->get_combination_sum(input, 4,4,v,sum);
+	/*
 	Trie *node = new Trie();
 	node->initialize(node);
 	char w1[] = "tree";
@@ -36,6 +42,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	node->addWord(node, w2, 0, strlen(w2) );
 	char t[] = "trie";
 	cout << node->countWords(node,t, 0, strlen(t)) << endl; 
+	*/
 	/*
 	IntListNode *head = new IntListNode(0);
 	head->init4();

@@ -23,8 +23,36 @@ public:
 	void findNonDecreasing(); 
 	void findMinPairs(int s1[], int size1, int s2[], int size2, int m);
 	void sort1aA(char src[], int size);
+	void get_combination_sum(int input[], int n, int target, vector<int>& v, int& sum);
 };
 
+void IntArray::get_combination_sum(int input[], int n, int target, vector<int>& v, int& sum)
+{
+	for (int i = 0; i < n; ++i)
+	{
+		if (sum + input[i] < target)
+		{
+			v.push_back(input[i]);
+			sum += input[i];
+			get_combination_sum(input, n, target, v, sum);
+			sum -= input[i];
+			v.pop_back();
+		}
+		else if (sum+input[i] == target)
+		{
+			v.push_back(input[i]);
+			for (unsigned j = 0; j < v.size(); j++ ){
+				cout << v[j] << " ";
+			}
+			cout << endl;
+			v.pop_back();
+		}
+		else
+		{
+			break;
+		}
+	}
+}
 void IntArray::sort1aA(char src[], int size) {
 	cout << src << endl;
 	int l = 0, m = 0, h = size - 1;
