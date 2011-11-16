@@ -22,15 +22,69 @@ public:
 	void findPath(BinaryTreeNode *root, int sum, vector<int> &nums);
 };
 
+class Trie
+{
+public:
+	char data;
+	int words;
+	int prefixes;
+	Trie *edges[26];
+	void initialize(Trie *node);
+	void addWord(Trie *node, char word[], int start, int end);
+	int countPrefixes(Trie *node, char prefix[], int start, int end);
+	int countWords(Trie *node, char word[], int start, int end);
+};
+
+void Trie::initialize(Trie *node) {
+	data = ' ';
+	node->words = 0;
+	node->prefixes = 0;
+	for (int i = 0; i < 26; i++) 
+		node->edges[i] = 0;
+}
+
+void Trie::addWord(Trie *node, char word[], int start, int end) {
+	if (start > end)
+		node->words++;
+	else {
+		node->prefixes++;
+		char k = word[start];
+		if (node->edges[k-'a'] == 0) {
+			Trie *edge = new Trie();
+			edge->initialize(edge);
+			node->edges[k-'a'] = edge;
+		}
+		addWord(node->edges[k-'a'], word, ++start, end);
+	}
+}
+
+int Trie::countWords(Trie *node, char word[], int start, int end) {
+	if (start > end)
+		return node->words;
+	char k = word[start];
+	if (node->edges[k-'a'] == 0)
+		return 0;
+	return countWords(node->edges[k-'a'], word, ++start, end);
+}
+
+int Trie::countPrefixes(Trie *node, char word[], int start, int end) {
+	if (start > end)
+		return node->prefixes;
+	char k = word[start];
+	if (node->edges[k-'a'] == 0)
+		return 0;
+	return countPrefixes(node->edges[k-'a'], word, ++start, end);
+}
+
 void BinaryTreeNode::findPath(BinaryTreeNode *root, int sum, vector<int> &nums) {
 	if (!root)
 		return;
 	int total = 0;
 	nums.push_back(root->data);
-	for (int i = 0; i < nums.size(); i++)
+	for (unsigned int i = 0; i < nums.size(); i++)
 		total += nums[i];
 	if (total == sum) {
-		for (int i = 0; i < nums.size(); i++)
+		for (unsigned int i = 0; i < nums.size(); i++)
 			cout << nums[i] << " ";
 		cout << endl;
 		nums.pop_back();

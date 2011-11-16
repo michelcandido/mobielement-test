@@ -8,10 +8,11 @@ public:
 	IntListNode *next;
 	IntListNode *extra;
 
-	IntListNode(int value);
+	IntListNode(int value);	
 	void init();
 	void init2();
 	void init3();
+	void init4();
 	void print();
 	IntListNode* reverse(IntListNode *root);
 	IntListNode* reverseRecursive(IntListNode *root, IntListNode *prev);
@@ -19,7 +20,48 @@ public:
 	IntListNode* sort(IntListNode *l);
 	IntListNode* getLastNth(IntListNode *head, int n);
 	void copyExtra(IntListNode *head);
+	void deleteDups(IntListNode *&head);
 };
+
+void IntListNode::deleteDups(IntListNode *&head) {
+	IntListNode *p = head;
+	IntListNode *prev = 0;
+	while (p) {
+		if (p->next && p->data == p->next->data) {
+			while (p->next && p->data == p->next->data) {
+				p->next = p->next->next;
+			}
+			if (prev) {
+				prev->next = p->next;
+				p = p->next;
+			} else {
+				head = p->next;
+				p = p->next;
+			}
+		} else {
+			prev = p;
+			p = p->next;
+		}
+	}
+}
+
+void IntListNode::init4() {
+	IntListNode *p1 = new IntListNode(1);
+	IntListNode *p2 = new IntListNode(2);
+	IntListNode *p3 = new IntListNode(3);
+	IntListNode *p4 = new IntListNode(3);
+	IntListNode *p5 = new IntListNode(4);
+	IntListNode *p6 = new IntListNode(4);
+	IntListNode *p7 = new IntListNode(5);
+	this->next = p1;
+	p1->next = p2;
+	p2->next = p3;
+	p3->next = p4;
+	p4->next = p5;
+	p5->next = p6;
+	p6->next = p7;
+	
+}
 
 void IntListNode::copyExtra(IntListNode *head) {
 	IntListNode *newHead,  *current = head, *newCurrent, *prev, *next;
