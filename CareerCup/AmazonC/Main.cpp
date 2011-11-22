@@ -5,6 +5,9 @@
 #include "IntTree.h"
 #include "IntList.h"
 #include "IntArray.h"
+#include <time.h>
+#include <stdlib.h>
+#include "MyString.h"
 
 #include <hash_map>
 
@@ -28,11 +31,34 @@ class Derived: public Base
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	MyString *str = new MyString();
+	char src[] = "aaabcccdefggg";
+	cout << src << endl;
+	str->compress(src);
+	cout << src << endl;
+	//str->reverse(src);
+	//cout << src << endl;
+	//cout << str->isUnique(src) << endl;
+	/*
+	int src[10];	
+	IntArray *arr = new IntArray();
+	arr->randGen(src, 10, 10);
+	int size = sizeof(src)/sizeof(int);
+	arr->print(src, size);
+	
+	//cout << arr->partition(src, 0, size - 1) << endl;
+	//arr->quickSort(src, 0, size - 1);
+	arr->findKSmallest(src, 0, size - 1, 3);
+	arr->print(src, size);
+	*/
+
+	/*
 	IntArray *arr = new IntArray();
 	int input[] = {10,5,2,1};
 	vector<int> v;
 	int sum = 0;
 	arr->get_combination_sum(input, 4,4,v,sum);
+	*/
 	/*
 	Trie *node = new Trie();
 	node->initialize(node);
