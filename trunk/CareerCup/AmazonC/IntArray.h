@@ -2,11 +2,13 @@
 #include <math.h>
 #include <vector>
 #include <stack>
+#include <time.h>
 using namespace std;
 
 class IntArray
 {
 public:
+	void print(int src[], int size);
 	void swapSort(int src[], int size);
 	void maxSubArray(int src[], int size);
 	void matrixTransposition(int src[], int N);
@@ -24,7 +26,71 @@ public:
 	void findMinPairs(int s1[], int size1, int s2[], int size2, int m);
 	void sort1aA(char src[], int size);
 	void get_combination_sum(int input[], int n, int target, vector<int>& v, int& sum);
+	int partition(int src[], int left, int right); 
+	void quickSort(int arr[], int left, int right);
+	void randGen(int src[], int size, int range);
+	void findKSmallest(int src[], int left, int right, int k);
 };
+
+void IntArray::findKSmallest(int src[], int left, int right, int k) {
+	if (right > left) {
+		int pivotIdx = partition(src, left, right);
+		if (pivotIdx == left  + k - 1)
+			return;
+		if (pivotIdx > left + k - 1) 
+			findKSmallest(src, left, pivotIdx - 1, k);
+		else if (pivotIdx < left + k - 1)
+			findKSmallest(src, pivotIdx + 1, right, left + k - pivotIdx - 1);
+	}
+}
+
+void IntArray::randGen(int src[], int size, int range) {
+	srand ( time(NULL) );
+
+	for (int i =0;i < size; i++) {
+		src[i] = rand() % range;
+	}
+}
+
+void IntArray::quickSort(int arr[], int left, int right) {
+
+      int index = partition(arr, left, right);
+
+      if (left < index - 1)
+
+            quickSort(arr, left, index - 1);
+
+      if (index < right)
+
+            quickSort(arr, index, right);
+
+}
+
+int IntArray::partition(int src[], int left, int right) {
+	int i = left, j = right;
+	int pivot = src[(left+right)/2];
+	int temp;
+	while (i <= j) {
+		while (src[i] < pivot)
+			i++;
+		while (src[j] > pivot)
+			j--;
+		if (i <= j) {
+			temp = src[j];
+			src[j] = src[i];
+			src[i] = temp;
+			i++;
+			j--;
+		}
+	}
+	return i;
+}
+
+void IntArray::print(int src[], int size) {
+	for (int i = 0; i < size; i++) 
+		cout << src[i] << " ";
+	cout << endl;
+}
 
 void IntArray::get_combination_sum(int input[], int n, int target, vector<int>& v, int& sum)
 {
