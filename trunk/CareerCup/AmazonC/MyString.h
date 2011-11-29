@@ -8,7 +8,38 @@ public:
 	bool isUnique(char src[]);
 	void reverse(char src[]);
 	void compress(char src[]);
+	bool isPalindrome(char s1[], char s2[]);
+	bool isAnagrams(char s1[], char s2[]);
 };
+
+bool MyString::isAnagrams(char s1[], char s2[]) {
+	if (!s1 || !s2) return false;
+	if (strlen(s1) != strlen(s2)) return false;
+	int letters[256] = {0};
+	while (*s1) {
+		letters[*s1]++;
+		s1++;
+	}
+	while (*s2) {
+		letters[*s2]--;
+		if (letters[*s2] < 0) return false;
+		s2++;
+	}
+	return true;
+}
+
+bool MyString::isPalindrome(char s1[], char s2[]) {
+	if (!s1 || !s2) return false;
+	if (strlen(s1) != strlen(s2)) return false;
+	while (*s2) s2++;
+	s2--;
+	while (*s1) {
+		if (*s1 != *s2) return false;
+		s1++;
+		s2--;
+	}
+	return true;
+}
 
 void MyString::compress(char src[]) {
 	if (!src || !*src)

@@ -31,11 +31,36 @@ class Derived: public Base
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	IntListNode *head = new IntListNode(0);
+	int src[] = {1,1,2,3,4,1,5,6,1};
+	head->init0(head,src,sizeof(src)/sizeof(int));
+	head->print();
+	head->removeDups(head);
+	head->print();
+	/*
+	int src[4][5] = {{1,0,0,0,1},{1,0,1,0,0},{1,1,1,1,1},{1,1,0,1,0}};
+	IntArray *arr = new IntArray();
+	arr->setZeros(src, 4,5);
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 5; j++) {
+			cout << src[i][j] << " ";
+		}
+		cout << endl;
+	}
+	*/
+	/*
 	MyString *str = new MyString();
+	char s1[] = "abcda";
+	char s2[] = "dcbaa";
+	cout << str->isAnagrams(s1, s2) << endl;
+	*/
+	//cout << str->isPalindrome(s1, s2) << endl;
+	/*
 	char src[] = "aaabcccdefggg";
 	cout << src << endl;
 	str->compress(src);
 	cout << src << endl;
+	*/
 	//str->reverse(src);
 	//cout << src << endl;
 	//cout << str->isUnique(src) << endl;

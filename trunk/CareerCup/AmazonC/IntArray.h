@@ -30,7 +30,29 @@ public:
 	void quickSort(int arr[], int left, int right);
 	void randGen(int src[], int size, int range);
 	void findKSmallest(int src[], int left, int right, int k);
+	void setZeros(int src[][5], int row, int col);
 };
+
+void IntArray::setZeros(int src[][5], int row, int col) {
+	int *zeroRow = (int*)(malloc(row*sizeof(int*)));
+	int *zeroCol = (int*)(malloc(col*sizeof(int*)));
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col; j++) {
+			if (src[i][j] == 0) {
+				zeroRow[i] = 1;
+				zeroCol[j] = 1;
+			}
+		}
+	}
+
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < col; j++) {
+			if (zeroRow[i] == 1 || zeroCol[j] == 1) {
+				src[i][j] = 0;
+			}
+		}
+	}
+}
 
 void IntArray::findKSmallest(int src[], int left, int right, int k) {
 	if (right > left) {

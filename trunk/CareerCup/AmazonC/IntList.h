@@ -1,4 +1,5 @@
 #include <iostream>
+#include <hash_set>
 using namespace std;
 
 class IntListNode
@@ -21,7 +22,31 @@ public:
 	IntListNode* getLastNth(IntListNode *head, int n);
 	void copyExtra(IntListNode *head);
 	void deleteDups(IntListNode *&head);
+	void init0(IntListNode *head, int src[], int size);
+	void removeDups(IntListNode *head);
 };
+
+void IntListNode::removeDups(IntListNode *head) {
+	int checker = 0;
+	IntListNode *prev;
+	while (head) {
+		if (checker & (1 << head->data))
+			prev->next = head->next;
+		else {
+			checker |= (1 << head->data);
+			prev = head;
+		}
+		head = head->next;
+	}
+}
+void IntListNode::init0(IntListNode *head, int src[], int size) {
+	IntListNode *p = head;
+	for (int i = 0; i < size; i++) {
+		IntListNode *node = new IntListNode(src[i]);
+		p->next = node;
+		p = node;
+	}
+}
 
 void IntListNode::deleteDups(IntListNode *&head) {
 	IntListNode *p = head;
