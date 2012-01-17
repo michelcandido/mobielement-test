@@ -28,11 +28,8 @@ public class GArray {
 		else
 			return findMaxBinary(src, mid+1, high);
 	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	
+	static void testFindMax() {
 		int arr1[] = {8, 10, 20, 80, 100, 200, 400, 500, 3, 2, 1};
 		int arr2[] = {1, 3, 50, 10, 9, 7, 6};
 		int arr3[] = {10, 20, 30, 40, 50};
@@ -45,6 +42,13 @@ public class GArray {
 		System.out.println(findMaxBinary(arr2,0,arr2.length - 1));
 		System.out.println(findMaxBinary(arr3,0,arr3.length - 1));
 		System.out.println(findMaxBinary(arr4,0,arr4.length - 1));
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		testFindMax();
 	}
 
 }
