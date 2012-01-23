@@ -1,5 +1,13 @@
+import java.util.HashMap;
+
 
 public class GArray {
+	static void printIntArray(int[] src) {
+		for (int i:src)
+			System.out.format("%d ", i);
+		System.out.println();
+	}
+	
 	static int findMaxLinear(int src[]) {
 		if (src == null || src.length == 0)
 			return Integer.MIN_VALUE;
@@ -43,12 +51,49 @@ public class GArray {
 		System.out.println(findMaxBinary(arr3,0,arr3.length - 1));
 		System.out.println(findMaxBinary(arr4,0,arr4.length - 1));
 	}
+	
+	static boolean checkPair(int a[], int x) {
+		if (a == null || a.length == 0 || a.length == 1)
+			return false;
+		HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>(); 
+		for (int i : a) {
+			if (!hash.containsKey(i)) {
+				hash.put(i, 1);
+			} else {
+				int value = hash.get(i);
+				value++;
+				hash.put(i, value);
+			}
+		}
+		for (int i : a) {
+			int result = x - i;
+			if (result != i) {
+				if (hash.containsKey(result))
+					return true;
+				else 
+					continue;
+			} else {
+				int count = hash.get(i);
+				if (count >= 2)
+					return true;
+				else
+					continue;
+			}
+		}
+		return false;
+	}
+	
+	static void testCheckPair() {
+		int a[] = {3,0,1};
+		System.out.println(checkPair(a, 2));
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		testFindMax();
+		//testFindMax();
+		testCheckPair();
 	}
 
 }
