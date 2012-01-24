@@ -87,13 +87,45 @@ public class GArray {
 		int a[] = {3,0,1};
 		System.out.println(checkPair(a, 2));
 	}
+	
+	static int findMajority(int a[]) {
+		int result = Integer.MIN_VALUE;
+		if (a == null)
+			return result;
+		float valve = a.length / 2;
+		HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+		for (int i : a) {
+			int count = 0;
+			if (hash.containsKey(i)) {
+				count = hash.get(i);
+				count++;
+				if (count > valve)
+					return i;
+				else 
+					hash.put(i, count);
+			} else {
+				hash.put(i, 1);
+			}
+		}
+		return result;
+	}
+	
+	static void testFindMajority() {
+		int a[] = {3, 3, 4, 2, 4, 4, 2, 4};
+		int result = findMajority(a);
+		if (result == Integer.MIN_VALUE)
+			System.out.println("None");
+		else
+			System.out.format("%d\n",result);
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		//testFindMax();
-		testCheckPair();
+		//testCheckPair();
+		testFindMajority();
 	}
 
 }
