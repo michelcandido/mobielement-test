@@ -92,7 +92,7 @@ public class GArray {
 		int result = Integer.MIN_VALUE;
 		if (a == null)
 			return result;
-		float valve = a.length / 2;
+		int valve = a.length / 2;
 		HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
 		for (int i : a) {
 			int count = 0;
@@ -110,9 +110,37 @@ public class GArray {
 		return result;
 	}
 	
+	static int findMajority2(int a[]) {
+        if (a == null)
+            return Integer.MIN_VALUE;
+        int majorIdx = 0, count = 1;
+        for (int i = 1; i < a.length; i++) {
+            if (a[majorIdx] == a[i])
+                count++;
+            else {
+                count--;
+            }
+            if (count == 0) {
+                majorIdx = i;
+                count = 1;
+            }
+        }
+        int valve = a.length / 2;
+        count = 0;
+       for (int i : a) {
+           if (i == a[majorIdx])
+               count++;
+       }
+        if (count > valve)
+            return a[majorIdx];
+        else
+            return Integer.MIN_VALUE;
+	}
+	
 	static void testFindMajority() {
-		int a[] = {3, 3, 4, 2, 4, 4, 2, 4};
-		int result = findMajority(a);
+		int a[] = {3, 3, 4, 2, 4, 4, 2, 4,4};
+		//int result = findMajority(a);
+		int result = findMajority2(a);
 		if (result == Integer.MIN_VALUE)
 			System.out.println("None");
 		else
