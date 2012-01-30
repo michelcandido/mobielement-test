@@ -11,4 +11,5 @@
     <string name="activity_translucentblur">App/Activity/Translucent Blur</string>
     <string name="activity_dialog">App/Activity/Dialog</string>
     <string name="activity_customtitle">App/Activity/Custom Title</string>
+    <string name="graphics_shapedrawable">Graphics/Drawable/Shape Drawable</string>
 </resources>
