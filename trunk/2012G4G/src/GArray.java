@@ -146,6 +146,50 @@ public class GArray {
 		else
 			System.out.format("%d\n",result);
 	}
+	
+	static void mergeMN(int[] mn, int n[]) {
+		int idx = mn.length - 1;
+		for (int i = mn.length - 1; i >= 0; i--) {
+			if (mn[i] != -1) {
+				mn[idx] = mn[i];
+				idx--;
+			}
+		}
+		for (int i = idx; i >= 0; i--) 
+			mn[i] = -1;
+		if (idx < mn.length - 1)
+			idx++;
+		int idxn = 0, idxmn = 0;
+		
+		while (idxn <= n.length - 1 && idx <= mn.length - 1) {
+			if (n[idxn] < mn[idx]) {
+				mn[idxmn] = n[idxn];
+				idxmn++;
+				idxn++;
+			} else {
+				mn[idxmn] = mn[idx];
+				idxmn++;
+				idx++;
+			}				
+		}
+		
+		if (idx > mn.length - 1) {
+			while (idxn <= n.length - 1) {
+				mn[idxmn] = n[idxn];
+				idxmn++;
+				idxn++;
+			}
+		}
+		
+	}
+	
+	static void testMergeMN() {
+		int mn[] = {2, -1, 7, -1, -1, 10, -1};
+		int n[] = {5,8,12,14};
+		printIntArray(mn);
+		mergeMN(mn, n);
+		printIntArray(mn);
+	}
 
 	/**
 	 * @param args
@@ -153,7 +197,8 @@ public class GArray {
 	public static void main(String[] args) {
 		//testFindMax();
 		//testCheckPair();
-		testFindMajority();
+		//testFindMajority();
+		testMergeMN();
 	}
 
 }
