@@ -2,6 +2,76 @@ import java.util.HashMap;
 
 
 public class GArray {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		//testFindMax();
+		//testCheckPair();
+		//testFindMajority();
+		//testMergeMN();
+		//testGetMedian();
+		testReverseArray();
+	}
+	
+	static void testReverseArray() {
+		int a[] = {1, 2, 3, 4, 5, 6, 7};
+		printIntArray(a);
+		reverseArray(a);
+		printIntArray(a);
+	}
+	
+	static void reverseArray(int a[]) {
+		int start = 0, end = a.length - 1;
+		while (start < end) {
+			int t = a[start];
+			a[start] = a[end];
+			a[end] = t;
+			start++;
+			end--;
+		}
+	}
+	
+	static void testGetMedian() {
+		int a1[] = {1, 12, 15, 26, 38};
+		int a2[] = {2, 13, 17, 30, 45};
+		System.out.println(""+getMedian(a1, a2, a1.length));
+	}
+	
+	static int getMedian(int a1[], int a2[], int n) {
+		if (n <= 0)
+			return -1;
+		if (n == 1)
+			return (a1[0] + a2[0]) / 2;
+		if (n == 2)
+			return (Math.max(a1[0], a2[0]) + Math.min(a1[1], a2[1])) / 2;
+
+		int m1 = median(a1, n);
+		int m2 = median(a2, n);
+		
+		if (m1 == m2)
+			return m1;
+		
+		int newa1[] = new int[n - n/2];
+		int newa2[] = new int[n - n/2];
+		if (m1 < m2) {
+			System.arraycopy(a1, n/2, newa1, 0, n - n/2);
+			System.arraycopy(a2, 0, newa2, 0, n - n/2);
+			return getMedian(newa1, newa2, n - n/2);
+		} else {
+			System.arraycopy(a1, 0, newa1, 0, n - n/2);
+			System.arraycopy(a2, n/2, newa2, 0, n - n/2);
+			return getMedian(newa1, newa2, n - n/2);
+		}
+	}
+	
+	static int median(int a[], int n) {
+		if (n%2 == 0) 
+			return (a[n/2]+a[n/2-1])/2;
+		else
+			return a[n/2];
+	}
+	
 	static void printIntArray(int[] src) {
 		for (int i:src)
 			System.out.format("%d ", i);
@@ -191,14 +261,6 @@ public class GArray {
 		printIntArray(mn);
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		//testFindMax();
-		//testCheckPair();
-		//testFindMajority();
-		testMergeMN();
-	}
+	
 
 }
