@@ -12,4 +12,5 @@
     <string name="activity_dialog">App/Activity/Dialog</string>
     <string name="activity_customtitle">App/Activity/Custom Title</string>
     <string name="graphics_shapedrawable">Graphics/Drawable/Shape Drawable</string>
+    <string name="graphics_cleartest">Graphics/OpenGL/Clear Test</string>
 </resources>
