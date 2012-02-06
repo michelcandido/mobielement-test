@@ -11,7 +11,27 @@ public class GArray {
 		//testFindMajority();
 		//testMergeMN();
 		//testGetMedian();
-		testReverseArray();
+		//testReverseArray();
+		testRotateArray();
+	}
+	
+	static void testRotateArray() {
+		int a[] = {1, 2, 3, 4, 5, 6, 7};
+		printIntArray(a);
+		rotateArray(a,3);
+		printIntArray(a);
+	}
+	
+	static void rotateArray(int a[], int n) {
+		reverseArray(a);
+		int a1[] = new int[a.length - n];
+		int a2[] = new int[n];
+		System.arraycopy(a, 0, a1, 0, a1.length);
+		System.arraycopy(a, a.length - n, a2, 0, a2.length);
+		reverseArray(a1);
+		reverseArray(a2);
+		System.arraycopy(a1, 0, a, 0, a1.length);
+		System.arraycopy(a2, 0, a, a1.length, a2.length);
 	}
 	
 	static void testReverseArray() {
