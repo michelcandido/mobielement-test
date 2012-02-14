@@ -12,26 +12,41 @@ public class DP {
 		//testZigZag();
 		testBadNeighbors();
 	}
-	
+
 	static void testBadNeighbors() {
-		int d[] = { 10, 3, 2, 5,7,8 };
+		int d[] = { 94, 40, 49, 65, 21, 21, 106, 80, 92, 81, 679, 4, 61,
+		        6, 237, 12, 72, 74, 29, 95, 265, 35, 47, 1, 61, 397,
+		        52, 72, 37, 51, 1, 81, 45, 435, 7, 36, 57, 86, 81, 72  };
 		System.out.println(""+badNeighbors(d));
 	}
-	
+
 	static int badNeighbors(int d[]) {
 		if (d.length == 1)
 			return d[0];
 		if (d.length == 2)
 			return Math.max(d[0], d[1]);
 		int s[] = new int[d.length];
-		s[1] = s[2] = Math.max(d[0], d[1]);
+		boolean a[] = new boolean[d.length];
+		s[0] = d[0];
+		a[0] = true;
+		if (d[1] > d[0]) {
+		    s[1] = d[1];
+		    a[1] = false;
+		} else {
+		    s[1] = d[0];
+		    a[1] = true;
+		}
+
 		for (int i = 2; i < d.length; i++) {
-			s[i] = Integer.MIN_VALUE;
+			s[i] = d[i];
+			a[i] = false;
 			for (int j = 0; j < i; j++) {
 				if (i - j >= 2 ) {
-					if ((i != d.length - 1) || (i == d.length - 1 && j != 0)) {
-						if ((s[j] + d[i]) > s[i])
+					if ((i != d.length - 1) || (i == d.length - 1 && !a[j])) {
+						if ((s[j] + d[i]) > s[i]) {
 							s[i] = s[j] + d[i];
+							a[i] = a[j];
+						}
 					}
 				}
 			}
@@ -43,16 +58,16 @@ public class DP {
 		}
 		return max;
 	}
-	
+
 	static void testZigZag() {
-		int a[] = { 374, 40, 854, 203, 203, 156, 362, 279, 812, 955, 
-				600, 947, 978, 46, 100, 953, 670, 862, 568, 188, 
-				67, 669, 810, 704, 52, 861, 49, 640, 370, 908, 
-				477, 245, 413, 109, 659, 401, 483, 308, 609, 120, 
+		int a[] = { 374, 40, 854, 203, 203, 156, 362, 279, 812, 955,
+				600, 947, 978, 46, 100, 953, 670, 862, 568, 188,
+				67, 669, 810, 704, 52, 861, 49, 640, 370, 908,
+				477, 245, 413, 109, 659, 401, 483, 308, 609, 120,
 				249, 22, 176, 279, 23, 22, 617, 462, 459, 244 };
 		System.out.println(""+zigZag(a));
 	}
-	
+
 	static int zigZag(int a[]) {
 		if (a.length <= 2)
 			return a.length;
@@ -76,27 +91,27 @@ public class DP {
 		}
 		return max;
 	}
-	
+
 	static void testLND() {
 		int a[] = {3,9,8,1,2,5,4,6,7,8,9,3};
 		System.out.println(""+LND(a));
 	}
 	static int LND(int a[]) {
-		int s[] = new int[a.length];		
+		int s[] = new int[a.length];
 		int idx[] = new int[a.length];
-		int OPT = 0;		
+		int OPT = 0;
 		int final_idx = -1;
 		for (int i = 0; i < a.length; i++) {
-			s[i] = 1;			
+			s[i] = 1;
 			for (int j = 0; j < i; j++) {
-				if (a[i] >= a[j]) {					
+				if (a[i] >= a[j]) {
 					if (s[j] + 1 > s[i]) {
 						s[i] = s[j] + 1;
 						idx[i] = j;
-					}					
+					}
 				}
 			}
-			
+
 		}
 		for (int k = 0; k < a.length; k++) {
 			System.out.println(""+s[k]);
@@ -141,7 +156,7 @@ public class DP {
 				}
 			}
 		}
-		
+
 	}
 	static int LCS(char[] x, char[] y, int i, int j, int c[][]) {
 		if (i < 0 || j < 0)
@@ -168,7 +183,7 @@ public class DP {
 			System.out.println();
 		}
 	}
-	
+
 	static int minCoins(int v[], int n, int c[]) {
 		int min[] = new int[n+1];
 		//c = new int[n+1];
@@ -185,7 +200,7 @@ public class DP {
 		}
 		return min[n];
 	}
-	
+
 	static void testCutRod() {
 		int p[] = {0,1,5,8,9,10,17,17,20,24,30};
 		for (int i = 0; i < p.length; i++) {
@@ -202,7 +217,7 @@ public class DP {
 			System.out.println("----"+(end-begin));
 		}
 	}
-	
+
 	static int cutRodDP2(int p[], int n) {
 		int r[] = new int[p.length];
 		int s[] = new int[p.length];
@@ -213,20 +228,20 @@ public class DP {
 				if (q < (p[i] + r[j - i])) {
 					q = p[i] + r[j - i];
 					s[j] = i;
-				}				
+				}
 			}
 			r[j] = q;
 		}
 		return r[n];
 	}
-	
+
 	static int cutRodDP1(int p[], int n, int r[]) {
 		int q;
 		if (r[n] >= 0)
 			return r[n];
 		if (n == 0)
 			q = 0;
-		else { 
+		else {
 			q = Integer.MIN_VALUE;
 			for (int i = 1; i <= n; i++) {
 				q = Math.max(q, p[i]+cutRodDP1(p,n-i,r));
@@ -235,7 +250,7 @@ public class DP {
 		r[n] = q;
 		return q;
 	}
-	
+
 	static int cutRod(int p[], int n) {
 		if (n == 0)
 			return 0;
@@ -243,7 +258,7 @@ public class DP {
 		for (int i = 1; i <= n; i++) {
 			q = Math.max(q, p[i]+cutRod(p,n-i));
 		}
-		
+
 		return q;
 	}
 
