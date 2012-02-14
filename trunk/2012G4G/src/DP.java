@@ -9,7 +9,39 @@ public class DP {
 		//testMinCoins();
 		//testLCS();
 		//testLND();
-		testZigZag();
+		//testZigZag();
+		testBadNeighbors();
+	}
+	
+	static void testBadNeighbors() {
+		int d[] = { 10, 3, 2, 5,7,8 };
+		System.out.println(""+badNeighbors(d));
+	}
+	
+	static int badNeighbors(int d[]) {
+		if (d.length == 1)
+			return d[0];
+		if (d.length == 2)
+			return Math.max(d[0], d[1]);
+		int s[] = new int[d.length];
+		s[1] = s[2] = Math.max(d[0], d[1]);
+		for (int i = 2; i < d.length; i++) {
+			s[i] = Integer.MIN_VALUE;
+			for (int j = 0; j < i; j++) {
+				if (i - j >= 2 ) {
+					if ((i != d.length - 1) || (i == d.length - 1 && j != 0)) {
+						if ((s[j] + d[i]) > s[i])
+							s[i] = s[j] + d[i];
+					}
+				}
+			}
+		}
+		int max = 0;
+		for (int i = 0; i < d.length; i++) {
+			if (s[i] > max)
+				max = s[i];
+		}
+		return max;
 	}
 	
 	static void testZigZag() {
