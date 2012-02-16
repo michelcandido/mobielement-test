@@ -13,6 +13,14 @@ public class DP {
 		testBadNeighbors();
 	}
 
+	static long numWays(int width, int height, String[] bad) {
+		for (int i = 0; i <= width; i++) {
+			for (int j = 0; j <= height; j++) {
+				
+			}
+		}
+	}
+	
 	static void testBadNeighbors() {
 		int d[] = { 94, 40, 49, 65, 21, 21, 106, 80, 92, 81, 679, 4, 61,
 		        6, 237, 12, 72, 74, 29, 95, 265, 35, 47, 1, 61, 397,
