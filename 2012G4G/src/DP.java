@@ -10,17 +10,71 @@ public class DP {
 		//testLCS();
 		//testLND();
 		//testZigZag();
-		testBadNeighbors();
+		//testBadNeighbors();
+	    testNumWays();
 	}
 
+	static void testNumWays() {
+	    //String[] bad = {"0001","6656"};
+	    //String[] bad = {"0001"};
+	    //String[] bad = {"0111","1011","1121","1112"};
+	    //String[] bad = {"0010","1222","1121"};
+	    String[] bad = {};
+	    System.out.println(""+numWays(1,1,bad));
+	}
 	static long numWays(int width, int height, String[] bad) {
+	    long s[][] = new long[width + 1][height + 1];
+
 		for (int i = 0; i <= width; i++) {
 			for (int j = 0; j <= height; j++) {
-				
+			    s[i][j] = 0;
 			}
 		}
+
+		if (!isBlocked(0,0,1,0,bad))
+		    s[1][0] = 1;
+		if (!isBlocked(0,0,0,1,bad))
+            s[0][1] = 1;
+
+		for (int i = 1; i <= width; i++) {
+            if (!isBlocked(i-1,0,i,0,bad) && s[i-1][0] != 0)
+                s[i][0] = 1;
+        }
+		for (int i = 1; i <= height; i++) {
+            if (!isBlocked(0,i-1,0,i,bad) && s[0][i-1] != 0)
+                s[0][i] = 1;
+        }
+
+		for (int i = 1; i <= width; i++) {
+		    for (int j = 1; j <= height; j++) {
+		        if (!isBlocked(i,j-1,i,j,bad)) {
+		            if (s[i][j-1] != 0) {
+		                s[i][j] += s[i][j-1];
+		            }
+		        }
+		        if  (!isBlocked(i-1,j,i,j,bad)) {
+                    if (s[i-1][j] != 0) {
+                        s[i][j] += s[i-1][j];
+                    }
+                }
+		    }
+		}
+
+		return s[width][height];
 	}
-	
+
+	static boolean isBlocked(int x0,int y0, int x1, int y1, String[] bad) {
+	    if (bad == null)
+	        return false;
+	    String checker = ""+x0+y0+x1+y1;
+	    String checker1 = ""+x1+y1+x0+y0;
+	    for (String blocker:bad) {
+	        if (blocker.equalsIgnoreCase(checker) || blocker.equalsIgnoreCase(checker1))
+	            return true;
+	    }
+	    return false;
+	}
+
 	static void testBadNeighbors() {
 		int d[] = { 94, 40, 49, 65, 21, 21, 106, 80, 92, 81, 679, 4, 61,
 		        6, 237, 12, 72, 74, 29, 95, 265, 35, 47, 1, 61, 397,
