@@ -12,7 +12,28 @@ public class GArray {
 		//testMergeMN();
 		//testGetMedian();
 		//testReverseArray();
-		testRotateArray();
+		//testRotateArray();
+		testMaxSumNoAdjacent();
+	}
+	
+	static void testMaxSumNoAdjacent() {
+		int a[] = {5,  5, 10, 40, 50, 35};
+		System.out.println(""+maxSumNoAdjacent(a));
+	}
+	static int maxSumNoAdjacent(int a[]) {
+		if (a == null || a.length == 0)
+			return 0;
+		if (a.length == 1)
+			return a[0];
+		if (a.length == 2)
+			return Math.max(a[0], a[1]);
+		int s[] = new int[a.length];
+		s[0] = a[0];
+		s[1] = Math.max(a[0], a[1]);
+		for (int i = 2; i < a.length; i++) {
+			s[i] = Math.max(s[i-2]+a[i], s[i-1]);			
+		}
+		return s[a.length - 1];			
 	}
 	
 	static void testRotateArray() {
