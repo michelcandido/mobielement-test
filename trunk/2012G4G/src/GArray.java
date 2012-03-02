@@ -13,7 +13,26 @@ public class GArray {
 		//testGetMedian();
 		//testReverseArray();
 		//testRotateArray();
-		testMaxSumNoAdjacent();
+		//testMaxSumNoAdjacent();
+		testLeadersInArray();
+	}
+	
+	static void testLeadersInArray() {
+		int a[] = {16, 17, 4, 3, 5, 2};
+		leadersInArray(a);
+	}
+	static void leadersInArray(int a[]) {
+		if (a == null)
+			return;
+		int max = a[a.length-1];
+		System.out.print(max+" ");
+		for (int i=a.length-2;i>=0;i--) {
+			if (a[i] > max) {
+				max = a[i];
+				System.out.print(max+" ");
+				
+			}
+		}
 	}
 	
 	static void testMaxSumNoAdjacent() {
