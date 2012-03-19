@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -14,7 +15,77 @@ public class GArray {
 		//testReverseArray();
 		//testRotateArray();
 		//testMaxSumNoAdjacent();
-		testLeadersInArray();
+		//testLeadersInArray();
+		//testSumToZero();
+		//testFindManMin();
+		testSeparate0N1();
+	}
+	static void testSeparate0N1() {
+		int a[] = {0, 1, 0, 1, 0, 0, 1, 1, 1, 0};
+		separate0N1(a);
+	}
+	static void separate0N1(int a[]) {
+		int first = -1,t;
+		for (int i = 0; i <= a.length - 1; i++) {
+			if (a[i] == 0 && first >= 0) {
+				t = a[i];
+				a[i] = a[first];
+				a[first] = t;
+				first++;
+			} else if (a[i] == 1 && first < 0) {
+				first = i;
+			}
+		}
+		for (int i = 0; i <= a.length - 1; i++) {
+			System.out.print(a[i] + " ");
+		}
+		System.out.println();
+	}
+	
+	static void testFindManMin() {
+		int a[] = {8,1,7,4,9,2,5};
+		findMaxMin(a);
+	}
+	static void findMaxMin(int a[]) {
+		int avg = 0;
+		for (int i:a) {
+			avg += i;
+		}
+		avg = avg / a.length;
+		int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE, idxMax = 0, idxMin = 0, v;
+		for (int i = 0; i < a.length; i++) {
+			v = a[i] - avg;
+			if (v > max) {
+				max = v;
+				idxMax = i;
+			} else if (v < min) {
+				min = v;
+				idxMin = i;
+			}
+		}
+		System.out.println("max:"+a[idxMax]+"\n"+"min:"+a[idxMin]);
+	}
+	
+	static void testSumToZero() {
+		int a[] = {1, 60, -10, 70, -80, 85};
+		System.out.println(""+sumToZero(a));
+	}
+	static int sumToZero(int a[]) {
+		Arrays.sort(a);
+		int l = 0, r = a.length - 1;
+		int min = Math.abs(a[l] + a[r]);
+		int sum;
+		while (l < r) {
+			sum = a[l] + a[r];
+			if (sum < 0)
+				l++;
+			else if (sum > 0)
+				r--;
+			else return 0;
+			if (Math.abs(sum) < min)
+				min = Math.abs(sum);
+		}
+		return min;
 	}
 	
 	static void testLeadersInArray() {
