@@ -18,11 +18,51 @@ public class GArray {
 		//testLeadersInArray();
 		//testSumToZero();
 		//testFindManMin();
-		testSeparate0N1();
+		//testSeparate0N1();
+		testMaxDiff();
 	}
+	
+	static void testMaxDiff() {
+		int a[] = {7,9,1,10};//{7, 9, 5, 6, 3, 2};//{2, 3, 10, 6, 4, 8, 1};
+		System.out.println(""+maxDiff(a));
+	}
+	static int maxDiff(int a[]) {
+		int s[] = new int[a.length];
+		int min;
+		s[0] = a[0];
+		s[1] = a[1] - a[0];
+		min = Math.min(a[1], a[0]);
+		for (int i = 2; i < a.length; i++) {
+			if (a[i] < min || (a[i] - min) < s[i - 1]) {
+				s[i] = s[i - 1];
+				min = Math.min(a[i], min);
+			} else {
+				s[i] = a[i] - min;
+			}
+		}
+		return s[a.length - 1];
+	}
+	
 	static void testSeparate0N1() {
 		int a[] = {0, 1, 0, 1, 0, 0, 1, 1, 1, 0};
-		separate0N1(a);
+		separate0N1_2(a);
+	}
+	static void separate0N1_2(int a[]) {
+		int lo = 0, hi = a.length - 1;
+		while (lo <= hi) {
+			if (a[lo] == 0)
+				lo++;
+			else {
+				int t = a[hi];
+				a[hi] = a[lo];
+				a[lo] = t;
+				hi--;
+			}
+		}
+		for (int i = 0; i <= a.length - 1; i++) {
+			System.out.print(a[i] + " ");
+		}
+		System.out.println();
 	}
 	static void separate0N1(int a[]) {
 		int first = -1,t;
