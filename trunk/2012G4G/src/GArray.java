@@ -19,7 +19,52 @@ public class GArray {
 		//testSumToZero();
 		//testFindManMin();
 		//testSeparate0N1();
-		testMaxDiff();
+		//testMaxDiff();
+		testUnionAndIntersection();
+	}
+	
+	static void testUnionAndIntersection() {
+		int a1[] = {1, 3, 4, 5, 7};
+		int a2[] = {2, 3, 5, 6};
+		unionAndIntersection(a1,a2);
+	}
+	static void unionAndIntersection(int a1[], int a2[]) {
+		int i = 0, j = 0;
+		while (i < a1.length && j < a2.length) {
+			if (a1[i] < a2[j]) {
+				System.out.print(a1[i]+" ");
+				i++;
+			} else if (a1[i] > a2[j]) {
+				System.out.print(a2[j]+" ");
+				j++;
+			} else {
+				System.out.print(a1[i]+" ");
+				i++;
+				j++;
+			}
+		}
+		while (i < a1.length) {
+			System.out.print(a1[i]+" ");
+			i++;
+		}
+		while (j < a2.length) {
+			System.out.print(a2[j]+" ");
+			j++;
+		}
+		System.out.println();
+		i = 0;j = 0;
+		while (i < a1.length && j < a2.length) {
+			if (a1[i] < a2[j]) {				
+				i++;
+			} else if (a1[i] > a2[j]) {				
+				j++;
+			} else {
+				System.out.print(a1[i]+" ");
+				i++;
+				j++;
+			}
+		}
+		System.out.println();
 	}
 	
 	static void testMaxDiff() {
