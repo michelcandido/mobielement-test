@@ -22,7 +22,25 @@ public class GArray {
         //testMaxDiff();
         //testUnionAndIntersection();
         //testSegregateEvenOdd();
-        testFindDuplicates();
+        //testFindDuplicates();
+        testFindEquilibrium();
+    }
+
+    static void testFindEquilibrium() {
+        int a[] = {-7,1,5,2,-4,3,0};
+        findEquilibrium(a);
+    }
+    static void findEquilibrium(int a[]) {
+        int leftsum = 0, rightsum = 0;
+        for (int i: a) {
+            rightsum += i;
+        }
+        for (int i =0;i<a.length;i++) {
+            rightsum = rightsum-a[i];
+            if (rightsum==leftsum)
+                System.out.println(i);
+            leftsum+=a[i];
+        }
     }
 
     static void testFindDuplicates() {
