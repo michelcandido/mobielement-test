@@ -1,5 +1,12 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 
 public class GArray {
@@ -23,7 +30,158 @@ public class GArray {
         //testUnionAndIntersection();
         //testSegregateEvenOdd();
         //testFindDuplicates();
-        testFindEquilibrium();
+        //testFindEquilibrium();
+        //testSearchinMatrix();
+        //testNextGreater();
+        //testAreConsecutive();
+        //testFindFirstMissing();
+        testCountOccurrences();
+    }
+
+    static void testCountOccurrences() {
+        int a[] = {1, 1, 2, 2, 2, 2, 3};
+        countOccurrences(a,4);
+    }
+    static void countOccurrences(int[] a, int x) {
+        int first = first(a,0,a.length-1, x);
+        int last = last(a,0,a.length-1,x);
+        if (first == -1 || last == -1)
+            System.out.println("cannot find");
+        else {
+            System.out.format("count:%d, first:%d, last:%d", last - first + 1, first, last);
+        }
+    }
+    static int first(int[] a, int start, int end, int x) {
+        if (start > a.length -1 || end < 0 || start > end)
+            return -1;
+        int mid = (start + end) / 2;
+        if (a[mid] == x) {
+            if (mid > start) {
+                int first = first(a, start, mid - 1, x);
+                if (first != -1)
+                    return first;
+                else
+                    return mid;
+            } else {
+                return mid;
+            }
+        } else if (x > a[mid]){
+            return  first (a, mid + 1, end, x);
+        } else {
+            return first(a, start, mid - 1, x);
+        }
+    }
+    static int last(int[] a, int start, int end, int x) {
+        if (start > a.length -1 || end < 0 || start > end)
+            return -1;
+        int mid = (start + end) / 2;
+        if (a[mid] == x) {
+            if (end > mid) {
+                int last = last(a, mid + 1, end, x);
+                if (last != -1)
+                    return last;
+                else
+                    return mid;
+            } else {
+                return mid;
+            }
+        } else if (x > a[mid]) {
+            return last(a, mid + 1, end, x);
+        } else {
+            return last(a, start, mid - 1, x);
+        }
+    }
+
+    static void testFindFirstMissing() {
+        int[] a = {0, 1, 2, 3};
+        System.out.println(findFirstMissing(a,0,a.length - 1));
+    }
+    static int findFirstMissing(int[] a, int start, int end) {
+        if (start > end)
+            return end + 1;
+
+        if (start != a[start])
+            return start;
+
+        int mid = (start + end) / 2;
+        if (a[mid] > mid)
+            return findFirstMissing(a, start, mid);
+        else
+            return findFirstMissing(a, mid + 1, end);
+    }
+
+    static void testAreConsecutive() {
+        int[] a =  {83, 78, 80, 81, 79, 82};
+        areConsecutive(a);
+    }
+    static void areConsecutive(int[] a) {
+        int sum = 0;
+        int min =  a[0], max = a[0];
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] < min)
+                min = a[i];
+            else if (a[i] > max)
+                max = a[i];
+            sum += a[i];
+        }
+        int result = (min + max) * (max - min + 1) / 2;
+        if (result == sum)
+            System.out.println("yes");
+        else
+            System.out.println("no");
+    }
+
+    static void testNextGreater() {
+        int[] a = {1, 4, 2, 9, 7, 13, 3, 8};
+        nextGreater(a);
+    }
+    static void nextGreater(int[] a) {
+        int[] g = new int[a.length];
+        int t = -1;
+        for (int i = a.length - 1; i >=0; i--) {
+            if (i == a.length - 1) {
+                g[i] = -1;
+                t = -1;
+            } else {
+                if (a[i + 1] > a[i]) {
+                    g[i] = a[i + 1];
+                    t =  g[i];
+                } else if (a[i] < t) {
+                    g[i] = t;
+                } else {
+                    g[i] = -1;
+                    t = -1;
+                }
+            }
+        }
+        printIntArray(g);
+    }
+
+    static void testSearchinMatrix() {
+        int a[][] = null;
+        try {
+            a = readIntMatrix();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        searchinMatrix(a,10);
+    }
+    static void searchinMatrix(int a[][], int x) {
+        int n = a.length;
+        int r = 0, c = n - 1;
+        while (r < n && c >= 0) {
+            if (a[r][c] == x) {
+                System.out.format("found at row %d and column %d\n", r, c);
+                return;
+            }
+            if (x > a[r][c])
+                r++;
+            else
+                c--;
+        }
+        System.out.println("cannot find");
+
     }
 
     static void testFindEquilibrium() {
@@ -345,11 +503,7 @@ public class GArray {
             return a[n/2];
     }
 
-    static void printIntArray(int[] src) {
-        for (int i:src)
-            System.out.format("%d ", i);
-        System.out.println();
-    }
+
 
     static int findMaxLinear(int src[]) {
         if (src == null || src.length == 0)
@@ -534,6 +688,95 @@ public class GArray {
         printIntArray(mn);
     }
 
+    static void printIntArray(int[] src) {
+        for (int i:src)
+            System.out.format("%d ", i);
+        System.out.println();
+    }
 
+    static int[] readIntArray() throws IOException {
+        int[] src = null;
+        Scanner sc = null;
+        BufferedReader br = null;
+        StringReader sr = null;
+
+        try {
+            br = new BufferedReader(new FileReader("testdata"));
+            String l = br.readLine();
+            if (l != null) {
+                sr = new StringReader(l);
+                sc = new Scanner(sr);
+                ArrayList<Integer> arr = new ArrayList<Integer>();
+
+                while (sc.hasNext()) {
+                    arr.add(sc.nextInt());
+                }
+                src = new int[arr.size()];
+                for (int i = 0; i < arr.size(); i++)
+                    src[i] = arr.get(i).intValue();
+            }
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if (sr != null)
+                sr.close();
+            if (br != null)
+                br.close();
+            if (sc != null)
+                sc.close();
+        }
+        return src;
+    }
+
+    static int[][] readIntMatrix() throws IOException{
+        int[][] src = null;
+        Scanner sc = null;
+        BufferedReader br = null;
+        StringReader sr = null;
+
+        try {
+            br = new BufferedReader(new FileReader("testdata"));
+            ArrayList<String> rows = new ArrayList<String>();
+            String l = null;
+            while ((l=br.readLine()) != null)
+                rows.add(l);
+            ArrayList<ArrayList<Integer>> values = new ArrayList<ArrayList<Integer>>();
+            for (int i = 0; i < rows.size(); i++) {
+                sr = new StringReader(rows.get(i));
+                sc = new Scanner(sr);
+                ArrayList<Integer> arr = new ArrayList<Integer>();
+                while (sc.hasNext()) {
+                    arr.add(sc.nextInt());
+                }
+                values.add(arr);
+            }
+            src = new int[values.size()][];
+            for (int i = 0; i < values.size(); i++) {
+                src[i] = new int[values.get(i).size()];
+                for (int j = 0; j < values.get(i).size(); j++) {
+                    src[i][j] = values.get(i).get(j).intValue();
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if (sr != null)
+                sr.close();
+            if (br != null)
+                br.close();
+            if (sc != null)
+                sc.close();
+        }
+        return src;
+    }
 
 }
