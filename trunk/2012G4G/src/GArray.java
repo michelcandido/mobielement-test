@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,7 +36,58 @@ public class GArray {
         //testNextGreater();
         //testAreConsecutive();
         //testFindFirstMissing();
-        testCountOccurrences();
+        //testCountOccurrences();
+        //testFindMaximumJI();
+        testFindMaximumInSubarrays();
+    }
+
+    static void testFindMaximumInSubarrays() {
+        int[] a =   {8, 5, 10, 7, 9, 4, 15, 12, 90, 13};
+        findMaximumInSubarrays(a,4);
+    }
+    static void findMaximumInSubarrays(int[] a, int k) {
+        int i = 0;
+        ArrayDeque<Integer> Q = new ArrayDeque<Integer>();
+        while (i < k) {
+            while (!Q.isEmpty() && a[i] >= a[Q.getLast()])
+                Q.removeLast();
+            Q.addLast(i);
+            i++;
+        }
+        while (i < a.length) {
+            System.out.println(a[Q.getFirst()]);
+            while (!Q.isEmpty() && a[i] >= a[Q.getLast()])
+                Q.removeLast();
+            while (!Q.isEmpty() && Q.getFirst() <= (i - k))
+                Q.removeFirst();
+            Q.addLast(i);
+            i++;
+        }
+        System.out.println(a[Q.getFirst()]);
+    }
+
+    static void testFindMaximumJI() {
+        int[] a =  {6, 5, 4, 3, 2, 1};
+        findMaximumJI(a);
+    }
+    static void findMaximumJI(int[] a) {
+        int[] s = new int[a.length];
+        for (int i = 0; i < a.length; i++) {
+            s[i] = 0;
+            for (int j = 0; j < i; j++) {
+                if (a[i] > a[j]) {
+                    if (s[i] < (i - j))
+                        s[i] = i - j;
+                }
+            }
+        }
+        int OPT = 0;
+        for (int k = 0; k < a.length; k++) {
+            System.out.println(s[k]);
+            if (s[k] > OPT)
+                OPT = s[k];
+        }
+        System.out.println("---------------   "+OPT+"   ----------------------");
     }
 
     static void testCountOccurrences() {
