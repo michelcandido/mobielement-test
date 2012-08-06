@@ -38,7 +38,51 @@ public class GArray {
         //testFindFirstMissing();
         //testCountOccurrences();
         //testFindMaximumJI();
-        testFindMaximumInSubarrays();
+        //testFindMaximumInSubarrays();
+        //testMinDist();
+    	testFindRepeatAndMiss();
+    }
+    
+    static void testFindRepeatAndMiss() {
+    	int[] a = {4, 3, 6, 2, 1, 1};
+    	findRepeatAndMiss(a);
+    }
+    static void findRepeatAndMiss(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[Math.abs(a[i]) - 1] > 0) {
+                a[Math.abs(a[i]) - 1] = -a[Math.abs(a[i]) - 1];
+            } else {
+                System.out.println(Math.abs(a[i]));
+            }
+        }
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > 0)
+                System.out.println(i+1);
+        }
+    }
+
+    static void testMinDist() {
+        int[] a =   {2, 5, 3, 5, 4, 4, 2, 3};
+        minDist(a,3,2);
+    }
+    static void minDist(int[] a, int x, int y) {
+        int i = 0, prev = 0, min = Integer.MAX_VALUE;
+        while (a[i] != x && a[i] != y && i < a.length)
+            i++;
+        prev = i;
+        while (i < a.length) {
+            if (a[i] == x || a[i] == y) {
+                if (a[i] != a[prev] && (i - prev) < min) {
+                    min = i - prev;
+                    prev = i;
+                } else {
+                    prev = i;
+                }
+            }
+
+            i++;
+        }
+        System.out.println(min);
     }
 
     static void testFindMaximumInSubarrays() {
