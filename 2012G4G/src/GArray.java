@@ -7,6 +7,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -40,12 +41,553 @@ public class GArray {
         //testFindMaximumJI();
         //testFindMaximumInSubarrays();
         //testMinDist();
-    	testFindRepeatAndMiss();
+        //testFindRepeatAndMiss();
+        //testPrintSpiral();
+        //testFixedPoint();
+        //testFindMaxIncDec();
+        //testMinJumps();
+        //testFindSubSum();
+        //testMaxSumIS();
+        //testFindTriplet();
+        //testFindMinPositive();
+        //testFindLongestBitonic();
+        //testFindMaxProduct();
+        //testDiffJumps();
+        //testAddParen();
+        //testFill();
+        //testNumofChanges();
+        //testMergeSort();
+        //testNQueens();
+        testGetSubStrings();
     }
-    
+
+    static void testGetSubStrings() {
+        String s = "abc";
+        ArrayList<String> list = new ArrayList<String>();
+        getSubStrings(s,list);
+        for (String str:list)
+            System.out.println(str);
+    }
+    static int getSubStrings(String s, ArrayList<String> list) {
+        if (s.length() == 1) {
+            list.add(s);
+            return 1;
+        } else {
+            int count = getSubStrings(s.substring(1), list);
+            ArrayList<String> set =  new ArrayList<String>();
+            int index = list.size() - count;
+
+            for (int i = 0; i < count; i++) {
+                set.add(list.get(index + i));
+            }
+            String c = s.substring(0,1);
+            list.add(c);
+            for (String str: set) {
+                list.add(c+str);
+            }
+            return count + 1;
+        }
+    }
+    static void testNQueens() {
+        int n = 8;
+        int[] row = new int[n+1];
+        nQueens(1,n,row);
+    }
+    static void nQueens(int r, int n, int[] row) {
+        for (int i = 1; i <= n; i++) {
+            if (place(r, i, row)) {
+                row[r] = i;
+                if (r == n)
+                    printNQueen(row);
+                else
+                    nQueens(r+1, n, row);
+            }
+        }
+    }
+    static boolean place(int r, int c, int[] row) {
+        for (int i = 1; i <= r - 1; i++) {
+            if (row[i] == c)
+                return false;
+            if (Math.abs(i - r) == Math.abs(row[i] - c))
+                return false;
+        }
+        return true;
+    }
+    static void printNQueen(int[] row) {
+        for (int i = 1; i < row.length; i++) {
+            for (int j = 1; j < row[i]; j++)
+                System.out.print("1");
+            System.out.print("Q");
+            for (int j = row[i] + 1; j < row.length; j++)
+                System.out.print("1");
+            System.out.println();
+        }
+        System.out.println("------------------");
+    }
+
+    static void testMergeSort() {
+        int[] a = {323,4,57,454,68,132,576,443,34};
+        for (int i:a)
+            System.out.print(i+",");
+        System.out.println();
+        mergeSort(a,0,a.length-1);
+        for (int i:a)
+            System.out.print(i+",");
+        System.out.println();
+    }
+    static void mergeSort(int[] a, int start, int end) {
+        if (start < end) {
+            int mid = start + (end - start) / 2;
+            mergeSort(a, start, mid);
+            mergeSort(a, mid + 1, end);
+            merge(a, start, mid, end);
+        }
+    }
+    static void merge(int[] a, int start, int mid, int end) {
+        int[] helper = new int[a.length];
+        for (int i = 0; i < a.length; i++)
+            helper[i] = a[i];
+        int left = start, right = mid + 1, idx = start;
+        while (left <= mid && right <= end) {
+            if (helper[left] < helper[right]) {
+                a[idx] = helper[left];
+                left++;
+            } else {
+                a[idx] = helper[right];
+                right++;
+            }
+            idx++;
+        }
+        int remain = mid - left;
+        for (int i = 0; i <= remain; i++) {
+            a[idx+i] = helper[left+i];
+        }
+    }
+
+    static void testNumofChanges() {
+        for (int i = 1; i <= 20; i++) {
+            System.out.print(i+":");
+            System.out.print(numofChanges(i)+"/");
+            System.out.print(numofChanges2(i)+"/");
+            System.out.println(makeChange(i,25));
+        }
+    }
+    static int makeChange(int n, int denom) {
+        int next_denom = 0;
+        switch (denom) {
+        case 25:
+            next_denom = 10;
+            break;
+        case 10:
+            next_denom = 5;
+            break;
+        case 5:
+            next_denom = 1;
+            break;
+        case 1:
+            return 1;
+        }
+        int ways = 0;
+        for (int i = 0; i*denom <=n; i++) {
+            ways+=makeChange(n-i*denom,next_denom);
+        }
+        return ways;
+    }
+    static int numofChanges(int n) {
+        int[] s = new int[n+1];
+        int[] c = {1,5,10,15};
+        s[0] = 0;
+        for (int i = 1; i <=n; i++) {
+            s[i] = 0;
+            for (int j = 0; j < 4; j++) {
+                int diff = i - c[j];
+                if (diff == 0) {
+                    if (s[i] == 0)
+                        s[i] = 1;
+                    else
+                        s[i]++;
+                } else if (diff > 0)
+                    s[i] = s[i] + s[diff];
+
+            }
+        }
+        return s[n];
+    }
+    static int numofChanges2(int n) {
+        if (n < 0)
+            return 0;
+        if (n == 0)
+            return 1;
+        return numofChanges2(n-1)+numofChanges2(n-5)+numofChanges2(n-10)+numofChanges2(n-25);
+    }
+
+    static void testFill() {
+        int height = 5, width = 4;
+        int[][] colors = {{1,1,1,1},{1,0,1,1},{1,0,0,0},{1,1,1,1},{1,1,1,1}};
+        int[][] visited = new int[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                System.out.print(colors[i][j] + " ");
+                visited[i][j] = 0;
+            }
+            System.out.println();
+        }
+        System.out.println("----------------------------");
+        fill(colors,visited,height,width,2,1,colors[2][1],2);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                System.out.print(colors[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void fill(int[][] colors, int[][] visited, int height, int width, int x, int y, int oc, int nc) {
+        if (x<0 || x>=height || y < 0 || y >=width || visited[x][y] == 1)
+            return;
+        if (colors[x][y] == oc) {
+            colors[x][y] = nc;
+        }
+        visited[x][y] = 1;
+        fill(colors,visited,height,width,x+1,y,oc,nc);
+        fill(colors,visited,height,width,x-1,y,oc,nc);
+        fill(colors,visited,height,width,x,y+1,oc,nc);
+        fill(colors,visited,height,width,x,y-1,oc,nc);
+    }
+
+    static void testAddParen() {
+        int n = 5;
+        ArrayList<String> list = new ArrayList<String>();
+        char[] str = new char[2*n];
+        addParen(list, n, n, str, 0);
+        for (String s: list) {
+            System.out.println(s);
+        }
+    }
+    static void addParen(ArrayList<String> list, int left, int right, char[] str, int index) {
+        if (left < 0 || right < left)
+            return;
+        if (left == 0 && right == 0) {
+            list.add(new String(str));
+        } else {
+            if (left > 0) {
+                str[index] = '(';
+                addParen(list, left - 1, right, str, index+1);
+            }
+            if (right > left) {
+                str[index] = ')';
+                addParen(list, left, right - 1, str, index + 1);
+            }
+        }
+    }
+    static void testDiffJumps() {
+        System.out.println(diffJumps(37));
+    }
+    static int diffJumps(int n) {
+        if (n == 1)
+            return 1;
+        else if (n == 2)
+            return 2;
+        else if (n == 3)
+            return 4;
+        else {
+            return diffJumps(n - 1) + diffJumps(n-2) + diffJumps(n -3);
+        }
+    }
+    static void testFindMaxProduct() {
+        int[] a = {6, -3, -10, 0, 2};
+        findMaxProduct(a);
+    }
+    static void findMaxProduct(int[] a) {
+        int[] s = new int[a.length], l = new int[a.length];
+        if (a[0] >0)
+            s[0] = l[0] = a[0];
+        else
+            s[0] = l[0] = 1;
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] > 0)
+                s[i] = l[i] = a[i];
+            else
+                s[i] = l[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (a[i] > 0) {
+                    if (l[j] * a[i] > l[i]) {
+                        l[i] = l[j] * a[i];
+                    }
+                    if (s[j] * a[i] < s[i]) {
+                        s[i] = s[j] * a[i];
+                    }
+                } else if (a[i] < 0) {
+                    if (s[j] * a[i] > l[i]) {
+                        l[i] = s[j] * a[i];
+                    }
+                    if (l[j] * a[i] < s[i]) {
+                        s[i] = l[j] * a[i];
+                    }
+                } else {
+                    s[i] = l[i] = 1;
+                }
+            }
+        }
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < a.length; i++) {
+            if (l[i] > max)
+                max = l[i];
+        }
+        System.out.println(max);
+    }
+
+    static void testFindLongestBitonic() {
+        int a[] = {1, 11, 2, 10, 4,5,2};
+        findLongestBitonic(a);
+    }
+    static void findLongestBitonic(int[] a) {
+        int[] s = new int[a.length], o = new int[a.length], l = new int[a.length];
+        for (int i = 0; i< a.length; i++) {
+            s[i] = 1;
+            o[i] = 1;
+            l[i] = i;
+        }
+        for (int i = 1; i < a.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (o[j] == 1 && a[i] > a[l[j]] && s[j] + 1 > s[i]) {
+                    s[i] = s[j] + 1;
+                    o[i] = 1;
+                    l[i] = i;
+                } else if (o[j] == 1 && a[i] < a[l[j]] && s[j] + 1 > s[i]) {
+                    s[i] = s[j] + 1;
+                    o[i] = -1;
+                    l[i] = i;
+                } else if (o[j] == -1 && a[i] < a[l[j]] && s[j] + 1 > s[i]) {
+                    s[i] = s[j] + 1;
+                    o[i] = -1;
+                    l[i] = i;
+                }
+            }
+        }
+        int max = 1;
+        for (int i = 0; i < a.length; i++) {
+            if (s[i] > max)
+                max = s[i];
+        }
+        System.out.println(max);
+    }
+
+    static void testFindMinPositive() {
+        int[] a = {1, 1, 0, -1, -2};
+        findMinPositive(a);
+    }
+    static void findMinPositive(int[] a) {
+        int j = a.length - 1, t;
+        for (int i = a.length - 1; i >= 0;i--) {
+            if (a[i] <= 0) {
+                t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+                j--;
+            }
+        }
+
+        for (int i = 0; i <= j; i++) {
+            if (Math.abs(a[i]) - 1 < a.length && a[Math.abs(a[i]) - 1] > 0)
+                a[Math.abs(a[i]) - 1] = -a[Math.abs(a[i]) - 1];
+        }
+
+        for (int i = 0; i <= j; i++) {
+            if (a[i] > 0) {
+                System.out.println(i +1);
+                break;
+            }
+        }
+    }
+
+    static void testFindTriplet() {
+        int[] a =  {12, 3, 4, 1, 6, 9};
+        findTriplet(a,24);
+    }
+    static void findTriplet(int[] a, int sum) {
+        for (int i = 0; i < a.length; i++) {
+            if (sum - a[i] > 0)
+            findValue(a,a[i],sum-a[i]);
+        }
+    }
+    static void findValue(int[] a, int e, int sum) {
+        HashMap<Integer, Integer> map = new HashMap<Integer,Integer>();
+        for (int i = 0; i < a.length; i++)
+            map.put(a[i], 0);
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == e)
+                continue;
+            int temp = sum - a[i];
+            if (temp >= 0 && map.containsKey(temp) && map.get(temp) == 1) {
+                System.out.format("%d-%d-%d\n", e,a[i],temp);
+            }
+            map.put(a[i], 1);
+        }
+    }
+
+    static void testMaxSumIS() {
+        int[] a = {1, 101, 2, 3, 100, 4, 5};
+        System.out.println(maxSumIS(a));
+    }
+    static int maxSumIS(int[] a) {
+        int[] s = new int[a.length];
+        s[0] = a[0];
+        for (int i = 1; i < a.length; i++) {
+            s[i] = a[i];
+            for (int j = 0; j < i; j++) {
+                if (a[i] > a[j] && s[i] < s[j] + a[i])
+                    s[i] = s[j] + a[i];
+            }
+        }
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < a.length; i++) {
+            if (s[i] > max)
+                max = s[i];
+        }
+        return max;
+    }
+
+    static void testFindSubSum(){
+        int a[] = {1, 4, 20, 3, 10, 5};
+        findSubSum(a,33);
+    }
+    static void findSubSum(int[] a, int sum) {
+        int cur_sum = a[0], start = 0;
+        for (int i = 1; i < a.length; i++) {
+            while (cur_sum > sum && start < i - 1) {
+                cur_sum = cur_sum - a[start];
+                start++;
+            }
+            if (cur_sum == sum) {
+                System.out.format("%d-%d",start,i-1);
+                return;
+            }
+            if (i < a.length)
+                cur_sum = cur_sum + a[i];
+
+
+        }
+        System.out.println("not found");
+    }
+
+    static void testMinJumps() {
+        int[] a = {1, 3, 6, 1, 0, 9};
+        System.out.println(minJumps(a));
+    }
+    static int minJumps(int[] a) {
+        int[] jumps = new int[a.length];
+        jumps[0] = 0;
+        for (int i = 1;i < a.length;i++) {
+            jumps[i] = Integer.MAX_VALUE;
+            for (int j = 0; j < i; j++) {
+                if (i <= j + a[j] && jumps[j] != Integer.MAX_VALUE) {
+                    jumps[i] = jumps[j] + 1;
+                    break;
+                }
+            }
+        }
+        return jumps[a.length-1];
+    }
+
+    static void testFindMaxIncDec(){
+        int[] a=  {0, 1, 1, 2, 2, 2, 2, 2, 3, 4, 4, 5, 3, 3, 2, 2, 1, 1};
+        System.out.println(findMaxIncDec(a,0,a.length-1));
+    }
+    static int findMaxIncDec(int[] a, int low, int high) {
+        if (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (mid == 0 || mid == a.length - 1)
+                return a[mid];
+            if (a[mid] > a[mid-1] && a[mid] > a[mid+1])
+                return a[mid];
+            if (a[mid] > a[mid-1] && a[mid] < a[mid+1])
+                return findMaxIncDec(a, mid + 1, high);
+            else
+                return findMaxIncDec(a, low, mid - 1);
+        } else {
+            return a[low];
+        }
+    }
+
+    static void testFixedPoint() {
+        int a[] ={-10, -5, 3, 4, 7, 9};
+        System.out.println(fixedPoint(a,0,a.length - 1));
+    }
+    static int fixedPoint(int[] a, int low, int high) {
+        if (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (a[mid] == mid)
+                return mid;
+            if (mid > a[mid])
+                return fixedPoint(a, mid + 1, high);
+            else
+                return fixedPoint(a, low, mid - 1);
+        } else
+            return -1;
+    }
+
+    static void testPrintSpiral() {
+        int a[][] = { {1,2,3,4,5,6},
+                {7,8,9,10,11,12},
+                {13,14,15,16,17,18}
+              };
+        printSpiral(a,6,3);
+
+    }
+    static void printSpiral(int[][] arr, int m, int n) {
+        int d = 0, a = 0, w = 0, s = m, z = n, idx = 0, i = 0, j = 0;
+        System.out.print(arr[i][j] + " ");
+        idx++;
+        while (idx < n*m) {
+            //check if we can go this direction
+            switch (d) {
+            case 0:
+                if (i + 1 < s) {
+                    i++;
+                } else {
+                    w++;
+                    d++;
+                    j++;
+                }
+                break;
+            case 1:
+                if (j + 1 < z) {
+                    j++;
+                } else {
+                    s--;
+                    d++;
+                    i--;
+                }
+                break;
+            case 2:
+                if (i - 1 >= a) {
+                    i--;
+                } else {
+                    z--;
+                    d++;
+                    j--;
+                }
+                break;
+            case 3:
+                if ( j - 1 >= w) {
+                    j--;
+                } else {
+                    a++;
+                    d++;
+                    i++;
+                }
+                break;
+            }
+            System.out.print(arr[j][i] + " ");
+            idx++;
+            if (d > 3)
+                d = 0;
+        }
+    }
+
     static void testFindRepeatAndMiss() {
-    	int[] a = {4, 3, 6, 2, 1, 1};
-    	findRepeatAndMiss(a);
+        int[] a = {4, 3, 6, 2, 1, 1};
+        findRepeatAndMiss(a);
     }
     static void findRepeatAndMiss(int[] a) {
         for (int i = 0; i < a.length; i++) {
