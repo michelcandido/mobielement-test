@@ -1,0 +1,137 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="StarSightings.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"     
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+  shell:SystemTray.IsVisible="False">
+
+	<!--LayoutRoot is the root grid where all page content is placed-->
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+		<!--Panorama control-->
+        <controls:Panorama Title="star sightings">
+
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="browse">
+                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}">
+                    <ListBoxItem Content="all sightings" Tap="GoToAbout"/>
+                    <ListBoxItem Content="my sightings" Tap="GoToAbout"/>
+                    <ListBoxItem Content="followings" Tap="GoToAbout"/>
+                    <ListBoxItem Content="settings" Tap="GoToAbout"/>
+                    <ListBoxItem Content="about" Tap="GoToAbout"/>
+                </ListBox>
+            </controls:PanoramaItem>
+
+            <controls:PanoramaItem Header="popular" Orientation="Horizontal">               
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <telerikPrimitives:RadWrapPanel x:Name="radWrapPanel" Width="800"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >                                    
+                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                            </Border>                                
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                    <!--
+                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
+                        <TextBlock Text="All" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </Border>
+                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
+                        <TextBlock Text="Celebs" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </Border>
+                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
+                        <TextBlock Text="Musicians" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </Border>
+                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
+                        <TextBlock Text="Politicians" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </Border>
+                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
+                        <TextBlock Text="Models" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </Border>
+                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
+                        <TextBlock Text="Athletes" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                    </Border>
+                    -->
+                
+            </controls:PanoramaItem>
+
+            <!--Panorama item two-->
+            <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
+            <controls:PanoramaItem Header="following">
+                <Grid>
+                    <Grid.RowDefinitions>                        
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="*" />                        
+                    </Grid.RowDefinitions>
+                    <!--Double line list with image placeholder and text wrapping-->
+                    <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
+                                    <!--Replace rectangle with image-->
+                                    <Rectangle Height="100" Width="100" Fill="#FFE5001b" Margin="12,0,9,0"/>
+                                    <StackPanel Width="311">
+                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>                    
+                    </ListBox>
+                    <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextExtraLargeStyle}">more...</TextBlock>
+                </Grid>   
+            </controls:PanoramaItem>
+
+                         
+
+            <!--Panorama item one-->
+            <!--Double line list with text wrapping-->
+            <!--
+            <controls:PanoramaItem Header="first item">                
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17" Width="432">
+                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </controls:PanoramaItem>
+            -->
+ 
+            
+
+		</controls:Panorama>
+	</Grid>
+
+	<!--Sample code showing usage of ApplicationBar-->
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+			<shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.camera.rest.png" Text="post"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search"/>
+			<shell:ApplicationBar.MenuItems>
+				<shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+				<shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+			</shell:ApplicationBar.MenuItems>
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
+  
