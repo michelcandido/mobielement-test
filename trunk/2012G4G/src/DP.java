@@ -20,11 +20,11 @@ public class DP {
         testMaxCredit();
     }
     static void testMaxCredit() {
-        int[] a = {1,2,3,4,5,6};
-        int[] b = {1,2,3,4,5,6,7};
-        int[] c = {1,2,3,4,5,6};
-        int[] d = {0,1,2};
-        int[] e = {1,2,3,4,5,6,7,8};
+        int[] a = {1,2,3,4,5,6};//{5000,6500};//{100,200,300,1200,6000};//
+        int[] b = {1,2,3,4,5,6,7};//{6000};//{};//
+        int[] c = {1,2,3,4,5,6};//{6000};//{900,902,1200,4000,5000,6001};//
+        int[] d = {0,1,2};//{6000};//{0,2000,6002};//
+        int[] e = {1,2,3,4,5,6,7,8};//{0,5800,6000};//{1,2,3,4,5,6,7,8};//
         maxCredit(a,b,c,d,e);
     }
     static void maxCredit(int[] a, int[] b, int[] c, int[] d, int[] e) {
@@ -42,9 +42,9 @@ public class DP {
         int start = 0, end = 0;
         Hashtable<String, Integer> jset = new Hashtable<String, Integer>();
         for (;start < tlist.size() && end < tlist.size();) {
-            if (tlist.get(end) - tlist.get(start) <=1000) {
+            if (tlist.get(end) - tlist.get(start) < 1000) {
                 for (String s: buttons.get(tlist.get(end))) {
-                    if (jset.contains(s)) {
+                    if (jset.containsKey(s)) {
                         int count = jset.get(s);
                         jset.put(s, ++count);
                     } else {
@@ -61,17 +61,18 @@ public class DP {
                     end++;
                 }
             } else {
-                for (String s: buttons.get(tlist.get(start))) {
-                    int count = jset.get(s);
-                    count--;
-                    if (count==0)
-                        jset.remove(s);
-                    else
-                        jset.put(s, count);
+                while (tlist.get(end) - tlist.get(start) >= 1000) {
+                    for (String s: buttons.get(tlist.get(start))) {
+                        int count = jset.get(s);
+                        count--;
+                        if (count==0)
+                            jset.remove(s);
+                        else
+                            jset.put(s, count);
 
+                    }
+                    start++;
                 }
-                start++;
-                end++;
             }
             /*
             System.out.print(i+":");
