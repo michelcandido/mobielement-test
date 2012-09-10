@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.PriorityQueue;
@@ -17,8 +18,115 @@ public class DP {
         //testZigZag();
         //testBadNeighbors();
         //testNumWays();
-        testMaxCredit();
+        //testMaxCredit();
+        testGetAllocation();
     }
+
+    static void testGetAllocation(){
+        String[] mines = { "100, 000, 000, 000, 000, 000, 000",
+                "090, 010, 000, 000, 000, 000, 000",
+                "080, 020, 000, 000, 000, 000, 000",
+                "075, 025, 000, 000, 000, 000, 000",
+                "050, 050, 000, 000, 000, 000, 000",
+                "025, 075, 000, 000, 000, 000, 000",
+                "020, 080, 000, 000, 000, 000, 000",
+                "010, 090, 000, 000, 000, 000, 000",
+                "000, 100, 000, 000, 000, 000, 000",
+                "000, 090, 010, 000, 000, 000, 000",
+                "000, 080, 020, 000, 000, 000, 000",
+                "000, 075, 025, 000, 000, 000, 000",
+                "000, 050, 050, 000, 000, 000, 000",
+                "000, 025, 075, 000, 000, 000, 000",
+                "000, 020, 080, 000, 000, 000, 000",
+                "000, 010, 090, 000, 000, 000, 000",
+                "000, 000, 100, 000, 000, 000, 000",
+                "000, 000, 090, 010, 000, 000, 000",
+                "000, 000, 080, 020, 000, 000, 000",
+                "000, 000, 075, 025, 000, 000, 000",
+                "000, 000, 050, 050, 000, 000, 000",
+                "000, 000, 025, 075, 000, 000, 000",
+                "000, 000, 020, 080, 000, 000, 000",
+                "000, 000, 010, 090, 000, 000, 000",
+                "000, 000, 000, 100, 000, 000, 000",
+                "000, 000, 000, 100, 000, 000, 000",
+                "000, 000, 000, 090, 010, 000, 000",
+                "000, 000, 000, 080, 020, 000, 000",
+                "000, 000, 000, 075, 025, 000, 000",
+                "000, 000, 000, 050, 050, 000, 000",
+                "000, 000, 000, 025, 075, 000, 000",
+                "000, 000, 000, 020, 080, 000, 000",
+                "000, 000, 000, 010, 090, 000, 000",
+                "000, 000, 000, 000, 100, 000, 000",
+                "000, 000, 000, 000, 090, 010, 000",
+                "000, 000, 000, 000, 080, 020, 000",
+                "000, 000, 000, 000, 075, 025, 000",
+                "000, 000, 000, 000, 050, 050, 000",
+                "000, 000, 000, 000, 025, 075, 000",
+                "000, 000, 000, 000, 020, 080, 000",
+                "000, 000, 000, 000, 010, 090, 000",
+                "000, 000, 000, 000, 000, 100, 000",
+                "000, 000, 000, 000, 000, 090, 010",
+                "000, 000, 000, 000, 000, 080, 020",
+                "000, 000, 000, 000, 000, 075, 025",
+                "000, 000, 000, 000, 000, 050, 050",
+                "000, 000, 000, 000, 000, 025, 075",
+                "000, 000, 000, 000, 000, 020, 080",
+                "000, 000, 000, 000, 000, 010, 090",
+                "000, 000, 000, 000, 000, 000, 100" };
+        int[] allo = getAllocation(mines,150);
+        for (int i : allo)
+            System.out.print(i + " ");
+        System.out.println();
+    }
+    static int[] getAllocation(String[] mines, int miners) {
+        int[][] values = new int[mines.length][7];
+        for (int i = 0;  i < mines.length; i++) {
+            String s = mines[i];
+            String[] mv = s.split(",");
+            for (int j = 0; j < mv.length; j++) {
+                mv[j] = mv[j].trim();
+                if (mv[j].startsWith("0"))
+                    mv[j] = mv[j].substring(1);
+                values[i][j] = Integer.valueOf(mv[j]).intValue();
+            }
+        }
+        int[] allo = new int[mines.length];
+        int[] valueSoFar = new int[mines.length];
+        Arrays.fill(valueSoFar, 0);
+        for (int i = 1; i <= miners; i++) {
+            int maxValue = Integer.MIN_VALUE;
+            int maxMine = -1;
+            for (int j = 0; j < mines.length; j++) {
+                int target = allo[j] + 1;
+                int value = 0;
+                if (target > 6) {
+                    continue;
+                }
+                for (int k = 0; k < 7; k++) {
+                    if (values[j][k] == 0)
+                        continue;
+                    if (target < k) {
+                        value = value + target * values[j][k] * 60 / 100 ;
+                    } else if (target == k) {
+                        value = value + target * values[j][k] * 50 / 100;
+                    } else {
+                        value = value + k * values[j][k] * 50 / 100
+                                - (target - k) * 20 ;
+                    }
+                }
+                if (value - valueSoFar[j] > maxValue) {
+                    maxValue = value - valueSoFar[j];
+                    maxMine = j;
+                }
+            }
+            if (allo[maxMine] < 6) {
+                allo[maxMine] += 1;
+                valueSoFar[maxMine] += maxValue;
+            }
+        }
+        return allo;
+    }
+
     static void testMaxCredit() {
         int[] a = {1,2,3,4,5,6};//{5000,6500};//{100,200,300,1200,6000};//
         int[] b = {1,2,3,4,5,6,7};//{6000};//{};//
