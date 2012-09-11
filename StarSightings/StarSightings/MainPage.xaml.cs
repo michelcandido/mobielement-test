@@ -41,7 +41,7 @@ namespace StarSightings
         /// </summary>
         private void GoToAbout(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/Filter.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri("/ListPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }
