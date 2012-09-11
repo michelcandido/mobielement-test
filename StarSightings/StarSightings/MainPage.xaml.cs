@@ -41,6 +41,14 @@ namespace StarSightings
         /// </summary>
         private void GoToAbout(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            this.NavigationService.Navigate(new Uri("/About.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        /// <summary>
+        /// Navigates to list page.
+        /// </summary>
+        private void GoToList(object sender, System.Windows.Input.GestureEventArgs e)
+        {
             this.NavigationService.Navigate(new Uri("/ListPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }

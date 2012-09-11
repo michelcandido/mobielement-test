@@ -39,5 +39,14 @@ namespace StarSightings
         {
             this.NavigationService.Navigate(new Uri("/FilterPage.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        /// <summary>
+        /// Navigates to map page.
+        /// </summary>
+        private void GoToMap(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MapPage.xaml", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.RemoveBackEntry();
+        }
     }
 }

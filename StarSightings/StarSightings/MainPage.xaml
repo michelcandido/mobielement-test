@@ -24,9 +24,9 @@
             <!--Panorama item one-->
             <controls:PanoramaItem Header="browse">
                 <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}">
-                    <ListBoxItem Content="all sightings" Tap="GoToAbout"/>
-                    <ListBoxItem Content="my sightings" Tap="GoToAbout"/>
-                    <ListBoxItem Content="followings" Tap="GoToAbout"/>
+                    <ListBoxItem Content="all sightings" Tap="GoToList"/>
+                    <ListBoxItem Content="my sightings" Tap="GoToList"/>
+                    <ListBoxItem Content="followings" Tap="GoToList"/>
                     <ListBoxItem Content="settings" Tap="GoToAbout"/>
                     <ListBoxItem Content="about" Tap="GoToAbout"/>
                 </ListBox>
