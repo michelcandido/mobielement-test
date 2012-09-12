@@ -78,6 +78,46 @@ namespace StarSightings
             }
         }
 
+        private Uri imageSource;
+        /// <summary>
+        /// Gets or sets the image source.
+        /// </summary>
+        public Uri ImageSource
+        {
+            get
+            {
+                return this.imageSource;
+            }
+            set
+            {
+                if (this.imageSource != value)
+                {
+                    this.imageSource = value;
+                    NotifyPropertyChanged("ImageSource");
+                }
+            }
+        }
+
+        private int id;
+        /// <summary>
+        /// Gets or sets the image source.
+        /// </summary>
+        public int ID
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                if (this.id != value)
+                {
+                    this.id = value;
+                    NotifyPropertyChanged("ID");
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {
