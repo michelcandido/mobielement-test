@@ -51,5 +51,14 @@ namespace StarSightings
         {
             this.NavigationService.Navigate(new Uri("/ListPage.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ItemViewModel selectedItemData = (sender as ListBox).SelectedItem as ItemViewModel;
+            if (selectedItemData != null)
+            {
+                this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}", selectedItemData.ID), UriKind.RelativeOrAbsolute));
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -8,9 +9,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("StarSightings")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Telerik Corp.")]
+[assembly: AssemblyCompany("Star Sightings Inc.")]
 [assembly: AssemblyProduct("StarSightings")]
-[assembly: AssemblyCopyright("Copyright @ Telerik 2002-2012")]
+[assembly: AssemblyCopyright("Copyright @ Star Sightings Inc. 2002-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,3 +34,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("2012.2.724.0")]
 [assembly: AssemblyFileVersion("2012.2.724.0")]
+[assembly: NeutralResourcesLanguageAttribute("en")]

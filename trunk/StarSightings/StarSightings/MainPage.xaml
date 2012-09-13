@@ -33,7 +33,7 @@
             </controls:PanoramaItem>
 
             <controls:PanoramaItem Header="popular" Orientation="Horizontal">               
-                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <telerikPrimitives:RadWrapPanel x:Name="radWrapPanel" Width="800"/>
@@ -79,7 +79,7 @@
                         <RowDefinition Height="*" />                        
                     </Grid.RowDefinitions>
                     <!--Double line list with image placeholder and text wrapping-->
-                    <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
+                    <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="ListBox_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -93,7 +93,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>                    
                     </ListBox>
-                    <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextExtraLargeStyle}">more...</TextBlock>
+                    <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="GoToList">more...</TextBlock>
                 </Grid>   
             </controls:PanoramaItem>
 
