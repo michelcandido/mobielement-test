@@ -19,7 +19,81 @@ public class DP {
         //testBadNeighbors();
         //testNumWays();
         //testMaxCredit();
-        testGetAllocation();
+        //testGetAllocation();
+        //testGetRange();
+        testHowMany();
+    }
+
+    static void testHowMany() {
+        int[] start = {0,0};
+        int[] end = {0,0};
+        System.out.println(howMany(3,start,end,2));
+    }
+    static long howMany(int size, int[] start, int[] end, int numMoves) {
+        int[][] s = new int[size][size];
+        int result = 0;
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                /*
+                if (s[r][c] == numMoves) {
+                    if (r == end[0] && c == end[1])
+                        result++;
+*/
+                if (false) {
+                    ;
+                } else {
+                    for (int i = (r - 2 >=0 ?r-2:0); i <= (r + 2<size?r+2:size-1); i++) {
+                        for (int j = (c - 2>=0?c-2:0); j <= (c + 2<size?c+2:size-1); j++) {
+                            if (!(i==r && j==c) && canMove(r,c,i,j,size)) {
+                                s[i][j] = s[r][c] + 1;
+                            }
+                            if (i==end[0] && j==end[1] && s[i][j]==numMoves)
+                                result++;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    static boolean canMove(int r0, int c0, int r1, int c1, int n) {
+        if (r1 < 0 || r1 >= n || c1 < 0 || c1 >= n)
+            return false;
+        if (Math.abs(r1-r0) == 1 && Math.abs(c1-c0) <= 2)
+            return true;
+        if (r1==r0 && Math.abs(c1-c0) == 1)
+            return true;
+        if (Math.abs(c1-c0) == 1 && Math.abs(r1-r0) <= 2)
+            return true;
+        return false;
+    }
+
+    static void testGetRange() {
+        int[] capacities = {676, 11, 223, 413, 823, 122, 547, 187, 28};//{955, 96, 161, 259, 642, 242, 772, 369, 311, 785,92, 991, 620, 394, 128, 774, 973, 94, 681, 771,916, 373, 523, 100, 220, 993, 472, 798, 132, 361,33, 362, 573, 624, 722, 520, 451, 231, 37, 921,408, 170, 303, 559, 866, 412, 339, 757, 822, 192};////{8,5,6,7};//{1,2,3};
+        getRange(capacities, 1000);
+    }
+    static void getRange(int[] capacities, int minCooling) {
+        int target = minCooling;
+        Arrays.sort(capacities);
+        int i=0;
+        for (i = capacities.length - 1; i > 0; i--) {
+            minCooling -= capacities[i];
+            if (minCooling <= 0) {
+                System.out.println(i);
+                break;
+            }
+
+        }
+        if (i == 0)
+            System.out.println(0);
+        minCooling = target;
+        for (i = 0; i < capacities.length; i++) {
+            minCooling -= capacities[i];
+            if (minCooling < 0) {
+                System.out.println(capacities.length - i - 1);
+                break;
+            }
+        }
     }
 
     static void testGetAllocation(){
@@ -206,7 +280,7 @@ public class DP {
         //String[] bad = {"0111","1011","1121","1112"};
         //String[] bad = {"0010","1222","1121"};
         String[] bad = {};
-        System.out.println(""+numWays(1,1,bad));
+        System.out.println(""+numWays(35,31,bad));
     }
     static long numWays(int width, int height, String[] bad) {
         long s[][] = new long[width + 1][height + 1];
