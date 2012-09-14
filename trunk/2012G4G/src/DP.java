@@ -22,39 +22,44 @@ public class DP {
         //testGetAllocation();
         //testGetRange();
         testHowMany();
+        //testMinimumBags();
     }
 
     static void testHowMany() {
         int[] start = {0,0};
-        int[] end = {0,0};
-        System.out.println(howMany(3,start,end,2));
+        int[] end = {0,99};
+        System.out.println(howMany(100,start,end,100)+"");
     }
     static long howMany(int size, int[] start, int[] end, int numMoves) {
-        int[][] s = new int[size][size];
-        int result = 0;
-        for (int r = 0; r < size; r++) {
-            for (int c = 0; c < size; c++) {
-                /*
-                if (s[r][c] == numMoves) {
-                    if (r == end[0] && c == end[1])
-                        result++;
-*/
-                if (false) {
-                    ;
-                } else {
-                    for (int i = (r - 2 >=0 ?r-2:0); i <= (r + 2<size?r+2:size-1); i++) {
-                        for (int j = (c - 2>=0?c-2:0); j <= (c + 2<size?c+2:size-1); j++) {
-                            if (!(i==r && j==c) && canMove(r,c,i,j,size)) {
-                                s[i][j] = s[r][c] + 1;
-                            }
-                            if (i==end[0] && j==end[1] && s[i][j]==numMoves)
-                                result++;
-                        }
-                    }
-                }
+        long[][][] s = new long[size][size][2];        
+        int r = start[0], c = start[1];
+        for (int i = (r - 2 >=0 ?r-2:0); i <= (r + 2<size?r+2:size-1); i++) {
+            for (int j = (c - 2>=0?c-2:0); j <= (c + 2<size?c+2:size-1); j++) {
+                if (!(i==r && j==c) && canMove(r,c,i,j,size)) {
+                    s[i][j][0] = 1;
+                    s[i][j][1] = 1;
+                }                
             }
         }
-        return result;
+        for (int step = 2; step <= numMoves; step++) {
+        	for (r = 0; r < size; r++) {
+                for (c = 0; c < size; c++) {
+                	System.out.println(s[0][0][1]);
+                	long ways = 0;
+                	for (int i = (r - 2 >=0 ?r-2:0); i <= (r + 2<size?r+2:size-1); i++) {
+                        for (int j = (c - 2>=0?c-2:0); j <= (c + 2<size?c+2:size-1); j++) {
+                            if (!(i==r && j==c) && canMove(r,c,i,j,size)) {
+                                ways += s[i][j][0];                            	
+                            }                            
+                        }
+                    }
+                	s[r][c][0] = s[r][c][1];
+                	s[r][c][1] = ways;
+                }
+        	}
+        }
+                
+        return s[end[0]][end[1]][1];
     }
     static boolean canMove(int r0, int c0, int r1, int c1, int n) {
         if (r1 < 0 || r1 >= n || c1 < 0 || c1 >= n)
@@ -94,6 +99,34 @@ public class DP {
                 break;
             }
         }
+    }
+
+    static void testMinimumBags() {
+        String[] itemType ={"CANNED",   "CANNED",  "PRODUCE",
+                 "DAIRY",    "MEAT",    "BREAD",
+                 "HOUSEHOLD","PRODUCE", "FROZEN",
+                 "PRODUCE", "DAIRY"};
+        System.out.println(minimumBags(2, itemType));
+    }
+    static int minimumBags(int strength, String[] itemType) {
+        Hashtable<String, Integer> list = new Hashtable<String, Integer>();
+        int count = 0;
+        for (String t: itemType) {
+            if (!list.containsKey(t)) {
+                list.put(t, 1);
+            } else {
+                int size = list.get(t);
+                size++;
+                if (size == strength) {
+                    count++;
+                    list.remove(t);
+                } else {
+                    list.put(t, size);
+                }
+            }
+        }
+        count += list.size();
+        return count;
     }
 
     static void testGetAllocation(){
