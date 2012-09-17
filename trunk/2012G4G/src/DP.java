@@ -21,8 +21,38 @@ public class DP {
         //testMaxCredit();
         //testGetAllocation();
         //testGetRange();
-        testHowMany();
+        //testHowMany();
         //testMinimumBags();
+        testGetMostWork();
+    }
+
+    static void testGetMostWork() {
+        int[] folders = { 568, 712, 412, 231, 241, 393, 865, 287, 128, 457, 238, 98, 980, 23, 782 };//{ 10, 20, 30, 40, 50, 60, 70, 80, 90 };
+        System.out.println(getMostWork(folders, 4));
+    }
+    static int getMostWork(int[] folders, int workers) {
+        Arrays.sort(folders);
+        int lo = folders[0];
+        int hi = 0;
+        for (int i : folders)
+            hi+=i;
+        while (lo < hi) {
+            int x = lo + (hi - lo) / 2;
+            int required = 1, currentLoad = 0;
+            for (int i = 0; i < folders.length; i++) {
+                if (currentLoad + folders[i] <= x)
+                    currentLoad += folders[i];
+                else {
+                    required++;
+                    currentLoad = folders[i];
+                }
+            }
+            if (required <= workers)
+                hi = x;
+            else
+                lo = x + 1;
+        }
+        return lo;
     }
 
     static void testHowMany() {
@@ -31,34 +61,34 @@ public class DP {
         System.out.println(howMany(100,start,end,100)+"");
     }
     static long howMany(int size, int[] start, int[] end, int numMoves) {
-        long[][][] s = new long[size][size][2];        
+        long[][][] s = new long[size][size][2];
         int r = start[0], c = start[1];
         for (int i = (r - 2 >=0 ?r-2:0); i <= (r + 2<size?r+2:size-1); i++) {
             for (int j = (c - 2>=0?c-2:0); j <= (c + 2<size?c+2:size-1); j++) {
                 if (!(i==r && j==c) && canMove(r,c,i,j,size)) {
                     s[i][j][0] = 1;
                     s[i][j][1] = 1;
-                }                
+                }
             }
         }
         for (int step = 2; step <= numMoves; step++) {
-        	for (r = 0; r < size; r++) {
+            for (r = 0; r < size; r++) {
                 for (c = 0; c < size; c++) {
-                	System.out.println(s[0][0][1]);
-                	long ways = 0;
-                	for (int i = (r - 2 >=0 ?r-2:0); i <= (r + 2<size?r+2:size-1); i++) {
+                    System.out.println(s[0][0][1]);
+                    long ways = 0;
+                    for (int i = (r - 2 >=0 ?r-2:0); i <= (r + 2<size?r+2:size-1); i++) {
                         for (int j = (c - 2>=0?c-2:0); j <= (c + 2<size?c+2:size-1); j++) {
                             if (!(i==r && j==c) && canMove(r,c,i,j,size)) {
-                                ways += s[i][j][0];                            	
-                            }                            
+                                ways += s[i][j][0];
+                            }
                         }
                     }
-                	s[r][c][0] = s[r][c][1];
-                	s[r][c][1] = ways;
+                    s[r][c][0] = s[r][c][1];
+                    s[r][c][1] = ways;
                 }
-        	}
+            }
         }
-                
+
         return s[end[0]][end[1]][1];
     }
     static boolean canMove(int r0, int c0, int r1, int c1, int n) {
