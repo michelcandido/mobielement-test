@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Telerik.Windows.Controls;
+using StarSightings.Events;
 
 namespace StarSightings
 {
@@ -33,6 +34,42 @@ namespace StarSightings
                     viewModel = new MainViewModel();
 
                 return viewModel;
+            }
+        }
+
+        private static ServerAPI ssapi = null;
+
+        /// <summary>
+        /// A static ServerAPI used by the views to bind against.
+        /// </summary>
+        /// <returns>The ServerAPI object.</returns>
+        public static ServerAPI SSAPI
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (ssapi == null)
+                    ssapi = new ServerAPI();
+
+                return ssapi;
+            }
+        }
+
+        private static WPClogger logger = null;
+
+        /// <summary>
+        /// A static ServerAPI used by the views to bind against.
+        /// </summary>
+        /// <returns>The ServerAPI object.</returns>
+        public static WPClogger Logger
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (logger == null)
+                    logger = new WPClogger(LogLevel.debug);
+
+                return logger;
             }
         }
 
@@ -90,7 +127,7 @@ namespace StarSightings
             diagnostics = new RadDiagnostics();
 
             //Defines the default email where the diagnostics info will be send.
-            diagnostics.EmailTo = "Me@MyCompany.com";
+            diagnostics.EmailTo = "zhouzhin@gmail.com";
 
             //Initializes this instance.
             diagnostics.Init();
@@ -109,8 +146,30 @@ namespace StarSightings
         {
             //Before using any of the ApplicationBuildingBlocks, this class should be initialized with the version of the application.
             ApplicationUsageHelper.Init("1.0");
-        
+
+            // send previous crash report
+            if (App.logger.hasCriticalLogged())
+            {
+                App.logger.emailReport();
+                App.logger.clearEventsFromLog();
+            }
+
+            // register device for the first time launch
+            if (Utils.GetIsolatedStorageSettings("DeviceId") == null)
+            {
+                App.SSAPI.Register += new RegisterEventHandler(RegisterDeviceCompleted);
+                App.SSAPI.RegisterDevice();
+            }
+            else
+            {
+                MessageBox.Show("Already Register:" + (string)Utils.GetIsolatedStorageSettings("DeviceId"));
+            }
 		}
+
+        public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
+        {
+            MessageBox.Show(e.Successful + ":" + e.DeviceId);
+        }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
@@ -141,6 +200,7 @@ namespace StarSightings
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            
         }
 
         // Code to execute if a navigation fails

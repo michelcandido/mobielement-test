@@ -29,6 +29,7 @@
                     <ListBoxItem Content="followings" Tap="GoToList"/>
                     <ListBoxItem Content="settings" Tap="GoToAbout"/>
                     <ListBoxItem Content="about" Tap="GoToAbout"/>
+                    <ListBoxItem Content="test" Tap="DoTest"/>
                 </ListBox>
             </controls:PanoramaItem>
 
