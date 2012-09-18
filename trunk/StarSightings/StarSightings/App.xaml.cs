@@ -148,10 +148,10 @@ namespace StarSightings
             ApplicationUsageHelper.Init("1.0");
 
             // send previous crash report
-            if (App.logger.hasCriticalLogged())
+            if (App.Logger.hasCriticalLogged())
             {
-                App.logger.emailReport();
-                App.logger.clearEventsFromLog();
+                App.Logger.emailReport();
+                App.Logger.clearEventsFromLog();
             }
 
             // register device for the first time launch
