@@ -36,7 +36,7 @@ namespace StarSightings
         {
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_REGISTER_DEVICE;
-            string query = "device_id=2_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
+            string query = "device_id=3_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleRegisterDevice);
