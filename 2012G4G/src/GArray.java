@@ -58,7 +58,24 @@ public class GArray {
         //testNumofChanges();
         //testMergeSort();
         //testNQueens();
-        testGetSubStrings();
+        //testGetSubStrings();
+        testComputeProduct();
+    }
+
+    static void testComputeProduct() {
+        int[] a = {2,5,8,3};
+        computeProduct(a, 1, 0);
+        printIntArray(a);
+    }
+    static int computeProduct(int[] a, int left, int index) {
+        int right = 1;
+        if (index < a.length) {
+           right = computeProduct(a, left * a[index], index + 1);
+           int cur = a[index];
+           a[index] = left * right;
+           right *= cur;
+        }
+        return right;
     }
 
     static void testGetSubStrings() {
