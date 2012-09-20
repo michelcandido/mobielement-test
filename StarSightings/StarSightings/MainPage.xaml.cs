@@ -85,7 +85,7 @@ namespace StarSightings
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
         {
-            MessageBox.Show(e.Successful+":"+e.DeviceId);
+            MessageBox.Show(e.Successful+":"+e.DeviceId);            
         }
 
         private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)

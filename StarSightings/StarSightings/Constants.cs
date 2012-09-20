@@ -15,7 +15,7 @@ namespace StarSightings
     {
         //Server name
         public const string SERVER_NAME = "http://test.starsightings.com";
-        //	public static const String SERVER_NAME = "http://starsightings.com";
+        //public const String SERVER_NAME = "http://www.starsightings.com";
 
         //Basic HTTP authorizaton
         public const string BASE_AUTH_USERNAME = "starsight0";
@@ -24,5 +24,8 @@ namespace StarSightings
         //URLS
         public const string URL_REGISTER_DEVICE = "/index.php?page=device&mode=register&mobile=1";
         public const string URL_UNREGISTER_DEVICE = "/index.php?page=device&mode=unregister&mobile=1";
+        public const string INDEX_PAGE_SEARCH_URL = "/index.php?mobile=1";
+
+        public const int LIMIT=15;
     }
 }

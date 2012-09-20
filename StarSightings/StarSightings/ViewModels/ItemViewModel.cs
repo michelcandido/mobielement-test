@@ -31,7 +31,7 @@ namespace StarSightings
 	    private string localTime;
 	    private string country;
 	    private string sourceUrl;
-	    private string view_cnt;
+	    private string viewCnt;
 	    private string userId;
 	    private Boolean canEdit; //Boolean?
 	    private string thumbUserSmall;
@@ -306,13 +306,13 @@ namespace StarSightings
         {
             get
             {
-                return this.view_cnt;
+                return this.viewCnt;
             }
             set
             {
-                if (value != this.view_cnt)
+                if (value != this.viewCnt)
                 {
-                    this.view_cnt = value;
+                    this.viewCnt = value;
                     NotifyPropertyChanged("ViewCnt");
                 }
             }

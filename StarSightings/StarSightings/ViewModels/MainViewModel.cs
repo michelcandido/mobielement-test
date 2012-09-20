@@ -21,12 +21,28 @@ namespace StarSightings
         public MainViewModel()
         {
             this.Items = new ObservableCollection<ItemViewModel>();
+            this.PopularItems = new ObservableCollection<ItemViewModel>();
+            this.PopularSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.LatestItems = new ObservableCollection<ItemViewModel>();
+            this.LatestSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.NearestItems = new ObservableCollection<ItemViewModel>();
+            this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.FollowingItems = new ObservableCollection<ItemViewModel>();
+            this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
         }
 
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
         public ObservableCollection<ItemViewModel> Items { get; private set; }
+        public ObservableCollection<ItemViewModel> PopularItems { get; private set; }
+        public ObservableCollection<ItemViewModel> PopularSummaryItems { get; private set; }
+        public ObservableCollection<ItemViewModel> LatestItems { get; private set; }
+        public ObservableCollection<ItemViewModel> LatestSummaryItems { get; private set; }
+        public ObservableCollection<ItemViewModel> NearestItems { get; private set; }
+        public ObservableCollection<ItemViewModel> NearestSummaryItems { get; private set; }
+        public ObservableCollection<ItemViewModel> FollowingItems { get; private set; }
+        public ObservableCollection<ItemViewModel> FollowingSummaryItems { get; private set; }
 
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
@@ -79,6 +95,28 @@ namespace StarSightings
             this.Items.Add(new ItemViewModel() { ID = 16, LineOne = "runtime sixteen", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum", ImageSource = new Uri("Images/Frame.png", UriKind.RelativeOrAbsolute) });
 
             this.IsDataLoaded = true;
+
+            foreach (ItemViewModel item in this.Items)
+            {
+                this.PopularItems.Add(item);
+                this.NearestItems.Add(item);
+                this.LatestItems.Add(item);
+                this.FollowingItems.Add(item);
+            }
+
+            UpdateSummaryItems(this.PopularItems, this.PopularSummaryItems, 1, 2);
+            UpdateSummaryItems(this.NearestItems, this.NearestSummaryItems, 3, 4);
+            UpdateSummaryItems(this.LatestItems, this.LatestSummaryItems, 5, 6);
+            UpdateSummaryItems(this.FollowingItems, this.FollowingSummaryItems, 7, 8);
+        }
+
+        private void UpdateSummaryItems(ObservableCollection<ItemViewModel> source, ObservableCollection<ItemViewModel> target, int start, int end)
+        {            
+            IEnumerable<ItemViewModel> query = source.Where<ItemViewModel>(item => item.ID >= start && item.ID <= end);
+            foreach (ItemViewModel item in query)
+            {
+                target.Add(item);                
+            }            
         }
 
         public ItemViewModel GetItemById(int id)

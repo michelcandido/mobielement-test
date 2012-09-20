@@ -19,7 +19,7 @@ namespace StarSightings
         public Filter()
         {
             InitializeComponent();
-            string[] groupNames = new string[] { "Popular", "Nearest", "latest", "Following" };
+            string[] groupNames = new string[] { "Popular", "Nearest", "Latest", "Following" };
             this.selectorGroup.DataSource = new ListLoopingDataSource<string>() { Items = groupNames, SelectedItem = "Popular" };
             string[] categoryNames = new string[] { "All", "Celebs", "Musicians", "Politicians", "Models", "Athletes" };
             this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryNames, SelectedItem = "All" };
