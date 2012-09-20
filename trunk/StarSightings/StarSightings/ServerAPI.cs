@@ -36,7 +36,7 @@ namespace StarSightings
         {
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_REGISTER_DEVICE;
-            string query = "device_id=3_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
+            string query = "device_id=2_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleRegisterDevice);
@@ -128,6 +128,17 @@ namespace StarSightings
             }
         }
 
+        public void IndexPageSearch(IndexPageParams searchParams)
+        {
+            WebClient webClient = GetWebClient();
+            string baseUri = Constants.SERVER_NAME + Constants.URL_UNREGISTER_DEVICE;
+            string query = "device_id=" + (string)Utils.GetIsolatedStorageSettings("DeviceId");
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleUnregisterDevice);
+            webClient.DownloadStringAsync(uri);
+        }
+
         public event RegisterEventHandler Register;
 
         protected virtual void OnRegister(RegisterEventArgs e)
@@ -140,4 +151,52 @@ namespace StarSightings
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
+
+    public class IndexPageParams 
+    {	
+	    public const int CAT_NAME = 0;
+	    public const int EVENT_NAME = 1;
+	    public const int PLACE_NAME = 2;
+	    public const int LOCATION_NAME = 3;
+	
+	    public int start=0;
+	    public int limit= Constants.LIMIT;
+	    public SearchType search_types;
+	    public String filter;
+	
+	    public String mode;
+	    public String order_by;
+	    public String order_dir;
+	    public String page;
+	    public String search_autogroup;
+	
+	    public Double search_lat;
+	    public Double search_lng;
+
+	    public String token;
+	    public String search_cat_name;
+	    public String search_event_name;
+	    public String search_place_name;
+	    public String search_location_name;
+	
+	    public bool isAlert;
+	
+	    private String searchParams=null;
+
+        public void setSearchParams(String searchParams)
+        {
+            this.searchParams = searchParams;
+        }
+    }
+
+    public class SearchType 
+    {	
+	    public const string CELEBRITIES = "celebrities";
+	    public const string MUSICIANS = "musicians";
+		public const string POLITICANS = "politicians";
+		public const string MODELS = "models";
+		public const string ATHLETES = "athletes";
+		public const string ALL = "";		
+	}
+	
 }
