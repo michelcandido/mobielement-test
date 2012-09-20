@@ -8,6 +8,8 @@
 
 	<!--Application Resources-->
     <Application.Resources>
+        <SolidColorBrush Color="YellowGreen" x:Key="greenColor"/>
+        <SolidColorBrush Color="Red" x:Key="redColor"/>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
