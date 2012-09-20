@@ -16,9 +16,7 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
   shell:SystemTray.IsVisible="False">
     
-    <phone:PhoneApplicationPage.Resources>
-        <SolidColorBrush Color="YellowGreen" x:Key="greenColor"/>
-        <SolidColorBrush Color="Red" x:Key="redColor"/>
+    <phone:PhoneApplicationPage.Resources>        
         <DataTemplate x:Key="MyPanoramaItemHeaderTemplate">
             <Grid>
                 <ContentPresenter>
@@ -32,12 +30,13 @@
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<!--Panorama control-->
         <controls:Panorama Title="star sightings">
-            <controls:PanoramaItem Header="popular" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}">
+            <controls:PanoramaItem>
                 <ListBox>
                     <ListBoxItem>
                         <StackPanel>
+                            <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="0">popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -51,14 +50,14 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>                            
-                            <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList">more...</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
-                            <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList">latest</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="1">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -72,14 +71,14 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList">more...</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="1">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
-                            <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList">nearest</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="2">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -93,14 +92,14 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList">more...</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="2">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
-                            <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList">following</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="3">following</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -114,7 +113,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList">more...</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="3">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>
@@ -122,7 +121,7 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="popular" Orientation="Horizontal">
+            <controls:PanoramaItem Header="popular" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}" Orientation="Horizontal">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding PopularItems}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
