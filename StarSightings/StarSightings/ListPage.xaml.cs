@@ -48,7 +48,7 @@ namespace StarSightings
         /// </summary>       
         private void GoToFilter(object sender, EventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/FilterPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/FilterPage.xaml?selectedGroupId={0}", this.pivotControl.SelectedIndex), UriKind.RelativeOrAbsolute));            
         }
 
         /// <summary>
@@ -56,8 +56,7 @@ namespace StarSightings
         /// </summary>
         private void GoToMap(object sender, EventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/MapPage.xaml", UriKind.RelativeOrAbsolute));
-            //this.NavigationService.RemoveBackEntry();
+            this.NavigationService.Navigate(new Uri(string.Format("/MapPage.xaml?selectedGroupId={0}", this.pivotControl.SelectedIndex), UriKind.RelativeOrAbsolute));             
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

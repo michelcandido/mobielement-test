@@ -126,6 +126,16 @@ namespace StarSightings
                     OnRegister(re);
                 }                
             }
+        }       
+
+        public event RegisterEventHandler Register;
+
+        protected virtual void OnRegister(RegisterEventArgs e)
+        {
+            if (Register != null)
+            {
+                Register(this, e);
+            }
         }
 
         public void IndexPageSearch(IndexPageParams searchParams)
@@ -137,16 +147,6 @@ namespace StarSightings
 
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleUnregisterDevice);
             webClient.DownloadStringAsync(uri);
-        }
-
-        public event RegisterEventHandler Register;
-
-        protected virtual void OnRegister(RegisterEventArgs e)
-        {
-            if (Register != null)
-            {
-                Register(this, e);
-            }
         }
     }
 

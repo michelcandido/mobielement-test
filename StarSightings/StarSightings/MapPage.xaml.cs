@@ -20,6 +20,30 @@ namespace StarSightings
             InitializeComponent();
         }
 
+        private string selectedGroupId;
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
+            int itemId = 0;
+            int.TryParse(selectedGroupId, out itemId);
+            switch (itemId)
+            {
+                case 0:
+                    this.GroupTitle.Text = "popular";
+                    break;
+                case 1:
+                    this.GroupTitle.Text = "latest";
+                    break;
+                case 2:
+                    this.GroupTitle.Text = "nearest";
+                    break;
+                case 3:
+                    this.GroupTitle.Text = "following";
+                    break;
+            }            
+        }
+
         private void GoToList(object sender, EventArgs e)
         {
             //this.NavigationService.Navigate(new Uri("/ListPage.xaml", UriKind.RelativeOrAbsolute));
@@ -28,7 +52,7 @@ namespace StarSightings
 
         private void GoToFilter(object sender, EventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/FilterPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/FilterPage.xaml?selectedGroupId={0}", this.selectedGroupId), UriKind.RelativeOrAbsolute));                        
         }
     }
 }
