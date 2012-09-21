@@ -16,9 +16,9 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent">        
         <!--Pivot Control-->
-        <controls:Pivot Title="STAR SIGHTINGS" x:Name="pivotControl">
+        <controls:Pivot Title="{Binding DeviceId}" x:Name="pivotControl">
             <!--Pivot item one-->
             <controls:PivotItem Header="popular">
                 <!--Double line list with text wrapping-->

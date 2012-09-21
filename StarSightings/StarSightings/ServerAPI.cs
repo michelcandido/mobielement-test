@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.IO;
 using StarSightings.Events;
 using System.IO.IsolatedStorage;
+using System.Text;
 
 namespace StarSightings
 {
@@ -142,15 +143,30 @@ namespace StarSightings
         {
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_UNREGISTER_DEVICE;
-            string query = "device_id=" + (string)Utils.GetIsolatedStorageSettings("DeviceId");
+            string query = searchParams.ToString(); 
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
-            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleUnregisterDevice);
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleIndexPageSearch);
             webClient.DownloadStringAsync(uri);
+        }
+
+        private void HandleIndexPageSearch(object sender, DownloadStringCompletedEventArgs e)
+        {
+        }
+
+        public event SearchEventHandler Search;
+
+        protected virtual void OnSearch(SearchEventArgs e)
+        {
+            if (Search != null)
+            {
+                Search(this, e);
+            }
         }
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
+    public delegate void SearchEventHandler(object sender, SearchEventArgs e);
 
     public class IndexPageParams 
     {	
@@ -186,6 +202,21 @@ namespace StarSightings
         public void setSearchParams(String searchParams)
         {
             this.searchParams = searchParams;
+        }
+
+        public string ToString()
+        {
+            if (searchParams == null)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("&start=" + start + "&limit=" + limit);
+                return sb.ToString();
+            }
+            else if (start > 0)
+            {
+                searchParams = Utils.UpdateStartIndex(searchParams, start);
+            }
+            return searchParams;
         }
     }
 

@@ -32,7 +32,7 @@ namespace StarSightings
                 // Delay creation of the view model until necessary
                 if (viewModel == null)
                     viewModel = new MainViewModel();
-
+                
                 return viewModel;
             }
         }
@@ -162,13 +162,15 @@ namespace StarSightings
             }
             else
             {
-                MessageBox.Show("Already Register:" + (string)Utils.GetIsolatedStorageSettings("DeviceId"));
+                //MessageBox.Show("Already Register:" + (string)Utils.GetIsolatedStorageSettings("DeviceId"));
+                ViewModel.DeviceId = (string)Utils.GetIsolatedStorageSettings("DeviceId");
             }
 		}
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
         {
-            MessageBox.Show(e.Successful + ":" + e.DeviceId);
+            //MessageBox.Show(e.Successful + ":" + e.DeviceId);
+            ViewModel.DeviceId = e.DeviceId;
         }
 
         // Code to execute when the application is activated (brought to foreground)

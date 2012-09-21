@@ -44,7 +44,8 @@ namespace StarSightings
         public ObservableCollection<ItemViewModel> FollowingItems { get; private set; }
         public ObservableCollection<ItemViewModel> FollowingSummaryItems { get; private set; }
 
-        private string _sampleProperty = "Sample Runtime Property Value";
+        private string _sampleProperty = "Sample Runtime Property Value";        
+
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding
         /// </summary>
@@ -64,6 +65,24 @@ namespace StarSightings
                 }
             }
         }
+
+        private string deviceId = "Guest";
+        public string DeviceId
+        {
+            get
+            {
+                return this.deviceId;
+            }
+            set
+            {
+                if (value != deviceId)
+                {
+                    deviceId = value;
+                    NotifyPropertyChanged("DeviceId");
+                }
+            }
+        }
+        
 
         public bool IsDataLoaded
         {
