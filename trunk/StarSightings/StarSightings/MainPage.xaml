@@ -34,7 +34,7 @@
                 <ListBox>
                     <ListBoxItem>
                         <StackPanel>
-                            <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="0">popular</TextBlock>
+                            <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Margin="0,-24,0,24" Tap="GoToList" Tag="0">popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
                             <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
@@ -135,28 +135,7 @@
                             </Border>                                
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
-                    <!--
-                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
-                        <TextBlock Text="All" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                    </Border>
-                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
-                        <TextBlock Text="Celebs" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                    </Border>
-                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
-                        <TextBlock Text="Musicians" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                    </Border>
-                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
-                        <TextBlock Text="Politicians" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                    </Border>
-                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
-                        <TextBlock Text="Models" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                    </Border>
-                    <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
-                        <TextBlock Text="Athletes" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                    </Border>
-                    -->
-                
+                </ListBox>                    
             </controls:PanoramaItem>
             
             <controls:PanoramaItem Header="following">

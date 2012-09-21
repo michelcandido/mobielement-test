@@ -99,14 +99,14 @@ namespace StarSightings
             foreach (ItemViewModel item in this.Items)
             {
                 this.PopularItems.Add(item);
-                this.NearestItems.Add(item);
                 this.LatestItems.Add(item);
+                this.NearestItems.Add(item);                
                 this.FollowingItems.Add(item);
             }
 
             UpdateSummaryItems(this.PopularItems, this.PopularSummaryItems, 1, 2);
-            UpdateSummaryItems(this.NearestItems, this.NearestSummaryItems, 3, 4);
-            UpdateSummaryItems(this.LatestItems, this.LatestSummaryItems, 5, 6);
+            UpdateSummaryItems(this.LatestItems, this.LatestSummaryItems, 3, 4);
+            UpdateSummaryItems(this.NearestItems, this.NearestSummaryItems, 5, 6);            
             UpdateSummaryItems(this.FollowingItems, this.FollowingSummaryItems, 7, 8);
         }
 

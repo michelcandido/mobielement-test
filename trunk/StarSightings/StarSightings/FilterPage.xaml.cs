@@ -16,13 +16,35 @@ namespace StarSightings
 {
     public partial class Filter : PhoneApplicationPage
     {
+        private string[] categoryFilterNames = new string[] { "All", "Celebs", "Musicians", "Politicians", "Models", "Athletes" };
+        private string[] mapFilterNames = new string[] { "Near Me", "Near Map Center", "Expand" };
+        private string[] followFilterNames = new string[] { "New", "All", "Photographers", "Friends" };
         public Filter()
         {
-            InitializeComponent();
-            string[] groupNames = new string[] { "Popular", "Nearest", "Latest", "Following" };
-            this.selectorGroup.DataSource = new ListLoopingDataSource<string>() { Items = groupNames, SelectedItem = "Popular" };
-            string[] categoryNames = new string[] { "All", "Celebs", "Musicians", "Politicians", "Models", "Athletes" };
-            this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryNames, SelectedItem = "All" };
+            InitializeComponent();                                    
+            this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = "All" };
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            string selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
+            int itemId = 0;
+            int.TryParse(selectedGroupId, out itemId);
+
+            switch (itemId)
+            {
+                case 0:
+                case 1:
+                    this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = "All" };
+                    break;
+                case 2:
+                    this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = mapFilterNames, SelectedItem = "Near Me" };
+                    break;
+                case 3:
+                    this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = followFilterNames, SelectedItem = "New" };
+                    break;
+            }            
         }
 
         // abstract the reusable code in a base class
