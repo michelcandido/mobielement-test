@@ -80,6 +80,7 @@
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\RegisterEventArgs.cs" />
+    <Compile Include="Events\SearchEventArgs.cs" />
     <Compile Include="FilterPage.xaml.cs">
       <DependentUpon>FilterPage.xaml</DependentUpon>
     </Compile>

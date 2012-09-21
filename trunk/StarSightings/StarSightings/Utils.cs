@@ -116,5 +116,19 @@ namespace StarSightings
         {
             return IsolatedStorageSettings.ApplicationSettings.Remove(key);
         }
+
+        public static string UpdateStartIndex(String source, int value)
+        {
+            string start = "start=";
+            int startIndex = source.IndexOf(start) + start.Length;
+
+            string firstPart = source.Substring(0, startIndex);
+
+            string lastPart = source.Substring(startIndex);
+            int ampersand = lastPart.IndexOf("&");
+            lastPart = lastPart.Substring(ampersand);
+
+            return firstPart + value + lastPart;
+        }
     }
 }

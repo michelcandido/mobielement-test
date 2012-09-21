@@ -16,7 +16,7 @@ using StarSightings.Events;
 namespace StarSightings
 {
     public partial class MainPage : PhoneApplicationPage
-    {
+    {        
         // Constructor
         public MainPage()
         {
@@ -86,7 +86,8 @@ namespace StarSightings
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
         {
-            MessageBox.Show(e.Successful+":"+e.DeviceId);            
+            //MessageBox.Show(e.Successful+":"+e.DeviceId);            
+            App.ViewModel.DeviceId = "Guest";
         }
 
         private void WebClient_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)

@@ -18,6 +18,18 @@ namespace StarSightings
         public MapPage()
         {
             InitializeComponent();
+
+            // Set the data context of the listbox control to the sample data
+            DataContext = App.ViewModel;
+            this.Loaded += new RoutedEventHandler(ListPage_Loaded);
+        }
+
+        void ListPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!App.ViewModel.IsDataLoaded)
+            {
+                App.ViewModel.LoadData();
+            }
         }
 
         private string selectedGroupId;
