@@ -32,6 +32,11 @@ namespace StarSightings
 
 		void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            if (!App.Config.IsAppInit)
+            {
+                App.Config.InitApp();
+            }
+
 			if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();

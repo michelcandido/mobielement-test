@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Linq;
+using StarSightings.Events;
 
 namespace StarSightings
 {
@@ -29,20 +30,38 @@ namespace StarSightings
             this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
             this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
+
+            App.SSAPI.Search += new SearchEventHandler(SearchCompleted);
+            /*
+            App.PopularSearchAPI.Search += new SearchEventHandler(SearchCompleted);
+            App.LatestSearchAPI.Search += new SearchEventHandler(SearchCompleted);
+            App.NearestSearchAPI.Search += new SearchEventHandler(SearchCompleted);
+            App.FollowingSearchAPI.Search += new SearchEventHandler(SearchCompleted);
+             * */
         }
 
         /// <summary>
         /// A collection for ItemViewModel objects.
         /// </summary>
-        public ObservableCollection<ItemViewModel> Items { get; private set; }
-        public ObservableCollection<ItemViewModel> PopularItems { get; private set; }
-        public ObservableCollection<ItemViewModel> PopularSummaryItems { get; private set; }
-        public ObservableCollection<ItemViewModel> LatestItems { get; private set; }
-        public ObservableCollection<ItemViewModel> LatestSummaryItems { get; private set; }
-        public ObservableCollection<ItemViewModel> NearestItems { get; private set; }
-        public ObservableCollection<ItemViewModel> NearestSummaryItems { get; private set; }
-        public ObservableCollection<ItemViewModel> FollowingItems { get; private set; }
-        public ObservableCollection<ItemViewModel> FollowingSummaryItems { get; private set; }
+        private ObservableCollection<ItemViewModel> items;
+        private ObservableCollection<ItemViewModel> popularItems;
+        private ObservableCollection<ItemViewModel> popularSummaryItems;
+        private ObservableCollection<ItemViewModel> latestItems;
+        private ObservableCollection<ItemViewModel> latestSummaryItems;
+        private ObservableCollection<ItemViewModel> nearestItems;
+        private ObservableCollection<ItemViewModel> nearestSummaryItems;
+        private ObservableCollection<ItemViewModel> followingItems;
+        private ObservableCollection<ItemViewModel> followingSummaryItems;
+
+        public ObservableCollection<ItemViewModel> Items { get { return items; } private set{if (value != items) {items = value; NotifyPropertyChanged("Items");}} }
+        public ObservableCollection<ItemViewModel> PopularItems { get { return popularItems; } private set { if (value != popularItems) { popularItems = value; NotifyPropertyChanged("PopularItems"); } } }
+        public ObservableCollection<ItemViewModel> PopularSummaryItems { get { return popularSummaryItems; } private set { if (value != popularSummaryItems) { popularSummaryItems = value; NotifyPropertyChanged("PopularSummaryItems"); } } }
+        public ObservableCollection<ItemViewModel> LatestItems { get { return latestItems; } private set { if (value != latestItems) { latestItems = value; NotifyPropertyChanged("LatestItems"); } } }
+        public ObservableCollection<ItemViewModel> LatestSummaryItems { get { return latestSummaryItems; } private set { if (value != latestSummaryItems) { latestSummaryItems = value; NotifyPropertyChanged("LatestSummaryItems"); } } }
+        public ObservableCollection<ItemViewModel> NearestItems { get { return nearestItems; } private set { if (value != nearestItems) { nearestItems = value; NotifyPropertyChanged("NearestItems"); } } }
+        public ObservableCollection<ItemViewModel> NearestSummaryItems { get { return nearestSummaryItems; } private set { if (value != nearestSummaryItems) { nearestSummaryItems = value; NotifyPropertyChanged("NearestSummaryItems"); } } }
+        public ObservableCollection<ItemViewModel> FollowingItems { get { return followingItems; } private set { if (value != followingItems) { followingItems = value; NotifyPropertyChanged("FollowingItems"); } } }
+        public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
 
         private string _sampleProperty = "Sample Runtime Property Value";        
 
@@ -127,20 +146,115 @@ namespace StarSightings
             UpdateSummaryItems(this.LatestItems, this.LatestSummaryItems, 3, 4);
             UpdateSummaryItems(this.NearestItems, this.NearestSummaryItems, 5, 6);            
             UpdateSummaryItems(this.FollowingItems, this.FollowingSummaryItems, 7, 8);
+
+            DownloadData();
         }
 
         private void UpdateSummaryItems(ObservableCollection<ItemViewModel> source, ObservableCollection<ItemViewModel> target, int start, int end)
-        {            
-            IEnumerable<ItemViewModel> query = source.Where<ItemViewModel>(item => item.ID >= start && item.ID <= end);
-            foreach (ItemViewModel item in query)
+        {
+            target.Clear();       
+            for (int i = start; i <= end; i++)
             {
-                target.Add(item);                
+                target.Add(source.ElementAt(i));            
             }            
+        }
+
+        public void DownloadData()
+        {
+            SearchPopular(true);
+            SearchLatest(true);
+        }
+
+        public void SearchPopular(bool fresh)
+        {
+            SearchParams param = new SearchParams();                     
+            SearchToken token = new SearchToken();
+            token.searchGroup = Constants.SEARCH_POPULAR;
+            token.isFresh = true;            
+            App.SSAPI.DoSearch(param, token);
+        }
+
+        public void SearchLatest(bool fresh)
+        {
+            SearchParams param = new SearchParams();
+            param.order_by = "time";
+            param.order_dir = "asc";
+            SearchToken token = new SearchToken();
+            token.searchGroup = Constants.SEARCH_LATEST;
+            token.isFresh = true;
+            App.SSAPI.DoSearch(param, token);
+        }
+
+        public void SearchCompleted(object sender, SearchEventArgs e)
+        {
+            if (e.Successful)
+            {/*
+                foreach (ItemViewModel item in e.Items)
+                {
+                    this.PopularItems.Add(item);
+                    this.LatestItems.Add(item);
+                    this.NearestItems.Add(item);
+                    this.FollowingItems.Add(item);
+                }
+              * */
+                if (e.SearchToken.searchGroup == Constants.SEARCH_POPULAR)
+                {
+                    if (e.SearchToken.isFresh)
+                    {
+                        App.ViewModel.PopularItems.Clear();
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            App.ViewModel.PopularItems.Add(item);
+                        }
+                        UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 1);
+                    }
+
+                }
+                else if (e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
+                {
+                    if (e.SearchToken.isFresh)
+                    {
+                        App.ViewModel.LatestItems.Clear();
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            App.ViewModel.LatestItems.Add(item);
+                        }
+                        UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 1);
+                    }
+
+                }
+                OnSearchCompleted(new EventArgs());
+            }
+        }
+
+        public event SearchCompletedCallback SearchDataReadyHandler;        
+        protected virtual void OnSearchCompleted(EventArgs e)
+        {
+            if (SearchDataReadyHandler != null)
+            {
+                SearchDataReadyHandler(this, e);
+            }
         }
 
         public ItemViewModel GetItemById(int id)
         {
             return Items.FirstOrDefault(item => item.ID == id);       
+        }
+
+        public ObservableCollection<ItemViewModel> GetItemSouce(int searchGroup)
+        {
+            switch (searchGroup)
+            {
+                case Constants.SEARCH_POPULAR:
+                    return PopularItems;
+                case Constants.SEARCH_LATEST:
+                    return LatestItems;
+                case Constants.SEARCH_NEAREST:
+                    return NearestItems;
+                case Constants.SEARCH_FOLLOWING:
+                    return FollowingItems;
+            }
+            return null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -153,4 +267,5 @@ namespace StarSightings
             }
         }
     }
+    public delegate void SearchCompletedCallback(object sender, EventArgs e);
 }

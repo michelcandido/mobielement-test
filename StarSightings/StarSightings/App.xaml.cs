@@ -37,6 +37,19 @@ namespace StarSightings
             }
         }
 
+        private static Configuration config = null;
+        public static Configuration Config
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (config == null)
+                    config = new Configuration();
+
+                return config;
+            }
+        }
+
         private static ServerAPI ssapi = null;
 
         /// <summary>
@@ -54,7 +67,79 @@ namespace StarSightings
                 return ssapi;
             }
         }
+        /*
+        private static ServerAPI popularSearchAPI = null;
 
+        /// <summary>
+        /// A static ServerAPI used by the views to bind against.
+        /// </summary>
+        /// <returns>The ServerAPI object.</returns>
+        public static ServerAPI PopularSearchAPI
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (popularSearchAPI == null)
+                    popularSearchAPI = new ServerAPI();
+
+                return popularSearchAPI;
+            }
+        }
+
+        private static ServerAPI latestSearchAPI = null;
+
+        /// <summary>
+        /// A static ServerAPI used by the views to bind against.
+        /// </summary>
+        /// <returns>The ServerAPI object.</returns>
+        public static ServerAPI LatestSearchAPI
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (latestSearchAPI == null)
+                    latestSearchAPI = new ServerAPI();
+
+                return latestSearchAPI;
+            }
+        }
+
+        private static ServerAPI nearestSearchAPI = null;
+
+        /// <summary>
+        /// A static ServerAPI used by the views to bind against.
+        /// </summary>
+        /// <returns>The ServerAPI object.</returns>
+        public static ServerAPI NearestSearchAPI
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (nearestSearchAPI == null)
+                    nearestSearchAPI = new ServerAPI();
+
+                return nearestSearchAPI;
+            }
+        }
+
+        private static ServerAPI followingSearchAPI = null;
+
+        /// <summary>
+        /// A static ServerAPI used by the views to bind against.
+        /// </summary>
+        /// <returns>The ServerAPI object.</returns>
+        public static ServerAPI FollowingSearchAPI
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (followingSearchAPI == null)
+                    followingSearchAPI = new ServerAPI();
+
+                return followingSearchAPI;
+            }
+        }
+        */
         private static WPClogger logger = null;
 
         /// <summary>
@@ -152,26 +237,8 @@ namespace StarSightings
             {
                 App.Logger.emailReport();
                 App.Logger.clearEventsFromLog();
-            }
-
-            // register device for the first time launch
-            if (Utils.GetIsolatedStorageSettings("DeviceId") == null)
-            {
-                App.SSAPI.Register += new RegisterEventHandler(RegisterDeviceCompleted);
-                App.SSAPI.RegisterDevice();
-            }
-            else
-            {
-                //MessageBox.Show("Already Register:" + (string)Utils.GetIsolatedStorageSettings("DeviceId"));
-                ViewModel.DeviceId = (string)Utils.GetIsolatedStorageSettings("DeviceId");
-            }
-		}
-
-        public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
-        {
-            //MessageBox.Show(e.Successful + ":" + e.DeviceId);
-            ViewModel.DeviceId = e.DeviceId;
-        }
+            }            
+		}   
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
@@ -182,8 +249,7 @@ namespace StarSightings
                 //This will ensure that the ApplicationUsageHelper is initialized again if the application has been in Tombstoned state.
                 ApplicationUsageHelper.OnApplicationActivated();
             } 
- 
-	
+ 	
 		    // Ensure that application state is restored appropriately
             if (!App.ViewModel.IsDataLoaded)
             {
