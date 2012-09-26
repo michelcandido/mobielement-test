@@ -27,44 +27,7 @@
             <controls:PivotItem Header="latest">
                 <local:ListViewControl x:Name="LatestList" SearchGroup="1">
                 </local:ListViewControl>
-            </controls:PivotItem>
-            <!--Pivot item one-->
-            <controls:PivotItem Header="popular">
-                <!--Double line list with text wrapping-->
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding PopularItems}" SelectionChanged="ListBox_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
-                                <Rectangle Height="100" Width="100" Fill="{StaticResource greenColor}" Margin="12,0,9,0"/>
-                                <StackPanel Width="311">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </controls:PivotItem>
-
-            <!--Pivot item two-->
-            <controls:PivotItem Header="latest">
-                <!--Triple line list no text wrapping-->
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding ListItems}" SelectionChanged="ListBox_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
-                                <Rectangle Height="100" Width="100" Fill="{StaticResource redColor}" Margin="12,0,9,0"/>
-                                <StackPanel Width="311">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </controls:PivotItem>
+            </controls:PivotItem>            
 
             <controls:PivotItem Header="nearest">
                 <!--Triple line list no text wrapping-->

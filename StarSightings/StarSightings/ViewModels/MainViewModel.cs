@@ -31,13 +31,7 @@ namespace StarSightings
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
             this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
 
-            App.SSAPI.Search += new SearchEventHandler(SearchCompleted);
-            /*
-            App.PopularSearchAPI.Search += new SearchEventHandler(SearchCompleted);
-            App.LatestSearchAPI.Search += new SearchEventHandler(SearchCompleted);
-            App.NearestSearchAPI.Search += new SearchEventHandler(SearchCompleted);
-            App.FollowingSearchAPI.Search += new SearchEventHandler(SearchCompleted);
-             * */
+            App.SSAPI.Search += new SearchEventHandler(SearchCompleted);            
         }
 
         /// <summary>
@@ -188,15 +182,7 @@ namespace StarSightings
         public void SearchCompleted(object sender, SearchEventArgs e)
         {
             if (e.Successful)
-            {/*
-                foreach (ItemViewModel item in e.Items)
-                {
-                    this.PopularItems.Add(item);
-                    this.LatestItems.Add(item);
-                    this.NearestItems.Add(item);
-                    this.FollowingItems.Add(item);
-                }
-              * */
+            {
                 if (e.SearchToken.searchGroup == Constants.SEARCH_POPULAR)
                 {
                     if (e.SearchToken.isFresh)
