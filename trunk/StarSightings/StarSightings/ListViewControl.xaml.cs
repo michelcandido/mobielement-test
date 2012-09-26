@@ -20,7 +20,8 @@ namespace StarSightings
     {
         private ObservableCollection<ItemViewModel> source;
         private MainViewModel context;
-        private int loadedPagesCount = 1;
+        private int currentStartIndex = 0;
+        private bool requestIssued = false;
 
         public ListViewControl()
         {
@@ -80,16 +81,17 @@ namespace StarSightings
         }
          * */
 
-        private void ListBox_RefreshRequested(object sender, EventArgs e)
+        private void OnListBox_RefreshRequested(object sender, EventArgs e)
         {
             //FiveHundredPxAPI.BeginGetPhotosByCategory("fresh", this.loadedPagesCount, this.PhotoDataDelivered);
+            currentStartIndex = 0;
             switch (this.SearchGroup)
             {
                 case Constants.SEARCH_POPULAR:
-                    App.ViewModel.SearchPopular(true);
+                    App.ViewModel.SearchPopular(true,0);
                     break;
                 case Constants.SEARCH_LATEST:
-                    App.ViewModel.SearchLatest(true);
+                    App.ViewModel.SearchLatest(true,0);
                     break;
                 case Constants.SEARCH_NEAREST:
                     break;
@@ -98,11 +100,35 @@ namespace StarSightings
             }
         }
 
+        private void OnListBox_DataRequested(object sender, EventArgs e)
+        {
+            if (this.requestIssued)
+            {
+                return;
+            }
+            currentStartIndex += Constants.LIMIT;
+            switch (this.SearchGroup)
+            {
+                case Constants.SEARCH_POPULAR:
+                    App.ViewModel.SearchPopular(false, currentStartIndex);
+                    break;
+                case Constants.SEARCH_LATEST:
+                    App.ViewModel.SearchLatest(false, currentStartIndex);
+                    break;
+                case Constants.SEARCH_NEAREST:
+                    break;
+                case Constants.SEARCH_FOLLOWING:
+                    break;
+            }
+            this.requestIssued = true;
+        }
+
         public void SearchDataDelivered(object sender, EventArgs e)
         {
             this.Dispatcher.BeginInvoke(() =>
             {
                 this.listBox.StopPullToRefreshLoading(true);
+                this.requestIssued = false;
                 /*
                 if (this.loadedPagesCount >= 11)
                 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#undef TESTSERVER
+using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,19 +19,16 @@ using System.Collections.ObjectModel;
 namespace StarSightings
 {
     public class ServerAPI
-    {
-        private const bool TESTSERVER = false;
-        
+    {                
         private WebClient GetWebClient()
         {
             WebClient webClient = new WebClient();
 
-            if (TESTSERVER)
-            {
+#if (TESTSERVER)            
                 string auth = Constants.BASE_AUTH_USERNAME + ":" + Constants.BASE_AUTH_PASSWORD;
                 string authString = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(auth));
-                webClient.Headers["Authorization"] = "Basic " + authString;
-            }
+                webClient.Headers["Authorization"] = "Basic " + authString;            
+#endif
             return webClient;
         }
 
@@ -317,6 +315,7 @@ namespace StarSightings
     {
         public int searchGroup;
         public bool isFresh;
+        public int start;
     }
 	
 }
