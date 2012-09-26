@@ -24,6 +24,21 @@
                 </ContentPresenter>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="MySummaryItemTemplate">
+            <Grid Margin="0, 0, 0, 17">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition MinWidth="140"/>
+                </Grid.ColumnDefinitions>
+                <Border Margin="0, 0, 24, 0"  Width="120" Height="120" BorderThickness="1" BorderBrush="{StaticResource PhoneSubtleBrush}">
+                    <Image Source="{Binding ThumbOrigLarge}" Width="120" Height="120" Stretch="UniformToFill" />
+                </Border>
+                <StackPanel Orientation="Vertical" Grid.Column="1" MaxHeight="280">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                    <TextBlock Margin="0, 8, 0, 0" LineStackingStrategy="BlockLineHeight" LineHeight="28" FontFamily="{StaticResource PhoneFontFamilySemiLight}"  FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="Wrap" Text="{Binding LineThree}"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -41,20 +56,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Margin="0,-24,0,24" Tap="GoToList" Tag="0">popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                            <!--Replace rectangle with image-->
-                                            <Rectangle Height="100" Width="100" Fill="{StaticResource greenColor}" Margin="12,0,9,0"/>
-                                            <StackPanel Width="311">
-                                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>                            
+                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -62,20 +64,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="1">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                            <!--Replace rectangle with image-->
-                                            <Rectangle Height="100" Width="100" Fill="{StaticResource redColor}" Margin="12,0,9,0"/>
-                                            <StackPanel Width="311">
-                                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="1">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -83,32 +72,19 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="2">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                            <!--Replace rectangle with image-->
-                                            <Rectangle Height="100" Width="100" Fill="{StaticResource greenColor}" Margin="12,0,9,0"/>
-                                            <StackPanel Width="311">
-                                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="2">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="3">following</TextBlock>
+                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
+                            <!--<ListBox Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                            <!--Replace rectangle with image-->
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,17">                                            
                                             <Rectangle Height="100" Width="100" Fill="{StaticResource redColor}" Margin="12,0,9,0"/>
                                             <StackPanel Width="311">
                                                 <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
@@ -117,7 +93,7 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
-                            </ListBox>
+                            </ListBox>-->
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="3">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -126,7 +102,7 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="popular" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}" Orientation="Horizontal">
+            <controls:PanoramaItem Header="following" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}" Orientation="Horizontal">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding PopularItems}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -143,7 +119,7 @@
                 </ListBox>                    
             </controls:PanoramaItem>
             
-            <controls:PanoramaItem Header="following">
+            <controls:PanoramaItem Header="my sightings">
                 <Grid>
                     <Grid.RowDefinitions>                        
                         <RowDefinition Height="7*"/>

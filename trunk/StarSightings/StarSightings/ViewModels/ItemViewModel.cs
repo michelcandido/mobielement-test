@@ -45,7 +45,62 @@ namespace StarSightings
 	    private string bidCnt;
 	    private string visibleMode;
 	    private Boolean hidden; //Boolean?
+        private string rights;
+        private Boolean hasPhoto;
+        private string localOffset;
+        private string vote;
+
+
+
                         
+        public string Vote
+        {
+            get
+            {
+                return this.vote;
+            }
+            set
+            {
+                this.vote = value;
+            }
+        }
+
+        public string LocalOffset
+        {
+            get
+            {
+                return this.localOffset;
+            }
+            set
+            {
+                this.localOffset = value;
+            }
+        }
+
+        public Boolean HasPhoto
+        {
+            get
+            {
+                return this.hasPhoto;
+            }
+            set
+            {
+                this.hasPhoto = value;
+            }
+        }
+
+        public string Rights
+        {
+            get
+            {
+                return this.rights;
+            }
+            set
+            {
+                this.rights = value;
+            }
+        }
+
         public string PhotoId
         {
             get

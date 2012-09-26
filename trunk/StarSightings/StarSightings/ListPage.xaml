@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:local="clr-namespace:StarSightings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -19,10 +20,18 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">        
         <!--Pivot Control-->
         <controls:Pivot Title="{Binding DeviceId}" x:Name="pivotControl">
+            <controls:PivotItem Header="popular">
+                <local:ListViewControl x:Name="PopularList" SearchGroup="0">
+                </local:ListViewControl>
+            </controls:PivotItem>
+            <controls:PivotItem Header="latest">
+                <local:ListViewControl x:Name="LatestList" SearchGroup="1">
+                </local:ListViewControl>
+            </controls:PivotItem>
             <!--Pivot item one-->
             <controls:PivotItem Header="popular">
                 <!--Double line list with text wrapping-->
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding PopularItems}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -41,7 +50,7 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="latest">
                 <!--Triple line list no text wrapping-->
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding ListItems}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -59,7 +68,7 @@
 
             <controls:PivotItem Header="nearest">
                 <!--Triple line list no text wrapping-->
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding NearestItems}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
@@ -77,7 +86,7 @@
 
             <controls:PivotItem Header="following">
                 <!--Triple line list no text wrapping-->
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding FollowingItems}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,17">

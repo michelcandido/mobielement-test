@@ -21,10 +21,10 @@ namespace StarSightings
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
-            this.Loaded += new RoutedEventHandler(ListPage_Loaded);
+            this.Loaded += new RoutedEventHandler(MapPage_Loaded);
         }
 
-        void ListPage_Loaded(object sender, RoutedEventArgs e)
+        void MapPage_Loaded(object sender, RoutedEventArgs e)
         {
             if (!App.ViewModel.IsDataLoaded)
             {
