@@ -34,8 +34,8 @@
                     <Image Source="{Binding ThumbOrigLarge}" Width="120" Height="120" Stretch="UniformToFill" />
                 </Border>
                 <StackPanel Orientation="Vertical" Grid.Column="1" MaxHeight="280">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
-                    <TextBlock Margin="0, 8, 0, 0" LineStackingStrategy="BlockLineHeight" LineHeight="28" FontFamily="{StaticResource PhoneFontFamilySemiLight}"  FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="Wrap" Text="{Binding LineThree}"/>
+                    <TextBlock TextWrapping="NoWrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextTrimming="WordEllipsis" />
+                    <TextBlock Margin="0, 8, 0, 0" LineStackingStrategy="BlockLineHeight" LineHeight="28" FontFamily="{StaticResource PhoneFontFamilySemiLight}"  FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="NoWrap" Text="{Binding LineThree}" TextTrimming="WordEllipsis" />
                 </StackPanel>
             </Grid>
         </DataTemplate>

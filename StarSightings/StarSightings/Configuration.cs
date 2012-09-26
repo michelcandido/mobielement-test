@@ -41,6 +41,7 @@ namespace StarSightings
             if (e.Successful)
             {
                 App.ViewModel.DeviceId = e.DeviceId;
+                IsAppInit = true;
             }
         }
     }
