@@ -17,7 +17,8 @@
             EmptyContent="Loading..."            
             x:Name="listBox"
             IsPullToRefreshEnabled="True"
-            RefreshRequested="ListBox_RefreshRequested">
+            RefreshRequested="OnListBox_RefreshRequested"
+            DataVirtualizationMode="OnDemandAutomatic" DataRequested="OnListBox_DataRequested">
             <telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
                 <telerikCore:RadFadeAnimation StartOpacity="0" EndOpacity="1" Duration="0:0:0.5" InitialDelay="0:0:1.2">
                     <telerikCore:RadFadeAnimation.Easing>
@@ -25,6 +26,11 @@
                     </telerikCore:RadFadeAnimation.Easing>
                 </telerikCore:RadFadeAnimation>
             </telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
+            <telerikPrimitives:RadDataBoundListBox.ItemLoadingTemplate>
+                <DataTemplate>
+                    <telerikPrimitives:RadBusyIndicator AnimationStyle="AnimationStyle9" IsRunning="True" Content=""/>
+                </DataTemplate>
+            </telerikPrimitives:RadDataBoundListBox.ItemLoadingTemplate>
             <telerikPrimitives:RadDataBoundListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0, 24, 0, 0">

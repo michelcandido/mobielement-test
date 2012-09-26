@@ -155,27 +155,31 @@ namespace StarSightings
 
         public void DownloadData()
         {
-            SearchPopular(true);
-            SearchLatest(true);
+            SearchPopular(true,0);
+            SearchLatest(true,0);
         }
 
-        public void SearchPopular(bool fresh)
+        public void SearchPopular(bool fresh, int start)
         {
-            SearchParams param = new SearchParams();                     
+            SearchParams param = new SearchParams();
+            param.start = start;      
             SearchToken token = new SearchToken();
             token.searchGroup = Constants.SEARCH_POPULAR;
-            token.isFresh = true;            
+            token.isFresh = fresh;
+            token.start = start;
             App.SSAPI.DoSearch(param, token);
         }
 
-        public void SearchLatest(bool fresh)
+        public void SearchLatest(bool fresh, int start)
         {
             SearchParams param = new SearchParams();
+            param.start = start;
             param.order_by = "time";
             param.order_dir = "asc";
             SearchToken token = new SearchToken();
             token.searchGroup = Constants.SEARCH_LATEST;
-            token.isFresh = true;
+            token.isFresh = fresh;
+            token.start = start;
             App.SSAPI.DoSearch(param, token);
         }
 
@@ -194,6 +198,14 @@ namespace StarSightings
                         }
                         UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 1);
                     }
+                    else
+                    {
+                        int i = 0;
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            App.ViewModel.PopularItems.Insert(e.SearchToken.start + i++, item);
+                        }
+                    }
 
                 }
                 else if (e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
@@ -207,7 +219,14 @@ namespace StarSightings
                         }
                         UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 1);
                     }
-
+                    else
+                    {
+                        int i = 0;
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            App.ViewModel.LatestItems.Insert(e.SearchToken.start + i++, item);
+                        }
+                    }
                 }
                 OnSearchCompleted(new EventArgs());
             }
