@@ -173,15 +173,14 @@ namespace StarSightings
             }
             else
             {
-                XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
+                XElement xmlResponse = XElement.Parse(e.Result);
                 XElement xmlItems = xmlResponse.Element("items");
 
                 if (xmlItems != null)
                 {
                     ObservableCollection<ItemViewModel> items = new ObservableCollection<ItemViewModel>();
                     foreach (XElement xmlItem in xmlItems.Elements("item"))
-                    {
-                        bool boolValue = false;
+                    {                        
                         ItemViewModel item = new ItemViewModel();
                         item.PhotoId = xmlItem.Element("photo_id").Value;
                         item.GeoLat = xmlItem.Element("geo_lat").Value;
@@ -197,10 +196,8 @@ namespace StarSightings
                         item.Place = xmlItem.Element("place").Value;
                         item.SourceUrl = xmlItem.Element("source_url").Value;
                         item.ViewCnt = xmlItem.Element("view_cnt").Value;
-                        item.UserId = xmlItem.Element("user_id").Value;
-                        boolValue = false;
-                        Boolean.TryParse(xmlItem.Element("can_edit").Value, out boolValue);                        
-                        item.CanEdit = boolValue;                        
+                        item.UserId = xmlItem.Element("user_id").Value;                                                
+                        item.CanEdit = xmlItem.Element("hidden").Value == "1";                        
                         item.ThumbUserSmall = xmlItem.Element("thumb_user_small").Value;
                         item.ThumbUserLarge = xmlItem.Element("thumb_user_large").Value;
                         item.ThumbOrigSmall = xmlItem.Element("thumb_orig_small").Value;
@@ -210,14 +207,10 @@ namespace StarSightings
                         item.MaxBid = xmlItem.Element("max_bid").Value;
                         item.MaxBidTime = xmlItem.Element("max_bid_time").Value;
                         item.BidCnt = xmlItem.Element("bid_cnt").Value;
-                        item.VisibleMode = xmlItem.Element("visible_mode").Value;
-                        boolValue = false;
-                        Boolean.TryParse(xmlItem.Element("hidden").Value, out boolValue);
-                        item.Hidden = boolValue;
+                        item.VisibleMode = xmlItem.Element("visible_mode").Value;                        
+                        item.Hidden = xmlItem.Element("hidden").Value == "1";
                         item.Rights = xmlItem.Element("rights").Value;
-                        boolValue = false;
-                        Boolean.TryParse(xmlItem.Element("has_photo").Value, out boolValue);
-                        item.HasPhoto = boolValue;
+                        item.HasPhoto = xmlItem.Element("has_photo").Value == "1";
                         item.Time = xmlItem.Element("time").Value;
                         item.LocalTime = xmlItem.Element("local_time").Value;
                         item.LocalOffset = xmlItem.Element("local_offset").Value;
