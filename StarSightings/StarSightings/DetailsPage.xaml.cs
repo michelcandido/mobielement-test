@@ -24,14 +24,17 @@ namespace StarSightings
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            string selectedItemId = NavigationContext.QueryString["selectedItemId"];
-            int itemId = -1;            
-            ItemViewModel item = null;
-            if (int.TryParse(selectedItemId, out itemId))
+            if (NavigationContext.QueryString.ContainsKey("selectedItemId"))
             {
-                item = App.ViewModel.GetItemById(itemId);
+                string selectedItemId = NavigationContext.QueryString["selectedItemId"];
+                int itemId = -1;
+                ItemViewModel item = null;
+                if (int.TryParse(selectedItemId, out itemId))
+                {
+                    item = App.ViewModel.GetItemById(itemId);
+                }
+                this.slideView.SelectedItem = item;
             }
-            this.slideView.SelectedItem = item;
         }
     }
 }

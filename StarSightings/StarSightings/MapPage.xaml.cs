@@ -36,24 +36,27 @@ namespace StarSightings
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
-            int itemId = 0;
-            int.TryParse(selectedGroupId, out itemId);
-            switch (itemId)
+            if (NavigationContext.QueryString.ContainsKey("selectedGroupId"))
             {
-                case 0:
-                    this.GroupTitle.Text = "popular";
-                    break;
-                case 1:
-                    this.GroupTitle.Text = "latest";
-                    break;
-                case 2:
-                    this.GroupTitle.Text = "nearest";
-                    break;
-                case 3:
-                    this.GroupTitle.Text = "following";
-                    break;
-            }            
+                selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
+                int itemId = 0;
+                int.TryParse(selectedGroupId, out itemId);
+                switch (itemId)
+                {
+                    case 0:
+                        this.GroupTitle.Text = "popular";
+                        break;
+                    case 1:
+                        this.GroupTitle.Text = "latest";
+                        break;
+                    case 2:
+                        this.GroupTitle.Text = "nearest";
+                        break;
+                    case 3:
+                        this.GroupTitle.Text = "following";
+                        break;
+                }
+            }
         }
 
         private void GoToList(object sender, EventArgs e)
