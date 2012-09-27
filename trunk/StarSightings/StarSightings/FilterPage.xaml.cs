@@ -16,9 +16,10 @@ namespace StarSightings
 {
     public partial class Filter : PhoneApplicationPage
     {
-        private string[] categoryFilterNames = new string[] { "All", "Celebs", "Musicians", "Politicians", "Models", "Athletes" };
+        private string[] categoryFilterNames = new string[] { "All", "Celebrities", "Musicians", "Politicians", "Models", "Athletes" };
         private string[] mapFilterNames = new string[] { "Near Me", "Near Map Center", "Expand" };
         private string[] followFilterNames = new string[] { "New", "All", "Photographers", "Friends" };
+        private int searchGroupId;
         public Filter()
         {
             InitializeComponent();                                    
@@ -28,23 +29,29 @@ namespace StarSightings
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            string selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
-            int itemId = 0;
-            int.TryParse(selectedGroupId, out itemId);
-
-            switch (itemId)
+            if (NavigationContext.QueryString.ContainsKey("selectedGroupId"))
             {
-                case 0:
-                case 1:
-                    this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = "All" };
-                    break;
-                case 2:
-                    this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = mapFilterNames, SelectedItem = "Near Me" };
-                    break;
-                case 3:
-                    this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = followFilterNames, SelectedItem = "New" };
-                    break;
-            }            
+                string selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
+                int itemId = 0;
+                int.TryParse(selectedGroupId, out itemId);
+
+                switch (itemId)
+                {
+                    case 0:
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = categoryFilterNames[App.ViewModel.SearchTypePopular] };
+                        break;
+                    case 1:
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = categoryFilterNames[App.ViewModel.SearchTypeLatest] };
+                        break;
+                    case 2:
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = mapFilterNames, SelectedItem = mapFilterNames[App.ViewModel.SearchTypeNearest] };
+                        break;
+                    case 3:
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = followFilterNames, SelectedItem = followFilterNames[App.ViewModel.SearchTypeFollowing] };
+                        break;
+                }
+                searchGroupId = itemId;
+            }
         }
 
         // abstract the reusable code in a base class
@@ -194,7 +201,7 @@ namespace StarSightings
                 }
                 return node.Value;
             }
-
+           
             private class NodeComparer : IComparer<LinkedListNode<T>>
             {
                 private IComparer<T> comparer;
@@ -214,6 +221,33 @@ namespace StarSightings
                 #endregion
             }
 
+        }
+
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void CheckButton_Click(object sender, EventArgs e)
+        {
+            switch (searchGroupId)
+            {
+                case 0:
+                    App.ViewModel.SearchTypePopular = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    App.ViewModel.SearchPopular(true, 0, null);                    
+                    break;
+                case 1:
+                    App.ViewModel.SearchTypeLatest = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    App.ViewModel.SearchLatest(true, 0, null);
+                    break;
+                case 2:
+                    App.ViewModel.SearchTypeNearest = Array.IndexOf(this.mapFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    break;
+                case 3:
+                    App.ViewModel.SearchTypeFollowing = Array.IndexOf(this.followFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    break;
+            }
+            this.NavigationService.GoBack();
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Net.NetworkInformation;
 using Telerik.Windows.Controls;
+using StarSightings.Events;
 
 namespace StarSightings
 {
@@ -33,6 +34,8 @@ namespace StarSightings
         protected override void OnDisplayed()
         {
             this.source = App.ViewModel.GetItemSouce(this.SearchGroup);
+            currentStartIndex = this.source.Count;
+
             base.OnDisplayed();
             
             if (!NetworkInterface.GetIsNetworkAvailable())
@@ -84,14 +87,14 @@ namespace StarSightings
         private void OnListBox_RefreshRequested(object sender, EventArgs e)
         {
             //FiveHundredPxAPI.BeginGetPhotosByCategory("fresh", this.loadedPagesCount, this.PhotoDataDelivered);
-            currentStartIndex = 0;
+            //currentStartIndex = 0;
             switch (this.SearchGroup)
             {
                 case Constants.SEARCH_POPULAR:
-                    App.ViewModel.SearchPopular(true,0);
+                    App.ViewModel.SearchPopular(true,0, null);
                     break;
                 case Constants.SEARCH_LATEST:
-                    App.ViewModel.SearchLatest(true,0);
+                    App.ViewModel.SearchLatest(true,0, null);
                     break;
                 case Constants.SEARCH_NEAREST:
                     break;
@@ -106,14 +109,14 @@ namespace StarSightings
             {
                 return;
             }
-            currentStartIndex += Constants.LIMIT;
+            //currentStartIndex += Constants.LIMIT;
             switch (this.SearchGroup)
             {
                 case Constants.SEARCH_POPULAR:
-                    App.ViewModel.SearchPopular(false, currentStartIndex);
+                    App.ViewModel.SearchPopular(false, currentStartIndex, null);
                     break;
                 case Constants.SEARCH_LATEST:
-                    App.ViewModel.SearchLatest(false, currentStartIndex);
+                    App.ViewModel.SearchLatest(false, currentStartIndex, null);
                     break;
                 case Constants.SEARCH_NEAREST:
                     break;
@@ -123,8 +126,12 @@ namespace StarSightings
             this.requestIssued = true;
         }
 
-        public void SearchDataDelivered(object sender, EventArgs e)
+        public void SearchDataDelivered(object sender, SearchEventArgs e)
         {
+            if (e.Successful)
+            {
+                currentStartIndex += e.Items.Count;
+            }
             this.Dispatcher.BeginInvoke(() =>
             {
                 this.listBox.StopPullToRefreshLoading(true);

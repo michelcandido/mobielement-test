@@ -31,6 +31,11 @@ namespace StarSightings
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
             this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
 
+            SearchTypePopular = 0;
+            SearchTypeLatest = 0;
+            SearchTypeNearest = 0;
+            SearchTypeFollowing = 0;
+
             App.SSAPI.Search += new SearchEventHandler(SearchCompleted);            
         }
 
@@ -57,25 +62,56 @@ namespace StarSightings
         public ObservableCollection<ItemViewModel> FollowingItems { get { return followingItems; } private set { if (value != followingItems) { followingItems = value; NotifyPropertyChanged("FollowingItems"); } } }
         public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
 
-        private string _sampleProperty = "Sample Runtime Property Value";        
+        private int searchTypePopular;
+        private int searchTypeLatest;
+        private int searchTypeNearest;
+        private int searchTypeFollowing;
 
-        /// <summary>
-        /// Sample ViewModel property; this property is used in the view to display its value using a Binding
-        /// </summary>
-        /// <returns></returns>
-        public string SampleProperty
+        public int SearchTypePopular
         {
             get
             {
-                return _sampleProperty;
+                return this.searchTypePopular;
             }
             set
             {
-                if (value != _sampleProperty)
-                {
-                    _sampleProperty = value;
-                    NotifyPropertyChanged("SampleProperty");
-                }
+                this.searchTypePopular = value;
+            }
+        }
+
+        public int SearchTypeLatest
+        {
+            get
+            {
+                return this.searchTypeLatest;
+            }
+            set
+            {
+                this.searchTypeLatest = value;
+            }
+        }
+
+        public int SearchTypeNearest
+        {
+            get
+            {
+                return this.searchTypeNearest;
+            }
+            set
+            {
+                this.searchTypeNearest = value;
+            }
+        }
+
+        public int SearchTypeFollowing
+        {
+            get
+            {
+                return this.searchTypeFollowing;
+            }
+            set
+            {
+                this.searchTypeFollowing = value;
             }
         }
 
@@ -130,14 +166,14 @@ namespace StarSightings
 
             foreach (ItemViewModel item in this.Items)
             {
-                this.PopularItems.Add(item);
-                this.LatestItems.Add(item);
+                //this.PopularItems.Add(item);
+                //this.LatestItems.Add(item);
                 this.NearestItems.Add(item);                
                 this.FollowingItems.Add(item);
             }
 
-            UpdateSummaryItems(this.PopularItems, this.PopularSummaryItems, 1, 2);
-            UpdateSummaryItems(this.LatestItems, this.LatestSummaryItems, 3, 4);
+            //UpdateSummaryItems(this.PopularItems, this.PopularSummaryItems, 1, 2);
+            //UpdateSummaryItems(this.LatestItems, this.LatestSummaryItems, 3, 4);
             UpdateSummaryItems(this.NearestItems, this.NearestSummaryItems, 5, 6);            
             UpdateSummaryItems(this.FollowingItems, this.FollowingSummaryItems, 7, 8);
 
@@ -147,22 +183,24 @@ namespace StarSightings
         private void UpdateSummaryItems(ObservableCollection<ItemViewModel> source, ObservableCollection<ItemViewModel> target, int start, int end)
         {
             target.Clear();       
-            for (int i = start; i <= end; i++)
-            {
+            for (int i = start; i <= end && i < source.Count; i++)
+            {                
                 target.Add(source.ElementAt(i));            
             }            
         }
 
         public void DownloadData()
         {
-            SearchPopular(true,0);
-            SearchLatest(true,0);
+            SearchPopular(true,0, null);
+            SearchLatest(true,0, null);
         }
 
-        public void SearchPopular(bool fresh, int start)
+        public void SearchPopular(bool fresh, int start, SearchParams param)
         {
-            SearchParams param = new SearchParams();
-            param.start = start;      
+            if (param == null)
+                param = new SearchParams();
+            param.start = start;
+            param.search_types = SearchType.CATEGORY_FILTER_NAMES[App.ViewModel.SearchTypePopular];
             SearchToken token = new SearchToken();
             token.searchGroup = Constants.SEARCH_POPULAR;
             token.isFresh = fresh;
@@ -170,12 +208,14 @@ namespace StarSightings
             App.SSAPI.DoSearch(param, token);
         }
 
-        public void SearchLatest(bool fresh, int start)
+        public void SearchLatest(bool fresh, int start, SearchParams param)
         {
-            SearchParams param = new SearchParams();
+            if (param == null)
+                param = new SearchParams();
             param.start = start;
+            param.search_types = SearchType.CATEGORY_FILTER_NAMES[App.ViewModel.SearchTypeLatest];
             param.order_by = "time";
-            param.order_dir = "asc";
+            param.order_dir = "desc";
             SearchToken token = new SearchToken();
             token.searchGroup = Constants.SEARCH_LATEST;
             token.isFresh = fresh;
@@ -191,19 +231,26 @@ namespace StarSightings
                 {
                     if (e.SearchToken.isFresh)
                     {
-                        App.ViewModel.PopularItems.Clear();
+                        //App.ViewModel.PopularItems.Clear();
+                        int count = App.ViewModel.PopularItems.Count;
                         foreach (ItemViewModel item in e.Items)
                         {
                             App.ViewModel.PopularItems.Add(item);
+                        }
+                        for (int i = 0; i < count; i++)
+                        {
+                            App.ViewModel.PopularItems.RemoveAt(0);
                         }
                         UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 1);
                     }
                     else
                     {
-                        int i = 0;
+                        //int i = 0;
                         foreach (ItemViewModel item in e.Items)
                         {
-                            App.ViewModel.PopularItems.Insert(e.SearchToken.start + i++, item);
+                            //App.ViewModel.PopularItems.  .Insert(e.SearchToken.start + i++, item);
+                            //App.ViewModel.PopularItems.Insert(App.ViewModel.PopularItems.Count, item);
+                            App.ViewModel.PopularItems.Add(item);
                         }
                     }
 
@@ -212,28 +259,31 @@ namespace StarSightings
                 {
                     if (e.SearchToken.isFresh)
                     {
-                        App.ViewModel.LatestItems.Clear();
+                        int count = App.ViewModel.LatestItems.Count;
                         foreach (ItemViewModel item in e.Items)
                         {
                             App.ViewModel.LatestItems.Add(item);
                         }
+                        for (int i = 0; i < count; i++)
+                        {
+                            App.ViewModel.LatestItems.RemoveAt(0);
+                        }
                         UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 1);
                     }
                     else
-                    {
-                        int i = 0;
+                    {                        
                         foreach (ItemViewModel item in e.Items)
                         {
-                            App.ViewModel.LatestItems.Insert(e.SearchToken.start + i++, item);
+                            App.ViewModel.LatestItems.Add(item);
                         }
                     }
                 }
-                OnSearchCompleted(new EventArgs());
+                OnSearchCompleted(e);
             }
         }
 
-        public event SearchCompletedCallback SearchDataReadyHandler;        
-        protected virtual void OnSearchCompleted(EventArgs e)
+        public event SearchCompletedCallback SearchDataReadyHandler;
+        protected virtual void OnSearchCompleted(SearchEventArgs e)
         {
             if (SearchDataReadyHandler != null)
             {
@@ -272,5 +322,5 @@ namespace StarSightings
             }
         }
     }
-    public delegate void SearchCompletedCallback(object sender, EventArgs e);
+    public delegate void SearchCompletedCallback(object sender, SearchEventArgs e);
 }

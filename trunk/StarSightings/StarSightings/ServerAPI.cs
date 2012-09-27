@@ -252,7 +252,7 @@ namespace StarSightings
 	
 	    public int start=0;
 	    public int limit= Constants.LIMIT;
-	    public SearchType search_types;
+	    public String search_types;
 	    public String filter;
 	
 	    public String mode;
@@ -290,7 +290,9 @@ namespace StarSightings
                 if (filter != null)
                     sb.Append("&filter=" + filter);
                 if (order_dir != null)
-                    sb.Append("order_dir=" + order_dir);
+                    sb.Append("&order_dir=" + order_dir);
+                if (search_types != null)
+                    sb.Append("&search_types=" + search_types);
                 return sb.ToString();
             }
             else if (start > 0)
@@ -302,13 +304,8 @@ namespace StarSightings
     }
 
     public class SearchType 
-    {	
-	    public const string CELEBRITIES = "celebrities";
-	    public const string MUSICIANS = "musicians";
-		public const string POLITICANS = "politicians";
-		public const string MODELS = "models";
-		public const string ATHLETES = "athletes";
-		public const string ALL = "";		
+    {
+        public static string[] CATEGORY_FILTER_NAMES = { "", "celebrities", "musicians", "politicians", "models", "athletes" };
 	}
 
     public class SearchToken

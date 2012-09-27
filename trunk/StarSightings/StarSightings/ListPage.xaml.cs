@@ -35,12 +35,15 @@ namespace StarSightings
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            string pivotItemId = NavigationContext.QueryString["pivotItemId"];
-            int itemId = 0;            
-            if (int.TryParse(pivotItemId, out itemId))
+            if (NavigationContext.QueryString.ContainsKey("pivotItemId"))
             {
-                this.pivotControl.SelectedIndex = itemId;                
-            }            
+                string pivotItemId = NavigationContext.QueryString["pivotItemId"];
+                int itemId = 0;            
+                if (int.TryParse(pivotItemId, out itemId))
+                {
+                    this.pivotControl.SelectedIndex = itemId;                
+                }
+            }
         }
 
         /// <summary>
