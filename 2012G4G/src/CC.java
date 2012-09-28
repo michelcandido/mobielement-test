@@ -1,7 +1,4 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 
 public class CC {
@@ -12,9 +9,65 @@ public class CC {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         //testLongestPalindrom();
-        testLongestConsecutiveRandomSequence();
+        //testLongestConsecutiveRandomSequence();
+        //testLongestIncreasingSubsequence();
+        testPushAllZero();
     }
 
+    //http://www.careercup.com/question?id=12986664
+    static void testPushAllZero() {
+        int[] a = {1, 2, 0 , 4, 0 , 0 , 8 , 6 , 7 , 0 , 3 , 0};//{0, 0, 1, 2, 0, 4, 0, 0 ,8 ,9};
+        pushAllZero(a);
+    }
+    static void pushAllZero(int[] a) {
+        int left = 0, right = a.length - 1;
+        while (left < right) {
+            while (a[left] != 0)
+                left++;
+            while (a[right] == 0)
+                right--;
+            a[left] = a[right] - a[left];
+            a[right] = a[right] - a[left];
+            a[left] = a[left] + a[right];
+            left++;
+            right--;
+        }
+        for (int i : a)
+            System.out.println(i);
+    }
+
+    static void longestSameZeroOne(int[] a) {
+
+    }
+
+    static void testLongestIncreasingSubsequence() {
+        int[] a = {0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
+        longestIncreasingSubsequence(a);
+    }
+    static void longestIncreasingSubsequence(int[] a) {
+        int[] s = new int[a.length], n = new int[a.length];
+        s[0] = 1;
+        n[0] = a[0];
+        for (int i = 1; i < a.length; i++) {
+            s[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (a[i] > n[j]) {
+                    if (s[j] + 1 > s[i]) {
+                        s[i] = s[j] + 1;
+                        n[i] = a[i];
+                    }
+                }
+            }
+        }
+        int max = 1;
+        for (int i = 0; i < a.length; i++) {
+            if (s[i] > max)
+                max = s[i];
+        }
+        System.out.println(max);
+    }
+
+    //http://www.careercup.com/question?id=9783960
     static void testLongestConsecutiveRandomSequence() {
         int[] a = {101, 2, 3, 104, 5, 103, 9, 102};
         longestConsecutiveRandomSequence(a);
@@ -60,6 +113,7 @@ public class CC {
             System.out.println(i);
     }
 
+    //http://www.careercup.com/question?id=245679
     static void testLongestPalindrom() {
         String s = "abcdaeeadabb";
         longestPalindrom(s);
