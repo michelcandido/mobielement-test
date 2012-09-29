@@ -227,15 +227,19 @@ namespace StarSightings
         {
             if (e.Successful)
             {
+                string id = "";
                 if (e.SearchToken.searchGroup == Constants.SEARCH_POPULAR)
                 {
                     if (e.SearchToken.isFresh)
                     {
                         //App.ViewModel.PopularItems.Clear();
-                        int count = App.ViewModel.PopularItems.Count;
+                        int count = App.ViewModel.PopularItems.Count;                        
                         foreach (ItemViewModel item in e.Items)
                         {
+                            if (item.PhotoId == id)
+                                continue;
                             App.ViewModel.PopularItems.Add(item);
+                            id = item.PhotoId;
                         }
                         for (int i = 0; i < count; i++)
                         {
@@ -244,13 +248,13 @@ namespace StarSightings
                         UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 1);
                     }
                     else
-                    {
-                        //int i = 0;
+                    {                        
                         foreach (ItemViewModel item in e.Items)
                         {
-                            //App.ViewModel.PopularItems.  .Insert(e.SearchToken.start + i++, item);
-                            //App.ViewModel.PopularItems.Insert(App.ViewModel.PopularItems.Count, item);
+                            if (item.PhotoId == id)
+                                continue;
                             App.ViewModel.PopularItems.Add(item);
+                            id = item.PhotoId;
                         }
                     }
 
@@ -262,7 +266,10 @@ namespace StarSightings
                         int count = App.ViewModel.LatestItems.Count;
                         foreach (ItemViewModel item in e.Items)
                         {
+                            if (item.PhotoId == id)
+                                continue;
                             App.ViewModel.LatestItems.Add(item);
+                            id = item.PhotoId;
                         }
                         for (int i = 0; i < count; i++)
                         {
@@ -274,7 +281,10 @@ namespace StarSightings
                     {                        
                         foreach (ItemViewModel item in e.Items)
                         {
+                            if (item.PhotoId == id)
+                                continue;
                             App.ViewModel.LatestItems.Add(item);
+                            id = item.PhotoId;
                         }
                     }
                 }

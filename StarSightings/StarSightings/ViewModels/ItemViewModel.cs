@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Device.Location;
 
 namespace StarSightings
 {
@@ -49,9 +50,23 @@ namespace StarSightings
         private Boolean hasPhoto;
         private string localOffset;
         private string vote;
+        private GeoCoordinate geoLocation;
 
-
-
+        public GeoCoordinate GeoLocation
+        {
+            get
+            {
+                return this.geoLocation;
+            }
+            set
+            {
+                if (value != this.geoLocation)
+                {
+                    this.geoLocation = value;
+                    NotifyPropertyChanged("GeoLocation");
+                }
+            }
+        }
                         
         public string Vote
         {
@@ -61,7 +76,11 @@ namespace StarSightings
             }
             set
             {
-                this.vote = value;
+                if (value != this.vote)
+                {
+                    this.vote = value;
+                    NotifyPropertyChanged("Vote");
+                }      
             }
         }
 
@@ -73,7 +92,11 @@ namespace StarSightings
             }
             set
             {
-                this.localOffset = value;
+                if (value != this.localOffset)
+                {
+                    this.localOffset = value;
+                    NotifyPropertyChanged("LocalOffset");
+                }      
             }
         }
 
@@ -85,7 +108,11 @@ namespace StarSightings
             }
             set
             {
-                this.hasPhoto = value;
+                if (value != this.hasPhoto)
+                {
+                    this.hasPhoto = value;
+                    NotifyPropertyChanged("HasPhoto");
+                }      
             }
         }
 
@@ -97,7 +124,11 @@ namespace StarSightings
             }
             set
             {
-                this.rights = value;
+                if (value != this.rights)
+                {
+                    this.rights = value;
+                    NotifyPropertyChanged("Rights");
+                }      
             }
         }
 
