@@ -213,7 +213,7 @@ namespace StarSightings
                         item.LocalTime = xmlItem.Element("local_time").Value;
                         item.LocalOffset = xmlItem.Element("local_offset").Value;
                         item.Vote = xmlItem.Element("vote").Value;
-
+                       
                         items.Add(item);
                     }
                     SearchEventArgs se = new SearchEventArgs(true);
