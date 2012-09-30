@@ -36,7 +36,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <my:Map Name="Map"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Tap="Map_Tap" >
+            <my:Map Name="Map"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Tap="Map_Tap" MapZoom="Map_MapZoom" MapPan="Map_MapPan">
                 <my:MapItemsControl Name="MapPins">
                     <my:MapItemsControl.ItemTemplate>
                         <DataTemplate>

@@ -230,18 +230,43 @@ namespace StarSightings
 
         private void CheckButton_Click(object sender, EventArgs e)
         {
+            int idx;
             switch (searchGroupId)
             {
                 case 0:
-                    App.ViewModel.SearchTypePopular = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
-                    App.ViewModel.SearchPopular(true, 0, null);                    
+                    idx = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    if (App.ViewModel.SearchTypePopular != idx)
+                    {
+                        App.ViewModel.SearchTypePopular = idx;
+                        App.ViewModel.SearchPopular(true, 0, null);
+                    }
                     break;
                 case 1:
-                    App.ViewModel.SearchTypeLatest = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
-                    App.ViewModel.SearchLatest(true, 0, null);
+                    idx = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    if (App.ViewModel.SearchTypeLatest != idx)
+                    {
+                        App.ViewModel.SearchTypeLatest = idx;
+                        App.ViewModel.SearchLatest(true, 0, null);
+                    }
                     break;
                 case 2:
-                    App.ViewModel.SearchTypeNearest = Array.IndexOf(this.mapFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    idx = Array.IndexOf(this.mapFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    if (App.ViewModel.SearchTypeNearest != idx)
+                    {
+                        App.ViewModel.SearchTypeNearest = idx;
+                        switch (idx)
+                        {
+                            case 0:
+                                App.ViewModel.SearchNearest(true, 0, null);
+                                break;
+                            case 1:
+                                SearchParams param = new SearchParams();
+                                param.search_lat = App.ViewModel.MapCenter.Latitude;
+                                param.search_lng = App.ViewModel.MapCenter.Longitude;
+                                App.ViewModel.SearchNearest(true, 0, param);
+                                break;
+                        }
+                    }
                     break;
                 case 3:
                     App.ViewModel.SearchTypeFollowing = Array.IndexOf(this.followFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);

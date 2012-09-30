@@ -134,7 +134,19 @@ namespace StarSightings
                 }
             }
         }
-        
+
+        private GeoCoordinate mapCenter;
+        public GeoCoordinate MapCenter
+        {
+            get
+            {
+                return this.mapCenter;
+            }
+            set
+            {
+                this.mapCenter = value;
+            }
+        }
 
         public bool IsDataLoaded
         {
