@@ -131,5 +131,15 @@ namespace StarSightings
             //stop the event from going to the parent map control
             e.Handled = true;
         }
+
+        private void Map_MapZoom(object sender, MapZoomEventArgs e)
+        {
+            App.ViewModel.MapCenter = this.Map.Center;
+        }
+
+        private void Map_MapPan(object sender, MapDragEventArgs e)
+        {
+            App.ViewModel.MapCenter = this.Map.Center;
+        }
     }
 }
