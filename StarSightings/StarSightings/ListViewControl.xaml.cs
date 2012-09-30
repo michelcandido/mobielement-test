@@ -97,6 +97,7 @@ namespace StarSightings
                     App.ViewModel.SearchLatest(true,0, null);
                     break;
                 case Constants.SEARCH_NEAREST:
+                    App.ViewModel.SearchNearest(true, 0, null);
                     break;
                 case Constants.SEARCH_FOLLOWING:
                     break;
@@ -119,6 +120,7 @@ namespace StarSightings
                     App.ViewModel.SearchLatest(false, currentStartIndex, null);
                     break;
                 case Constants.SEARCH_NEAREST:
+                    App.ViewModel.SearchNearest(false, currentStartIndex, null);
                     break;
                 case Constants.SEARCH_FOLLOWING:
                     break;

@@ -77,7 +77,8 @@ namespace StarSightings
                     item.GeoLocation = new GeoCoordinate(lat, lng);
                     locations[i++] = item.GeoLocation;                                        
                 }
-                LocationRect.CreateLocationRect(locations);
+                this.Map.SetView(LocationRect.CreateLocationRect(locations));
+
             }
         }
 
@@ -98,9 +99,9 @@ namespace StarSightings
         }
 
         private void Map_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {            
-            
-            pinContent.Visibility = System.Windows.Visibility.Collapsed; 
+        {
+            if (pinContent != null && pinContent.Visibility == System.Windows.Visibility.Visible)
+                pinContent.Visibility = System.Windows.Visibility.Collapsed;  
         }
 
         System.Windows.Controls.Border pinContent; 

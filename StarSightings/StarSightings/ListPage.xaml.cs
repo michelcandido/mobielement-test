@@ -10,11 +10,15 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.Device.Location;
 
 namespace StarSightings
 {
     public partial class ListPage : PhoneApplicationPage
     {
+        bool isNewPageInstance = false;
+        GeoCoordinateWatcher watcher;
+
         public ListPage()
         {
             InitializeComponent();
@@ -22,6 +26,7 @@ namespace StarSightings
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(ListPage_Loaded);
+            isNewPageInstance = true; 
         }
 
         void ListPage_Loaded(object sender, RoutedEventArgs e)
@@ -35,14 +40,28 @@ namespace StarSightings
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (NavigationContext.QueryString.ContainsKey("pivotItemId"))
+            if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
             {
-                string pivotItemId = NavigationContext.QueryString["pivotItemId"];
-                int itemId = 0;            
-                if (int.TryParse(pivotItemId, out itemId))
+                if (NavigationContext.QueryString.ContainsKey("pivotItemId"))
                 {
-                    this.pivotControl.SelectedIndex = itemId;                
+                    string pivotItemId = NavigationContext.QueryString["pivotItemId"];
+                    int itemId = 0;
+                    if (int.TryParse(pivotItemId, out itemId))
+                    {
+                        this.pivotControl.SelectedIndex = itemId;
+                    }
                 }
+            }
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            // If this is a back navigation, the page will be discarded, so there
+            // is no need to save state.
+            if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
+            {
+                // Save the ViewModel variable in the page's State dictionary.
+                State["CurrentPivot"] = this.pivotControl.SelectedIndex;
             }
         }
 
@@ -70,5 +89,10 @@ namespace StarSightings
                 this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}", selectedItemData.ID), UriKind.RelativeOrAbsolute));
             }
         }
+
+        private void PivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+                       
+        }        
     }
 }

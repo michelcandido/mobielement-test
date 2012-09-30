@@ -293,6 +293,10 @@ namespace StarSightings
                     sb.Append("&order_dir=" + order_dir);
                 if (search_types != null)
                     sb.Append("&search_types=" + search_types);
+                if (search_lat != null)
+                    sb.Append("&search_lat=" + search_lat);
+                if (search_lng != null)
+                    sb.Append("&search_lng=" + search_lng);
                 return sb.ToString();
             }
             else if (start > 0)
