@@ -19,7 +19,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">        
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding DeviceId}" x:Name="pivotControl">
+        <controls:Pivot Title="{Binding DeviceId}" x:Name="pivotControl" SelectionChanged="PivotControl_SelectionChanged">
             <controls:PivotItem Header="popular">
                 <local:ListViewControl x:Name="PopularList" SearchGroup="0">
                 </local:ListViewControl>
@@ -27,25 +27,11 @@
             <controls:PivotItem Header="latest">
                 <local:ListViewControl x:Name="LatestList" SearchGroup="1">
                 </local:ListViewControl>
-            </controls:PivotItem>            
-
-            <controls:PivotItem Header="nearest">
-                <!--Triple line list no text wrapping-->
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding NearestItems}" SelectionChanged="ListBox_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
-                                <Rectangle Height="100" Width="100" Fill="{StaticResource greenColor}" Margin="12,0,9,0"/>
-                                <StackPanel Width="311">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
             </controls:PivotItem>
+            <controls:PivotItem Header="nearest">
+                <local:ListViewControl x:Name="NearestList" SearchGroup="2">
+                </local:ListViewControl>
+            </controls:PivotItem>            
 
             <controls:PivotItem Header="following">
                 <!--Triple line list no text wrapping-->

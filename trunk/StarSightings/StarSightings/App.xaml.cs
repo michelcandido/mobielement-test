@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Telerik.Windows.Controls;
 using StarSightings.Events;
+using System.Device.Location;
 
 namespace StarSightings
 {
@@ -67,6 +68,22 @@ namespace StarSightings
                 return ssapi;
             }
         }
+
+        private static GeoCoordinateWatcher watcher;
+        public static GeoCoordinateWatcher GeoWatcher
+        {
+            get
+            {
+                if (watcher == null)
+                {
+                    watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default); // using high accuracy
+                    watcher.MovementThreshold = 200; // use MovementThreshold to ignore noise in the signal
+                    watcher.Start();
+                }
+                return watcher;
+            }
+        }
+
         
         private static WPClogger logger = null;
 
