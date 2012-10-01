@@ -421,9 +421,9 @@ namespace StarSightings
         }
 
 
-        public ItemViewModel GetItemById(int id)
+        public ItemViewModel GetItemById(string id, int searchGroup)
         {
-            return Items.FirstOrDefault(item => item.ID == id);       
+            return GetItemSouce(searchGroup).FirstOrDefault(item => item.PhotoId == id);       
         }
 
         public ObservableCollection<ItemViewModel> GetItemSouce(int searchGroup)

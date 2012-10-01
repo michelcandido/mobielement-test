@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Device.Location;
+using System.Windows.Navigation;
 
 namespace StarSightings
 {
@@ -93,6 +94,11 @@ namespace StarSightings
         private void PivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
                        
+        }
+
+        private void GoToDetails(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(((NavigationEventArgs)e).Uri);
         }        
     }
 }

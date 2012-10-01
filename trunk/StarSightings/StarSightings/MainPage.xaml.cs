@@ -62,11 +62,13 @@ namespace StarSightings
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             ItemViewModel selectedItemData = (sender as ListBox).SelectedItem as ItemViewModel;
             if (selectedItemData != null)
             {
-                this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}", selectedItemData.ID), UriKind.RelativeOrAbsolute));
+                this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, (string)(sender as FrameworkElement).Tag), UriKind.RelativeOrAbsolute));
             }
+            (sender as ListBox).SelectedIndex = -1;
         }
 
         private void DoTest(object sender, System.Windows.Input.GestureEventArgs e)
@@ -119,6 +121,6 @@ namespace StarSightings
                 });
                 //UpdateFeedList(e.Result);
             }
-        }
+        }        
     }
 }

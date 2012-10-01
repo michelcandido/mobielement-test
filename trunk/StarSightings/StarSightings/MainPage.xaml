@@ -56,7 +56,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Margin="0,-24,0,24" Tap="GoToList" Tag="0">popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -64,7 +64,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="1">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="1">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -72,14 +72,14 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="2">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="2">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="3">following</TextBlock>
-                            <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <!--Double line list with image placeholder and text wrapping-->
                             <!--<ListBox Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>

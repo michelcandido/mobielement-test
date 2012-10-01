@@ -18,7 +18,7 @@
             x:Name="listBox"
             IsPullToRefreshEnabled="True"
             RefreshRequested="OnListBox_RefreshRequested"
-            DataVirtualizationMode="OnDemandAutomatic" DataRequested="OnListBox_DataRequested">
+            DataVirtualizationMode="OnDemandAutomatic" DataRequested="OnListBox_DataRequested" SelectionChanged="ListBox_SelectionChanged">
             <telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
                 <telerikCore:RadFadeAnimation StartOpacity="0" EndOpacity="1" Duration="0:0:0.5" InitialDelay="0:0:1.2">
                     <telerikCore:RadFadeAnimation.Easing>
