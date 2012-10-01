@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Windows.Navigation;
 
 namespace StarSightings
 {
@@ -146,6 +147,17 @@ namespace StarSightings
         /// </summary>
         protected virtual void OnItemsBound()
         {
+        }
+
+        [Category("Event")]
+        [DefaultValue(null)]
+        [Description("Event for page navigation")]
+        public event EventHandler EventForPageNavigation;
+        public void NavigateToDetails(Uri uri)
+        {
+            var e = new NavigationEventArgs(null, uri);
+            if (EventForPageNavigation != null)
+                EventForPageNavigation(this, e);
         }
     }
 }

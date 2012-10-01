@@ -21,15 +21,15 @@
         <!--Pivot Control-->
         <controls:Pivot Title="{Binding DeviceId}" x:Name="pivotControl" SelectionChanged="PivotControl_SelectionChanged">
             <controls:PivotItem Header="popular">
-                <local:ListViewControl x:Name="PopularList" SearchGroup="0">
+                <local:ListViewControl x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails">
                 </local:ListViewControl>
             </controls:PivotItem>
             <controls:PivotItem Header="latest">
-                <local:ListViewControl x:Name="LatestList" SearchGroup="1">
+                <local:ListViewControl x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails">
                 </local:ListViewControl>
             </controls:PivotItem>
             <controls:PivotItem Header="nearest">
-                <local:ListViewControl x:Name="NearestList" SearchGroup="2">
+                <local:ListViewControl x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails">
                 </local:ListViewControl>
             </controls:PivotItem>            
 

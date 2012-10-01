@@ -32,7 +32,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Grid.Resources>
                 <DataTemplate x:Key="SlideViewItemTemplate">
-                    <Image Margin="6,0,6,0" Stretch="Uniform" Source="{Binding ImageSource}"/>
+                    <Image Margin="6,0,6,0" Stretch="Uniform" Source="{Binding ThumbOrigLarge}"/>
                 </DataTemplate>
             </Grid.Resources>
 
@@ -48,7 +48,7 @@
                                             ItemTemplate="{StaticResource SlideViewItemTemplate}"/>
 
             <StackPanel Grid.Row="1" Margin="52,20,24,12">
-                <TextBlock Text="{Binding ElementName=slideView,Path=SelectedItem.LineOne}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding ElementName=slideView,Path=SelectedItem.Cat}" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" TextWrapping="Wrap"/>
                 <TextBlock Text="{Binding ElementName=slideView,Path=SelectedItem.LineTwo}" Margin="0,0,0,0" FontSize="{StaticResource PhoneFontSizeNormal}" TextWrapping="Wrap"/>
             </StackPanel>
         </Grid>

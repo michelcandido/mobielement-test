@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Phone.Net.NetworkInformation;
 using Telerik.Windows.Controls;
 using StarSightings.Events;
+using System.Windows.Navigation;
 
 namespace StarSightings
 {
@@ -146,5 +147,18 @@ namespace StarSightings
                  * */
             });
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ItemViewModel selectedItemData = (sender as RadDataBoundListBox).SelectedItem as ItemViewModel;
+            if (selectedItemData != null)
+            {
+                NavigateToDetails(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, this.SearchGroup), UriKind.RelativeOrAbsolute));
+            }
+            (sender as RadDataBoundListBox).SelectedItem = null;
+        }
+
+        
+
     }
 }
