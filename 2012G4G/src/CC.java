@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 
 public class CC {
@@ -11,7 +12,64 @@ public class CC {
         //testLongestPalindrom();
         //testLongestConsecutiveRandomSequence();
         //testLongestIncreasingSubsequence();
-        testPushAllZero();
+        //testPushAllZero();
+        //testFindKthInMatrix();
+        testIsInterleaved();
+    }
+
+    //http://www.careercup.com/question?id=14539805
+    static void testIsInterleaved() {
+        String a = "bac", b="ecd", c="bacadc";
+        System.out.println(isInterleaved(a,b,c));
+    }
+    static boolean isInterleaved(String a, String b, String c) {
+        if (a == null && b == null && c == null)
+            return true;
+        if (a.length() + b.length() != c.length())
+            return false;
+        if (a.length() == 0 && b.length() == 0 && c.length() == 0)
+            return true;
+
+        if (a.length() == 0) {
+            if(c.charAt(0) != b.charAt(0))
+                return false;
+            else
+                return true;
+        }
+        if (b.length() == 0) {
+            if(c.charAt(0) != a.charAt(0))
+                return false;
+            else
+                return true;
+        }
+
+        if (c.charAt(0) != a.charAt(0) && c.charAt(0) != b.charAt(0))
+            return false;
+
+
+        if (c.charAt(0) == a.charAt(0) && c.charAt(0) != b.charAt(0))
+            return isInterleaved(a.substring(1),b,c.substring(1));
+
+        if (c.charAt(0) == b.charAt(0) && c.charAt(0) != a.charAt(0))
+            return isInterleaved(a,b.substring(1),c.substring(1));
+
+        return isInterleaved(a.substring(1),b,c.substring(1)) || isInterleaved(a,b.substring(1),c.substring(1));
+    }
+
+    //http://www.careercup.com/question?id=6335704
+    static void testFindKthInMatrix() {
+        int[][] a = {{1,6,9 },{3,7,10},{5,8,11}};
+        findKthInMatrix(a,5);
+    }
+    static void findKthInMatrix(int[][] a, int k) {
+        PriorityQueue<Integer> q = new PriorityQueue<Integer>();
+        int n = a[0].length;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0 ; j < n; j++) {
+                q.offer(a[i][j]);
+            }
+        }
+        System.out.println(q.toArray()[k - 1]);
     }
 
     //http://www.careercup.com/question?id=12986664
