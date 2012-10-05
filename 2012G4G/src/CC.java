@@ -1,5 +1,9 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.PriorityQueue;
+import java.util.TreeMap;
 
 
 public class CC {
@@ -14,7 +18,139 @@ public class CC {
         //testLongestIncreasingSubsequence();
         //testPushAllZero();
         //testFindKthInMatrix();
-        testIsInterleaved();
+        //testIsInterleaved();
+        //testFineOverMth();
+        //testFindLowestPositiveInteger();
+        testDeleteDuplicatesInLinkedList();
+    }
+
+    //http://www.careercup.com/question?id=8407365
+    static void testDeleteDuplicatesInLinkedList() {
+        Integer[] a = {1,2,2,2,2,2,2,3};
+        deleteDuplicatesInLinkedList(a);
+    }
+    static void deleteDuplicatesInLinkedList(Integer[] a) {
+        MyLinkedList<Integer> list = new MyLinkedList<Integer>(a);
+        list.print();
+        MyLinkedList<Integer>.Node<Integer> parent = list.head;
+        MyLinkedList<Integer>.Node<Integer> node = list.head.next;
+        boolean deleteCurrent = false;
+        while (node != null) {
+            if (node.element == parent.element) {
+                parent.next = node.next;
+                node = node.next;
+                deleteCurrent = true;
+            } else {
+                if (deleteCurrent) {
+                    parent.element = node.element;
+                    parent.next = node.next;
+                    node = node.next;
+                    deleteCurrent = false;
+                } else {
+                    parent = node;
+                    node = node.next;
+                }
+            }
+        }
+        list.print();
+    }
+
+    //http://www.careercup.com/question?id=8407365
+    static void testFindLowestPositiveInteger() {
+        int[] a = {1,2,3,5,7,9};
+        findLowestPositiveInteger(a);
+    }
+    static void findLowestPositiveInteger(int[] a) {
+        int i = 0, j = a.length - 1;
+        while (i < j) {
+            while (i < a.length && a[i] > 0)
+                i++;
+            while (j >=0 && a[j] <= 0)
+                j--;
+            if (i < j) {
+                int t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+                i++;
+                j--;
+            }
+        }
+        int n = --i;
+        i = 0; j = n;
+        while (i < j) {
+            while (i <= n && a[i] <= n)
+                i++;
+            while (j >= 0 && a[j] > n)
+                j--;
+            if (i < j) {
+                int t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+                i++;
+                j--;
+            }
+        }
+        n = --i;
+        for (i = 0; i <= n; i++) {
+            if (a[i] < 0)
+                continue;
+            int t = a[a[i] - 1];
+            a[a[i] - 1] = a[i];
+            a[i] = t;
+        }
+        for (i = 0; i < a.length; i++) {
+            if (i != a[i] - 1) {
+                System.out.println(i + 1);
+                return;
+            }
+        }
+        System.out.println(i);
+    }
+
+    //http://www.careercup.com/question?id=11879708
+    static void testFineOverMth() {
+        int[] a = {4, 3, 3, 2, 1, 2, 3, 4, 4, 7};
+        findOverMth(a,5);
+    }
+    static void findOverMth(int[] a, int m) {
+        TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+        for (int i : a) {
+            if (map.containsKey(i)) {
+                map.put(i, map.get(i)+1);
+            } else {
+                if (map.size() != m - 1) {
+                    map.put(i,1);
+                } else {
+                    Entry<Integer, Integer> e;
+                    Iterator<Entry<Integer, Integer>> iter = map.entrySet().iterator();
+                    while (iter.hasNext()) {
+                        e = iter.next();
+                        int count = e.getValue();
+                        count--;
+                        if (count == 0)
+                            iter.remove();
+                        else
+                            e.setValue(count);
+                    }
+                }
+            }
+        }
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        Iterator<Entry<Integer, Integer>> iter = map.entrySet().iterator();
+        Entry<Integer, Integer> e;
+        int minCount = (int) Math.ceil(((double) a.length) / m);
+        while (iter.hasNext()) {
+            int count = 0;
+            e = iter.next();
+            for (int i : a) {
+                if (i == e.getKey())
+                    count++;
+            }
+            if (count >= minCount)
+                result.add(e.getKey());
+        }
+        for (int i : result)
+            System.out.println(i);
     }
 
     //http://www.careercup.com/question?id=14539805
