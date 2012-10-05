@@ -21,7 +21,56 @@ public class CC {
         //testIsInterleaved();
         //testFineOverMth();
         //testFindLowestPositiveInteger();
-        testDeleteDuplicatesInLinkedList();
+        //testDeleteDuplicatesInLinkedList();
+        //testFindMaximumInSubArray();
+        testFindLargestSum();
+    }
+
+    //http://www.careercup.com/question?id=1777
+    static void testFindLargestSum() {
+        int[] a = { 1, 3,-4, 5 -2, -1, 3 , 3, -1};
+        findLargestSum(a);
+    }
+    static void findLargestSum(int[] a) {
+        int maxSum = 0, maxStart = 0, maxEnd = 0, curStart = 0, curEnd = 0, curSum = 0;
+        for (int i =  0; i < a.length; i++) {
+            curSum += a[i];
+            if (curSum < 0) {
+                curStart = i+1;
+                curEnd = curStart;
+                curSum = 0;
+            } else {
+                if (curSum > maxSum) {
+                    maxSum = curSum;
+                    maxStart = curStart;
+                    maxEnd = curEnd;
+                }
+                curEnd++;
+            }
+        }
+        for (int i = maxStart; i <= maxEnd; i++)
+            System.out.println(a[i]);
+    }
+    //http://www.careercup.com/question?id=7760665
+    static void testFindMaximumInSubArray() {
+        int[] a = {1, 2, 3, 1, 4, 5, 2, 3, 6};
+        findMaximumInSubArray(a, 3);
+    }
+    static void findMaximumInSubArray(int[] a, int k) {
+        int[] s = new int[a.length];
+        s[0] = a[0];
+        for (int i = 1; i < a.length; i++) {
+            s[i] = a[i];
+            for (int j = (i - k + 1) > 0? i - k + 1:0;  j < i ; j++) {
+                if (s[j] > s[i])
+                    s[i] = s[j];
+                else {
+                    s[j] = s[i];
+                }
+            }
+        }
+        for (int i : s)
+            System.out.println(i);
     }
 
     //http://www.careercup.com/question?id=8407365
