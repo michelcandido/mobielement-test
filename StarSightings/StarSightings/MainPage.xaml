@@ -47,7 +47,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding DeviceId}" Grid.Row="0"/>
+        <TextBlock x:Name="tbUserName" Text="{Binding UserName}" Grid.Row="0"/>
         <!--Panorama control-->
         <controls:Panorama Title="star sightings" Grid.Row="1">
             <controls:PanoramaItem>
@@ -146,7 +146,7 @@
 
             <!--Panorama item one-->
             <controls:PanoramaItem Header="more">
-                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}">
+                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <ListBoxItem Content="settings" Tap="GoToAbout"/>
                     <ListBoxItem Content="about" Tap="GoToAbout"/>
                     <ListBoxItem Content="test" Tap="DoTest"/>                    

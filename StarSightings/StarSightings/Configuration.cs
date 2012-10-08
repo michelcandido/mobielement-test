@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using StarSightings.Events;
+using StarSightings.ViewModels;
 
 namespace StarSightings
 {
@@ -34,6 +35,9 @@ namespace StarSightings
                 re.DeviceId = (string)Utils.GetIsolatedStorageSettings("DeviceId");
                 RegisterDeviceCompleted(null, re);
             }
+            
+            if (Utils.GetIsolatedStorageSettings("User") != null)
+                App.ViewModel.User = (UserViewModel)Utils.GetIsolatedStorageSettings("User");
         }
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
@@ -42,6 +46,7 @@ namespace StarSightings
             {
                 App.ViewModel.DeviceId = e.DeviceId;
                 IsAppInit = true;
+                Utils.AddOrUpdateIsolatedStorageSettings("DeviceId", App.ViewModel.DeviceId);
             }
         }
     }

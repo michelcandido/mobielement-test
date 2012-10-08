@@ -1,4 +1,4 @@
-﻿#undef TESTSERVER
+﻿#define TESTSERVER
 using System;
 using System.Net;
 using System.Windows;
@@ -15,6 +15,7 @@ using StarSightings.Events;
 using System.IO.IsolatedStorage;
 using System.Text;
 using System.Collections.ObjectModel;
+using StarSightings.ViewModels;
 
 namespace StarSightings
 {
@@ -36,7 +37,7 @@ namespace StarSightings
         {
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_REGISTER_DEVICE;
-            string query = "device_id=3_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
+            string query = "device_id=2_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleRegisterDevice);
@@ -71,8 +72,7 @@ namespace StarSightings
                     XElement xmlDeviceId = xmlResponse.Element("new_device_id");
                     if (xmlDeviceId != null)
                     {
-                        re.DeviceId = xmlDeviceId.Value;
-                        Utils.AddOrUpdateIsolatedStorageSettings("DeviceId", xmlDeviceId.Value);
+                        re.DeviceId = xmlDeviceId.Value;                        
                     }
                     OnRegister(re);
                 }
@@ -130,12 +130,67 @@ namespace StarSightings
         }       
 
         public event RegisterEventHandler Register;
-
+        
         protected virtual void OnRegister(RegisterEventArgs e)
         {
             if (Register != null)
             {
                 Register(this, e);
+            }
+        }
+
+        public void RegisterUser()
+        {
+            WebClient webClient = GetWebClient();
+            webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+            string baseUri = Constants.SERVER_NAME + Constants.URL_REGISTER_USER;
+            string query = "username=" + App.ViewModel.User.UserName + "&password=" + App.ViewModel.User.Password + "&password_confirm=" + App.ViewModel.User.PasswordConfirm + "&email=" + App.ViewModel.User.UserEmail.Replace("@", "%40") + "&device_id=" + App.ViewModel.DeviceId + "&persistent=1";
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, "");
+
+            webClient.UploadStringCompleted +=new UploadStringCompletedEventHandler(HandleRegisterUser);
+            webClient.UploadStringAsync(uri, query);
+        }
+
+        private void HandleRegisterUser(object sender, UploadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                RegisterEventArgs re = new RegisterEventArgs(false);
+                OnRegister(re);
+            }
+            else
+            {                
+                XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
+                XElement xmlToken = xmlResponse.Element("token");
+
+                if (xmlToken != null)
+                {
+                    UserViewModel user = new UserViewModel();
+                    user.Token = xmlToken.Value;
+                    XElement xmlUserInfo = xmlResponse.Element("userinfo");
+                    user.UserName = xmlUserInfo.Element("username").Value;
+                    user.UserId = xmlUserInfo.Element("user_id").Value;
+                    user.Password = App.ViewModel.User.Password;
+                    user.PasswordConfirm = App.ViewModel.User.PasswordConfirm;
+                    user.UserEmail = App.ViewModel.User.UserEmail;
+                    
+                    RegisterEventArgs re = new RegisterEventArgs(true);
+                    re.User = user;                 
+                    OnRegister(re);
+                }
+                else
+                {
+                    RegisterEventArgs re = new RegisterEventArgs(false);
+                    OnRegister(re);
+                }                
             }
         }
 
@@ -212,7 +267,7 @@ namespace StarSightings
                         item.Time = xmlItem.Element("time").Value;
                         item.LocalTime = xmlItem.Element("local_time").Value;
                         item.LocalOffset = xmlItem.Element("local_offset").Value;
-                        item.Vote = xmlItem.Element("vote").Value;
+                        //item.Vote = xmlItem.Element("vote").Value;
                        
                         items.Add(item);
                     }
@@ -237,7 +292,7 @@ namespace StarSightings
             {
                 Search(this, e);
             }
-        }
+        }        
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
@@ -261,8 +316,8 @@ namespace StarSightings
 	    public String page;
 	    public String search_autogroup;
 	
-	    public Double search_lat;
-	    public Double search_lng;
+	    public Double search_lat = Double.NaN;
+        public Double search_lng = Double.NaN;
 
 	    public String token;
 	    public String search_cat_name;
@@ -293,9 +348,9 @@ namespace StarSightings
                     sb.Append("&order_dir=" + order_dir);
                 if (search_types != null)
                     sb.Append("&search_types=" + search_types);
-                if (search_lat != null)
+                if (!search_lat.Equals(Double.NaN))
                     sb.Append("&search_lat=" + search_lat);
-                if (search_lng != null)
+                if (!search_lng.Equals(Double.NaN))
                     sb.Append("&search_lng=" + search_lng);
                 return sb.ToString();
             }
@@ -309,7 +364,7 @@ namespace StarSightings
 
     public class SearchType 
     {
-        public static string[] CATEGORY_FILTER_NAMES = { "", "celebrities", "musicians", "politicians", "models", "athletes" };
+        public static string[] CATEGORY_FILTER_NAMES = { null, "celebrities", "musicians", "politicians", "models", "athletes" };
 	}
 
     public class SearchToken
