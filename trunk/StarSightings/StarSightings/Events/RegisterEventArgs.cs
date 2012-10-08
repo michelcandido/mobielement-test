@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using StarSightings.ViewModels;
 
 namespace StarSightings.Events
 {
@@ -15,6 +16,7 @@ namespace StarSightings.Events
     {
         private readonly bool successful = false;
         private string deviceId;
+        private UserViewModel user;
 
         public RegisterEventArgs(bool successful)
         {
@@ -30,6 +32,18 @@ namespace StarSightings.Events
             set
             {
                 this.deviceId = value;
+            }
+        }
+
+        public UserViewModel User
+        {
+            get
+            {
+                return this.user;
+            }
+            set
+            {
+                this.user = value;
             }
         }
 

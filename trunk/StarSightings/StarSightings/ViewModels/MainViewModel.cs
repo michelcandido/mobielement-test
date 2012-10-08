@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using StarSightings.Events;
 using System.Device.Location;
+using StarSightings.ViewModels;
 
 namespace StarSightings
 {
@@ -31,6 +32,7 @@ namespace StarSightings
             this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
             this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.User = new UserViewModel();
 
             SearchTypePopular = 0;
             SearchTypeLatest = 0;
@@ -148,6 +150,25 @@ namespace StarSightings
             }
         }
 
+        private UserViewModel user;
+        public UserViewModel User
+        {
+            get
+            {
+                return this.user;
+            }
+            set
+            {
+                if (value != user)
+                {
+                    user = value;
+                    NotifyPropertyChanged("User");
+                }
+            }
+        }
+
+        
+
         public bool IsDataLoaded
         {
             get;
@@ -210,8 +231,11 @@ namespace StarSightings
             SearchLatest(true,0, null);
         }
 
+        private bool isUpdatingPopular = false;
         public void SearchPopular(bool fresh, int start, SearchParams param)
         {
+            if (isUpdatingPopular)
+                return;
             if (param == null)
                 param = new SearchParams();
             param.start = start;
@@ -220,11 +244,15 @@ namespace StarSightings
             token.searchGroup = Constants.SEARCH_POPULAR;
             token.isFresh = fresh;
             token.start = start;
+            isUpdatingPopular = true;
             App.SSAPI.DoSearch(param, token);
         }
 
+        private bool isUpdatingLatest = false;
         public void SearchLatest(bool fresh, int start, SearchParams param)
         {
+            if (isUpdatingLatest)
+                return;
             if (param == null)
                 param = new SearchParams();
             param.start = start;
@@ -235,11 +263,15 @@ namespace StarSightings
             token.searchGroup = Constants.SEARCH_LATEST;
             token.isFresh = fresh;
             token.start = start;
+            isUpdatingLatest = true;
             App.SSAPI.DoSearch(param, token);
         }
 
+        private bool isUpdatingNearest = false;
         public void SearchNearest(bool fresh, int start, SearchParams param)
         {
+            if (isUpdatingNearest)
+                return;
             if (param == null)
             {
                 param = new SearchParams();
@@ -256,6 +288,7 @@ namespace StarSightings
             token.searchGroup = Constants.SEARCH_NEAREST;
             token.isFresh = fresh;
             token.start = start;
+            isUpdatingNearest = true;
             App.SSAPI.DoSearch(param, token);
         }
 
@@ -275,7 +308,7 @@ namespace StarSightings
                             if (item.PhotoId == id)
                                 continue;
                             App.ViewModel.PopularItems.Add(item);
-                            id = item.PhotoId;
+                            id = item.PhotoId;                            
                         }
                         for (int i = 0; i < count; i++)
                         {
@@ -293,7 +326,7 @@ namespace StarSightings
                             id = item.PhotoId;
                         }
                     }
-
+                    isUpdatingPopular = false;
                 }
                 else if (e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
                 {
@@ -305,7 +338,7 @@ namespace StarSightings
                             if (item.PhotoId == id)
                                 continue;
                             App.ViewModel.LatestItems.Add(item);
-                            id = item.PhotoId;
+                            id = item.PhotoId;                            
                         }
                         for (int i = 0; i < count; i++)
                         {
@@ -323,6 +356,7 @@ namespace StarSightings
                             id = item.PhotoId;
                         }
                     }
+                    isUpdatingLatest = false;
                 }
                 else if (e.SearchToken.searchGroup == Constants.SEARCH_NEAREST)
                 {
@@ -349,9 +383,10 @@ namespace StarSightings
                             if (item.PhotoId == id)
                                 continue;
                             App.ViewModel.NearestItems.Add(item);
-                            id = item.PhotoId;
+                            id = item.PhotoId;                            
                         }
                     }
+                    isUpdatingNearest = false;
                 }
                 OnSearchCompleted(e);
             }

@@ -9,7 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Info;
-using System.IO.IsolatedStorage; 
+using System.IO.IsolatedStorage;
+using System.Text.RegularExpressions; 
 
 namespace StarSightings
 {
@@ -129,6 +130,14 @@ namespace StarSightings
             lastPart = lastPart.Substring(ampersand);
 
             return firstPart + value + lastPart;
+        }
+
+        public static bool IsValidEmail(string strIn)
+        {
+            // Return true if strIn is in valid e-mail format.
+            return Regex.IsMatch(strIn,
+                   @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))" +
+                   @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
         }
     }
 }

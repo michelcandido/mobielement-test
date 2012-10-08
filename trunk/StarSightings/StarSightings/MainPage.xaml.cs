@@ -24,6 +24,7 @@ namespace StarSightings
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
+            
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
 
 			//Shows the rate reminder message, according to the settings of the RateReminder.
@@ -35,6 +36,7 @@ namespace StarSightings
             if (!App.Config.IsAppInit)
             {
                 App.Config.InitApp();
+                this.tbUserName.DataContext = App.ViewModel.User;
             }
 
 			if (!App.ViewModel.IsDataLoaded)
@@ -72,23 +74,8 @@ namespace StarSightings
         }
 
         private void DoTest(object sender, System.Windows.Input.GestureEventArgs e)
-        {/*
-            WebClient webClient = new WebClient();
-            string auth = Constants.BASE_AUTH_USERNAME + ":" + Constants.BASE_AUTH_PASSWORD;
-            string authString = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(auth));
-
-            webClient.Headers["Authorization"] = "Basic " + authString;
-            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(WebClient_DownloadStringCompleted);
-            //webClient.DownloadStringAsync(new System.Uri("http://test.starsightings.com/index.php?mobile=1&start=0&limit=15&search_types="));            
-            //webClient.DownloadStringAsync(new System.Uri("http://test.starsightings.com/index.php?page=device&mode=register&mobile=1&device_id=1_1212121212&device_token=att"));      
-            UriBuilder baseUri = new UriBuilder("http://test.starsightings.com/index.php");
-            string paras = "page=device&mode=unregister&mobile=1&device_id=1_1212121212";
-            baseUri.Query = paras;
-            webClient.DownloadStringAsync(baseUri.Uri);
-
-            */
-            App.SSAPI.Register += new RegisterEventHandler(RegisterDeviceCompleted);
-            App.SSAPI.UnregisterDevice();
+        {
+            this.NavigationService.Navigate(new Uri("/SignupPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
