@@ -39,7 +39,7 @@ namespace StarSightings
             SearchTypeNearest = 0;
             SearchTypeFollowing = 0;
 
-            App.SSAPI.Search += new SearchEventHandler(SearchCompleted);
+            App.SSAPI.SearchHandler += new SearchEventHandler(SearchCompleted);
             App.GeoWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
             App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);           
         }
@@ -137,6 +137,40 @@ namespace StarSightings
             }
         }
 
+        private int accountType = Constants.ACCOUNT_TYPE_DEVICE;
+        public int AccountType
+        {
+            get
+            {
+                return this.accountType;
+            }
+            set
+            {
+                if (value != accountType)
+                {
+                    accountType = value;
+                    NotifyPropertyChanged("AccountType");
+                }
+            }
+        }
+
+        private bool needLogin = false;
+        public bool NeedLogin
+        {
+            get
+            {
+                return this.needLogin;
+            }
+            set
+            {
+                if (value != needLogin)
+                {
+                    needLogin = value;
+                    NotifyPropertyChanged("NeedLogin");
+                }
+            }
+        }
+
         private GeoCoordinate mapCenter;
         public GeoCoordinate MapCenter
         {
@@ -229,6 +263,7 @@ namespace StarSightings
         {
             SearchPopular(true,0, null);
             SearchLatest(true,0, null);
+            SearchNearest(true, 0, null);
         }
 
         private bool isUpdatingPopular = false;
@@ -452,7 +487,8 @@ namespace StarSightings
             Utils.AddOrUpdateIsolatedStorageSettings("GeoLat", param.search_lat);
             Utils.AddOrUpdateIsolatedStorageSettings("GeoLng", param.search_lng);
             
-            SearchNearest(true, 0, param);
+            if (App.Config.IsAppInit)
+                SearchNearest(true, 0, param);
         }
 
 

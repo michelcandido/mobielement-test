@@ -129,13 +129,13 @@ namespace StarSightings
             }
         }       
 
-        public event RegisterEventHandler Register;
+        public event RegisterEventHandler RegisterHandler;
         
         protected virtual void OnRegister(RegisterEventArgs e)
         {
-            if (Register != null)
+            if (RegisterHandler != null)
             {
-                Register(this, e);
+                RegisterHandler(this, e);
             }
         }
 
@@ -167,31 +167,49 @@ namespace StarSightings
                 OnRegister(re);
             }
             else
-            {                
-                XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
-                XElement xmlToken = xmlResponse.Element("token");
-
-                if (xmlToken != null)
+            {
+                UserViewModel user = this.GetUserInfoFromXML(e.Result);
+                if (user != null)
                 {
-                    UserViewModel user = new UserViewModel();
-                    user.Token = xmlToken.Value;
-                    XElement xmlUserInfo = xmlResponse.Element("userinfo");
-                    user.UserName = xmlUserInfo.Element("username").Value;
-                    user.UserId = xmlUserInfo.Element("user_id").Value;
                     user.Password = App.ViewModel.User.Password;
                     user.PasswordConfirm = App.ViewModel.User.PasswordConfirm;
                     user.UserEmail = App.ViewModel.User.UserEmail;
-                    
+
                     RegisterEventArgs re = new RegisterEventArgs(true);
-                    re.User = user;                 
+                    re.User = user;
                     OnRegister(re);
                 }
                 else
                 {
                     RegisterEventArgs re = new RegisterEventArgs(false);
                     OnRegister(re);
-                }                
+                }                                
             }
+        }
+
+        private UserViewModel GetUserInfoFromXML(string data)
+        {
+            XElement xmlResponse = XElement.Parse(data);//Load(new StringReader(e.Result));
+            XElement xmlToken = xmlResponse.Element("token");
+            XElement xmlTokenExpiration = xmlResponse.Element("token_expiration_time");
+
+            if (xmlToken != null)
+            {
+                UserViewModel user = new UserViewModel();
+                user.Token = xmlToken.Value;
+                double expiration;
+                if (Double.TryParse(xmlTokenExpiration.Value, out expiration))
+                    user.TokenExpiration = expiration;
+                XElement xmlUserInfo = xmlResponse.Element("userinfo");
+                user.UserName = xmlUserInfo.Element("username").Value;
+                user.UserId = xmlUserInfo.Element("user_id").Value;
+
+                return user;
+            }
+            else
+            {
+                return null;
+            }                
         }
 
         public void DoSearch(SearchParams searchParams, SearchToken token)
@@ -284,19 +302,119 @@ namespace StarSightings
             }
         }
 
-        public event SearchEventHandler Search;
+        public event SearchEventHandler SearchHandler;
 
         protected virtual void OnSearch(SearchEventArgs e)
         {
-            if (Search != null)
+            if (SearchHandler != null)
             {
-                Search(this, e);
+                SearchHandler(this, e);
             }
-        }        
+        }
+
+        public void Login(int accountType, string query)
+        {            
+            WebClient webClient = GetWebClient();
+            webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
+            string baseUri = Constants.SERVER_NAME + Constants.URL_LOGIN;
+            string param = query + "&persistent=1";
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, "");
+
+            webClient.UploadStringCompleted += new UploadStringCompletedEventHandler(HandleLogin);
+            webClient.UploadStringAsync(uri,param);            
+        }
+
+        public void HandleLogin(object sender, UploadStringCompletedEventArgs e)
+        {            
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                LoginEventArgs le = new LoginEventArgs(false);
+                OnLogin(le);
+            }
+            else
+            {
+                UserViewModel user = this.GetUserInfoFromXML(e.Result);
+                if (user != null)
+                {                    
+                    LoginEventArgs le = new LoginEventArgs(true);
+                    le.User = user;
+                    OnLogin(le);
+                }
+                else
+                {
+                    LoginEventArgs le = new LoginEventArgs(false);
+                    OnLogin(le);
+                }
+            }
+        }
+
+        public void Logout()
+        {
+            WebClient webClient = GetWebClient();
+            string baseUri = Constants.SERVER_NAME + Constants.URL_LOGOUT;
+            string query = "";
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleLogout);
+            webClient.DownloadStringAsync(uri);
+        }
+
+        private void HandleLogout(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                LoginEventArgs re = new LoginEventArgs(false);
+                OnLogin(re);
+            }
+            else
+            {
+                // Save the feed into the State property in case the application is tombstoned.                 
+                //this.State["feed"] = e.Result;
+
+                XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
+                XElement xmlStatus = xmlResponse.Element("status");
+
+                if (xmlStatus != null && String.Compare(xmlStatus.Value, "OK", StringComparison.CurrentCultureIgnoreCase) == 0)
+                {
+                    LoginEventArgs re = new LoginEventArgs(true);                    
+                    OnLogin(re);
+                }
+                else
+                {
+                    LoginEventArgs re = new LoginEventArgs(false);
+                    OnLogin(re);
+                }
+                //UpdateFeedList(e.Result);                
+            }
+        }
+        public event LoginEventHandler LoginHandler;
+
+        protected virtual void OnLogin(LoginEventArgs e)
+        {
+            if (LoginHandler != null)
+            {
+                LoginHandler(this, e);
+            }
+        }
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
     public delegate void SearchEventHandler(object sender, SearchEventArgs e);
+    public delegate void LoginEventHandler(object sender, LoginEventArgs e);
 
     public class SearchParams
     {	

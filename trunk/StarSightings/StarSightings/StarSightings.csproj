@@ -80,9 +80,12 @@
     <Compile Include="Commands\SendAnEmailCommand.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Converters\BoolToValueConverter.cs" />
     <Compile Include="DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Events\SSEventArgs.cs" />
+    <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="Events\RegisterEventArgs.cs" />
     <Compile Include="Events\SearchEventArgs.cs" />
     <Compile Include="FilterPage.xaml.cs">
@@ -94,6 +97,9 @@
     <Compile Include="ListViewBase.cs" />
     <Compile Include="ListViewControl.xaml.cs">
       <DependentUpon>ListViewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -190,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ListViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
