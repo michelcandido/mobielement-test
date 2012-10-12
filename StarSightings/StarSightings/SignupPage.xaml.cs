@@ -22,7 +22,7 @@ namespace StarSightings
             InitializeComponent();
             DataContext = App.ViewModel.User;
             this.Loaded += new RoutedEventHandler(SignupPage_Loaded);
-            App.SSAPI.Register += new RegisterEventHandler(RegisterCompleted);
+            App.SSAPI.RegisterHandler += new RegisterEventHandler(RegisterCompleted);
         }
 
         void SignupPage_Loaded(object sender, RoutedEventArgs e)
@@ -78,11 +78,14 @@ namespace StarSightings
         {
             if (e.Successful)
             {
-                Utils.AddOrUpdateIsolatedStorageSettings("User", e.User);
+                Utils.AddOrUpdateIsolatedStorageSettings("User", e.User);                
+                App.ViewModel.NeedLogin = false;
+                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", Constants.ACCOUNT_TYPE_SS);
                 this.NavigationService.GoBack();
             }
             else
             {
+                App.ViewModel.NeedLogin = true;
                 MessageBox.Show("Failed in registering new user");
             }
         }

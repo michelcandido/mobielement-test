@@ -28,11 +28,18 @@ namespace StarSightings
         public const string URL_INDEX_PAGE_SEARCH = "/index.php?mobile=1";
         public const string URL_GET_DETAILS = "/index.php?page=post&mode=view&photo_id=";
         public const string URL_REGISTER_USER = "/index.php?page=profile&mode=register&mobile=1";
+        public const string URL_LOGIN = "/index.php?page=profile&mode=login&mobile=1";
+        public const string URL_LOGOUT = "/index.php?page=profile&mode=logout&mobile=1";
 
         public const int LIMIT=15;
         public const int SEARCH_POPULAR = 0;
         public const int SEARCH_LATEST = 1;
         public const int SEARCH_NEAREST = 2;
         public const int SEARCH_FOLLOWING = 3;
+
+        public const int ACCOUNT_TYPE_DEVICE = 0;
+        public const int ACCOUNT_TYPE_SS = 1;
+        public const int ACCOUNT_TYPE_FACEBOOK = 2;
     }
+
 }

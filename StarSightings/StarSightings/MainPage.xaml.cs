@@ -32,17 +32,31 @@ namespace StarSightings
         }
 
 		void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
+        {            
             if (!App.Config.IsAppInit)
             {
-                App.Config.InitApp();
-                this.tbUserName.DataContext = App.ViewModel.User;
-            }
+                App.Config.InitAppCompletedHandler +=new InitAppHandler(InitAppCompleted);
+                App.Config.InitApp();                
+            }			
+        }
 
-			if (!App.ViewModel.IsDataLoaded)
+        private void InitAppCompleted(Object sender, SSEventArgs e)
+        {
+            if (!e.Successful)
             {
-                App.ViewModel.LoadData();
-            }		
+                // problem with init, probably because of login, we need to show login page.
+                if (App.ViewModel.AccountType != Constants.ACCOUNT_TYPE_DEVICE)
+                {
+                    this.NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.RelativeOrAbsolute));
+                }
+            }
+            else
+            {
+                if (!App.ViewModel.IsDataLoaded)
+                {
+                    App.ViewModel.LoadData();
+                }
+            }
         }
 
 		/// <summary>
@@ -75,7 +89,8 @@ namespace StarSightings
 
         private void DoTest(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/SignupPage.xaml", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.Navigate(new Uri("/SignupPage.xaml", UriKind.RelativeOrAbsolute));
+            App.SSAPI.Logout();
         }
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
@@ -108,6 +123,39 @@ namespace StarSightings
                 });
                 //UpdateFeedList(e.Result);
             }
-        }        
+        }
+        
+        private LoginEventHandler myLoginEventHandler;
+        private void GoToLogin(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (!App.ViewModel.NeedLogin)
+            {
+                myLoginEventHandler = new LoginEventHandler(LogoutCompleted);
+                App.SSAPI.LoginHandler += myLoginEventHandler;
+                App.SSAPI.Logout();
+            }
+            else
+            {
+                this.NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.RelativeOrAbsolute));
+            }
+        }
+
+        public void LogoutCompleted(object sender, LoginEventArgs e)
+        {
+            App.SSAPI.LoginHandler -= myLoginEventHandler;
+            if (e.Successful)
+            {                                
+                App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_DEVICE;
+                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
+                Utils.RemoveIsolatedStorageSettings("User");
+                App.Config.Login();
+            }
+            else
+            {
+                MessageBox.Show("Cannot login, please try again.");
+            }
+        }
+
+       
     }
 }

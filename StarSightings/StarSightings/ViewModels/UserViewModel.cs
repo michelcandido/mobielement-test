@@ -117,6 +117,24 @@ namespace StarSightings.ViewModels
             }
         }
 
+        private double tokenExpiration;
+        public double TokenExpiration
+        {
+            get
+            {
+                return this.tokenExpiration;
+            }
+            set
+            {
+                if (value != tokenExpiration)
+                {
+                    tokenExpiration = value;
+                    NotifyPropertyChanged("TokenExpiration");
+                }
+            }
+        }
+        
+
        
 
         public event PropertyChangedEventHandler PropertyChanged;
