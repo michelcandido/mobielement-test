@@ -172,6 +172,9 @@
     <Content Include="Images\appbar.share.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\Panorama_1024x800.jpg" />
+    <Resource Include="Images\SS_logo_large.png" />
+    <Resource Include="Images\SS_logo_small.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -49,9 +49,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="tbUserName" Text="{Binding User.UserName}" Grid.Row="0"/>
+        <!--<TextBlock x:Name="tbUserName" Text="{Binding User.UserName}" Grid.Row="0"/>-->
         <!--Panorama control-->
-        <controls:Panorama Title="star sightings" Grid.Row="1">
+        <controls:Panorama Grid.Row="1">
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="Images/Panorama_1024x800.jpg"/>
+            </controls:Panorama.Background>
+            <controls:Panorama.Title>
+                <StackPanel Orientation="Vertical" Margin="0,80,0,0">
+                    <Image x:Name="icon" Source="Images/SS_logo_large.png" />
+                    <!--<TextBlock Text="my application" FontStyle="Italic" FontSize="40" VerticalAlignment="Center" Margin="0,-40,0,0" />-->
+                </StackPanel>
+            </controls:Panorama.Title>
             <controls:PanoramaItem>
                 <ListBox>
                     <ListBoxItem>
