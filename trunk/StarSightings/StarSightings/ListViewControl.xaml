@@ -39,7 +39,7 @@
                             <ColumnDefinition MinWidth="140"/>
                         </Grid.ColumnDefinitions>
                         <Border Margin="0, 0, 24, 0"  Width="160" Height="160" BorderThickness="1" BorderBrush="{StaticResource PhoneSubtleBrush}">
-                            <Image Source="{Binding ThumbOrigLarge}" Width="160" Height="160" Stretch="UniformToFill" />
+                            <Image Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
                         </Border>
                         <StackPanel Orientation="Vertical" Grid.Column="1" MaxHeight="280">                            
                             <TextBlock TextWrapping="NoWrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextTrimming="WordEllipsis" />
