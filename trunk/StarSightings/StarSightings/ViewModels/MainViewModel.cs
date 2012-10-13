@@ -349,7 +349,7 @@ namespace StarSightings
                         {
                             App.ViewModel.PopularItems.RemoveAt(0);
                         }
-                        UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 1);
+                        UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 3);
                     }
                     else
                     {                        
@@ -379,7 +379,7 @@ namespace StarSightings
                         {
                             App.ViewModel.LatestItems.RemoveAt(0);
                         }
-                        UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 1);
+                        UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 3);
                     }
                     else
                     {                        
@@ -409,7 +409,7 @@ namespace StarSightings
                         {
                             App.ViewModel.NearestItems.RemoveAt(0);
                         }
-                        UpdateSummaryItems(App.ViewModel.NearestItems, App.ViewModel.NearestSummaryItems, 0, 1);
+                        UpdateSummaryItems(App.ViewModel.NearestItems, App.ViewModel.NearestSummaryItems, 0, 3);
                     }
                     else
                     {
