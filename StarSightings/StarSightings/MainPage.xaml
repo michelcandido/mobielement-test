@@ -25,20 +25,32 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MySummaryItemTemplate">
-            <Grid Margin="0, 0, 0, 17">
+            <Grid>
+                <Image Margin="0, 0, 12, 12" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
+                <Border Margin="0, 0, 12, -100" Height="50" Width="160" >
+                    <Border.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Border.Background>
+                </Border>
+                <TextBlock Margin="12, 0, 12, -120" Text="{Binding Cat}" Height="50" Width="160" FontFamily="Segoe WP Bold" FontSize="22" FontWeight="Bold" />                                    
+            </Grid>
+            <!--<Grid Margin="0, 0, 0, 17">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition MinWidth="140"/>
                 </Grid.ColumnDefinitions>
-                <Border Margin="0, 0, 24, 0"  Width="120" Height="120" BorderThickness="1" BorderBrush="{StaticResource PhoneSubtleBrush}">
-                    <Image Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="120" Height="120" Stretch="UniformToFill" />
+                <Border Margin="0, 0, 12, 12"  Width="160" Height="160" BorderThickness="1" BorderBrush="{StaticResource PhoneSubtleBrush}">
+                    <Image Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
                 </Border>
                 <StackPanel Orientation="Vertical" Grid.Column="1" MaxHeight="280">
                     <TextBlock TextWrapping="NoWrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextTrimming="WordEllipsis" />
                     <TextBlock Margin="0, 8, 0, 0" LineStackingStrategy="BlockLineHeight" LineHeight="28" FontFamily="{StaticResource PhoneFontFamilySemiLight}"  FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="NoWrap" Text="{Binding LineThree}" TextTrimming="WordEllipsis" />
                 </StackPanel>
-            </Grid>
-        </DataTemplate>        
+            </Grid>-->
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="MySummaryItemsPanelTemplate">
+            <telerikPrimitives:RadWrapPanel x:Name="radWrapPanel" Width="400"/>
+        </ItemsPanelTemplate>
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -65,7 +77,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Margin="0,-24,0,24" Tap="GoToList" Tag="0">popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>                            
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -73,7 +85,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="1">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="1">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -81,14 +93,14 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="2">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="2">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="3">following</TextBlock>
-                            <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <!--Double line list with image placeholder and text wrapping-->
                             <!--<ListBox Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" SelectionChanged="ListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
