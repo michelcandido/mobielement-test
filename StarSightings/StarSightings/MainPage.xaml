@@ -5,8 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"     
-    xmlns:converters="clr-namespace:StarSightings.Converters"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"         
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
@@ -32,15 +31,14 @@
                     <ColumnDefinition MinWidth="140"/>
                 </Grid.ColumnDefinitions>
                 <Border Margin="0, 0, 24, 0"  Width="120" Height="120" BorderThickness="1" BorderBrush="{StaticResource PhoneSubtleBrush}">
-                    <Image Source="{Binding ThumbOrigLarge}" Width="120" Height="120" Stretch="UniformToFill" />
+                    <Image Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="120" Height="120" Stretch="UniformToFill" />
                 </Border>
                 <StackPanel Orientation="Vertical" Grid.Column="1" MaxHeight="280">
                     <TextBlock TextWrapping="NoWrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextTrimming="WordEllipsis" />
                     <TextBlock Margin="0, 8, 0, 0" LineStackingStrategy="BlockLineHeight" LineHeight="28" FontFamily="{StaticResource PhoneFontFamilySemiLight}"  FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="NoWrap" Text="{Binding LineThree}" TextTrimming="WordEllipsis" />
                 </StackPanel>
             </Grid>
-        </DataTemplate>
-        <converters:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="logout" TrueValue="login"/>
+        </DataTemplate>        
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->

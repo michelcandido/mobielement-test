@@ -4,12 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
 	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-	xmlns:sys="clr-namespace:System;assembly=mscorlib">
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:converters="clr-namespace:StarSightings.Converters">
 
 	<!--Application Resources-->
     <Application.Resources>
         <SolidColorBrush Color="YellowGreen" x:Key="greenColor"/>
         <SolidColorBrush Color="Red" x:Key="redColor"/>
+        <converters:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="logout" TrueValue="login"/>
+        <converters:ImageConverter x:Key="ImageConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
