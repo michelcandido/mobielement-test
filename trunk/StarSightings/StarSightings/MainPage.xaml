@@ -29,10 +29,10 @@
                 <Image Margin="0, 0, 12, 12" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
                 <Border Margin="0, 0, 12, -100" Height="50" Width="160" >
                     <Border.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                     </Border.Background>
                 </Border>
-                <TextBlock Margin="12, 0, 12, -120" Text="{Binding Cat}" Height="50" Width="160" FontFamily="Segoe WP Bold" FontSize="22" FontWeight="Bold" />                                    
+                <TextBlock Margin="12, 0, 12, -120" Text="{Binding Cat}" Height="50" Width="160" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" />                                    
             </Grid>
             <!--<Grid Margin="0, 0, 0, 17">
                 <Grid.ColumnDefinitions>
@@ -167,8 +167,8 @@
 
             <!--Panorama item one-->
             <controls:PanoramaItem Header="more">
-                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                    <ListBoxItem Content="settings" Tap="GoToAbout"/>
+                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListBoxItem Content="settings" Tap="GoToAbout" />
                     <ListBoxItem Content="about" Tap="GoToAbout"/>
                     <ListBoxItem x:Name="ItemLogin" Content="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Tap="GoToLogin"/>
                     <ListBoxItem Content="test" Tap="DoTest"/>                    

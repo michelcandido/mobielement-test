@@ -13,6 +13,7 @@
         <SolidColorBrush Color="Red" x:Key="redColor"/>
         <converters:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="logout" TrueValue="login"/>
         <converters:ImageConverter x:Key="ImageConverter" />
+        <converters:FontSizeConverter x:Key="FontSizeConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

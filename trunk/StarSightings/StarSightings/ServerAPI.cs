@@ -274,6 +274,7 @@ namespace StarSightings
                         item.ThumbOrigSmall = xmlItem.Element("thumb_orig_small").Value;
                         item.ThumbOrigLarge = Constants.SERVER_NAME + xmlItem.Element("thumb_orig_large").Value;
                         item.Cat = xmlItem.Element("cat").Value;
+                        item.Cat = item.Cat.Replace(";", ", ");
                         item.Types = xmlItem.Element("types").Value;
                         item.MaxBid = xmlItem.Element("max_bid").Value;
                         item.MaxBidTime = xmlItem.Element("max_bid_time").Value;
