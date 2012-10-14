@@ -19,7 +19,14 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">        
         <!--Pivot Control-->
-        <controls:Pivot Title="{Binding DeviceId}" x:Name="pivotControl" SelectionChanged="PivotControl_SelectionChanged">
+        <controls:Pivot x:Name="pivotControl" SelectionChanged="PivotControl_SelectionChanged">
+            <controls:Pivot.TitleTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <Image x:Name="icon" Source="Images/SS_logo_small.png" />                        
+                    </StackPanel>
+                </DataTemplate>
+            </controls:Pivot.TitleTemplate>
             <controls:PivotItem Header="popular">
                 <local:ListViewControl x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails">
                 </local:ListViewControl>
