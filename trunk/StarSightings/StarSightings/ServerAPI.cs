@@ -16,6 +16,7 @@ using System.IO.IsolatedStorage;
 using System.Text;
 using System.Collections.ObjectModel;
 using StarSightings.ViewModels;
+using System.Device.Location;
 
 namespace StarSightings
 {
@@ -256,6 +257,8 @@ namespace StarSightings
                         item.PhotoId = xmlItem.Element("photo_id").Value;
                         item.GeoLat = xmlItem.Element("geo_lat").Value;
                         item.GeoLng = xmlItem.Element("geo_lng").Value;
+                        item.GeoLocation = getGeoCoordinate(item.GeoLat, item.GeoLng);
+                        item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
                         item.Source = xmlItem.Element("source").Value;
                         item.ForumId = xmlItem.Element("forum_id").Value;
                         item.TopicId = xmlItem.Element("topic_id").Value;
@@ -301,6 +304,14 @@ namespace StarSightings
                     OnSearch(se);
                 }                
             }
+        }
+
+        private GeoCoordinate getGeoCoordinate(string geoLat, string geoLng)
+        {
+            Double lat = 0.0, lng = 0.0;
+            Double.TryParse(geoLat, out lat);
+            Double.TryParse(geoLng, out lng);
+            return new GeoCoordinate(lat, lng);
         }
 
         public event SearchEventHandler SearchHandler;

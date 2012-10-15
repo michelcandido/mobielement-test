@@ -25,14 +25,16 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MySummaryItemTemplate">
-            <Grid>
-                <Image Margin="0, 0, 12, 12" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
-                <Border Margin="0, 0, 12, -100" Height="50" Width="160" >
-                    <Border.Background>
-                        <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
-                    </Border.Background>
-                </Border>
-                <TextBlock Margin="12, 0, 12, -120" Text="{Binding Cat}" Height="50" Width="160" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" />                                    
+            <Grid >
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
+                    <Border Height="50" Width="160" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <Border.Background>
+                            <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="{Binding Cat}" MaxWidth="160" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" />                    
+                </Grid>
             </Grid>
             <!--<Grid Margin="0, 0, 0, 17">
                 <Grid.ColumnDefinitions>

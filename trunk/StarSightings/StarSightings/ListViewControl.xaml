@@ -45,9 +45,12 @@
                         </Grid.RowDefinitions>
                         
                         <Image Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" Grid.Row="0" Grid.Column="0"/>
-                        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Background="White">
-                            <TextBlock TextWrapping="NoWrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextTrimming="WordEllipsis" />
-                            <TextBlock Margin="0, 8, 0, 0" LineStackingStrategy="BlockLineHeight" LineHeight="28" FontFamily="{StaticResource PhoneFontFamilySemiLight}"  FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="Wrap" Text="{Binding LineThree}"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Background="White" >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,5,0">
+                                <TextBlock Text="{Binding Time, Converter={StaticResource UnixRelativeTimeConverter}}" FontSize="12" FontFamily="Segoe WP" FontWeight="Bold" Margin="0,0,8,0" Foreground="{Binding ElementName='listBox', Path='Parent.Parent.Parent.Parent.SelectedIndex', Converter={StaticResource ListTDColorConverter}, ConverterParameter='Time'}"/>
+                                <TextBlock TextWrapping="NoWrap" Text="{Binding Distance, StringFormat=\{0\} miles}" FontSize="12" FontFamily="Segoe WP" FontWeight="Bold" Foreground="{Binding ElementName='listBox', Path='Parent.Parent.Parent.Parent.SelectedIndex', Converter={StaticResource ListTDColorConverter}, ConverterParameter='Distance'}"/>                                    
+                            </StackPanel>
+                            <TextBlock Name="namebar" Margin="5, 5, 0, 0" TextWrapping="Wrap" Text="{Binding Location}" FontSize="20" FontFamily="Segoe WP" Foreground="Black" />
                         </StackPanel>
                         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="50">
                             <Border Height="50" Width="360" VerticalAlignment="Center" HorizontalAlignment="Left">

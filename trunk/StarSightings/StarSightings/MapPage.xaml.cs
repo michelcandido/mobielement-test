@@ -70,11 +70,13 @@ namespace StarSightings
                 GeoCoordinate[] locations = new GeoCoordinate[items.Count];
                 int i = 0;
                 foreach (ItemViewModel item in items)
-                {                    
+                {       
+                    /*
                     Double lat = 0.0, lng = 0.0;
                     Double.TryParse(item.GeoLat, out lat);
                     Double.TryParse(item.GeoLng, out lng);
                     item.GeoLocation = new GeoCoordinate(lat, lng);
+                     * */
                     locations[i++] = item.GeoLocation;                                        
                 }
                 this.Map.SetView(LocationRect.CreateLocationRect(locations));
