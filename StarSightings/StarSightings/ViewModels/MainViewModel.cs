@@ -201,7 +201,22 @@ namespace StarSightings
             }
         }
 
-        
+        private GeoCoordinate myLocation;
+        public GeoCoordinate MyLocation
+        {
+            get
+            {
+                return this.myLocation;
+            }
+            set
+            {
+                if (value != myLocation)
+                {
+                    myLocation = value;
+                    NotifyPropertyChanged("MyLocation");
+                }
+            }
+        }
 
         public bool IsDataLoaded
         {
@@ -486,6 +501,7 @@ namespace StarSightings
             param.search_lng = e.Position.Location.Longitude;
             Utils.AddOrUpdateIsolatedStorageSettings("GeoLat", param.search_lat);
             Utils.AddOrUpdateIsolatedStorageSettings("GeoLng", param.search_lng);
+            MyLocation = new GeoCoordinate(param.search_lat, param.search_lng);
             
             if (App.Config.IsAppInit)
                 SearchNearest(true, 0, param);

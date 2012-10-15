@@ -10,7 +10,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Info;
 using System.IO.IsolatedStorage;
-using System.Text.RegularExpressions; 
+using System.Text.RegularExpressions;
+using System.Device.Location;
+using System.Diagnostics; 
 
 namespace StarSightings
 {
@@ -152,6 +154,24 @@ namespace StarSightings
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             TimeSpan diff = date - origin;
             return Math.Floor(diff.TotalSeconds);
+        }
+
+        public enum DistanceIn { Miles, Kilometers };
+        private static double ToRadian(this double val)
+        {
+            return (Math.PI / 180) * val;
+        }
+        public static double Between(this DistanceIn @in, GeoCoordinate here, GeoCoordinate there)
+        {
+            var r = (@in == DistanceIn.Miles) ? 3960 : 6371;
+            var dLat = (there.Latitude - here.Latitude).ToRadian();
+            var dLon = (there.Longitude - here.Longitude).ToRadian();
+            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                    Math.Cos(here.Latitude.ToRadian()) * Math.Cos(there.Latitude.ToRadian()) *
+                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+            var c = 2 * Math.Asin(Math.Min(1, Math.Sqrt(a)));
+            var d = r * c;
+            return d;
         }
     }
 }

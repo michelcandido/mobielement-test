@@ -14,6 +14,8 @@
         <converters:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="logout" TrueValue="login"/>
         <converters:ImageConverter x:Key="ImageConverter" />
         <converters:FontSizeConverter x:Key="FontSizeConverter" />
+        <converters:UnixRelativeTimeConverter x:Key="UnixRelativeTimeConverter" />
+        <converters:ListTDColorConverter x:Key="ListTDColorConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

@@ -90,6 +90,8 @@
     <Compile Include="Converters\BoolToValueConverter.cs" />
     <Compile Include="Converters\FontSizeConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
+    <Compile Include="Converters\ListTDColorConverter.cs" />
+    <Compile Include="Converters\UnixRelativeTimeConverter.cs" />
     <Compile Include="DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
