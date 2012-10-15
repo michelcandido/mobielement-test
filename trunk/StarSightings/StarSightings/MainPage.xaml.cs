@@ -123,8 +123,15 @@ namespace StarSightings
                 });
                 //UpdateFeedList(e.Result);
             }
+
+
         }
-        
+
+        private void GoToCameraMode(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/CameraMode.xaml", UriKind.RelativeOrAbsolute));
+        }        
+
         private LoginEventHandler myLoginEventHandler;
         private void GoToLogin(object sender, System.Windows.Input.GestureEventArgs e)
         {
