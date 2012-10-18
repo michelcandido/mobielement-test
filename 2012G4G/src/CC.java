@@ -24,9 +24,63 @@ public class CC {
         //testFindLowestPositiveInteger();
         //testDeleteDuplicatesInLinkedList();
         //testFindMaximumInSubArray();
-        testFindLargestSum();
+        //testFindLargestSum();
+    	testFindMax4ji();
     }
 
+    //http://www.careercup.com/question?id=12705676
+    static void testFindMax4ji()
+    {
+    	//int[] a = {7,5,4,3,1,6};
+    	//int[] a = {2,1,4,100,-5};
+    	int[] a = {5,15,3,10,20,1,19,0,8,16};
+    	findMax4ji(a);
+    	System.out.println();
+    	MaxDiff(a);
+    }
+
+	static void MaxDiff(int[] a) {
+		int min = a[0]; // assume first element as minimum
+		int maxdiff = 0;
+		int posi = -1, posj = -1, minpos = 0;
+
+		for (int i = 1; i < a.length; i++) {
+			if (a[i] < min) {
+				min = a[i];
+				minpos = i;
+			} else {
+				int diff = a[i] - min;
+				if (diff > maxdiff) {
+					maxdiff = diff;
+					posi = minpos;
+					posj = i;
+				}
+			}
+		}
+		System.out.format("max:%d, mini:%d, maxj:%d", maxdiff,a[posi], a[posj]);
+	}
+    static void findMax4ji(int[] a) {    	
+    	int i = 0, j = a.length - 1;
+    	int max = a[j] - a[i];
+    	int mini = a[i], maxj = a[j];
+    	i++;    	
+    	while (i <= j) {    		
+    		while (a[i] < mini) {
+    			mini = a[i];
+    			max = maxj - mini;
+    			i++;
+    		}
+    		j--;
+    		while (a[j] > maxj && i <= j) {    		
+    			maxj = a[j];
+    			max = maxj - mini;
+    			j--;
+    		}
+    		i++;    		
+    	}
+    	System.out.format("max:%d, mini:%d, maxj:%d", max,mini,maxj);
+    }
+    
     //http://www.careercup.com/question?id=1777
     static void testFindLargestSum() {
         int[] a = { 1, 3,-4, 5 -2, -1, 3 , 3, -1};
