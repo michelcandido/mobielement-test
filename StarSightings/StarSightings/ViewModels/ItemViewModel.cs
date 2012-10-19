@@ -51,7 +51,24 @@ namespace StarSightings
         private string localOffset;
         private string vote;
         private GeoCoordinate geoLocation;
-        private double distance;        
+        private double distance;
+        private string commentsCnt;
+
+        public string CommentsCnt
+        {
+            get
+            {
+                return this.commentsCnt;
+            }
+            set
+            {
+                if (value != this.commentsCnt)
+                {
+                    this.commentsCnt = value;
+                    NotifyPropertyChanged("CommentsCnt");
+                }
+            }
+        }
 
         public double Distance
         {
