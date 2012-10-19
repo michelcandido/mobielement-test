@@ -88,9 +88,12 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\BoolToValueConverter.cs" />
+    <Compile Include="Converters\TextLengthConverter.cs" />
+    <Compile Include="Converters\DateTimeFormatHelper.cs" />
     <Compile Include="Converters\FontSizeConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Converters\ListTDColorConverter.cs" />
+    <Compile Include="Converters\ShortRelativeTimeConverter.cs" />
     <Compile Include="Converters\UnixRelativeTimeConverter.cs" />
     <Compile Include="DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
@@ -156,7 +159,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="PanoramaBackground.png" />
-    <Resource Include="Images\CompanyLogo.png" />
+    <Content Include="Images\CompanyLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\appbar.check.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -184,13 +189,31 @@
     <Content Include="Images\appbar.position.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\Frame.png" />
+    <Content Include="Images\Frame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\appbar.share.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\Panorama_1024x800.jpg" />
-    <Resource Include="Images\SS_logo_large.png" />
-    <Resource Include="Images\SS_logo_small.png" />
+    <Content Include="Images\SS_logo_large.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\SS_logo_small.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\comment_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\distance_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\time_stamp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BG_480x800.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,7 @@ namespace StarSightings
             DataContext = App.ViewModel;
             
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-
+            
 			//Shows the rate reminder message, according to the settings of the RateReminder.
             (App.Current as App).rateReminder.Notify();
         }
