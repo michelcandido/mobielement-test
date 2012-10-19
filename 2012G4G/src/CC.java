@@ -28,6 +28,16 @@ public class CC {
     	testFindMax4ji();
     }
 
+    //http://www.careercup.com/question?id=2971
+    static void findValueInBST(MyBinTree<Integer> tree, int value) {
+    	if (tree == null)
+    		return;
+    	if (tree.element == value) {
+    		//print
+    	}
+    	
+    }
+    
     //http://www.careercup.com/question?id=12705676
     static void testFindMax4ji()
     {
