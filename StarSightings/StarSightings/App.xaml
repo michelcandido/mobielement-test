@@ -7,7 +7,7 @@
 	xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:converters="clr-namespace:StarSightings.Converters">
 
-	<!--Application Resources-->
+    <!--Application Resources-->
     <Application.Resources>
         <SolidColorBrush Color="YellowGreen" x:Key="greenColor"/>
         <SolidColorBrush Color="Red" x:Key="redColor"/>
@@ -16,6 +16,7 @@
         <converters:FontSizeConverter x:Key="FontSizeConverter" />
         <converters:UnixRelativeTimeConverter x:Key="UnixRelativeTimeConverter" />
         <converters:ListTDColorConverter x:Key="ListTDColorConverter" />
+        <converters:ShortRelativeTimeConverter x:Key="ShortRelativeTimeConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

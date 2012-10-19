@@ -58,7 +58,7 @@
                                     <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                                 </Border.Background>
                             </Border>
-                            <TextBlock Text="{Binding Cat}"  MaxWidth="300" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='List'}" FontWeight="Bold"  TextWrapping="Wrap" Margin="12,0,0,0"/>                            
+                            <TextBlock Text="{Binding Cat}"  MaxWidth="336" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='List'}" FontWeight="Bold"  TextWrapping="Wrap" Margin="12,0,0,0" TextTrimming="WordEllipsis" />                            
                         </Grid>
                     </Grid>
                 </DataTemplate>

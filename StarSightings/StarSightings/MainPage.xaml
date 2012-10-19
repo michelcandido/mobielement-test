@@ -15,8 +15,8 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
   shell:SystemTray.IsVisible="False">
-    
-    <phone:PhoneApplicationPage.Resources>        
+
+    <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="MyPanoramaItemHeaderTemplate">
             <Grid>
                 <ContentPresenter>
@@ -28,35 +28,56 @@
             <Grid >
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
-                    <Border Height="50" Width="160" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Border Height="50" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="160" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" />                    
+                    <TextBlock Text="{Binding Cat}" MaxWidth="150" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
-            <!--<Grid Margin="0, 0, 0, 17">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition MinWidth="140"/>
-                </Grid.ColumnDefinitions>
-                <Border Margin="0, 0, 12, 12"  Width="160" Height="160" BorderThickness="1" BorderBrush="{StaticResource PhoneSubtleBrush}">
-                    <Image Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
-                </Border>
-                <StackPanel Orientation="Vertical" Grid.Column="1" MaxHeight="280">
-                    <TextBlock TextWrapping="NoWrap" Text="{Binding Cat}" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}" TextTrimming="WordEllipsis" />
-                    <TextBlock Margin="0, 8, 0, 0" LineStackingStrategy="BlockLineHeight" LineHeight="28" FontFamily="{StaticResource PhoneFontFamilySemiLight}"  FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="NoWrap" Text="{Binding LineThree}" TextTrimming="WordEllipsis" />
+        </DataTemplate>
+        <DataTemplate x:Key="MyLatestSummaryItemTemplate">
+            <Grid >
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
+                    <Border Height="50" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <Border.Background>
+                            <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="{Binding Cat}" MaxWidth="150" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                </Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
+                    <Image Source="Images/time_stamp.png" Margin="0,0,8,0"/>
+                    <TextBlock Text="{Binding Time, Converter={StaticResource ShortRelativeTimeConverter}}"  FontFamily="Segoe WP"  FontWeight="Bold" FontSize="22.667" />
                 </StackPanel>
-            </Grid>-->
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="MyNearestSummaryItemTemplate">
+            <Grid >
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
+                    <Border Height="50" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <Border.Background>
+                            <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="{Binding Cat}" MaxWidth="150" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                </Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
+                    <Image Source="Images/distance_icon.png" Margin="0,0,8,0"/>
+                    <TextBlock Text="{Binding Distance, StringFormat=\{0\} mi}"  FontFamily="Segoe WP"  FontWeight="Bold" FontSize="22.667" />
+                </StackPanel>
+            </Grid>
         </DataTemplate>
         <ItemsPanelTemplate x:Key="MySummaryItemsPanelTemplate">
             <telerikPrimitives:RadWrapPanel x:Name="radWrapPanel" Width="400"/>
         </ItemsPanelTemplate>
     </phone:PhoneApplicationPage.Resources>
-    
+
     <!--LayoutRoot is the root grid where all page content is placed-->
-	<Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent">        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -79,7 +100,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Margin="0,-24,0,24" Tap="GoToList" Tag="0">popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>                            
+                            <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -87,7 +108,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="1">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyLatestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="1">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -95,7 +116,7 @@
                         <StackPanel>
                             <TextBlock Style="{StaticResource PhoneTextTitle1Style}" Tap="GoToList" Tag="2">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyNearestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
                             <TextBlock Style="{StaticResource PhoneTextLargeStyle}" Tap="GoToList" Tag="2">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -121,7 +142,7 @@
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>
-            </controls:PanoramaItem>                       
+            </controls:PanoramaItem>
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
@@ -134,19 +155,19 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >                                    
+                            <Border BorderBrush="White" BorderThickness="1" Width="200" Height="200" >
                                 <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
-                            </Border>                                
+                            </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>                    
+                </ListBox>
             </controls:PanoramaItem>
-            
+
             <controls:PanoramaItem Header="my sightings">
                 <Grid>
-                    <Grid.RowDefinitions>                        
+                    <Grid.RowDefinitions>
                         <RowDefinition Height="7*"/>
-                        <RowDefinition Height="*" />                        
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <!--Double line list with image placeholder and text wrapping-->
                     <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItems}" SelectionChanged="ListBox_SelectionChanged">
@@ -161,10 +182,10 @@
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>                    
+                        </ListBox.ItemTemplate>
                     </ListBox>
                     <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="GoToList">more...</TextBlock>
-                </Grid>   
+                </Grid>
             </controls:PanoramaItem>
 
             <!--Panorama item one-->
@@ -173,7 +194,7 @@
                     <ListBoxItem Content="settings" Tap="GoToAbout" />
                     <ListBoxItem Content="about" Tap="GoToAbout"/>
                     <ListBoxItem x:Name="ItemLogin" Content="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Tap="GoToLogin"/>
-                    <ListBoxItem Content="test" Tap="DoTest"/>                    
+                    <ListBoxItem Content="test" Tap="DoTest"/>
                 </ListBox>
             </controls:PanoramaItem>
 
@@ -193,23 +214,23 @@
                 </ListBox>
             </controls:PanoramaItem>
             -->
- 
-            
 
-		</controls:Panorama>
-	</Grid>
 
-	<!--Sample code showing usage of ApplicationBar-->
-	<phone:PhoneApplicationPage.ApplicationBar>
-		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+
+        </controls:Panorama>
+    </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.camera.rest.png" Text="post" Click="GoToCameraMode"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search"/>
-			<shell:ApplicationBar.MenuItems>
-				<shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-				<shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-			</shell:ApplicationBar.MenuItems>
-		</shell:ApplicationBar>
-	</phone:PhoneApplicationPage.ApplicationBar>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
   
