@@ -88,9 +88,11 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\BoolToValueConverter.cs" />
+    <Compile Include="Converters\StringToValueConverter.cs" />
+    <Compile Include="Converters\FontSizeConverter.cs" />
     <Compile Include="Converters\TextLengthConverter.cs" />
     <Compile Include="Converters\DateTimeFormatHelper.cs" />
-    <Compile Include="Converters\FontSizeConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Converters\ListTDColorConverter.cs" />
     <Compile Include="Converters\ShortRelativeTimeConverter.cs" />
@@ -199,6 +201,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\Panorama_1024x800.jpg" />
+    <Content Include="Images\icon_gray_distance.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Map_star.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\SS_logo_large.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

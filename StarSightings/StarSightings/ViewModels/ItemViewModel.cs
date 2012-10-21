@@ -28,6 +28,8 @@ namespace StarSightings
 	    private string location;
 	    private string eventName;
 	    private string place;
+        private string eventLocation;
+        private string eventDescr;
 	    private string time;
 	    private string localTime;
 	    private string country;
@@ -53,6 +55,40 @@ namespace StarSightings
         private GeoCoordinate geoLocation;
         private double distance;
         private string commentsCnt;
+
+        public double TestLat = 34.0;
+        public double TestLng = -120;
+        public string EventDescr
+        {
+            get
+            {
+                return this.eventDescr;
+            }
+            set
+            {
+                if (value != this.eventDescr)
+                {
+                    this.eventDescr = value;
+                    NotifyPropertyChanged("EventDescr");
+                }
+            }
+        }
+
+        public string EventLocation
+        {
+            get
+            {
+                return this.eventLocation;
+            }
+            set
+            {
+                if (value != this.eventLocation)
+                {
+                    this.eventLocation = value;
+                    NotifyPropertyChanged("EventLocation");
+                }
+            }
+        }
 
         public string CommentsCnt
         {

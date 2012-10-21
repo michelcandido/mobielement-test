@@ -1,5 +1,4 @@
-﻿#define TESTSERVER
-using System;
+﻿using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +25,7 @@ namespace StarSightings
         {
             WebClient webClient = new WebClient();
 
-#if (TESTSERVER)            
+#if (DEBUG)            
                 string auth = Constants.BASE_AUTH_USERNAME + ":" + Constants.BASE_AUTH_PASSWORD;
                 string authString = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(auth));
                 webClient.Headers["Authorization"] = "Basic " + authString;            
@@ -268,6 +267,8 @@ namespace StarSightings
                         item.Location = xmlItem.Element("location").Value;
                         item.EventName = xmlItem.Element("event").Value;
                         item.Place = xmlItem.Element("place").Value;
+                        item.EventLocation = item.Place + (item.Place.Length == 0?"":" in ") + item.Location;
+                        item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
                         item.SourceUrl = xmlItem.Element("source_url").Value;
                         item.ViewCnt = xmlItem.Element("view_cnt").Value;
                         item.UserId = xmlItem.Element("user_id").Value;                                                

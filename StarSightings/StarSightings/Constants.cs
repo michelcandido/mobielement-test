@@ -14,9 +14,11 @@ namespace StarSightings
     public class Constants
     {
         //Server name
+#if (DEBUG)
         public const string SERVER_NAME = "http://test.starsightings.com";
-        //public const String SERVER_NAME = "http://www.starsightings.com";
-
+#else
+        public const String SERVER_NAME = "http://www.starsightings.com";
+#endif
         //Basic HTTP authorizaton
         public const string BASE_AUTH_USERNAME = "starsight0";
         public const string BASE_AUTH_PASSWORD = "20zohtNAbcSzE15";

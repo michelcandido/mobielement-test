@@ -7,12 +7,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit= "clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:map="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True" xmlns:my="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps">    
+    shell:SystemTray.IsVisible="True" >    
     
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -36,29 +37,29 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <my:Map Name="Map"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Tap="Map_Tap" MapZoom="Map_MapZoom" MapPan="Map_MapPan">
-                <my:MapItemsControl Name="MapPins">
-                    <my:MapItemsControl.ItemTemplate>
+            <map:Map Name="Map"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Tap="Map_Tap" MapZoom="Map_MapZoom" MapPan="Map_MapPan">
+                <map:MapItemsControl Name="MapPins">
+                    <map:MapItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <my:Pushpin Location="{Binding GeoLocation}" Tap="Pin_Tap">
-                                <my:Pushpin.Content>
+                            <map:Pushpin  Location="{Binding GeoLocation}" Tap="Pin_Tap">
+                                <map:Pushpin.Content>
                                     <Border Background="Black" Width="200" Visibility="Collapsed" x:Name="border"  HorizontalAlignment="Center" >
                                         <StackPanel>
                                             <TextBlock Text="{Binding Cat}"/>
                                             <Image Source="Images/Smile.png" Stretch="None" Margin="10"/>
                                         </StackPanel>
                                     </Border>
-                                </my:Pushpin.Content>
+                                </map:Pushpin.Content>
                                 <!--<toolkit:ContextMenuService.ContextMenu>
                                     <toolkit:ContextMenu IsZoomEnabled="False">
                                         <toolkit:MenuItem />
                                     </toolkit:ContextMenu>
                                 </toolkit:ContextMenuService.ContextMenu>-->
-                            </my:Pushpin>
+                            </map:Pushpin>
                         </DataTemplate>
-                    </my:MapItemsControl.ItemTemplate>
-                </my:MapItemsControl>
-            </my:Map>
+                    </map:MapItemsControl.ItemTemplate>
+                </map:MapItemsControl>
+            </map:Map>
         </Grid>
     </Grid>
  
