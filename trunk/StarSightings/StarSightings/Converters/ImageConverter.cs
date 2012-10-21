@@ -1,5 +1,4 @@
-﻿#define TESTSERVER
-using System;
+﻿using System;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +26,7 @@ namespace StarSightings.Converters
             System.Net.HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(value.ToString());
             //request.CookieContainer = App.CookieJar;
             request.Method = "GET";
-#if (TESTSERVER)            
+#if (DEBUG)            
                 string auth = Constants.BASE_AUTH_USERNAME + ":" + Constants.BASE_AUTH_PASSWORD;
                 string authString = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(auth));
                 request.Headers["Authorization"] = "Basic " + authString;            
