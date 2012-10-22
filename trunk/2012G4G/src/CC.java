@@ -25,17 +25,47 @@ public class CC {
         //testDeleteDuplicatesInLinkedList();
         //testFindMaximumInSubArray();
         //testFindLargestSum();
-    	testFindMax4ji();
+    	//testFindMax4ji();
+    	testFindValueInBST();
     }
 
     //http://www.careercup.com/question?id=2971
-    static void findValueInBST(MyBinTree<Integer> tree, int value) {
+    static void testFindValueInBST() {    	
+    	int[] in = {1,2,3,4,6,8,9,10};
+        int[] pre = {6,2,1,3,4,9,8,10};
+        MyBinTree<Integer> root = GTree.buildBinTreeInPre(pre, in, 0, pre.length - 1);
+        root.binPrint();
+        System.out.println();
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        findValueInBST2(root, 15, list, 0);
+    }
+    static void findValueInBST2(MyBinTree<Integer> tree, int value, ArrayList<Integer> list, int level) {
     	if (tree == null)
     		return;
-    	if (tree.element == value) {
-    		//print
+    	list.add(level, tree.element);
+    	int sum = 0;
+    	for (int i = level; i >=0; i--) {
+    		sum += list.get(i);
+    		if (sum == value) {
+    			for (int j = i; j <= level; j++)
+    				System.out.print(list.get(j) + " ");
+    			System.out.println();
+    		}
     	}
-    	
+    	findValueInBST2(tree.left, value, list, level + 1);
+    	findValueInBST2(tree.right, value, list, level + 1);
+    }
+    static void findValueInBST(MyBinTree<Integer> tree, int value, ArrayList<Integer> list, int level) {
+    	if (tree == null)
+    		return;
+    	list.add(level, tree.element);
+    	if (tree.element == value) {
+    		for (int i = 0; i <= level; i++)
+    			System.out.print(list.get(i)+" ");
+    		System.out.println();
+    	}
+    	findValueInBST(tree.left, value - tree.element, list, level + 1);
+    	findValueInBST(tree.right, value - tree.element, list, level + 1);
     }
     
     //http://www.careercup.com/question?id=12705676
