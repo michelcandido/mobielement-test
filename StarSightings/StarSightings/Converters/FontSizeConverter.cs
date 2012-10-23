@@ -18,20 +18,27 @@ namespace StarSightings.Converters
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value == null || parameter == null)
-                return 20;
+                return 17;
             string name = (string)value;
             string sizeCase = (string)parameter;
-            if (name.Contains(",")) 
+            if (name.Contains(","))
             {
                 if (sizeCase == "Summary")
-                    return 20;
+                    return 21;
                 else if (sizeCase == "List")
-                    return 17.333;
+                    return 17;
                 else
-                    return 0;
+                    return 17;
             }
             else
-                return 22.667;                
+            {
+                if (sizeCase == "Summary")
+                    return 25;
+                else if (sizeCase == "List")
+                    return 23;
+                else
+                    return 23;
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

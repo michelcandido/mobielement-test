@@ -255,9 +255,7 @@ namespace StarSightings
                         ItemViewModel item = new ItemViewModel();
                         item.PhotoId = xmlItem.Element("photo_id").Value;
                         item.GeoLat = xmlItem.Element("geo_lat").Value;
-                        item.GeoLng = xmlItem.Element("geo_lng").Value;
-                        item.GeoLocation = getGeoCoordinate(item.GeoLat, item.GeoLng);
-                        item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
+                        item.GeoLng = xmlItem.Element("geo_lng").Value;                        
                         item.Source = xmlItem.Element("source").Value;
                         item.ForumId = xmlItem.Element("forum_id").Value;
                         item.TopicId = xmlItem.Element("topic_id").Value;
@@ -266,9 +264,7 @@ namespace StarSightings
                         item.Descr = xmlItem.Element("descr").Value;
                         item.Location = xmlItem.Element("location").Value;
                         item.EventName = xmlItem.Element("event").Value;
-                        item.Place = xmlItem.Element("place").Value;
-                        item.EventLocation = item.Place + (item.Place.Length == 0?"":" in ") + item.Location;
-                        item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
+                        item.Place = xmlItem.Element("place").Value;                        
                         item.SourceUrl = xmlItem.Element("source_url").Value;
                         item.ViewCnt = xmlItem.Element("view_cnt").Value;
                         item.UserId = xmlItem.Element("user_id").Value;                                                
@@ -276,9 +272,8 @@ namespace StarSightings
                         item.ThumbUserSmall = xmlItem.Element("thumb_user_small").Value;
                         item.ThumbUserLarge = xmlItem.Element("thumb_user_large").Value;
                         item.ThumbOrigSmall = xmlItem.Element("thumb_orig_small").Value;
-                        item.ThumbOrigLarge = Constants.SERVER_NAME + xmlItem.Element("thumb_orig_large").Value;
-                        item.Cat = xmlItem.Element("cat").Value;
-                        item.Cat = item.Cat.Replace(";", ", ");
+                        item.ThumbOrigLarge = xmlItem.Element("thumb_orig_large").Value;
+                        item.Cat = xmlItem.Element("cat").Value;                        
                         item.Types = xmlItem.Element("types").Value;
                         item.MaxBid = xmlItem.Element("max_bid").Value;
                         item.MaxBidTime = xmlItem.Element("max_bid_time").Value;
@@ -293,6 +288,15 @@ namespace StarSightings
                         item.CommentsCnt = xmlItem.Element("comments_count").Value;
                         //item.Vote = xmlItem.Element("vote").Value;
                        
+                        // computed properties
+                        item.GeoLocation = getGeoCoordinate(item.GeoLat, item.GeoLng);
+                        item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
+                        item.EventLocation = item.Place + (item.Place.Length == 0 ? "" : " in ") + item.Location;
+                        item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
+                        item.EventSource = item.SourceUrl.Length == 0 ? item.Source : new Uri(item.SourceUrl).Host;
+                        item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
+                        item.Cat = item.Cat.Replace(";", ", ");
+
                         items.Add(item);
                     }
                     SearchEventArgs se = new SearchEventArgs(true);
