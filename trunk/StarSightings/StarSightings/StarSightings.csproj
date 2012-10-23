@@ -144,6 +144,7 @@
     </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="ViewModels\CommandSampleViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />

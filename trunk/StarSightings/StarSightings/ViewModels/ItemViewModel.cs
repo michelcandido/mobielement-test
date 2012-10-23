@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Device.Location;
+using StarSightings.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace StarSightings
 {
@@ -34,6 +36,7 @@ namespace StarSightings
 	    private string localTime;
 	    private string country;
 	    private string sourceUrl;
+        private string eventSource;
 	    private string viewCnt;
 	    private string userId;
 	    private Boolean canEdit; //Boolean?
@@ -55,9 +58,24 @@ namespace StarSightings
         private GeoCoordinate geoLocation;
         private double distance;
         private string commentsCnt;
+        private ObservableCollection<CommentViewModel> comments;
 
-        public double TestLat = 34.0;
-        public double TestLng = -120;
+        public string EventSource
+        {
+            get
+            {
+                return this.eventSource;
+            }
+            set
+            {
+                if (value != this.eventSource)
+                {
+                    this.eventSource = value;
+                    NotifyPropertyChanged("EventSource");
+                }
+            }
+        }
+
         public string EventDescr
         {
             get

@@ -41,6 +41,10 @@
                             <TextBlock Text="{Binding ViewCnt}" FontSize="33.333" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
                             <TextBlock Text="views" FontSize="22.667" Foreground="#686868" HorizontalAlignment="Center" />
                         </StackPanel>
+                        <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0" Orientation="Horizontal">
+                            <TextBlock Text="by" FontSize="22.667" Foreground="#686868" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding EventSource}" FontSize="25.333" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" />
+                        </StackPanel>
                     </Grid>                    
                 </DataTemplate>
             </ListBox.Resources>
