@@ -89,12 +89,7 @@ namespace StarSightings
             {
                 this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}", selectedItemData.ID), UriKind.RelativeOrAbsolute));
             }
-        }
-
-        private void PivotControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-                       
-        }
+        }       
 
         private void GoToDetails(object sender, EventArgs e)
         {

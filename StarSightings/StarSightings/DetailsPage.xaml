@@ -38,12 +38,12 @@
                     <Grid>
                         <Image Stretch="UniformToFill" Source="{Binding ThumbOrigLarge}"  />
                         <StackPanel HorizontalAlignment="Right" Margin="0,0,5,0">
-                            <TextBlock Text="{Binding ViewCnt}" FontSize="33.333" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="views" FontSize="22.667" Foreground="#686868" HorizontalAlignment="Center" />
+                            <TextBlock Text="{Binding ViewCnt}" FontSize="32" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <TextBlock Text="views" FontSize="23" Foreground="#686868" HorizontalAlignment="Center" />
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0" Orientation="Horizontal">
-                            <TextBlock Text="by" FontSize="22.667" Foreground="#686868" Margin="0,0,5,0"/>
-                            <TextBlock Text="{Binding EventSource}" FontSize="25.333" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" />
+                            <TextBlock Text="by" FontSize="23" Foreground="#686868" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding EventSource}" FontSize="25" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" />
                         </StackPanel>
                     </Grid>                    
                 </DataTemplate>
@@ -64,9 +64,9 @@
             </ListBoxItem>
             <ListBoxItem>
                 <ListBox Padding="10,0,10,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black">
-                    <ListBoxItem Content="{Binding ElementName=slideView, Path=SelectedItem.Time, Converter={StaticResource DateTimeConverter}}" FontSize="22.667" Foreground="#686868"/>
+                    <ListBoxItem Content="{Binding ElementName=slideView, Path=SelectedItem.Time, Converter={StaticResource DateTimeConverter}}" FontSize="23" Foreground="#686868"/>
                     <ListBoxItem>
-                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Cat}" FontSize="46.667" FontWeight="Bold" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Cat}" FontSize="47" FontWeight="Bold" TextWrapping="Wrap" />
                     </ListBoxItem> 
                     <ListBoxItem>
                         <Grid>
@@ -74,7 +74,7 @@
                                 <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="*"/>                                
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" MinWidth="360" HorizontalAlignment="Stretch" Text="{Binding ElementName=slideView, Path=SelectedItem.EventLocation}" FontSize="46.667" TextWrapping="Wrap" />
+                            <TextBlock Grid.Column="0" MinWidth="360" HorizontalAlignment="Stretch" Text="{Binding ElementName=slideView, Path=SelectedItem.EventLocation}" FontSize="47" TextWrapping="Wrap" />
                             <StackPanel Grid.Column="1" HorizontalAlignment="Right" >
                                 <Border BorderBrush="#FF686868" BorderThickness="1">
                                     <map:Map Name="Map"  Width="100" Height="100" HorizontalAlignment="Center"  CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Center="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation, Mode=TwoWay}" ZoomLevel="8">
@@ -83,16 +83,50 @@
                                 </Border>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 10, 10, 0">
                                     <Image Source="Images/icon_gray_distance.png" Margin="0,0,8,0"/>
-                                    <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Distance, StringFormat=\{0\} mi}"  FontFamily="Segoe WP"  FontSize="22.667" Foreground="#FF686868" />
+                                    <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Distance, StringFormat=\{0\} mi}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" />
                                 </StackPanel>
                             </StackPanel>
                             
                         </Grid>
                     </ListBoxItem>   
                     <ListBoxItem>
-                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Descr}" FontSize="25.333" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Descr}" FontSize="25" TextWrapping="Wrap" />
                     </ListBoxItem>
-                    <ListBoxItem Content="More" FontSize="22.667" Foreground="#FF686868" Margin="0,5,0,0" />
+                    <ListBoxItem Content="More" FontSize="23" Foreground="#FF686868" Margin="0,5,0,5" />
+                    <ListBoxItem>
+                        <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.Celebs}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <ListBox.ItemTemplate>                                
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                        <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
+                                            <Border Height="60" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="#ededed" />
+                                                </Border.Background>
+                                            </Border>
+                                            <TextBlock Text="{Binding}" FontFamily="Segoe WP" FontSize="25" FontWeight="SemiBold" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" TextTrimming="WordEllipsis" />
+                                        </Grid>
+                                        <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
+                                            <Border Height="60" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="#ededed" />
+                                                </Border.Background>
+                                            </Border>
+                                            <Image Stretch="UniformToFill" Source="Images/Wikipedia_button.png"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>                                            
+                                        </Grid>
+                                        <Grid Tag="{Binding}">
+                                            <Border Height="60" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="#ee005e" />
+                                                </Border.Background>
+                                            </Border>
+                                            <TextBlock Text="Follow" FontFamily="Segoe WP" FontSize="23" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"  />
+                                        </Grid>
+                                    </StackPanel>                                    
+                                </DataTemplate>                                
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </ListBoxItem>
                 </ListBox>
             </ListBoxItem>
         </ListBox>

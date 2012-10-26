@@ -295,7 +295,9 @@ namespace StarSightings
                         item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
                         item.EventSource = item.SourceUrl.Length == 0 ? item.Source : new Uri(item.SourceUrl).Host;
                         item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
+                        item.Celebs = item.Cat.Split(new Char[] { ';' });
                         item.Cat = item.Cat.Replace(";", ", ");
+                        
 
                         items.Add(item);
                     }

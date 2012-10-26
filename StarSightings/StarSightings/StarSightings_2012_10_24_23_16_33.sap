@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProfilerSession Type="MemoryPerformanceAnalysis" Name="StarSightings634867173935727596">
+  <TargetApplication Name="StarSightings" SourceProject="StarSightings.csproj" Type="WindowsPhone71">
+    <ApplicationBinary Path="Bin\Release\StarSightings.xap" Timestamp="10/17/2012 11:30:13 PM" />
+    <ApplicationIconPath Path="" />
+    <SymbolPaths>
+      <Path Value="Bin\Release\" />
+    </SymbolPaths>
+  </TargetApplication>
+  <Settings>
+    <Probe Name="Visual">
+      <CollectElementLevelCosting Enabled="False" />
+      <CollectSnapshots Enabled="False" Interval="" Resampling="" />
+      <CollectMediaEvents Enabled="False" />
+      <CollectCacheDetails Enabled="False" />
+    </Probe>
+    <Probe Name="Code">
+      <SampleCallStack Enabled="False" Depth="" Interval="" />
+      <CollectPerformanceCounters Enabled="False" />
+    </Probe>
+    <Probe Name="Memory">
+      <MemoryCallStack Enabled="True" Depth="4" />
+      <ObjectTree Enabled="True" Interval="5" />
+    </Probe>
+  </Settings>
+  <Data>
+    <Logs>
+      <File Type="NativeFormat" Path="PerformanceLogs\StarSightings634867173935727596\tmp650A.tmp" />
+    </Logs>
+  </Data>
+  <TargetDeviceSettings OSVersion="7.10.8773" AvailablePhysicalMemoryAtStartup="222617600" ProcessorArchitectureType="Arm" ProcessorInformation="Armv4ifp" IsEmulator="False" />
+</ProfilerSession>

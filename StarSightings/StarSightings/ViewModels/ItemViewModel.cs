@@ -59,6 +59,23 @@ namespace StarSightings
         private double distance;
         private string commentsCnt;
         private ObservableCollection<CommentViewModel> comments;
+        private string[] celebs;
+
+        public string[] Celebs
+        {
+            get
+            {
+                return this.celebs;
+            }
+            set
+            {
+                if (value != this.celebs)
+                {
+                    this.celebs = value;
+                    NotifyPropertyChanged("Celebs");
+                }
+            }
+        }
 
         public string EventSource
         {
