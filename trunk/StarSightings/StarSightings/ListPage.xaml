@@ -21,8 +21,8 @@
         <Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
         </Grid.Background>
-        <!--Pivot Control-->
-        <controls:Pivot x:Name="pivotControl" SelectionChanged="PivotControl_SelectionChanged">
+        <!--Pivot Control-->                
+        <controls:Pivot x:Name="pivotControl" >
             <controls:Pivot.TitleTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >
@@ -30,10 +30,11 @@
                     </StackPanel>
                 </DataTemplate>
             </controls:Pivot.TitleTemplate>
+            
             <controls:PivotItem Header="popular">
                 <local:ListViewControl x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails">
                 </local:ListViewControl>
-            </controls:PivotItem>
+            </controls:PivotItem>           
             <controls:PivotItem Header="latest">
                 <local:ListViewControl x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails">
                 </local:ListViewControl>
@@ -41,15 +42,12 @@
             <controls:PivotItem Header="nearest">
                 <local:ListViewControl x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails">
                 </local:ListViewControl>
-            </controls:PivotItem>            
-
-            <controls:PivotItem Header="following">
-                <!--Triple line list no text wrapping-->
+            </controls:PivotItem>                        
+            <controls:PivotItem Header="following">                
                 <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding FollowingItems}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                <!--Replace rectangle with image-->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">                                
                                 <Rectangle Height="100" Width="100" Fill="{StaticResource redColor}" Margin="12,0,9,0"/>
                                 <StackPanel Width="311">
                                     <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
@@ -59,8 +57,8 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </controls:PivotItem>
-        </controls:Pivot>                
+            </controls:PivotItem>            
+        </controls:Pivot>                        
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

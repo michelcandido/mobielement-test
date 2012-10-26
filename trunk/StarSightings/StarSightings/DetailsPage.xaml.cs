@@ -11,6 +11,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Collections.ObjectModel;
+using Microsoft.Phone.Tasks;
+using System;
 
 namespace StarSightings
 {
@@ -51,6 +53,15 @@ namespace StarSightings
                 item = App.ViewModel.GetItemById(selectedItemId, groupId);
                 this.slideView.SelectedItem = item;
             }
+        }
+
+        private void Wiki_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            WebBrowserTask webBrowserTask = new WebBrowserTask();
+
+            webBrowserTask.Uri = new Uri("http://en.m.wikipedia.org/wiki/" + ((string)((sender as Grid).Tag)).Replace(" ","_"), UriKind.Absolute);
+
+            webBrowserTask.Show();
         }
     }
 }
