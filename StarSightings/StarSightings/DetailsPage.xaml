@@ -127,6 +127,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </ListBoxItem>
+                    <ListBoxItem Content="Comments" FontSize="47" Foreground="Black" Margin="0,5,0,5" Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}"/>
                 </ListBox>
             </ListBoxItem>
         </ListBox>

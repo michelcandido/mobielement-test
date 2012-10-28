@@ -25,7 +25,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MySummaryItemTemplate">
-            <Grid >
+            <Grid Tap="Grid_Tap">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
                     <Border Height="60" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -38,7 +38,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MyLatestSummaryItemTemplate">
-            <Grid >
+            <Grid Tap="Grid_Tap">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
                     <Border Height="60" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -55,7 +55,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MyNearestSummaryItemTemplate">
-            <Grid >
+            <Grid Tap="Grid_Tap">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
                     <Border Height="60" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -100,7 +100,7 @@
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Margin="0,-24,0,24" Tap="GoToList" Tag="0" >popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -108,7 +108,7 @@
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="1">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyLatestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyLatestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="1">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
@@ -116,7 +116,7 @@
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="2">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyNearestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged"/>
+                            <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyNearestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="2">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>

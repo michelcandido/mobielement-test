@@ -61,6 +61,22 @@ namespace StarSightings
         private ObservableCollection<CommentViewModel> comments;
         private string[] celebs;
 
+        public ObservableCollection<CommentViewModel> Comments
+        {
+            get
+            {
+                return this.comments;
+            }
+            set
+            {
+                if (value != this.comments)
+                {
+                    this.comments = value;
+                    NotifyPropertyChanged("Comments");
+                }
+            }
+        }
+
         public string[] Celebs
         {
             get
