@@ -105,6 +105,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\BoolToValueConverter.cs" />
+    <Compile Include="Converters\CollectionCountVisibleConverter.cs" />
     <Compile Include="Converters\StringToValueConverter.cs" />
     <Compile Include="Converters\FontSizeConverter.cs" />
     <Compile Include="Converters\TextLengthConverter.cs" />
@@ -174,8 +175,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="StarSightings_2012_10_24_23_16_33.sap" />
-    <None Include="StarSightings_2012_10_24_23_26_06.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

@@ -25,11 +25,11 @@ namespace StarSightings
         {
             this.Items = new ObservableCollection<ItemViewModel>();
             this.PopularItems = new ObservableCollection<ItemViewModel>();
-            this.PopularSummaryItems = new ObservableCollection<ItemViewModel>();
+            //this.PopularSummaryItems = new ObservableCollection<ItemViewModel>();
             this.LatestItems = new ObservableCollection<ItemViewModel>();
-            this.LatestSummaryItems = new ObservableCollection<ItemViewModel>();
+            //this.LatestSummaryItems = new ObservableCollection<ItemViewModel>();
             this.NearestItems = new ObservableCollection<ItemViewModel>();
-            this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
+            //this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
             this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
             this.User = new UserViewModel();
@@ -41,7 +41,12 @@ namespace StarSightings
 
             App.SSAPI.SearchHandler += new SearchEventHandler(SearchCompleted);
             App.GeoWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
-            App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);           
+            App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);    
+       
+            PopularItemsSummaryList = new CollectionViewSource();
+            LatestItemsSummaryList = new CollectionViewSource();
+            NearestItemsSummaryList = new CollectionViewSource();
+            FollowingItemsSummaryList = new CollectionViewSource();
         }
 
         /// <summary>
@@ -49,23 +54,33 @@ namespace StarSightings
         /// </summary>
         private ObservableCollection<ItemViewModel> items;
         private ObservableCollection<ItemViewModel> popularItems;
-        private ObservableCollection<ItemViewModel> popularSummaryItems;
+        //private ObservableCollection<ItemViewModel> popularSummaryItems;
         private ObservableCollection<ItemViewModel> latestItems;
-        private ObservableCollection<ItemViewModel> latestSummaryItems;
+        //private ObservableCollection<ItemViewModel> latestSummaryItems;
         private ObservableCollection<ItemViewModel> nearestItems;
-        private ObservableCollection<ItemViewModel> nearestSummaryItems;
+        //private ObservableCollection<ItemViewModel> nearestSummaryItems;
         private ObservableCollection<ItemViewModel> followingItems;
         private ObservableCollection<ItemViewModel> followingSummaryItems;
 
         public ObservableCollection<ItemViewModel> Items { get { return items; } private set{if (value != items) {items = value; NotifyPropertyChanged("Items");}} }
         public ObservableCollection<ItemViewModel> PopularItems { get { return popularItems; } private set { if (value != popularItems) { popularItems = value; NotifyPropertyChanged("PopularItems"); } } }
-        public ObservableCollection<ItemViewModel> PopularSummaryItems { get { return popularSummaryItems; } private set { if (value != popularSummaryItems) { popularSummaryItems = value; NotifyPropertyChanged("PopularSummaryItems"); } } }
+        //public ObservableCollection<ItemViewModel> PopularSummaryItems { get { return popularSummaryItems; } private set { if (value != popularSummaryItems) { popularSummaryItems = value; NotifyPropertyChanged("PopularSummaryItems"); } } }
         public ObservableCollection<ItemViewModel> LatestItems { get { return latestItems; } private set { if (value != latestItems) { latestItems = value; NotifyPropertyChanged("LatestItems"); } } }
-        public ObservableCollection<ItemViewModel> LatestSummaryItems { get { return latestSummaryItems; } private set { if (value != latestSummaryItems) { latestSummaryItems = value; NotifyPropertyChanged("LatestSummaryItems"); } } }
+        //public ObservableCollection<ItemViewModel> LatestSummaryItems { get { return latestSummaryItems; } private set { if (value != latestSummaryItems) { latestSummaryItems = value; NotifyPropertyChanged("LatestSummaryItems"); } } }
         public ObservableCollection<ItemViewModel> NearestItems { get { return nearestItems; } private set { if (value != nearestItems) { nearestItems = value; NotifyPropertyChanged("NearestItems"); } } }
-        public ObservableCollection<ItemViewModel> NearestSummaryItems { get { return nearestSummaryItems; } private set { if (value != nearestSummaryItems) { nearestSummaryItems = value; NotifyPropertyChanged("NearestSummaryItems"); } } }
+        //public ObservableCollection<ItemViewModel> NearestSummaryItems { get { return nearestSummaryItems; } private set { if (value != nearestSummaryItems) { nearestSummaryItems = value; NotifyPropertyChanged("NearestSummaryItems"); } } }
         public ObservableCollection<ItemViewModel> FollowingItems { get { return followingItems; } private set { if (value != followingItems) { followingItems = value; NotifyPropertyChanged("FollowingItems"); } } }
         public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
+
+        public CollectionViewSource popularItemsSummaryList;
+        public CollectionViewSource latestItemsSummaryList;
+        public CollectionViewSource nearestItemsSummaryList;
+        public CollectionViewSource followingItemsSummaryList;
+
+        public CollectionViewSource PopularItemsSummaryList { get { return popularItemsSummaryList; } private set { if (value != popularItemsSummaryList) { popularItemsSummaryList = value; NotifyPropertyChanged("PopularItemsSummaryList"); } } }
+        public CollectionViewSource LatestItemsSummaryList { get { return latestItemsSummaryList; } private set { if (value != latestItemsSummaryList) { latestItemsSummaryList = value; NotifyPropertyChanged("LatestItemsSummaryList"); } } }
+        public CollectionViewSource NearestItemsSummaryList { get { return nearestItemsSummaryList; } private set { if (value != nearestItemsSummaryList) { nearestItemsSummaryList = value; NotifyPropertyChanged("NearestItemsSummaryList"); } } }
+        public CollectionViewSource FollowingItemsSummaryList { get { return followingItemsSummaryList; } private set { if (value != followingItemsSummaryList) { followingItemsSummaryList = value; NotifyPropertyChanged("FollowingItemsSummaryList"); } } }
 
         private int searchTypePopular;
         private int searchTypeLatest;
@@ -364,7 +379,10 @@ namespace StarSightings
                         {
                             App.ViewModel.PopularItems.RemoveAt(0);
                         }
-                        UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 3);
+                        //UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 3);
+                        
+                        this.PopularItemsSummaryList.Source = App.ViewModel.PopularItems;
+                        this.PopularItemsSummaryList.Filter += (s,a) => a.Accepted = App.ViewModel.PopularItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
                     }
                     else
                     {                        
@@ -376,7 +394,7 @@ namespace StarSightings
                             id = item.PhotoId;
                         }
                     }
-                    isUpdatingPopular = false;
+                    isUpdatingPopular = false;                    
                 }
                 else if (e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
                 {
@@ -394,7 +412,9 @@ namespace StarSightings
                         {
                             App.ViewModel.LatestItems.RemoveAt(0);
                         }
-                        UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 3);
+                        //UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 3);
+                        this.LatestItemsSummaryList.Source = App.ViewModel.LatestItems;
+                        this.LatestItemsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.LatestItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
                     }
                     else
                     {                        
@@ -424,7 +444,9 @@ namespace StarSightings
                         {
                             App.ViewModel.NearestItems.RemoveAt(0);
                         }
-                        UpdateSummaryItems(App.ViewModel.NearestItems, App.ViewModel.NearestSummaryItems, 0, 3);
+                        //UpdateSummaryItems(App.ViewModel.NearestItems, App.ViewModel.NearestSummaryItems, 0, 3);
+                        this.NearestItemsSummaryList.Source = App.ViewModel.NearestItems;
+                        this.NearestItemsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.NearestItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
                     }
                     else
                     {

@@ -28,7 +28,7 @@ namespace StarSightings
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             
 			//Shows the rate reminder message, according to the settings of the RateReminder.
-            (App.Current as App).rateReminder.Notify();
+            (App.Current as App).rateReminder.Notify();            
         }
 
 		void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -78,13 +78,14 @@ namespace StarSightings
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            /*
             ItemViewModel selectedItemData = (sender as ListBox).SelectedItem as ItemViewModel;
             if (selectedItemData != null)
             {
                 this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, (string)(sender as FrameworkElement).Tag), UriKind.RelativeOrAbsolute));
             }
             (sender as ListBox).SelectedIndex = -1;
+             * */
         }
 
         private void DoTest(object sender, System.Windows.Input.GestureEventArgs e)
@@ -161,6 +162,16 @@ namespace StarSightings
             {
                 MessageBox.Show("Cannot login, please try again.");
             }
+        }
+
+        private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            ItemViewModel selectedItemData = (sender as Grid).DataContext as ItemViewModel;
+            if (selectedItemData != null)
+            {
+                this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, (string)(sender as FrameworkElement).Tag), UriKind.RelativeOrAbsolute));
+            }
+            
         }
 
        

@@ -59,7 +59,7 @@ namespace StarSightings
         {
             WebBrowserTask webBrowserTask = new WebBrowserTask();
 
-            webBrowserTask.Uri = new Uri("http://en.m.wikipedia.org/wiki/" + ((string)((sender as Grid).Tag)).Replace(" ","_"), UriKind.Absolute);
+            webBrowserTask.Uri = new Uri("http://en.m.wikipedia.org/wiki/" + ((string)((sender as Grid).Tag)).Trim(), UriKind.Absolute);
 
             webBrowserTask.Show();
         }

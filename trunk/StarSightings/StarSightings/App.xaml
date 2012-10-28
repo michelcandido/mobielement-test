@@ -20,6 +20,7 @@
         <converters:ShortRelativeTimeConverter x:Key="ShortRelativeTimeConverter" />
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
         <converters:StringToDoubleConverter x:Key="StringToDoubleConverter" />
+        <converters:CommentVisibleConverter x:Key="CommentVisibleConverter" />
 
         <Style TargetType="m:Pushpin" x:Key="MyPushpinStyle">
             <Setter Property="Template">

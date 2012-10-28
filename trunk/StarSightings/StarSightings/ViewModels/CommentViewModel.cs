@@ -32,70 +32,70 @@ namespace StarSightings.ViewModels
             }
         }
 
-        private string password;
-        public string Password
+        private string time;
+        public string Time
         {
             get
             {
-                return this.password;
+                return this.time;
             }
             set
             {
-                if (value != password)
+                if (value != time)
                 {
-                    password = value;
-                    NotifyPropertyChanged("Password");
+                    time = value;
+                    NotifyPropertyChanged("Time");
                 }
             }
         }
 
-        private string passwordconfirm;
-        public string PasswordConfirm
+        private string commentType;
+        public string CommentType
         {
             get
             {
-                return this.passwordconfirm;
+                return this.commentType;
             }
             set
             {
-                if (value != passwordconfirm)
+                if (value != commentType)
                 {
-                    passwordconfirm = value;
-                    NotifyPropertyChanged("PasswordConfirm");
+                    commentType = value;
+                    NotifyPropertyChanged("CommentType");
                 }
             }
         }
 
-        private string useremail;
-        public string UserEmail
+        private bool promoted;
+        public bool Promoted
         {
             get
             {
-                return this.useremail;
+                return this.promoted;
             }
             set
             {
-                if (value != useremail)
+                if (value != promoted)
                 {
-                    useremail = value;
-                    NotifyPropertyChanged("UserEmail");
+                    promoted = value;
+                    NotifyPropertyChanged("Promoted");
                 }
             }
         }
 
-        private string token;
-        public string Token
+        private string value;
+        public string Value
         {
             get
             {
-                return this.token;
+                return this.value;
             }
             set
             {
-                if (value != token)
+                if (value != value)
                 {
-                    token = value;
-                    NotifyPropertyChanged("Token");
+                    value = value;
+                    NotifyPropertyChanged("Value");
                 }
             }
         }
@@ -117,19 +117,87 @@ namespace StarSightings.ViewModels
             }
         }
 
-        private double tokenExpiration;
-        public double TokenExpiration
+        private string user;
+        public string User
         {
             get
             {
-                return this.tokenExpiration;
+                return this.user;
             }
             set
             {
-                if (value != tokenExpiration)
+                if (value != user)
                 {
-                    tokenExpiration = value;
-                    NotifyPropertyChanged("TokenExpiration");
+                    user = value;
+                    NotifyPropertyChanged("User");
+                }
+            }
+        }
+
+        private string userLevel;
+        public string UserLevel
+        {
+            get
+            {
+                return this.userLevel;
+            }
+            set
+            {
+                if (value != userLevel)
+                {
+                    userLevel = value;
+                    NotifyPropertyChanged("UserLevel");
+                }
+            }
+        }
+
+        private string facebookUid;
+        public string FacebookUid
+        {
+            get
+            {
+                return this.facebookUid;
+            }
+            set
+            {
+                if (value != facebookUid)
+                {
+                    facebookUid = value;
+                    NotifyPropertyChanged("FacebookUid");
+                }
+            }
+        }
+
+        private string buttonTemplateId;
+        public string ButtonTemplateId
+        {
+            get
+            {
+                return this.buttonTemplateId;
+            }
+            set
+            {
+                if (value != buttonTemplateId)
+                {
+                    buttonTemplateId = value;
+                    NotifyPropertyChanged("ButtonTemplateId");
+                }
+            }
+        }
+
+        private string buttonTemplatePrompt;
+        public string ButtonTemplatePrompt
+        {
+            get
+            {
+                return this.buttonTemplatePrompt;
+            }
+            set
+            {
+                if (value != buttonTemplatePrompt)
+                {
+                    buttonTemplatePrompt = value;
+                    NotifyPropertyChanged("ButtonTemplatePrompt");
                 }
             }
         }

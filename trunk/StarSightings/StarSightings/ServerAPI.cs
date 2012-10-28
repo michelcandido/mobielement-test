@@ -286,6 +286,32 @@ namespace StarSightings
                         item.LocalTime = xmlItem.Element("local_time").Value;
                         item.LocalOffset = xmlItem.Element("local_offset").Value;
                         item.CommentsCnt = xmlItem.Element("comments_count").Value;
+
+                        XElement xmlComments = xmlItem.Element("comments");
+                        ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
+                        if (xmlComments != null)
+                        {
+                            foreach (XElement xmlComment in xmlComments.Elements("comment"))
+                            {
+                                CommentViewModel comment = new CommentViewModel();
+                                comment.CommentId = xmlComment.Element("comment_id").Value;
+                                comment.Time = xmlComment.Element("time").Value;
+                                comment.CommentType = xmlComment.Element("comment_type").Value;
+                                comment.Promoted = xmlComment.Element("promoted").Value == "1";
+                                comment.Value = xmlComment.Element("value").Value;
+                                comment.UserId = xmlComment.Element("user_id").Value;
+                                comment.User = xmlComment.Element("user").Value;
+                                comment.UserLevel = xmlComment.Element("user_level").Value;
+                                if (xmlComment.Element("facebook_uid") != null)
+                                    comment.FacebookUid = xmlComment.Element("facebook_uid").Value;
+                                if (xmlComment.Element("button_template_id") != null)
+                                    comment.ButtonTemplateId = xmlComment.Element("button_template_id").Value;
+                                if (xmlComment.Element("button_template_prompt") != null)
+                                    comment.ButtonTemplatePrompt = xmlComment.Element("button_template_prompt").Value;
+                                comments.Add(comment);
+                            }
+                            item.Comments = comments;
+                        }
                         //item.Vote = xmlItem.Element("vote").Value;
                        
                         // computed properties
