@@ -297,8 +297,8 @@ namespace StarSightings
                                 comment.CommentId = xmlComment.Element("comment_id").Value;
                                 comment.Time = xmlComment.Element("time").Value;
                                 comment.CommentType = xmlComment.Element("comment_type").Value;
-                                comment.Promoted = xmlComment.Element("promoted").Value == "1";
-                                comment.Value = xmlComment.Element("value").Value;
+                                comment.Promoted = xmlComment.Element("promoted").Value == "1";                                
+                                comment.CommentValue = xmlComment.Element("value").Value;
                                 comment.UserId = xmlComment.Element("user_id").Value;
                                 comment.User = xmlComment.Element("user").Value;
                                 comment.UserLevel = xmlComment.Element("user_level").Value;
@@ -311,6 +311,8 @@ namespace StarSightings
                                 comments.Add(comment);
                             }
                             item.Comments = comments;
+                            item.CommentsSummaryList.Source = item.Comments;
+                            item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
                         }
                         //item.Vote = xmlItem.Element("vote").Value;
                        
@@ -319,7 +321,15 @@ namespace StarSightings
                         item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
                         item.EventLocation = item.Place + (item.Place.Length == 0 ? "" : " in ") + item.Location;
                         item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
-                        item.EventSource = item.SourceUrl.Length == 0 ? item.Source : new Uri(item.SourceUrl).Host;
+                        try
+                        {
+                            item.EventSource = item.SourceUrl.Length == 0 ? item.Source : new Uri(item.SourceUrl).Host;
+                        }
+                        catch (Exception)
+                        {
+                            
+                            item.EventSource = item.SourceUrl.Length == 0 ? item.Source : item.SourceUrl;
+                        }
                         item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
                         item.Celebs = item.Cat.Split(new Char[] { ';' });
                         item.Cat = item.Cat.Replace(";", ", ");

@@ -47,14 +47,53 @@
                         </StackPanel>
                     </Grid>                    
                 </DataTemplate>
+                <DataTemplate x:Key="WikiViewItemTemplate">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
+                            <Border Height="60" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Border.Background>
+                                    <SolidColorBrush Color="#ededed" />
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Text="{Binding}" FontFamily="Segoe WP" FontSize="25" FontWeight="SemiBold" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" TextTrimming="WordEllipsis" />
+                        </Grid>
+                        <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
+                            <Border Height="60" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Border.Background>
+                                    <SolidColorBrush Color="#ededed" />
+                                </Border.Background>
+                            </Border>
+                            <Image Stretch="UniformToFill" Source="Images/Wikipedia_button.png"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                        </Grid>
+                        <Grid Tag="{Binding}">
+                            <Border Height="60" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Border.Background>
+                                    <SolidColorBrush Color="#ee005e" />
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Text="Follow" FontFamily="Segoe WP" FontSize="23" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"  />
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+                <DataTemplate x:Key="CommentViewItemTemplate">
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="400"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Image Grid.Column="0"   Width="60" Height="60" Source="{Binding FacebookUid, Converter={StaticResource FacebookPictureConverter}}"/>
+                        <StackPanel Grid.Column="1" Width="400">
+                            <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />
+                            <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+                            <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="Black">
+                                <TextBlock Width="360" Text="{Binding CommentValue}" FontSize="23" Foreground="White" TextWrapping="Wrap" Margin="5,0" />    
+                            </Grid>
+                        </StackPanel>
+                    </Grid>                                                                
+                </DataTemplate>
             </ListBox.Resources>
-            
-            <!--
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            -->
+                        
             <ListBoxItem>
                 <telerikPrimitives:RadSlideView 
                                             x:Name="slideView" 
@@ -94,40 +133,12 @@
                     </ListBoxItem>
                     <ListBoxItem Content="More" FontSize="23" Foreground="#FF686868" Margin="0,5,0,5" />
                     <ListBoxItem>
-                        <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.Celebs}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <ListBox.ItemTemplate>                                
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                        <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
-                                            <Border Height="60" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                                <Border.Background>
-                                                    <SolidColorBrush Color="#ededed" />
-                                                </Border.Background>
-                                            </Border>
-                                            <TextBlock Text="{Binding}" FontFamily="Segoe WP" FontSize="25" FontWeight="SemiBold" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" TextTrimming="WordEllipsis" />
-                                        </Grid>
-                                        <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
-                                            <Border Height="60" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                                <Border.Background>
-                                                    <SolidColorBrush Color="#ededed" />
-                                                </Border.Background>
-                                            </Border>
-                                            <Image Stretch="UniformToFill" Source="Images/Wikipedia_button.png"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>                                            
-                                        </Grid>
-                                        <Grid Tag="{Binding}">
-                                            <Border Height="60" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                                <Border.Background>
-                                                    <SolidColorBrush Color="#ee005e" />
-                                                </Border.Background>
-                                            </Border>
-                                            <TextBlock Text="Follow" FontFamily="Segoe WP" FontSize="23" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"  />
-                                        </Grid>
-                                    </StackPanel>                                    
-                                </DataTemplate>                                
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.Celebs}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource WikiViewItemTemplate}"/>                            
                     </ListBoxItem>
                     <ListBoxItem Content="Comments" FontSize="47" Foreground="Black" Margin="0,5,0,5" Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}"/>
+                    <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}">
+                        <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.CommentsSummaryList.View}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource CommentViewItemTemplate}"/>
+                    </ListBoxItem>
                 </ListBox>
             </ListBoxItem>
         </ListBox>
