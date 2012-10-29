@@ -13,11 +13,17 @@ using System.Windows.Shapes;
 using System.Device.Location;
 using StarSightings.ViewModels;
 using System.Collections.ObjectModel;
+using System.Windows.Data;
 
 namespace StarSightings
 {
     public class ItemViewModel : INotifyPropertyChanged
     {
+        public ItemViewModel()
+        {
+            CommentsSummaryList = new CollectionViewSource();
+        }
+
         private string photoId;
 	    private string geoLat;
 	    private string geoLng;
@@ -59,7 +65,24 @@ namespace StarSightings
         private double distance;
         private string commentsCnt;
         private ObservableCollection<CommentViewModel> comments;
+        private CollectionViewSource commentsSummaryList;
         private string[] celebs;
+
+        public CollectionViewSource CommentsSummaryList 
+        { 
+            get 
+            {
+                return commentsSummaryList; 
+            } 
+            private set 
+            {
+                if (value != commentsSummaryList) 
+                {
+                    commentsSummaryList = value;
+                    NotifyPropertyChanged("CommentsSummaryList"); 
+                } 
+            } 
+        }
 
         public ObservableCollection<CommentViewModel> Comments
         {

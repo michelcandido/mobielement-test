@@ -83,19 +83,19 @@ namespace StarSightings.ViewModels
             }
         }
 
-        private string value;
-        public string Value
+        private string commentValue;
+        public string CommentValue
         {
             get
             {
-                return this.value;
+                return this.commentValue;
             }
             set
             {
-                if (value != value)
+                if (value != commentValue)
                 {
-                    value = value;
-                    NotifyPropertyChanged("Value");
+                    commentValue = value;
+                    NotifyPropertyChanged("CommentValue");
                 }
             }
         }
