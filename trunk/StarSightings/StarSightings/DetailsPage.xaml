@@ -87,7 +87,7 @@
                             <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />
                             <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
                             <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="Black">
-                                <TextBlock Width="360" Text="{Binding CommentValue}" FontSize="23" Foreground="White" TextWrapping="Wrap" Margin="5,0" />    
+                                <TextBlock Width="360" Text="{Binding CommentValue}" FontSize="23" Foreground="White" TextWrapping="Wrap" Margin="5" />    
                             </Grid>
                         </StackPanel>
                     </Grid>                                                                
@@ -122,7 +122,7 @@
                                 </Border>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 10, 10, 0">
                                     <Image Source="Images/icon_gray_distance.png" Margin="0,0,8,0"/>
-                                    <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Distance, StringFormat=\{0\} mi}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" />
+                                    <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Distance, StringFormat='\{0\} mi'}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" />
                                 </StackPanel>
                             </StackPanel>
                             
@@ -139,6 +139,28 @@
                     <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}">
                         <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.CommentsSummaryList.View}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource CommentViewItemTemplate}"/>
                     </ListBoxItem>
+                    <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}" Margin="0,5,0,5">
+                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.CommentsCnt, StringFormat='See  all  \{0\} comments...'}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" FontWeight="Bold" />
+                    </ListBoxItem> 
+                    <ListBoxItem Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="#FF686868" BorderThickness="3" Width="208" Height="48" Margin="0,0,44,0">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Comment" Margin="0,0,10,0" FontSize="23" FontWeight="Bold" />
+                                    <Image Source="Images/icon_gray_comment.png" Stretch="None" />
+                                </StackPanel>
+                            </Border>
+                            <Border BorderBrush="#FF686868" BorderThickness="3" Width="208" Height="48">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Vote" Margin="0,0,10,0" FontSize="23" FontWeight="Bold" />
+                                    <Image Source="Images/icon_gray_heart.png" Stretch="None" Margin="0,0,10,0"/>
+                                    <Image Source="Images/icon_gray_OMG.png" Stretch="None" Margin="0,0,10,0"/>
+                                    <Image Source="Images/icon_gray_hot.png" Stretch="None" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Height="25"/>
                 </ListBox>
             </ListBoxItem>
         </ListBox>
