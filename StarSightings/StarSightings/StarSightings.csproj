@@ -229,9 +229,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\Panorama_1024x800.jpg" />
+    <Content Include="Images\icon_gray_comment.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\icon_gray_distance.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\icon_gray_heart.png" />
+    <Resource Include="Images\icon_gray_hot.png" />
+    <Resource Include="Images\icon_gray_OMG.png" />
     <Content Include="Images\Map_star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
