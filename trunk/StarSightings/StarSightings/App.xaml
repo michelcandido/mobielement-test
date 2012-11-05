@@ -22,6 +22,8 @@
         <converters:StringToDoubleConverter x:Key="StringToDoubleConverter" />
         <converters:CommentVisibleConverter x:Key="CommentVisibleConverter" />
         <converters:FacebookPictureConverter x:Key="FacebookPictureConverter" />
+        <converters:StringVisibleConverter x:Key="StringVisibleConverter" />
+        <converters:PhotoSizeConverter x:Key="PhotoSizeConverter" />
 
         <Style TargetType="m:Pushpin" x:Key="MyPushpinStyle">
             <Setter Property="Template">

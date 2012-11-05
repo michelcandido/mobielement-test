@@ -35,14 +35,14 @@
         <ListBox x:Name="ContentPanel" Grid.Row="1" Background="White">
             <ListBox.Resources>
                 <DataTemplate x:Key="SlideViewItemTemplate">
-                    <Grid>
-                        <Image Stretch="UniformToFill" Source="{Binding ThumbOrigLarge}"  />
+                    <Grid Background="Black">
+                        <Image Stretch="UniformToFill" Source="{Binding ThumbOrigLarge}" Width="{Binding Rights, Converter={StaticResource PhotoSizeConverter}}" Height="{Binding Rights, Converter={StaticResource PhotoSizeConverter}}"/>
                         <StackPanel HorizontalAlignment="Right" Margin="0,0,5,0">
                             <TextBlock Text="{Binding ViewCnt}" FontSize="32" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
                             <TextBlock Text="views" FontSize="23" Foreground="#686868" HorizontalAlignment="Center" />
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0" Orientation="Horizontal">
-                            <TextBlock Text="by" FontSize="23" Foreground="#686868" Margin="0,0,5,0"/>
+                            <TextBlock Text="{Binding EventSourceMode}" FontSize="23" Foreground="#686868" Margin="0,0,5,0"/>
                             <TextBlock Text="{Binding EventSource}" FontSize="25" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" />
                         </StackPanel>
                     </Grid>                    
@@ -130,6 +130,12 @@
                     </ListBoxItem>   
                     <ListBoxItem>
                         <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Descr}" FontSize="25" TextWrapping="Wrap" />
+                    </ListBoxItem>
+                    <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.EventFooter, Converter={StaticResource StringVisibleConverter}}" Margin="0,5,0,5" Tag="{Binding ElementName=slideView, Path=SelectedItem.SourceUrl}" Tap="Source_Tap">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Larger photo and original story at" FontSize="23" Foreground="#FF686868"/>
+                            <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.EventFooter}"  FontSize="25" Foreground="Black" FontWeight="Bold"  />
+                        </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Content="More" FontSize="23" Foreground="#FF686868" Margin="0,5,0,5" />
                     <ListBoxItem>
