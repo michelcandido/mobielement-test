@@ -40,18 +40,21 @@ namespace StarSightings
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (NavigationContext.QueryString.ContainsKey("selectedItemId") && NavigationContext.QueryString.ContainsKey("selectedGroupId"))
+            if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
             {
-                selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
-                int groupId = 0;
-                int.TryParse(selectedGroupId, out groupId);
-                this.items = App.ViewModel.GetItemSouce(groupId);
-                this.slideView.ItemsSource = this.items;
+                if (NavigationContext.QueryString.ContainsKey("selectedItemId") && NavigationContext.QueryString.ContainsKey("selectedGroupId"))
+                {
+                    selectedGroupId = NavigationContext.QueryString["selectedGroupId"];
+                    int groupId = 0;
+                    int.TryParse(selectedGroupId, out groupId);
+                    this.items = App.ViewModel.GetItemSouce(groupId);
+                    this.slideView.ItemsSource = this.items;
 
-                string selectedItemId = NavigationContext.QueryString["selectedItemId"];                
-                ItemViewModel item = null;
-                item = App.ViewModel.GetItemById(selectedItemId, groupId);
-                this.slideView.SelectedItem = item;
+                    string selectedItemId = NavigationContext.QueryString["selectedItemId"];
+                    ItemViewModel item = null;
+                    item = App.ViewModel.GetItemById(selectedItemId, groupId);
+                    this.slideView.SelectedItem = item;
+                }
             }
         }
 
@@ -61,6 +64,13 @@ namespace StarSightings
 
             webBrowserTask.Uri = new Uri("http://en.m.wikipedia.org/wiki/" + ((string)((sender as Grid).Tag)).Trim(), UriKind.Absolute);
 
+            webBrowserTask.Show();
+        }
+
+        private void Source_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            WebBrowserTask webBrowserTask = new WebBrowserTask();
+            webBrowserTask.Uri = new Uri(((string)((sender as ListBoxItem).Tag)).Trim(), UriKind.Absolute);
             webBrowserTask.Show();
         }
     }

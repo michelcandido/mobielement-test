@@ -12,17 +12,16 @@ using System.Windows.Data;
 
 namespace StarSightings.Converters
 {
-    public class DateTimeConverter : IValueConverter
+    public class PhotoSizeConverter : IValueConverter
     {        
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {            
-            double time = 0;
-            Double.TryParse((string)value, out time);
-
-            string result;
-            DateTime dt = Utils.ConvertFromUnixTimestamp(time);
-            return dt.ToString("MMMM dd, yyyy h:m tt");
+        {
+            string rights = (string)value;
+            if (rights == "1" || rights == "3")
+                return 480;
+            else
+                return 160;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -32,16 +32,13 @@
             </controls:Pivot.TitleTemplate>
             
             <controls:PivotItem Header="popular">
-                <local:ListViewControl x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails">
-                </local:ListViewControl>
+                <local:ListViewControl x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails"/>
             </controls:PivotItem>           
             <controls:PivotItem Header="latest">
-                <local:ListViewControl x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails">
-                </local:ListViewControl>
+                <local:ListViewControl x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails"/>             
             </controls:PivotItem>
             <controls:PivotItem Header="nearest">
-                <local:ListViewControl x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails">
-                </local:ListViewControl>
+                <local:ListViewControl x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails"/>
             </controls:PivotItem>                        
             <controls:PivotItem Header="following">                
                 <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding FollowingItems}" SelectionChanged="ListBox_SelectionChanged">

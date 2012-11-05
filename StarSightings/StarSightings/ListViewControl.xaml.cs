@@ -49,6 +49,7 @@ namespace StarSightings
             {
                 //FiveHundredPxAPI.BeginGetPhotosByCategory("fresh", this.loadedPagesCount, this.PhotoDataDelivered);
             }
+            
         }
 
         protected override RadDataBoundListBox ListBox

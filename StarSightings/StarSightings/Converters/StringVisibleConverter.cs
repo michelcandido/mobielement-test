@@ -9,25 +9,27 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Data;
+using System.Collections.ObjectModel;
+using StarSightings.ViewModels;
 
 namespace StarSightings.Converters
 {
-    public class DateTimeConverter : IValueConverter
-    {        
-
+    public class StringVisibleConverter : IValueConverter
+    {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {            
-            double time = 0;
-            Double.TryParse((string)value, out time);
-
-            string result;
-            DateTime dt = Utils.ConvertFromUnixTimestamp(time);
-            return dt.ToString("MMMM dd, yyyy h:m tt");
+        {
+            if (value == null)
+                return Visibility.Collapsed;
+            string content = (string)value;
+            if (string.IsNullOrEmpty(content))
+                return Visibility.Collapsed;
+            else
+                return Visibility.Visible;            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }
-    }
+    }    
 }

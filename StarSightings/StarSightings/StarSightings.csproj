@@ -106,6 +106,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\BoolToValueConverter.cs" />
     <Compile Include="Converters\CollectionCountVisibleConverter.cs" />
+    <Compile Include="Converters\PhotoSizeConverter.cs" />
+    <Compile Include="Converters\StringVisibleConverter.cs" />
     <Compile Include="Converters\FacebookPictureConverter.cs" />
     <Compile Include="Converters\StringToValueConverter.cs" />
     <Compile Include="Converters\FontSizeConverter.cs" />

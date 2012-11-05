@@ -256,7 +256,7 @@ namespace StarSightings
                         item.PhotoId = xmlItem.Element("photo_id").Value;
                         item.GeoLat = xmlItem.Element("geo_lat").Value;
                         item.GeoLng = xmlItem.Element("geo_lng").Value;                        
-                        item.Source = xmlItem.Element("source").Value;
+                        item.Source = xmlItem.Element("source").Value.Trim();;
                         item.ForumId = xmlItem.Element("forum_id").Value;
                         item.TopicId = xmlItem.Element("topic_id").Value;
                         item.PostId = xmlItem.Element("post_id").Value;
@@ -265,10 +265,10 @@ namespace StarSightings
                         item.Location = xmlItem.Element("location").Value;
                         item.EventName = xmlItem.Element("event").Value;
                         item.Place = xmlItem.Element("place").Value;                        
-                        item.SourceUrl = xmlItem.Element("source_url").Value;
+                        item.SourceUrl = xmlItem.Element("source_url").Value.Trim();
                         item.ViewCnt = xmlItem.Element("view_cnt").Value;
                         item.UserId = xmlItem.Element("user_id").Value;                                                
-                        item.CanEdit = xmlItem.Element("hidden").Value == "1";                        
+                        item.CanEdit = xmlItem.Element("can_edit").Value.Trim() == "1";                        
                         item.ThumbUserSmall = xmlItem.Element("thumb_user_small").Value;
                         item.ThumbUserLarge = xmlItem.Element("thumb_user_large").Value;
                         item.ThumbOrigSmall = xmlItem.Element("thumb_orig_small").Value;
@@ -279,13 +279,14 @@ namespace StarSightings
                         item.MaxBidTime = xmlItem.Element("max_bid_time").Value;
                         item.BidCnt = xmlItem.Element("bid_cnt").Value;
                         item.VisibleMode = xmlItem.Element("visible_mode").Value;                        
-                        item.Hidden = xmlItem.Element("hidden").Value == "1";
-                        item.Rights = xmlItem.Element("rights").Value;
-                        item.HasPhoto = xmlItem.Element("has_photo").Value == "1";
+                        item.Hidden = xmlItem.Element("hidden").Value.Trim() == "1";
+                        item.Rights = xmlItem.Element("rights").Value.Trim();
+                        item.HasPhoto = xmlItem.Element("has_photo").Value.Trim() == "1";
                         item.Time = xmlItem.Element("time").Value;
                         item.LocalTime = xmlItem.Element("local_time").Value;
                         item.LocalOffset = xmlItem.Element("local_offset").Value;
                         item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value;
+                        //item.CommentsCnt = xmlItem.Element("comments_count").Value;
 
                         XElement xmlComments = xmlItem.Element("comments");
                         ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
@@ -321,18 +322,53 @@ namespace StarSightings
                         item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
                         item.EventLocation = item.Place + (item.Place.Length == 0 ? "" : " in ") + item.Location;
                         item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
-                        try
-                        {
-                            item.EventSource = item.SourceUrl.Length == 0 ? item.Source : new Uri(item.SourceUrl).Host;
-                        }
-                        catch (Exception)
-                        {
-                            
-                            item.EventSource = item.SourceUrl.Length == 0 ? item.Source : item.SourceUrl;
-                        }
                         item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
                         item.Celebs = item.Cat.Split(new Char[] { ';' });
                         item.Cat = item.Cat.Replace(";", ", ");
+
+                        item.EventSourceMode = string.Empty;
+                        string host = string.Empty;
+                        try
+                        {
+                            host = new Uri(item.SourceUrl).Host;                            
+                        }
+                        catch (Exception)
+                        {                            
+                        }
+                        if (string.IsNullOrEmpty(item.Source) || item.Source.Equals("ssbot", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            if (string.IsNullOrEmpty(item.SourceUrl))
+                            {
+                                item.EventSource = string.Empty;
+                                item.EventSourceMode = string.Empty;
+                            }
+                            else
+                            {
+                                item.EventSourceMode = "source";
+                                item.EventSource = host;
+                            }
+                        }
+                        else
+                        {
+                            if (item.Rights.Equals("1"))
+                            {
+                                item.EventSourceMode = "by";
+                                item.EventSource = item.Source;
+                            }
+                            else
+                            {
+                                item.EventSourceMode = "shared by";
+                                item.EventSource = item.Source;
+                            }
+                        }
+                        if (string.IsNullOrEmpty(item.SourceUrl))
+                        {
+                            item.EventFooter = string.Empty;
+                        }
+                        else
+                        {
+                            item.EventFooter = host;
+                        }
                         
 
                         items.Add(item);

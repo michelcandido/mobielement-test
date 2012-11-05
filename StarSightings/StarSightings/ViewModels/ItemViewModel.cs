@@ -43,6 +43,8 @@ namespace StarSightings
 	    private string country;
 	    private string sourceUrl;
         private string eventSource;
+        private string eventSourceMode;
+        private string eventFooter;
 	    private string viewCnt;
 	    private string userId;
 	    private Boolean canEdit; //Boolean?
@@ -112,6 +114,38 @@ namespace StarSightings
                 {
                     this.celebs = value;
                     NotifyPropertyChanged("Celebs");
+                }
+            }
+        }
+
+        public string EventFooter
+        {
+            get
+            {
+                return this.eventFooter;
+            }
+            set
+            {
+                if (value != this.eventFooter)
+                {
+                    this.eventFooter = value;
+                    NotifyPropertyChanged("EventFooter");
+                }
+            }
+        }
+
+        public string EventSourceMode
+        {
+            get
+            {
+                return this.eventSourceMode;
+            }
+            set
+            {
+                if (value != this.eventSourceMode)
+                {
+                    this.eventSourceMode = value;
+                    NotifyPropertyChanged("EventSourceMode");
                 }
             }
         }
