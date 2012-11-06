@@ -292,16 +292,17 @@ namespace StarSightings
                         ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
                         if (xmlComments != null)
                         {
-                            foreach (XElement xmlComment in xmlComments.Elements("comment"))
+                            foreach (XElement xmlComment in xmlComments.Elements("c"))
                             {
                                 CommentViewModel comment = new CommentViewModel();
-                                comment.CommentId = xmlComment.Element("comment_id").Value;
-                                comment.Time = xmlComment.Element("time").Value;
-                                comment.CommentType = xmlComment.Element("comment_type").Value;
-                                comment.Promoted = xmlComment.Element("promoted").Value == "1";                                
+                                comment.CommentId = xmlComment.Attribute("id").Value;
+                                comment.CommentType = xmlComment.Attribute("type").Value;
+                                comment.Promoted = xmlComment.Attribute("p").Value == "1";                                
+                                comment.Time = xmlComment.Element("time").Value;                                                                
                                 comment.CommentValue = xmlComment.Element("value").Value;
                                 comment.UserId = xmlComment.Element("user_id").Value;
                                 comment.User = xmlComment.Element("user").Value;
+                                /*
                                 comment.UserLevel = xmlComment.Element("user_level").Value;
                                 if (xmlComment.Element("facebook_uid") != null)
                                     comment.FacebookUid = xmlComment.Element("facebook_uid").Value;
@@ -309,6 +310,8 @@ namespace StarSightings
                                     comment.ButtonTemplateId = xmlComment.Element("button_template_id").Value;
                                 if (xmlComment.Element("button_template_prompt") != null)
                                     comment.ButtonTemplatePrompt = xmlComment.Element("button_template_prompt").Value;
+                                
+                                 * */
                                 comments.Add(comment);
                             }
                             item.Comments = comments;
