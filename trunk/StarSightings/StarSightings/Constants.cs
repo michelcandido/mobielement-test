@@ -32,6 +32,7 @@ namespace StarSightings
         public const string URL_REGISTER_USER = "/index.php?page=profile&mode=register&mobile=1";
         public const string URL_LOGIN = "/index.php?page=profile&mode=login&mobile=1";
         public const string URL_LOGOUT = "/index.php?page=profile&mode=logout&mobile=1";
+        public const string URL_ALERT = "/alerts/";
 
         public const int LIMIT=15;
         public const int SUMMARY_COUNT = 4;
@@ -44,6 +45,18 @@ namespace StarSightings
         public const int ACCOUNT_TYPE_DEVICE = 0;
         public const int ACCOUNT_TYPE_SS = 1;
         public const int ACCOUNT_TYPE_FACEBOOK = 2;
+
+        public const string ALERT_SET = "set/";
+        public const string ALERT_REMOVE = "remove/";
+        public const string ALERT_PAUSE = "pause/";
+        public const string ALERT_RESUME = "resume/";
+        public const string ALERT_TYPE_EVENT = "event/";
+        public const string ALERT_TYPE_LOCATION = "location/";
+        public const string ALERT_TYPE_PLACE = "place/";
+        public const string ALERT_TYPE_CELEBRITY = "celebrity/";
+        public const string ALERT_TYPE_PHOTOGRAPHER = "photographer/";
+        public const string ALERT_TYPE_GEO = "geo/";
+        public const string ALERT_TYPE_ALL = "all";
     }
 
 }
