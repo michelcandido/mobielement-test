@@ -505,11 +505,68 @@ namespace StarSightings
                 LoginHandler(this, e);
             }
         }
+
+        public void Alert(string alertMethod, string subjectType, string subjectName)
+        {
+            WebClient webClient = GetWebClient();
+            string baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + subjectName + "?mobile=1";
+            string query = "token="+App.ViewModel.User.Token;
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleAlert);
+            webClient.DownloadStringAsync(uri);
+        }
+
+        private void HandleAlert(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                SSEventArgs se = new SSEventArgs(false);
+                OnAlert(se);
+            }
+            else
+            {
+                // Save the feed into the State property in case the application is tombstoned.                 
+                //this.State["feed"] = e.Result;
+
+                XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
+                XElement xmlStatus = xmlResponse.Element("status");
+
+                if (xmlStatus != null && String.Compare(xmlStatus.Value, "OK", StringComparison.CurrentCultureIgnoreCase) == 0)
+                {
+                    SSEventArgs se = new SSEventArgs(true);                    
+                    OnAlert(se);
+                }
+                else
+                {
+                    SSEventArgs se = new SSEventArgs(false);
+                    OnAlert(se);
+                }                 
+            }
+        }
+
+        public event AlertEventHandler AlertHandler;
+
+        protected virtual void OnAlert(SSEventArgs e)
+        {
+            if (AlertHandler != null)
+            {
+                AlertHandler(this, e);
+            }
+        }
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
     public delegate void SearchEventHandler(object sender, SearchEventArgs e);
     public delegate void LoginEventHandler(object sender, LoginEventArgs e);
+    public delegate void AlertEventHandler(object sender, SSEventArgs e);
 
     public class SearchParams
     {	
