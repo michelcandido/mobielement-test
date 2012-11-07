@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:map="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
+    xmlns:krempel="clr-namespace:Krempel.WP7.Core.Controls;assembly=Krempel.WP7.Core"  
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -87,7 +88,7 @@
                             <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />
                             <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
                             <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="Black">
-                                <TextBlock Width="360" Text="{Binding CommentValue}" FontSize="23" Foreground="White" TextWrapping="Wrap" Margin="5" />    
+                                <krempel:HtmlTextBlock Html="{Binding CommentValue}" Width="360"  FontSize="23" Foreground="White"  Margin="5" NavigationRequested="htmlTextBlock_NavigationRequested"/>                                 
                             </Grid>
                         </StackPanel>
                     </Grid>                                                                
