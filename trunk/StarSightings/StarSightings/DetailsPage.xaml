@@ -66,7 +66,7 @@
                             </Border>
                             <Image Stretch="UniformToFill" Source="Images/Wikipedia_button.png"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
                         </Grid>
-                        <Grid Tag="{Binding}">
+                        <Grid Tag="{Binding}" Tap="Follow_Tap">
                             <Border Height="60" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <Border.Background>
                                     <SolidColorBrush Color="#ee005e" />
@@ -82,7 +82,7 @@
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="400"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <Image Grid.Column="0"   Width="60" Height="60" Source="{Binding FacebookUid, Converter={StaticResource FacebookPictureConverter}}"/>
                         <StackPanel Grid.Column="1" Width="400">
                             <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />

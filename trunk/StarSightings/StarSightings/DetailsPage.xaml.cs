@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using System.Collections.ObjectModel;
 using Microsoft.Phone.Tasks;
 using System;
+using StarSightings.Events;
 
 namespace StarSightings
 {
@@ -81,6 +82,27 @@ namespace StarSightings
             webBrowserTask.Uri = new Uri(((e.Content as Hyperlink).CommandParameter as string), UriKind.Absolute);
 
             webBrowserTask.Show();
+        }
+
+        private AlertEventHandler followAlertEventHandler;
+        private void Follow_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            followAlertEventHandler = new AlertEventHandler(FollowCompleted);
+            App.SSAPI.AlertHandler += followAlertEventHandler;
+            App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_CELEBRITY,((string)((sender as Grid).Tag)).Trim());
+        }
+
+        public void FollowCompleted(object sender, SSEventArgs e)
+        {
+            App.SSAPI.AlertHandler -= followAlertEventHandler;
+            if (e.Successful)
+            {
+                MessageBox.Show("Your request has been set.");
+            }
+            else
+            {
+                MessageBox.Show("Cannot login, please try again.");
+            }
         }
     }
 }
