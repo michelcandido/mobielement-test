@@ -285,9 +285,9 @@ namespace StarSightings
                         item.Time = xmlItem.Element("time").Value;
                         item.LocalTime = xmlItem.Element("local_time").Value;
                         item.LocalOffset = xmlItem.Element("local_offset").Value;
-                        item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value;
-                        //item.CommentsCnt = xmlItem.Element("comments_count").Value;
 
+#if (DEBUG)
+                        item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value;                        
                         XElement xmlComments = xmlItem.Element("comments");
                         ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
                         if (xmlComments != null)
@@ -301,8 +301,30 @@ namespace StarSightings
                                 comment.Time = xmlComment.Element("time").Value;                                                                
                                 comment.CommentValue = xmlComment.Element("value").Value;
                                 comment.UserId = xmlComment.Element("user_id").Value;
+                                comment.User = xmlComment.Element("user").Value;                                
+                                comments.Add(comment);
+                            }
+
+                            item.Comments = comments;
+                            item.CommentsSummaryList.Source = item.Comments;
+                            item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
+                        }
+#else
+                        item.CommentsCnt = xmlItem.Element("comments_count").Value;
+                        XElement xmlComments = xmlItem.Element("comments");
+                        ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
+                        if (xmlComments != null)
+                        {
+                            foreach (XElement xmlComment in xmlComments.Elements("comment"))
+                            {
+                                CommentViewModel comment = new CommentViewModel();
+                                comment.CommentId = xmlComment.Element("comment_id").Value;
+                                comment.Time = xmlComment.Element("time").Value;
+                                comment.CommentType = xmlComment.Element("comment_type").Value;
+                                comment.Promoted = xmlComment.Element("promoted").Value == "1";                                
+                                comment.CommentValue = xmlComment.Element("value").Value;
+                                comment.UserId = xmlComment.Element("user_id").Value;
                                 comment.User = xmlComment.Element("user").Value;
-                                /*
                                 comment.UserLevel = xmlComment.Element("user_level").Value;
                                 if (xmlComment.Element("facebook_uid") != null)
                                     comment.FacebookUid = xmlComment.Element("facebook_uid").Value;
@@ -310,14 +332,13 @@ namespace StarSightings
                                     comment.ButtonTemplateId = xmlComment.Element("button_template_id").Value;
                                 if (xmlComment.Element("button_template_prompt") != null)
                                     comment.ButtonTemplatePrompt = xmlComment.Element("button_template_prompt").Value;
-                                
-                                 * */
                                 comments.Add(comment);
                             }
                             item.Comments = comments;
                             item.CommentsSummaryList.Source = item.Comments;
                             item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
                         }
+#endif
                         //item.Vote = xmlItem.Element("vote").Value;
                        
                         // computed properties
@@ -509,7 +530,7 @@ namespace StarSightings
         public void Alert(string alertMethod, string subjectType, string subjectName)
         {
             WebClient webClient = GetWebClient();
-            string baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + subjectName + "?mobile=1";
+            string baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1";
             string query = "token="+App.ViewModel.User.Token;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
