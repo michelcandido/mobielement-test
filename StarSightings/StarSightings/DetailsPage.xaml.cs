@@ -101,7 +101,7 @@ namespace StarSightings
             }
             else
             {
-                MessageBox.Show("Cannot login, please try again.");
+                MessageBox.Show("Your Alert request cannot be fullfilled, please try again.");
             }
         }
     }
