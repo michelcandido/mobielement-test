@@ -40,20 +40,8 @@
             <controls:PivotItem Header="nearest">
                 <local:ListViewControl x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails"/>
             </controls:PivotItem>                        
-            <controls:PivotItem Header="following">                
-                <ListBox  Margin="0,0,-12,0" ItemsSource="{Binding FollowingItems}" SelectionChanged="ListBox_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,17">                                
-                                <Rectangle Height="100" Width="100" Fill="{StaticResource redColor}" Margin="12,0,9,0"/>
-                                <StackPanel Width="311">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+            <controls:PivotItem Header="following">
+                <local:ListViewControl x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
             </controls:PivotItem>            
         </controls:Pivot>                        
     </Grid>

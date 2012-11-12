@@ -92,12 +92,15 @@ namespace StarSightings
             App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_CELEBRITY,((string)((sender as Grid).Tag)).Trim());
         }
 
-        public void FollowCompleted(object sender, SSEventArgs e)
+        public void FollowCompleted(object sender, AlertEventArgs e)
         {
             App.SSAPI.AlertHandler -= followAlertEventHandler;
             if (e.Successful)
             {
+                App.ViewModel.Alerts = e.Alerts;
+                Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
                 MessageBox.Show("Your request has been set.");
+                App.ViewModel.SearchFollowing(true, 0, null);
             }
             else
             {

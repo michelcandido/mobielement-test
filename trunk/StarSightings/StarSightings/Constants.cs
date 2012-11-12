@@ -50,6 +50,8 @@ namespace StarSightings
         public const string ALERT_REMOVE = "remove/";
         public const string ALERT_PAUSE = "pause/";
         public const string ALERT_RESUME = "resume/";
+        public const string ALERT_GET = "get/";
+
         public const string ALERT_TYPE_EVENT = "event/";
         public const string ALERT_TYPE_LOCATION = "location/";
         public const string ALERT_TYPE_PLACE = "place/";

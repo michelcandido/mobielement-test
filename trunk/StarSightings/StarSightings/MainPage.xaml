@@ -71,6 +71,7 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
+        
         <ItemsPanelTemplate x:Key="MySummaryItemsPanelTemplate">
             <telerikPrimitives:RadWrapPanel x:Name="radWrapPanel" Width="400"/>
         </ItemsPanelTemplate>
@@ -124,7 +125,7 @@
                     <ListBoxItem>
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="3">following</TextBlock>
-                            <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingSummaryItems}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>                            
+                            <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>                            
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="3">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>

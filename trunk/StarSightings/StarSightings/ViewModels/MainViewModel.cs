@@ -16,6 +16,7 @@ using System.Linq;
 using StarSightings.Events;
 using System.Device.Location;
 using StarSightings.ViewModels;
+using System.Net;
 
 namespace StarSightings
 {
@@ -31,8 +32,9 @@ namespace StarSightings
             this.NearestItems = new ObservableCollection<ItemViewModel>();
             //this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
-            this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
+            //this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
             this.User = new UserViewModel();
+            this.Alerts = new ObservableCollection<AlertViewModel>();
 
             SearchTypePopular = 0;
             SearchTypeLatest = 0;
@@ -60,7 +62,7 @@ namespace StarSightings
         private ObservableCollection<ItemViewModel> nearestItems;
         //private ObservableCollection<ItemViewModel> nearestSummaryItems;
         private ObservableCollection<ItemViewModel> followingItems;
-        private ObservableCollection<ItemViewModel> followingSummaryItems;
+        //private ObservableCollection<ItemViewModel> followingSummaryItems;
 
         public ObservableCollection<ItemViewModel> Items { get { return items; } private set{if (value != items) {items = value; NotifyPropertyChanged("Items");}} }
         public ObservableCollection<ItemViewModel> PopularItems { get { return popularItems; } private set { if (value != popularItems) { popularItems = value; NotifyPropertyChanged("PopularItems"); } } }
@@ -70,7 +72,7 @@ namespace StarSightings
         public ObservableCollection<ItemViewModel> NearestItems { get { return nearestItems; } private set { if (value != nearestItems) { nearestItems = value; NotifyPropertyChanged("NearestItems"); } } }
         //public ObservableCollection<ItemViewModel> NearestSummaryItems { get { return nearestSummaryItems; } private set { if (value != nearestSummaryItems) { nearestSummaryItems = value; NotifyPropertyChanged("NearestSummaryItems"); } } }
         public ObservableCollection<ItemViewModel> FollowingItems { get { return followingItems; } private set { if (value != followingItems) { followingItems = value; NotifyPropertyChanged("FollowingItems"); } } }
-        public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
+        //public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
 
         public CollectionViewSource popularItemsSummaryList;
         public CollectionViewSource latestItemsSummaryList;
@@ -134,6 +136,9 @@ namespace StarSightings
                 this.searchTypeFollowing = value;
             }
         }
+
+        private ObservableCollection<AlertViewModel> alerts;
+        public ObservableCollection<AlertViewModel> Alerts { get { return alerts; } set { if (value != alerts) { alerts = value; NotifyPropertyChanged("Alerts"); } } }
 
         private string deviceId = "Guest";
         public string DeviceId
@@ -269,13 +274,13 @@ namespace StarSightings
                 //this.PopularItems.Add(item);
                 //this.LatestItems.Add(item);
                 //this.NearestItems.Add(item);                
-                this.FollowingItems.Add(item);
+                //this.FollowingItems.Add(item);
             }
 
             //UpdateSummaryItems(this.PopularItems, this.PopularSummaryItems, 1, 2);
             //UpdateSummaryItems(this.LatestItems, this.LatestSummaryItems, 3, 4);
             //UpdateSummaryItems(this.NearestItems, this.NearestSummaryItems, 5, 6);            
-            UpdateSummaryItems(this.FollowingItems, this.FollowingSummaryItems, 7, 8);
+            //UpdateSummaryItems(this.FollowingItems, this.FollowingSummaryItems, 7, 8);
 
             DownloadData();
         }
@@ -294,6 +299,7 @@ namespace StarSightings
             SearchPopular(true,0, null);
             SearchLatest(true,0, null);
             SearchNearest(true, 0, null);
+            SearchFollowing(true, 0, null);
         }
 
         private bool isUpdatingPopular = false;
@@ -354,6 +360,30 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingNearest = true;
+            App.SSAPI.DoSearch(param, token);
+        }
+
+        private bool isUpdatingFollowing = false;
+        public void SearchFollowing(bool fresh, int start, SearchParams param)
+        {
+            if (isUpdatingFollowing)
+                return;
+            if (param == null)
+                param = new SearchParams();
+            param.start = start;
+            param.search_types = SearchType.CATEGORY_FILTER_NAMES[App.ViewModel.SearchTypeFollowing];
+            param.search_user_name = App.ViewModel.User.UserName;
+            IEnumerable<string> query = App.ViewModel.Alerts.Where(alert => alert.Type == "celebrity").Select(alert => alert.Name);
+            foreach (string name in query)
+            {
+                param.search_cat_name += HttpUtility.UrlEncode(name) + ";";
+            }
+            param.logic = "or";            
+            SearchToken token = new SearchToken();
+            token.searchGroup = Constants.SEARCH_FOLLOWING;
+            token.isFresh = fresh;
+            token.start = start;
+            isUpdatingFollowing = true;
             App.SSAPI.DoSearch(param, token);
         }
 
@@ -459,6 +489,38 @@ namespace StarSightings
                         }
                     }
                     isUpdatingNearest = false;
+                }
+                else if (e.SearchToken.searchGroup == Constants.SEARCH_FOLLOWING)
+                {
+                    if (e.SearchToken.isFresh)
+                    {
+                        int count = App.ViewModel.FollowingItems.Count;
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            if (item.PhotoId == id)
+                                continue;
+                            App.ViewModel.FollowingItems.Add(item);
+                            id = item.PhotoId;
+                        }
+                        for (int i = 0; i < count; i++)
+                        {
+                            App.ViewModel.FollowingItems.RemoveAt(0);
+                        }
+                        //UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 3);
+                        this.FollowingItemsSummaryList.Source = App.ViewModel.FollowingItems;
+                        this.FollowingItemsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.FollowingItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
+                    }
+                    else
+                    {
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            if (item.PhotoId == id)
+                                continue;
+                            App.ViewModel.FollowingItems.Add(item);
+                            id = item.PhotoId;
+                        }
+                    }
+                    isUpdatingFollowing = false;
                 }
                 OnSearchCompleted(e);
             }
