@@ -530,7 +530,11 @@ namespace StarSightings
         public void Alert(string alertMethod, string subjectType, string subjectName)
         {
             WebClient webClient = GetWebClient();
-            string baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1";
+            string baseUri;
+            if (string.IsNullOrEmpty(subjectType))
+                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + "?mobile=1";
+            else
+                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1";
             string query = "token="+App.ViewModel.User.Token;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
@@ -549,8 +553,8 @@ namespace StarSightings
                     //MessageBox.Show(e.Error.Message);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
-                SSEventArgs se = new SSEventArgs(false);
-                OnAlert(se);
+                AlertEventArgs ae = new AlertEventArgs(false);
+                OnAlert(ae);
             }
             else
             {
@@ -558,36 +562,59 @@ namespace StarSightings
                 //this.State["feed"] = e.Result;
 
                 XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
-                XElement xmlStatus = xmlResponse.Element("status");
+                XElement xmlAlerts = xmlResponse.Element("alerts");
 
-                if (xmlStatus != null && String.Compare(xmlStatus.Value, "OK", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (xmlAlerts != null)
                 {
-                    SSEventArgs se = new SSEventArgs(true);                    
-                    OnAlert(se);
+                    AlertEventArgs ae = new AlertEventArgs(true);                                        
+                    ae.Alerts = UpdateAlerts(xmlAlerts);
+                    OnAlert(ae);
                 }
                 else
                 {
-                    SSEventArgs se = new SSEventArgs(false);
-                    OnAlert(se);
+                    AlertEventArgs ae = new AlertEventArgs(false);
+                    OnAlert(ae);
                 }                 
             }
         }
 
         public event AlertEventHandler AlertHandler;
 
-        protected virtual void OnAlert(SSEventArgs e)
+        protected virtual void OnAlert(AlertEventArgs e)
         {
             if (AlertHandler != null)
             {
                 AlertHandler(this, e);
             }
         }
+
+        private ObservableCollection<AlertViewModel> UpdateAlerts(XElement xmlAlerts)
+        {
+            ObservableCollection<AlertViewModel> alerts = new ObservableCollection<AlertViewModel>();
+            foreach (XElement xmlAlert in xmlAlerts.Elements("alert"))
+            {
+                AlertViewModel alert = new AlertViewModel();
+                alert.Type = xmlAlert.Element("type").Value.Trim();
+                if (alert.Type.Equals("geo"))
+                {
+                    alert.GeoLat = xmlAlert.Element("lat").Value.Trim();
+                    alert.GeoLng = xmlAlert.Element("lng").Value.Trim();
+                }
+                else
+                {
+                    alert.Name = xmlAlert.Element("name").Value.Trim();
+                }
+                alert.Active = xmlAlert.Element("active").Value.Trim() == "1";
+                alerts.Add(alert);
+            }
+            return alerts;
+        }
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
     public delegate void SearchEventHandler(object sender, SearchEventArgs e);
     public delegate void LoginEventHandler(object sender, LoginEventArgs e);
-    public delegate void AlertEventHandler(object sender, SSEventArgs e);
+    public delegate void AlertEventHandler(object sender, AlertEventArgs e);
 
     public class SearchParams
     {	
@@ -615,6 +642,8 @@ namespace StarSightings
 	    public String search_event_name;
 	    public String search_place_name;
 	    public String search_location_name;
+        public String search_user_name;
+        public String logic;
 	
 	    public bool isAlert;
 	
@@ -643,6 +672,12 @@ namespace StarSightings
                     sb.Append("&search_lat=" + search_lat);
                 if (!search_lng.Equals(Double.NaN))
                     sb.Append("&search_lng=" + search_lng);
+                if (search_user_name != null)
+                    sb.Append("&search_user_name=" + search_user_name);
+                if (search_cat_name != null)
+                    sb.Append("&search_cat_name=" + search_cat_name);
+                if (logic != null)
+                    sb.Append("&logic=" + logic);
                 return sb.ToString();
             }
             else if (start > 0)

@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using StarSightings.Events;
 using StarSightings.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace StarSightings
 {
@@ -57,6 +58,7 @@ namespace StarSightings
             }
         }
 
+        private bool loginSuccess;
         public void Login()
         {
             bool needLogin = false;
@@ -99,14 +101,14 @@ namespace StarSightings
                 App.SSAPI.Login(App.ViewModel.AccountType, query);
             }
             else
-            {
-                IsAppInit = true;                
+            {                                
                 if (App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_DEVICE)
                     App.ViewModel.NeedLogin = true;
                 else
                     App.ViewModel.NeedLogin = false;
-                SSEventArgs se = new SSEventArgs(true);
-                OnInit(se);
+                
+                loginSuccess = true;
+                UpdateAlerts();
             }
         }
 
@@ -123,10 +125,43 @@ namespace StarSightings
                 else
                     App.ViewModel.NeedLogin = false;
             }
+            
+            loginSuccess = e.Successful;
+            UpdateAlerts();
+        }
 
+        public void UpdateAlerts()
+        {
+            myAlertEventHandler = new AlertEventHandler(AlertCompleted);
+            App.SSAPI.AlertHandler += myAlertEventHandler;
+            App.SSAPI.Alert(Constants.ALERT_GET,null,null);
+        }
+
+        private AlertEventHandler myAlertEventHandler;
+        public void AlertCompleted(object sender, AlertEventArgs e)
+        {
+            App.SSAPI.AlertHandler -= myAlertEventHandler;
+            if (e.Successful)
+            {
+                App.ViewModel.Alerts = e.Alerts;
+                Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
+            }
+            else
+            {
+                if (Utils.GetIsolatedStorageSettings("Alerts") != null)
+                {
+                    App.ViewModel.Alerts = (ObservableCollection<AlertViewModel>)Utils.GetIsolatedStorageSettings("Alerts");                    
+                }
+                
+            }
+            InitCompleted(loginSuccess);
+        }
+
+        private void InitCompleted(bool success)
+        {
             IsAppInit = true;
-            SSEventArgs se = e.Successful?new SSEventArgs(true):new SSEventArgs(false);
-            OnInit(se);            
+            SSEventArgs se = new SSEventArgs(success);
+            OnInit(se);
         }
     }
 
