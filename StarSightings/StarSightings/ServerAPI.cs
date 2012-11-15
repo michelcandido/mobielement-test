@@ -204,6 +204,8 @@ namespace StarSightings
                 user.UserName = xmlUserInfo.Element("username").Value;
                 user.UserId = xmlUserInfo.Element("user_id").Value;
 
+                
+
                 return user;
             }
             else
@@ -434,7 +436,7 @@ namespace StarSightings
             webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
             string baseUri = Constants.SERVER_NAME + Constants.URL_LOGIN;
             string param = query + "&persistent=1";
-            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, "");
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, param);
 
             webClient.UploadStringCompleted += new UploadStringCompletedEventHandler(HandleLogin);
             webClient.UploadStringAsync(uri,param);            
@@ -461,6 +463,13 @@ namespace StarSightings
                 {                    
                     LoginEventArgs le = new LoginEventArgs(true);
                     le.User = user;
+                    /*
+                    // we can also get the alets information from here                    
+                    XElement xmlResponse = XElement.Parse(e.Result);
+                    XElement xmlAlerts = xmlResponse.Element("alerts");
+                    ObservableCollection<AlertViewModel> alerts = UpdateAlerts(xmlAlerts);
+                    le.Alerts = alerts;
+                    */
                     OnLogin(le);
                 }
                 else

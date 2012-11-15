@@ -63,7 +63,7 @@
     <Reference Include="Coding4Fun.Phone.Storage">
       <HintPath>..\packages\Coding4Fun.Phone.Storage.1.6.1\lib\sl4-windowsphone71\Coding4Fun.Phone.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="Facebook">
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Facebook.6.0.24\lib\sl4-windowsphone71\Facebook.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack">
@@ -135,6 +135,9 @@
     <Compile Include="Events\LoginEventArgs.cs" />
     <Compile Include="Events\RegisterEventArgs.cs" />
     <Compile Include="Events\SearchEventArgs.cs" />
+    <Compile Include="FacebookLoginPage.xaml.cs">
+      <DependentUpon>FacebookLoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FilterPage.xaml.cs">
       <DependentUpon>FilterPage.xaml</DependentUpon>
     </Compile>
@@ -305,6 +308,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FacebookLoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

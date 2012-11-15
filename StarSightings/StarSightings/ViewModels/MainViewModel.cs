@@ -299,7 +299,7 @@ namespace StarSightings
             SearchPopular(true,0, null);
             SearchLatest(true,0, null);
             SearchNearest(true, 0, null);
-            SearchFollowing(true, 0, null);
+            //SearchFollowing(true, 0, null);
         }
 
         private bool isUpdatingPopular = false;
