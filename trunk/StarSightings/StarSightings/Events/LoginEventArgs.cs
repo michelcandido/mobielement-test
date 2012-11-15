@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using StarSightings.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace StarSightings.Events
 {
@@ -51,5 +52,19 @@ namespace StarSightings.Events
                 this.accountType = value;
             }
         }
+        /*
+        private ObservableCollection<AlertViewModel> alerts;
+        public ObservableCollection<AlertViewModel> Alerts
+        {
+            get
+            {
+                return this.alerts;
+            }
+            set
+            {
+                this.alerts = value;
+            }
+        }
+         * */
     }
 }

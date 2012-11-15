@@ -61,12 +61,19 @@ namespace StarSightings
                     App.ViewModel.NeedLogin = true;
                 else
                     App.ViewModel.NeedLogin = false;
+                App.Config.UpdateAlerts();
+                //App.ViewModel.SearchFollowing(true, 0, null);
                 this.NavigationService.GoBack();
             }
             else
             {
                 MessageBox.Show("Cannot login, please try again.");
             }
+        }
+
+        private void btnFacebook_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/FacebookLoginPage.xaml", UriKind.Relative));
         }
     }
 }
