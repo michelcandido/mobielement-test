@@ -72,7 +72,7 @@ namespace StarSightings
         }
 
         private void btnFacebook_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
+        {            
             NavigationService.Navigate(new Uri("/FacebookLoginPage.xaml", UriKind.Relative));
         }
     }

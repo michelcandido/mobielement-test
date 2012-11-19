@@ -156,11 +156,15 @@ namespace StarSightings
                 App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_DEVICE;
                 Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
                 Utils.RemoveIsolatedStorageSettings("User");
+                if (App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_DEVICE)
+                    App.ViewModel.NeedLogin = true;
+                else
+                    App.ViewModel.NeedLogin = false;
                 App.Config.Login();
             }
             else
             {
-                MessageBox.Show("Cannot login, please try again.");
+                MessageBox.Show("Cannot logout, please try again.");
             }
         }
 
