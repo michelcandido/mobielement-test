@@ -108,7 +108,7 @@ namespace StarSightings
         private void LoginSS(string accessToken)
         {
             App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_FACEBOOK;
-            string query = "fb_token=" + accessToken;// +"&device_id=" + App.ViewModel.DeviceId;
+            string query = "fb_token=" + accessToken;// +"v=3" + "&device_id=" + App.ViewModel.DeviceId + "&auto_register=1";// ;
             myLoginEventHandler = new LoginEventHandler(LoginCompleted);
             App.SSAPI.LoginHandler += myLoginEventHandler;
             App.SSAPI.Login(App.ViewModel.AccountType, query);
@@ -126,11 +126,13 @@ namespace StarSightings
                     App.ViewModel.NeedLogin = true;
                 else
                     App.ViewModel.NeedLogin = false;
-                this.NavigationService.GoBack();
+                NavigationService.RemoveBackEntry();
+                this.NavigationService.GoBack();                
             }
             else
             {
                 MessageBox.Show("Cannot login, please try again.");
+                NavigationService.RemoveBackEntry();
                 this.NavigationService.GoBack();
             }
         }

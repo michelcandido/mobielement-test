@@ -434,6 +434,7 @@ namespace StarSightings
         {            
             WebClient webClient = GetWebClient();
             webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
+            
             string baseUri = Constants.SERVER_NAME + Constants.URL_LOGIN;
             string param = query + "&persistent=1";
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, param);
