@@ -351,6 +351,18 @@ namespace StarSightings
                         item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
                         item.Celebs = item.Cat.Split(new Char[] { ';' });
                         item.Cat = item.Cat.Replace(";", ", ");
+                        
+                        string filename = item.ThumbOrigLarge;
+                        filename = filename.Substring(filename.IndexOf("thumb"));
+                        int start = filename.IndexOf('.') + 1;
+                        int end = filename.IndexOf('x');
+                        string size_string = filename.Substring(start, end - start);
+                        int size_int = 160;
+                        Int32.TryParse(size_string, out size_int);
+                        if (item.Rights == "1" || item.Rights == "3")
+                            item.DetailPagePhotoSize = Math.Min(480,size_int*2);                            
+                        else
+                            item.DetailPagePhotoSize = 160;
 
                         item.EventSourceMode = string.Empty;
                         string host = string.Empty;

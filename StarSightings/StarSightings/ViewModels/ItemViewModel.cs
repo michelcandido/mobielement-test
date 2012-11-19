@@ -69,6 +69,23 @@ namespace StarSightings
         private ObservableCollection<CommentViewModel> comments;
         private CollectionViewSource commentsSummaryList;
         private string[] celebs;
+        private int detailPagePhotoSize;
+
+        public int DetailPagePhotoSize
+        {
+            get
+            {
+                return this.detailPagePhotoSize;
+            }
+            set
+            {
+                if (value != this.detailPagePhotoSize)
+                {
+                    this.detailPagePhotoSize = value;
+                    NotifyPropertyChanged("DetailPagePhotoSize");
+                }
+            }
+        }
 
         public CollectionViewSource CommentsSummaryList 
         { 
