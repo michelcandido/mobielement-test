@@ -108,7 +108,7 @@ namespace StarSightings
         private void LoginSS(string accessToken)
         {
             App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_FACEBOOK;
-            string query = "fb_token=" + accessToken;// +"v=3" + "&device_id=" + App.ViewModel.DeviceId + "&auto_register=1";// ;
+            string query = "fb_token=" + accessToken + "&device_id=" + App.ViewModel.DeviceId +"&auto_register=1";// ;
             myLoginEventHandler = new LoginEventHandler(LoginCompleted);
             App.SSAPI.LoginHandler += myLoginEventHandler;
             App.SSAPI.Login(App.ViewModel.AccountType, query);

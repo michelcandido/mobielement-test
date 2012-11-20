@@ -554,9 +554,9 @@ namespace StarSightings
             WebClient webClient = GetWebClient();
             string baseUri;
             if (string.IsNullOrEmpty(subjectType))
-                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + "?mobile=1";
+                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + "?mobile=1&v=3";
             else
-                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1";
+                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1&v=3";
             string query = "token="+App.ViewModel.User.Token;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 

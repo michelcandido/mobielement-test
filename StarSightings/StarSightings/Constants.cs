@@ -24,14 +24,14 @@ namespace StarSightings
         public const string BASE_AUTH_PASSWORD = "20zohtNAbcSzE15";
 
         //URLS
-        public const string URL_REGISTER_DEVICE = "/index.php?page=device&mode=register&mobile=1";
-        public const string URL_UNREGISTER_DEVICE = "/index.php?page=device&mode=unregister&mobile=1";
-        public const string URL_SEARCH = "/index.php?page=photo&mode=list&mobile=1";
-        public const string URL_INDEX_PAGE_SEARCH = "/index.php?mobile=1";
-        public const string URL_GET_DETAILS = "/index.php?page=post&mode=view&photo_id=";
-        public const string URL_REGISTER_USER = "/index.php?page=profile&mode=register&mobile=1";
-        public const string URL_LOGIN = "/index.php?page=profile&mode=login&mobile=1";
-        public const string URL_LOGOUT = "/index.php?page=profile&mode=logout&mobile=1";
+        public const string URL_REGISTER_DEVICE = "/index.php?page=device&mode=register&mobile=1&v=3";
+        public const string URL_UNREGISTER_DEVICE = "/index.php?page=device&mode=unregister&mobile=1&v=3";
+        public const string URL_SEARCH = "/index.php?page=photo&mode=list&mobile=1&v=3";
+        public const string URL_INDEX_PAGE_SEARCH = "/index.php?mobile=1&v=3";
+        public const string URL_GET_DETAILS = "/index.php?page=post&v=3&mode=view&photo_id=";
+        public const string URL_REGISTER_USER = "/index.php?page=profile&mode=register&mobile=1&v=3";
+        public const string URL_LOGIN = "/index.php?page=profile&mode=login&mobile=1&v=3";
+        public const string URL_LOGOUT = "/index.php?page=profile&mode=logout&mobile=1&v=3";
         public const string URL_ALERT = "/alerts/";
 
         public const int LIMIT=15;
