@@ -261,9 +261,16 @@ namespace StarSightings
                                 break;
                             case 1:
                                 SearchParams param = new SearchParams();
-                                param.search_lat = App.ViewModel.MapCenter.Latitude;
-                                param.search_lng = App.ViewModel.MapCenter.Longitude;
-                                App.ViewModel.SearchNearest(true, 0, param);
+                                if (App.ViewModel.MapCenter != null)
+                                {
+                                    param.search_lat = App.ViewModel.MapCenter.Latitude;
+                                    param.search_lng = App.ViewModel.MapCenter.Longitude;
+                                    App.ViewModel.SearchNearest(true, 0, param);
+                                }
+                                else
+                                {
+                                    App.ViewModel.SearchNearest(true, 0, null);
+                                }
                                 break;
                         }
                     }
