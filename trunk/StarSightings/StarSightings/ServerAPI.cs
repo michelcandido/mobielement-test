@@ -353,7 +353,10 @@ namespace StarSightings
                         item.Cat = item.Cat.Replace(";", ", ");
                         
                         string filename = item.ThumbOrigLarge;
-                        filename = filename.Substring(filename.IndexOf("thumb"));
+                        if (filename.Contains("thumb"))
+                            filename = filename.Substring(filename.IndexOf("thumb"));
+                        else if (filename.Contains("nophoto"))
+                            filename = filename.Substring(filename.IndexOf("nophoto"));
                         int start = filename.IndexOf('.') + 1;
                         int end = filename.IndexOf('x');
                         string size_string = filename.Substring(start, end - start);
