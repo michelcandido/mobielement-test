@@ -91,7 +91,8 @@ namespace StarSightings
         private void DoTest(object sender, System.Windows.Input.GestureEventArgs e)
         {
             //this.NavigationService.Navigate(new Uri("/SignupPage.xaml", UriKind.RelativeOrAbsolute));
-            App.SSAPI.Logout();
+            //App.SSAPI.Logout();
+            App.SSAPI.Keyword(Constants.KEYWORD_PLACE, "coffee");
         }
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
@@ -176,6 +177,11 @@ namespace StarSightings
                 this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, (string)(sender as FrameworkElement).Tag), UriKind.RelativeOrAbsolute));
             }
             
+        }        
+
+        private void GoToSearch(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/SearchInputPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
        
