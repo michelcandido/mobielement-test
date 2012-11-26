@@ -16,6 +16,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using StarSightings.ViewModels;
 using System.Device.Location;
+using System.Collections.Generic;
 
 namespace StarSightings
 {
@@ -557,9 +558,9 @@ namespace StarSightings
             WebClient webClient = GetWebClient();
             string baseUri;
             if (string.IsNullOrEmpty(subjectType))
-                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + "?mobile=1&v=3";
+                baseUri = Constants.SERVER_NAME + Constants.URL_ALERT + alertMethod + "?mobile=1&v=3";
             else
-                baseUri = Constants.SERVER_NAME + "/alerts/" + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1&v=3";
+                baseUri = Constants.SERVER_NAME + Constants.URL_ALERT + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1&v=3";
             string query = "token="+App.ViewModel.User.Token;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
@@ -634,12 +635,79 @@ namespace StarSightings
             }
             return alerts;
         }
+
+        public void Keyword(string page, string q)
+        {
+            WebClient webClient = GetWebClient();
+            string baseUri = Constants.SERVER_NAME + Constants.URL_KEYWORD;
+            string query = "page=" + page + "&device_id="+App.ViewModel.DeviceId + "&q=" + HttpUtility.UrlEncode(q);
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleKeyword);
+            webClient.DownloadStringAsync(uri);
+        }
+
+        private void HandleKeyword(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                KeywordEventArgs ke = new KeywordEventArgs(false);
+                OnKeyword(ke);
+            }
+            else
+            {
+                // Save the feed into the State property in case the application is tombstoned.                 
+                //this.State["feed"] = e.Result;
+
+                XElement xmlResponse = XElement.Parse(e.Result);
+                XElement xmlSuggestions = xmlResponse.Element("suggestions");
+                XElement xmlValues = xmlSuggestions.Element("values");
+
+                if (xmlValues != null)
+                {
+                    List<string> values = new List<string>();
+                    foreach (XElement xmlValue in xmlValues.Elements("value"))
+                    {
+                        if (!string.IsNullOrEmpty(xmlValue.Value))
+                        {
+                            values.Add(xmlValue.Value);
+                        }
+                    }
+                    KeywordEventArgs ke = new KeywordEventArgs(false);
+                    ke.Keywords = values;
+                    OnKeyword(ke);
+                }
+                else
+                {
+                    KeywordEventArgs ke = new KeywordEventArgs(false);
+                    OnKeyword(ke);
+                }
+            }
+        }
+
+        public event KeywordEventHandler KeywordHandler;
+
+        protected virtual void OnKeyword(KeywordEventArgs e)
+        {
+            if (KeywordHandler != null)
+            {
+                KeywordHandler(this, e);
+            }
+        }
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
     public delegate void SearchEventHandler(object sender, SearchEventArgs e);
     public delegate void LoginEventHandler(object sender, LoginEventArgs e);
     public delegate void AlertEventHandler(object sender, AlertEventArgs e);
+    public delegate void KeywordEventHandler(object sender, KeywordEventArgs e);
 
     public class SearchParams
     {	
