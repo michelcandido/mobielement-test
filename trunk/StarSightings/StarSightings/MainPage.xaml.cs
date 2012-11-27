@@ -181,7 +181,7 @@ namespace StarSightings
 
         private void GoToSearch(object sender, EventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/SearchInputPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
        

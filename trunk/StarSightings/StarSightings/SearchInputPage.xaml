@@ -16,7 +16,10 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" >
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -24,8 +27,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="STAR SIGHTINGS" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Search" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
@@ -34,17 +36,18 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-            
-                <TextBlock Margin="{StaticResource PhoneHorizontalMargin}" Text="SEARCH" Foreground="#3BB23B" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
-                <telerikInput:RadAutoCompleteBox AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox" Grid.Row="1" AutoCompleteMode="Contains">
+
+                <TextBlock Grid.Row="0" Margin="{StaticResource PhoneHorizontalMargin}" Text="SEARCH" Foreground="#3BB23B" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                <telerikInput:RadAutoCompleteBox Grid.Row="1"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains">
                     <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"/>
                         </DataTemplate>
                     </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                 </telerikInput:RadAutoCompleteBox>
+                <Button Grid.Row="2">Search</Button>
             </Grid>
         </Grid>
     </Grid>
