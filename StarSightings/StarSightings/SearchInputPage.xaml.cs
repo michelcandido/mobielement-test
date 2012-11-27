@@ -28,6 +28,19 @@ namespace StarSightings
             this.provider.InputChanged += this.OnProvider_InputChanged;
         }
 
+        private int pageMode = 0;
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
+            {
+                if (NavigationContext.QueryString.ContainsKey("page"))
+                {                   
+                    int.TryParse(NavigationContext.QueryString["page"], out pageMode);                    
+                }
+            }
+        }
+
         private void OnProvider_InputChanged(object sender, EventArgs e)
         {
             if (!NetworkInterface.GetIsNetworkAvailable())
@@ -42,7 +55,22 @@ namespace StarSightings
                 //FlixsterApi.GetMovieInfoByTitle(this.provider.InputString, 20, 1, this.OnMoviesDelivered);
                 keywordHandler = new KeywordEventHandler(KeywordSearchCompleted);
                 App.SSAPI.KeywordHandler += keywordHandler;
-                App.SSAPI.Keyword(Constants.KEYWORD_PLACE, this.provider.InputString);
+
+                switch (pageMode)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        App.SSAPI.Keyword(Constants.KEYWORD_EVENT, this.provider.InputString);
+                        break;
+                    case 2:
+                        App.SSAPI.Keyword(Constants.KEYWORD_PLACE, this.provider.InputString);
+                        break;
+                    case 3:
+                        App.SSAPI.Keyword(Constants.KEYWORD_LOCATION, this.provider.InputString);
+                        break;
+                }
+                
 
             }
             else
