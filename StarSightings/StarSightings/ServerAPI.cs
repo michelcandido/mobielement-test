@@ -771,6 +771,12 @@ namespace StarSightings
                     sb.Append("&search_cat_name=" + search_cat_name);
                 if (logic != null)
                     sb.Append("&logic=" + logic);
+                if (search_event_name != null)
+                    sb.Append("&search_event_name=" + search_event_name);
+                if (search_place_name != null)
+                    sb.Append("&search_place_name=" + search_place_name);
+                if (search_location_name != null)
+                    sb.Append("&search_location_name=" + search_location_name);
                 return sb.ToString();
             }
             else if (start > 0)

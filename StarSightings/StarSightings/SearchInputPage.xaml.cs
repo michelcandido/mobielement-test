@@ -95,5 +95,26 @@ namespace StarSightings
                 this.provider.LoadSuggestions(new List<string>());
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            switch (pageMode)
+            {
+                case 0:
+                    break;
+                case 1:                    
+                    App.ViewModel.KeywordType = Constants.KEYWORD_EVENT;
+                    break;
+                case 2:
+                    App.ViewModel.KeywordType = Constants.KEYWORD_PLACE;
+                    break;
+                case 3:
+                    App.ViewModel.KeywordType = Constants.KEYWORD_LOCATION;
+                    break;
+            }
+            App.ViewModel.SearchKeywords = this.provider.InputString;
+            App.ViewModel.SearchKeywordSearch(true, 0, null);
+            this.NavigationService.Navigate(new Uri("/ListPage.xaml?pivotItemId=4", UriKind.RelativeOrAbsolute));
+        }
     }
 }

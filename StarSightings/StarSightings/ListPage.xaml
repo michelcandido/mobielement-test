@@ -42,7 +42,10 @@
             </controls:PivotItem>                        
             <controls:PivotItem Header="following">
                 <local:ListViewControl x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
-            </controls:PivotItem>            
+            </controls:PivotItem>
+            <controls:PivotItem Header="search">
+                <local:ListViewControl x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails"/>
+            </controls:PivotItem>
         </controls:Pivot>                        
     </Grid>
  
@@ -52,7 +55,7 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.position.rest.png" Text="map" Click="GoToMap" />
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.filter.rest.png" Text="filter" Click="GoToFilter" />
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.camera.rest.png" Text="post"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search" Click="GoToSearch" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>

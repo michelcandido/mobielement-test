@@ -42,6 +42,7 @@ namespace StarSightings
         public const int SEARCH_LATEST = 1;
         public const int SEARCH_NEAREST = 2;
         public const int SEARCH_FOLLOWING = 3;
+        public const int SEARCH_KEYWORDSEARCH = 4;
 
         public const int ACCOUNT_TYPE_DEVICE = 0;
         public const int ACCOUNT_TYPE_SS = 1;

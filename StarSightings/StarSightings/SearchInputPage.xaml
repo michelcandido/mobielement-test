@@ -47,7 +47,7 @@
                         </DataTemplate>
                     </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                 </telerikInput:RadAutoCompleteBox>
-                <Button Grid.Row="2">Search</Button>
+                <Button Grid.Row="2" Click="Button_Click">Search</Button>
             </Grid>
         </Grid>
     </Grid>

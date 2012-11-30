@@ -94,6 +94,11 @@ namespace StarSightings
         private void GoToDetails(object sender, EventArgs e)
         {
             this.NavigationService.Navigate(((NavigationEventArgs)e).Uri);
+        }
+
+        private void GoToSearch(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
         }        
     }
 }

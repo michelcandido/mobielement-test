@@ -176,7 +176,7 @@
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_map.png" Text="map"/>
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment"/>
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_heart.png" Text="vote"/>
