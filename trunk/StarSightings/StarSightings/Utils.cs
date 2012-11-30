@@ -164,14 +164,21 @@ namespace StarSightings
         public static double Between(this DistanceIn @in, GeoCoordinate here, GeoCoordinate there)
         {
             var r = (@in == DistanceIn.Miles) ? 3960 : 6371;
-            var dLat = (there.Latitude - here.Latitude).ToRadian();
-            var dLon = (there.Longitude - here.Longitude).ToRadian();
-            var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                    Math.Cos(here.Latitude.ToRadian()) * Math.Cos(there.Latitude.ToRadian()) *
-                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
-            var c = 2 * Math.Asin(Math.Min(1, Math.Sqrt(a)));
-            var d = r * c;
-            return d;
+            if (there != null && here != null)
+            {
+                var dLat = (there.Latitude - here.Latitude).ToRadian();
+                var dLon = (there.Longitude - here.Longitude).ToRadian();
+                var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                        Math.Cos(here.Latitude.ToRadian()) * Math.Cos(there.Latitude.ToRadian()) *
+                        Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+                var c = 2 * Math.Asin(Math.Min(1, Math.Sqrt(a)));
+                var d = r * c;
+                return d;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

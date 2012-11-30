@@ -33,6 +33,8 @@ namespace StarSightings
             //this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
             //this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.KeywordSearchItems = new ObservableCollection<ItemViewModel>();
+
             this.User = new UserViewModel();
             this.Alerts = new ObservableCollection<AlertViewModel>();
 
@@ -40,6 +42,7 @@ namespace StarSightings
             SearchTypeLatest = 0;
             SearchTypeNearest = 0;
             SearchTypeFollowing = 0;
+            SearchTypeKeyword = 0;
 
             App.SSAPI.SearchHandler += new SearchEventHandler(SearchCompleted);
             App.GeoWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
@@ -63,6 +66,7 @@ namespace StarSightings
         //private ObservableCollection<ItemViewModel> nearestSummaryItems;
         private ObservableCollection<ItemViewModel> followingItems;
         //private ObservableCollection<ItemViewModel> followingSummaryItems;
+        private ObservableCollection<ItemViewModel> keywordSearchItems;
 
         public ObservableCollection<ItemViewModel> Items { get { return items; } private set{if (value != items) {items = value; NotifyPropertyChanged("Items");}} }
         public ObservableCollection<ItemViewModel> PopularItems { get { return popularItems; } private set { if (value != popularItems) { popularItems = value; NotifyPropertyChanged("PopularItems"); } } }
@@ -73,6 +77,7 @@ namespace StarSightings
         //public ObservableCollection<ItemViewModel> NearestSummaryItems { get { return nearestSummaryItems; } private set { if (value != nearestSummaryItems) { nearestSummaryItems = value; NotifyPropertyChanged("NearestSummaryItems"); } } }
         public ObservableCollection<ItemViewModel> FollowingItems { get { return followingItems; } private set { if (value != followingItems) { followingItems = value; NotifyPropertyChanged("FollowingItems"); } } }
         //public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
+        public ObservableCollection<ItemViewModel> KeywordSearchItems { get { return keywordSearchItems; } private set { if (value != keywordSearchItems) { keywordSearchItems = value; NotifyPropertyChanged("KeywordSearchItems"); } } }
 
         public CollectionViewSource popularItemsSummaryList;
         public CollectionViewSource latestItemsSummaryList;
@@ -88,6 +93,10 @@ namespace StarSightings
         private int searchTypeLatest;
         private int searchTypeNearest;
         private int searchTypeFollowing;
+        private int searchTypeKeyword;
+
+        private string keywordType;
+        private string searchKeywords;
 
         public int SearchTypePopular
         {
@@ -134,6 +143,42 @@ namespace StarSightings
             set
             {
                 this.searchTypeFollowing = value;
+            }
+        }
+
+        public int SearchTypeKeyword
+        {
+            get
+            {
+                return this.searchTypeKeyword;
+            }
+            set
+            {
+                this.searchTypeKeyword = value;
+            }
+        }
+
+        public string KeywordType
+        {
+            get
+            {
+                return this.keywordType;
+            }
+            set
+            {
+                this.keywordType = value;
+            }
+        }
+
+        public string SearchKeywords
+        {
+            get
+            {
+                return this.searchKeywords;
+            }
+            set
+            {
+                this.searchKeywords = value;
             }
         }
 
@@ -387,6 +432,40 @@ namespace StarSightings
             App.SSAPI.DoSearch(param, token);
         }
 
+        private bool isUpdatingKeywordSearch = false;
+        public void SearchKeywordSearch(bool fresh, int start, SearchParams param)
+        {
+            if (isUpdatingKeywordSearch)
+                return;
+            if (param == null)
+                param = new SearchParams();
+            param.start = start;
+            param.search_types = SearchType.CATEGORY_FILTER_NAMES[App.ViewModel.SearchTypeKeyword];
+            if (App.ViewModel.KeywordType == Constants.KEYWORD_NAME)
+            {
+                param.search_cat_name = HttpUtility.UrlEncode(App.ViewModel.SearchKeywords);
+            }
+            else if (App.ViewModel.KeywordType == Constants.KEYWORD_EVENT)
+            {
+                param.search_event_name = HttpUtility.UrlEncode(App.ViewModel.SearchKeywords);
+            }
+            else if (App.ViewModel.KeywordType == Constants.KEYWORD_LOCATION)
+            {
+                param.search_location_name = HttpUtility.UrlEncode(App.ViewModel.SearchKeywords);
+            }
+            else if (App.ViewModel.KeywordType == Constants.KEYWORD_PLACE)
+            {
+                param.search_place_name = HttpUtility.UrlEncode(App.ViewModel.SearchKeywords);
+            }
+           
+            SearchToken token = new SearchToken();
+            token.searchGroup = Constants.SEARCH_KEYWORDSEARCH;
+            token.isFresh = fresh;
+            token.start = start;
+            isUpdatingKeywordSearch = true;
+            App.SSAPI.DoSearch(param, token);
+        }
+
         public void SearchCompleted(object sender, SearchEventArgs e)
         {
             if (e.Successful)
@@ -522,6 +601,41 @@ namespace StarSightings
                     }
                     isUpdatingFollowing = false;
                 }
+                else if (e.SearchToken.searchGroup == Constants.SEARCH_KEYWORDSEARCH)
+                {
+                    if (e.SearchToken.isFresh)
+                    {
+                        //App.ViewModel.PopularItems.Clear();
+                        int count = App.ViewModel.KeywordSearchItems.Count;
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            if (item.PhotoId == id)
+                                continue;
+                            App.ViewModel.KeywordSearchItems.Add(item);
+                            id = item.PhotoId;
+                        }
+                        for (int i = 0; i < count; i++)
+                        {
+                            App.ViewModel.KeywordSearchItems.RemoveAt(0);
+                        }
+                        //UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 3);
+
+                        //this.PopularItemsSummaryList.Source = App.ViewModel.PopularItems;
+                        //this.PopularItemsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.PopularItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
+                    }
+                    else
+                    {
+                        foreach (ItemViewModel item in e.Items)
+                        {
+                            if (item.PhotoId == id)
+                                continue;
+                            App.ViewModel.KeywordSearchItems.Add(item);
+                            id = item.PhotoId;
+                        }
+                    }
+                    isUpdatingKeywordSearch = false;
+                }
+
                 OnSearchCompleted(e);
             }
         }
@@ -609,6 +723,8 @@ namespace StarSightings
                     return NearestItems;
                 case Constants.SEARCH_FOLLOWING:
                     return FollowingItems;
+                case Constants.SEARCH_KEYWORDSEARCH:
+                    return KeywordSearchItems;
             }
             return null;
         }

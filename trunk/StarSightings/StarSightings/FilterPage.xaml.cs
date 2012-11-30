@@ -49,6 +49,9 @@ namespace StarSightings
                     case 3:
                         this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = followFilterNames, SelectedItem = followFilterNames[App.ViewModel.SearchTypeFollowing] };
                         break;
+                    case 4:
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = categoryFilterNames[App.ViewModel.SearchTypeKeyword] };
+                        break;
                 }
                 searchGroupId = itemId;
             }
@@ -277,6 +280,14 @@ namespace StarSightings
                     break;
                 case 3:
                     App.ViewModel.SearchTypeFollowing = Array.IndexOf(this.followFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    break;
+                case 4:
+                    idx = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    if (App.ViewModel.SearchTypeKeyword != idx)
+                    {
+                        App.ViewModel.SearchTypeKeyword = idx;
+                        App.ViewModel.SearchKeywordSearch(true, 0, null);
+                    }
                     break;
             }
             this.NavigationService.GoBack();

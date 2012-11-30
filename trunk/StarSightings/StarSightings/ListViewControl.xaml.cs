@@ -104,6 +104,9 @@ namespace StarSightings
                 case Constants.SEARCH_FOLLOWING:
                     App.ViewModel.SearchFollowing(true, 0, null);
                     break;
+                case Constants.SEARCH_KEYWORDSEARCH:
+                    App.ViewModel.SearchKeywordSearch(true, 0, null);
+                    break;
             }
         }
 
@@ -127,6 +130,9 @@ namespace StarSightings
                     break;
                 case Constants.SEARCH_FOLLOWING:
                     App.ViewModel.SearchFollowing(false, currentStartIndex, null);
+                    break;
+                case Constants.SEARCH_KEYWORDSEARCH:
+                    App.ViewModel.SearchKeywordSearch(false, currentStartIndex, null);
                     break;
             }
             this.requestIssued = true;
