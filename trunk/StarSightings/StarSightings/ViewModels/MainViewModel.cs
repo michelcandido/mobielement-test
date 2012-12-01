@@ -97,6 +97,19 @@ namespace StarSightings
 
         private string keywordType;
         private string searchKeywords;
+        private bool showSearchPivotItem = false;
+
+        public bool ShowSearchPivotItem
+        {
+            get
+            {
+                return this.showSearchPivotItem;
+            }
+            set
+            {
+                this.showSearchPivotItem = value;
+            }
+        }
 
         public int SearchTypePopular
         {
