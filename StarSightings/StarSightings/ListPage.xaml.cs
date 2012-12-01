@@ -19,6 +19,7 @@ namespace StarSightings
     {
         bool isNewPageInstance = false;
         GeoCoordinateWatcher watcher;
+        PivotItem searchPivotItem;
 
         public ListPage()
         {
@@ -27,7 +28,8 @@ namespace StarSightings
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(ListPage_Loaded);
-            isNewPageInstance = true; 
+            isNewPageInstance = true;
+            searchPivotItem = (this.pivotControl.Items.Single(p => ((PivotItem)p).Name == "SearchPivotItem")) as PivotItem;
         }
 
         void ListPage_Loaded(object sender, RoutedEventArgs e)
@@ -50,8 +52,16 @@ namespace StarSightings
                     if (int.TryParse(pivotItemId, out itemId))
                     {
                         this.pivotControl.SelectedIndex = itemId;
+                        if (!App.ViewModel.ShowSearchPivotItem && searchPivotItem != null)
+                            this.pivotControl.Items.Remove(searchPivotItem);
+                        
                     }
-                }
+                }                
+            }
+            else
+            {
+                if (App.ViewModel.ShowSearchPivotItem && searchPivotItem != null && !this.pivotControl.Items.Contains(searchPivotItem))
+                    this.pivotControl.Items.Add(searchPivotItem);
             }
         }
 
@@ -86,7 +96,7 @@ namespace StarSightings
         {
             ItemViewModel selectedItemData = (sender as ListBox).SelectedItem as ItemViewModel;
             if (selectedItemData != null)
-            {
+            {               
                 this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}", selectedItemData.ID), UriKind.RelativeOrAbsolute));
             }
         }       
@@ -98,7 +108,7 @@ namespace StarSightings
 
         private void GoToSearch(object sender, EventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));            
         }        
     }
 }

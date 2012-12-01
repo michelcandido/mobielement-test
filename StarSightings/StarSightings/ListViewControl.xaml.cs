@@ -24,11 +24,12 @@ namespace StarSightings
         private MainViewModel context;
         private int currentStartIndex = 0;
         private bool requestIssued = false;
+        private bool isNewInstance = false;
 
         public ListViewControl()
         {
             InitializeComponent();
-            
+            isNewInstance = true;
             App.ViewModel.SearchDataReadyHandler += new SearchCompletedCallback(SearchDataDelivered);
         }
 
