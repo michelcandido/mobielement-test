@@ -26,27 +26,27 @@
         </DataTemplate>
         <DataTemplate x:Key="MySummaryItemTemplate">
             <Grid Tap="Grid_Tap">
-                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
-                    <Border Height="60" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="150" MaxHeight="68" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MyLatestSummaryItemTemplate">
             <Grid Tap="Grid_Tap">
-                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
-                    <Border Height="60" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="150" MaxHeight="68" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Image Source="Images/time_stamp.png" Margin="0,0,8,0"/>
@@ -56,14 +56,14 @@
         </DataTemplate>
         <DataTemplate x:Key="MyNearestSummaryItemTemplate">
             <Grid Tap="Grid_Tap">
-                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="160" Height="160" Stretch="UniformToFill" />
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="12, 12, 0, 0">
-                    <Border Height="60" Width="160" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="150" MaxHeight="68" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Image Source="Images/distance_icon.png" Margin="0,0,8,0"/>
@@ -103,30 +103,30 @@
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Margin="0,-24,0,24" Tap="GoToList" Tag="0" >popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
                             <ListBox  Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" />
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0">more...</TextBlock>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="1">latest</TextBlock>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="1" Margin="0,60,0,0">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
                             <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyLatestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="1">more...</TextBlock>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="1" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="2">nearest</TextBlock>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="2" Margin="0,60,0,0">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
                             <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyNearestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="2">more...</TextBlock>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="2" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel>
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="3">following</TextBlock>
-                            <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>                            
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="3">more...</TextBlock>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="3" Margin="0,60,0,0">following</TextBlock>
+                            <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="3" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>

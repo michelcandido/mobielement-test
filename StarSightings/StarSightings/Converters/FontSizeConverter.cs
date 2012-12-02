@@ -26,7 +26,7 @@ namespace StarSightings.Converters
                 if (sizeCase == "Summary")
                     return 21;
                 else if (sizeCase == "List")
-                    return 17;
+                    return 19;
                 else
                     return 17;
             }
@@ -35,7 +35,7 @@ namespace StarSightings.Converters
                 if (sizeCase == "Summary")
                     return 25;
                 else if (sizeCase == "List")
-                    return 23;
+                    return 25;
                 else
                     return 23;
             }
