@@ -47,7 +47,7 @@ namespace StarSightings
                 // problem with init, probably because of login, we need to show login page.
                 if (App.ViewModel.AccountType != Constants.ACCOUNT_TYPE_DEVICE)
                 {
-                    this.NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.RelativeOrAbsolute));
+                    this.NavigationService.Navigate(new Uri("/SSLoginPage.xaml", UriKind.RelativeOrAbsolute));
                 }
             }
             else
@@ -145,7 +145,7 @@ namespace StarSightings
             }
             else
             {
-                this.NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.RelativeOrAbsolute));
+                this.NavigationService.Navigate(new Uri("/LoginOptionsPage.xaml", UriKind.RelativeOrAbsolute));
             }
         }
 
