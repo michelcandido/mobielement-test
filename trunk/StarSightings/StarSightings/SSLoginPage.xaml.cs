@@ -10,27 +10,41 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Telerik.Windows.Controls.PhoneTextBox;
 using StarSightings.Events;
+using Telerik.Windows.Controls.PhoneTextBox;
 
 namespace StarSightings
 {
-    public partial class Signup : PhoneApplicationPage
+    public partial class SSLoginPage : PhoneApplicationPage
     {
-        public Signup()
+        private LoginEventHandler myLoginEventHandler;
+        public SSLoginPage()
         {
             InitializeComponent();
             DataContext = App.ViewModel.User;
-            this.Loaded += new RoutedEventHandler(SignupPage_Loaded);
+            this.Loaded += new RoutedEventHandler(SSLoginPage_Loaded);
             App.SSAPI.RegisterHandler += new RegisterEventHandler(RegisterCompleted);
         }
 
-        void SignupPage_Loaded(object sender, RoutedEventArgs e)
-        {            
+        void SSLoginPage_Loaded(object sender, RoutedEventArgs e)
+        {
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
             }
+        }
+
+        private void LoginPasswordGotFocus(object sender, RoutedEventArgs e)
+        {
+            tbLoginPasswordWatermark.Opacity = 0;
+            pbLoginPassword.Opacity = 100;
+        }
+
+        private void LoginPasswordLostFocus(object sender, RoutedEventArgs e)
+        {
+            var passwordEmpty = string.IsNullOrEmpty(pbLoginPassword.Password);
+            tbLoginPasswordWatermark.Opacity = passwordEmpty ? 100 : 0;
+            pbLoginPassword.Opacity = passwordEmpty ? 0 : 100;
         }
 
         private void UsernameLostFocus(object sender, RoutedEventArgs e)
@@ -65,20 +79,11 @@ namespace StarSightings
             ValidateEmail();
         }
 
-        private void btnSignup_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            if (ValidateUserName() && ValidatePassword() && ValidateVerifyPassword() && ValidateEmail())
-            {
-                
-                App.SSAPI.RegisterUser();
-            }
-        }
-
         public void RegisterCompleted(object sender, RegisterEventArgs e)
         {
             if (e.Successful)
             {
-                Utils.AddOrUpdateIsolatedStorageSettings("User", e.User);                
+                Utils.AddOrUpdateIsolatedStorageSettings("User", e.User);
                 App.ViewModel.NeedLogin = false;
                 Utils.AddOrUpdateIsolatedStorageSettings("AccountType", Constants.ACCOUNT_TYPE_SS);
                 this.NavigationService.GoBack();
@@ -189,11 +194,24 @@ namespace StarSightings
 
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
-            if (ValidateUserName() && ValidatePassword() && ValidateVerifyPassword() && ValidateEmail())
+            switch (this.pivotControl.SelectedIndex)
             {
+                case 0: 
+                    App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_SS;
+                    string query = "username=" + tbUserName.Text + "&password=" + pbPassword.Password;
+                    myLoginEventHandler = new LoginEventHandler(LoginCompleted);
+                    App.SSAPI.LoginHandler += myLoginEventHandler;
+                    App.SSAPI.Login(App.ViewModel.AccountType, query);
+                    break;
+                case 1:
+                    if (ValidateUserName() && ValidatePassword() && ValidateVerifyPassword() && ValidateEmail())
+                    {
 
-                App.SSAPI.RegisterUser();
+                        App.SSAPI.RegisterUser();
+                    }
+                    break;
             }
+            
         }
 
         private void ApplicationBarIconButton_Click_1(object sender, EventArgs e)
@@ -202,6 +220,26 @@ namespace StarSightings
                 this.NavigationService.GoBack();
         }
 
-        
+        public void LoginCompleted(object sender, LoginEventArgs e)
+        {
+            App.SSAPI.LoginHandler -= myLoginEventHandler;
+            if (e.Successful)
+            {
+                App.ViewModel.User = e.User;
+                Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
+                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
+                if (App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_DEVICE)
+                    App.ViewModel.NeedLogin = true;
+                else
+                    App.ViewModel.NeedLogin = false;
+                App.Config.UpdateAlerts();
+                //App.ViewModel.SearchFollowing(true, 0, null);
+                this.NavigationService.GoBack();
+            }
+            else
+            {
+                MessageBox.Show("Cannot login, please try again.");
+            }
+        }
     }
 }

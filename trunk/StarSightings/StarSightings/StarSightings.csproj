@@ -150,6 +150,9 @@
     <Compile Include="ListViewControl.xaml.cs">
       <DependentUpon>ListViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginOptionsPage.xaml.cs">
+      <DependentUpon>LoginOptionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,9 @@
     <Compile Include="ServerAPI.cs" />
     <Compile Include="SignupPage.xaml.cs">
       <DependentUpon>SignupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SSLoginPage.xaml.cs">
+      <DependentUpon>SSLoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="ViewModels\CommandSampleViewModel.cs" />
@@ -332,6 +338,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoginOptionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -365,6 +375,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SignupPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SSLoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
