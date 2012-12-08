@@ -88,8 +88,8 @@
                         <StackPanel Grid.Column="1" Width="400">
                             <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />
                             <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
-                            <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="Black">
-                                <krempel:HtmlTextBlock Html="{Binding CommentValue}" Width="360"  FontSize="23" Foreground="White"  Margin="5" NavigationRequested="htmlTextBlock_NavigationRequested"/>                                 
+                            <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="#010e2a">
+                                <krempel:HtmlTextBlock Html="{Binding CommentValue}" Width="360"  FontSize="23"   Margin="5" NavigationRequested="htmlTextBlock_NavigationRequested"/>                                 
                             </Grid>
                         </StackPanel>
                     </Grid>                                                                
