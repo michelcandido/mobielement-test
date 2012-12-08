@@ -47,10 +47,10 @@
                         <Image Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="190" Height="190" Stretch="UniformToFill" Grid.Row="0" Grid.Column="0"/>
                         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Background="White" >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,5,0">
-                                <TextBlock Text="{Binding Time, Converter={StaticResource UnixRelativeTimeConverter}}" FontSize="17" FontFamily="Segoe WP" FontWeight="Bold" Margin="0,0,8,0" Foreground="{Binding ElementName='listBox', Path='Parent.Parent.Parent.Parent.SelectedIndex', Converter={StaticResource ListTDColorConverter}, ConverterParameter='Time'}"/>
-                                <TextBlock TextWrapping="NoWrap" Text="{Binding Distance, StringFormat=\{0\} miles}" FontSize="17" FontFamily="Segoe WP" FontWeight="Bold" Foreground="{Binding ElementName='listBox', Path='Parent.Parent.Parent.Parent.SelectedIndex', Converter={StaticResource ListTDColorConverter}, ConverterParameter='Distance'}"/>                                    
+                                <TextBlock Text="{Binding Time, Converter={StaticResource UnixRelativeTimeConverter}}" FontSize="17" FontFamily="Segoe WP" FontWeight="Bold" Margin="0,0,8,0" Foreground="{Binding ElementName='listBox', Path='Parent.Parent.Parent.Parent.SelectedIndex', Converter={StaticResource ListTDColorConverter}, ConverterParameter='Time'}"/>                                
                             </StackPanel>
                             <TextBlock Name="namebar" Margin="5, 5, 0, 0" TextWrapping="Wrap" Text="{Binding Location}" FontSize="25" FontFamily="Segoe WP" Foreground="Black" />
+                            <TextBlock Margin="5, 5, 0, 0" TextWrapping="NoWrap" Text="{Binding Distance, StringFormat=\{0\} miles}" FontSize="17" FontFamily="Segoe WP" FontWeight="Bold" Foreground="{Binding ElementName='listBox', Path='Parent.Parent.Parent.Parent.SelectedIndex', Converter={StaticResource ListTDColorConverter}, ConverterParameter='Distance'}"/>
                         </StackPanel>
                         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="60">
                             <Border Height="60" Width="380" VerticalAlignment="Center" HorizontalAlignment="Left">
