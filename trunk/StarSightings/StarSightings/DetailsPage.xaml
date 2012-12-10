@@ -148,7 +148,7 @@
                         <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.CommentsSummaryList.View}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource CommentViewItemTemplate}"/>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}" Margin="0,5,0,5">
-                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.CommentsCnt, StringFormat='See  all  \{0\} comments...'}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" FontWeight="Bold" />
+                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.CommentsCnt, StringFormat='See  all  \{0\} comments...'}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" FontWeight="Bold" Tap="TextBlock_Tap" />
                     </ListBoxItem> 
                     <ListBoxItem Margin="0,10,0,0">
                         <StackPanel Orientation="Horizontal">

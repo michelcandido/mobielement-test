@@ -1,0 +1,76 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="StarSightings.VoteCommentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:krempel="clr-namespace:Krempel.WP7.Core.Controls;assembly=Krempel.WP7.Core"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="CommentViewItemTemplate">
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="0"   Width="60" Height="60" Source="{Binding FacebookUid, Converter={StaticResource FacebookPictureConverter}}"/>
+                <StackPanel Grid.Column="1" Width="400">
+                    <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />
+                    <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+                    <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="#010e2a">
+                        <krempel:HtmlTextBlock Html="{Binding CommentValue}" Width="360"  FontSize="23"   Margin="5" NavigationRequested="htmlTextBlock_NavigationRequested"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" >
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
+        </Grid.Background>
+        <!--Pivot Control-->
+        <controls:Pivot  x:Name="pivotControl">
+            <controls:Pivot.TitleTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <Image x:Name="icon" Source="Images/SS_logo_small.png" />
+                    </StackPanel>
+                </DataTemplate>
+            </controls:Pivot.TitleTemplate>
+            <!--Pivot item one-->
+            <controls:PivotItem Header="vote">
+                <Grid/>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Header="comment">
+                <ListBox ItemsSource="{Binding Path=CommentList}" ItemTemplate="{StaticResource CommentViewItemTemplate}"/>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
+            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment"/>
+            <!--<shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>-->
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
+</phone:PhoneApplicationPage>
