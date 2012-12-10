@@ -107,5 +107,11 @@ namespace StarSightings
                 MessageBox.Show("Your Alert request cannot be fullfilled, please try again.");
             }
         }
+
+        private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            App.ViewModel.CommentList = (this.slideView.SelectedItem as ItemViewModel).Comments;
+            this.NavigationService.Navigate(new Uri("/VoteCommentPage.xaml?pivotItem=comment", UriKind.RelativeOrAbsolute));
+        }
     }
 }

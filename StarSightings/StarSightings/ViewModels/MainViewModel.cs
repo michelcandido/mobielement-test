@@ -99,6 +99,24 @@ namespace StarSightings
         private string searchKeywords;
         private bool showSearchPivotItem = false;
 
+        private ObservableCollection<CommentViewModel> commentList;
+
+        public ObservableCollection<CommentViewModel> CommentList
+        {
+            get
+            {
+                return this.commentList;
+            }
+            set
+            {
+                if (value != this.commentList)
+                {
+                    this.commentList = value;
+                    NotifyPropertyChanged("CommentList");
+                }
+            }
+        }
+
         public bool ShowSearchPivotItem
         {
             get

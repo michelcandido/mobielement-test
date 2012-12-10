@@ -195,6 +195,9 @@
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="VoteCommentPage.xaml.cs">
+      <DependentUpon>VoteCommentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPClogger.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -379,6 +382,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SSLoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VoteCommentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
