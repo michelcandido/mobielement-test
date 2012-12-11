@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using StarSightings.Events;
 using Telerik.Windows.Controls.PhoneTextBox;
+using Microsoft.Phone.Tasks;
 
 namespace StarSightings
 {
@@ -240,6 +241,16 @@ namespace StarSightings
             {
                 MessageBox.Show("Cannot login, please try again.");
             }
+        }
+
+        private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            WebBrowserTask webBrowserTask = new WebBrowserTask();
+
+            webBrowserTask.Uri = new Uri("http://m.starsightings.com/forum/ucp.php?mode=sendpassword", UriKind.Absolute);
+
+            webBrowserTask.Show();
+            
         }
     }
 }

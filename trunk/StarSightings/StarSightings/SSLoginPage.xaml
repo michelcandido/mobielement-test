@@ -36,7 +36,7 @@
                         <telerikPrimitives:RadTextBox Watermark="Username" HorizontalAlignment="Left" Margin="6,29,0,0" Name="tbLoginUserName" VerticalAlignment="Top" Width="460" MaxLength="20"/>
                         <telerikPrimitives:RadTextBox Watermark="Password" HorizontalAlignment="Left" Margin="6,129,0,0" Name="tbLoginPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" />
                         <PasswordBox Margin="6,129,0,0" HorizontalAlignment="Left" Name="pbLoginPassword" VerticalAlignment="Top" Width="460" LostFocus="LoginPasswordLostFocus" Opacity="0" GotFocus="LoginPasswordGotFocus" MaxLength="20" />
-                        <TextBlock Text="Forgot password?" FontWeight="Bold" FontSize="25" Foreground="#ffffff" Margin="16,219,0,0"/>
+                        <TextBlock Text="Forgot password?" FontWeight="Bold" FontSize="25" Foreground="#ffffff" Margin="16,219,0,0" Tap="TextBlock_Tap" />
                     </Grid>                                   
             </controls:PivotItem>
 

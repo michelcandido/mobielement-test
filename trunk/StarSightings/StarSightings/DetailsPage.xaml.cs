@@ -79,9 +79,18 @@ namespace StarSightings
         {
             WebBrowserTask webBrowserTask = new WebBrowserTask();
 
-            webBrowserTask.Uri = new Uri(((e.Content as Hyperlink).CommandParameter as string), UriKind.Absolute);
+            try
+            {
+                webBrowserTask.Uri = new Uri(((e.Content as Hyperlink).CommandParameter as string), UriKind.Absolute);
+                webBrowserTask.Show();
+            }
+            catch (System.Exception)
+            {
+                
+                //throw;
+            }
 
-            webBrowserTask.Show();
+            
         }
 
         private AlertEventHandler followAlertEventHandler;
