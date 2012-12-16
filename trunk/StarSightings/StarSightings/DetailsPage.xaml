@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikPrimitivesSlideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:map="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
     xmlns:krempel="clr-namespace:Krempel.WP7.Core.Controls;assembly=Krempel.WP7.Core"  
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
@@ -101,7 +102,13 @@
                                             x:Name="slideView" 
                                             ItemsSource="{Binding Items}" 
                                             AdjacentItemsPreviewMode="None" 
-                                            ItemTemplate="{StaticResource SlideViewItemTemplate}" Height="480" Width="480" />
+                                            ItemTemplate="{StaticResource SlideViewItemTemplate}" Height="480" Width="480" >
+                    <telerikPrimitives:RadSlideView.ItemPreviewTemplate>
+                        <DataTemplate>
+                            
+                        </DataTemplate>
+                    </telerikPrimitives:RadSlideView.ItemPreviewTemplate>
+                </telerikPrimitives:RadSlideView>
             </ListBoxItem>
             <ListBoxItem>
                 <ListBox Padding="10,0,10,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black">

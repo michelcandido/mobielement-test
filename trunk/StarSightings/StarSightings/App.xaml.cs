@@ -166,7 +166,7 @@ namespace StarSightings
             rateReminder = new RadRateApplicationReminder();
 
             //Sets how often the rate reminder is displayed.
-            rateReminder.RecurrencePerUsageCount = 2;
+            rateReminder.RecurrencePerUsageCount = 50;
     
         }
 
