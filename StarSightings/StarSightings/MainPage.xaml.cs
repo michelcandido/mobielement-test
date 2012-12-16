@@ -54,8 +54,33 @@ namespace StarSightings
             {
                 if (!App.ViewModel.IsDataLoaded)
                 {
-                    App.ViewModel.LoadData();
+                    App.ViewModel.PopularItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+                    App.ViewModel.LatestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+                    App.ViewModel.NearestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+                    App.ViewModel.FollowingItemsLoadReday +=new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+ 
+                    App.ViewModel.LoadData();                    
                 }
+            }
+        }
+
+        private void ViewModel_ItemsLoadReday(object sender, SearchEventArgs e)
+        {
+            if (e.SearchToken.searchGroup == Constants.SEARCH_POPULAR)
+            {
+                this.busyIndicator_popular.IsRunning = false;
+            }
+            if (e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
+            {
+                this.busyIndicator_latest.IsRunning = false;
+            }
+            if (e.SearchToken.searchGroup == Constants.SEARCH_NEAREST)
+            {
+                this.busyIndicator_nearest.IsRunning = false;
+            }
+            if (e.SearchToken.searchGroup == Constants.SEARCH_FOLLOWING)
+            {
+                this.busyIndicator_following.IsRunning = false;
             }
         }
 

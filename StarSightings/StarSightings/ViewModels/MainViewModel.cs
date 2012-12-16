@@ -673,11 +673,32 @@ namespace StarSightings
         }
 
         public event SearchCompletedCallback SearchDataReadyHandler;
+        public event SearchCompletedCallback PopularItemsLoadReday;
+        public event SearchCompletedCallback LatestItemsLoadReday;
+        public event SearchCompletedCallback NearestItemsLoadReday;
+        public event SearchCompletedCallback FollowingItemsLoadReday;
+
         protected virtual void OnSearchCompleted(SearchEventArgs e)
         {
             if (SearchDataReadyHandler != null)
             {
                 SearchDataReadyHandler(this, e);
+            }
+            if (PopularItemsLoadReday != null && e.SearchToken.searchGroup == Constants.SEARCH_POPULAR)
+            {
+                PopularItemsLoadReday(this, e);
+            }
+            if (LatestItemsLoadReday != null && e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
+            {
+                LatestItemsLoadReday(this, e);
+            }            
+            if (NearestItemsLoadReday != null && e.SearchToken.searchGroup == Constants.SEARCH_NEAREST)
+            {
+                NearestItemsLoadReday(this, e);
+            }
+            if (FollowingItemsLoadReday != null && e.SearchToken.searchGroup == Constants.SEARCH_FOLLOWING)
+            {
+                FollowingItemsLoadReday(this, e);
             }
         }
 
