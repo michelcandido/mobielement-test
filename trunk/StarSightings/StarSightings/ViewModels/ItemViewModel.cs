@@ -93,7 +93,7 @@ namespace StarSightings
             {
                 return commentsSummaryList; 
             } 
-            private set 
+            set 
             {
                 if (value != commentsSummaryList) 
                 {

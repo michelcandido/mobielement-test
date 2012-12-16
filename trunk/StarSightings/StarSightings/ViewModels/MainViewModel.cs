@@ -706,6 +706,7 @@ namespace StarSightings
         {            
             if (e.Successful)
             {                
+                /*
                 int count = App.ViewModel.SelectedItem.Comments.Count;
                 for (int i = 0; i < count; i++)
                 {
@@ -715,7 +716,10 @@ namespace StarSightings
                 {
                     App.ViewModel.SelectedItem.Comments.Add(item);                    
                 }
+                */
                 App.ViewModel.SelectedItem.CommentsCnt = e.Item.CommentsCnt;
+                App.ViewModel.SelectedItem.Comments = e.Item.Comments;
+                App.ViewModel.SelectedItem.CommentsSummaryList = e.Item.CommentsSummaryList;
             }            
         }
 
