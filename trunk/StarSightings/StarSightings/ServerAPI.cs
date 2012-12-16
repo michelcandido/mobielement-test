@@ -254,64 +254,83 @@ namespace StarSightings
                 {
                     ObservableCollection<ItemViewModel> items = new ObservableCollection<ItemViewModel>();
                     foreach (XElement xmlItem in xmlItems.Elements("item"))
-                    {                        
-                        ItemViewModel item = new ItemViewModel();
-                        item.PhotoId = xmlItem.Element("photo_id").Value;
-                        item.GeoLat = xmlItem.Element("geo_lat").Value;
-                        item.GeoLng = xmlItem.Element("geo_lng").Value;                        
-                        item.Source = xmlItem.Element("source").Value.Trim();;
-                        item.ForumId = xmlItem.Element("forum_id").Value;
-                        item.TopicId = xmlItem.Element("topic_id").Value;
-                        item.PostId = xmlItem.Element("post_id").Value;
-                        item.Name = xmlItem.Element("name").Value;
-                        item.Descr = xmlItem.Element("descr").Value;
-                        item.Location = xmlItem.Element("location").Value;
-                        item.EventName = xmlItem.Element("event").Value;
-                        item.Place = xmlItem.Element("place").Value;                        
-                        item.SourceUrl = xmlItem.Element("source_url").Value.Trim();
-                        item.ViewCnt = xmlItem.Element("view_cnt").Value;
-                        item.UserId = xmlItem.Element("user_id").Value;                                                
-                        item.CanEdit = xmlItem.Element("can_edit").Value.Trim() == "1";                        
-                        item.ThumbUserSmall = xmlItem.Element("thumb_user_small").Value;
-                        item.ThumbUserLarge = xmlItem.Element("thumb_user_large").Value;
-                        item.ThumbOrigSmall = xmlItem.Element("thumb_orig_small").Value;
-                        item.ThumbOrigLarge = xmlItem.Element("thumb_orig_large").Value;
-                        item.Cat = xmlItem.Element("cat").Value;                        
-                        item.Types = xmlItem.Element("types").Value;
-                        item.MaxBid = xmlItem.Element("max_bid").Value;
-                        item.MaxBidTime = xmlItem.Element("max_bid_time").Value;
-                        item.BidCnt = xmlItem.Element("bid_cnt").Value;
-                        item.VisibleMode = xmlItem.Element("visible_mode").Value;                        
-                        item.Hidden = xmlItem.Element("hidden").Value.Trim() == "1";
-                        item.Rights = xmlItem.Element("rights").Value.Trim();
-                        item.HasPhoto = xmlItem.Element("has_photo").Value.Trim() == "1";
-                        item.Time = xmlItem.Element("time").Value;
-                        item.LocalTime = xmlItem.Element("local_time").Value;
-                        item.LocalOffset = xmlItem.Element("local_offset").Value;
+                    {                             
+                        
+                        ItemViewModel item = getItemInfoFromXML(xmlItem);
+                        items.Add(item);
+                    }
+                    SearchEventArgs se = new SearchEventArgs(true);
+                    se.Items = items;
+                    se.SearchToken = (SearchToken)e.UserState;
+                    OnSearch(se);
+                }
+                else
+                {
+                    SearchEventArgs se = new SearchEventArgs(false);                    
+                    OnSearch(se);
+                }                
+            }
+        }
+
+        private ItemViewModel getItemInfoFromXML(XElement xmlItem)
+        {
+            ItemViewModel item = new ItemViewModel();
+            item.PhotoId = xmlItem.Element("photo_id").Value;
+            item.GeoLat = xmlItem.Element("geo_lat").Value;
+            item.GeoLng = xmlItem.Element("geo_lng").Value;
+            item.Source = xmlItem.Element("source").Value.Trim(); ;
+            item.ForumId = xmlItem.Element("forum_id").Value;
+            item.TopicId = xmlItem.Element("topic_id").Value;
+            item.PostId = xmlItem.Element("post_id").Value;
+            item.Name = xmlItem.Element("name").Value;
+            item.Descr = xmlItem.Element("descr").Value;
+            item.Location = xmlItem.Element("location").Value;
+            item.EventName = xmlItem.Element("event").Value;
+            item.Place = xmlItem.Element("place").Value;
+            item.SourceUrl = xmlItem.Element("source_url").Value.Trim();
+            item.ViewCnt = xmlItem.Element("view_cnt").Value;
+            item.UserId = xmlItem.Element("user_id").Value;
+            item.CanEdit = xmlItem.Element("can_edit").Value.Trim() == "1";
+            item.ThumbUserSmall = xmlItem.Element("thumb_user_small").Value;
+            item.ThumbUserLarge = xmlItem.Element("thumb_user_large").Value;
+            item.ThumbOrigSmall = xmlItem.Element("thumb_orig_small").Value;
+            item.ThumbOrigLarge = xmlItem.Element("thumb_orig_large").Value;
+            item.Cat = xmlItem.Element("cat").Value;
+            item.Types = xmlItem.Element("types").Value;
+            item.MaxBid = xmlItem.Element("max_bid").Value;
+            item.MaxBidTime = xmlItem.Element("max_bid_time").Value;
+            item.BidCnt = xmlItem.Element("bid_cnt").Value;
+            item.VisibleMode = xmlItem.Element("visible_mode").Value;
+            item.Hidden = xmlItem.Element("hidden").Value.Trim() == "1";
+            item.Rights = xmlItem.Element("rights").Value.Trim();
+            item.HasPhoto = xmlItem.Element("has_photo").Value.Trim() == "1";
+            item.Time = xmlItem.Element("time").Value;
+            item.LocalTime = xmlItem.Element("local_time").Value;
+            item.LocalOffset = xmlItem.Element("local_offset").Value;
 
 #if (DEBUG)
-                        item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value;                        
-                        XElement xmlComments = xmlItem.Element("comments");
-                        ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
-                        if (xmlComments != null)
-                        {
-                            foreach (XElement xmlComment in xmlComments.Elements("c"))
-                            {
-                                CommentViewModel comment = new CommentViewModel();
-                                comment.CommentId = xmlComment.Attribute("id").Value;
-                                comment.CommentType = xmlComment.Attribute("type").Value;
-                                comment.Promoted = xmlComment.Attribute("p").Value == "1";                                
-                                comment.Time = xmlComment.Element("time").Value;                                                                
-                                comment.CommentValue = xmlComment.Element("value").Value;
-                                comment.UserId = xmlComment.Element("user_id").Value;
-                                comment.User = xmlComment.Element("user").Value;                                
-                                comments.Add(comment);
-                            }
+            item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value;
+            XElement xmlComments = xmlItem.Element("comments");
+            ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
+            if (xmlComments != null)
+            {
+                foreach (XElement xmlComment in xmlComments.Elements("c"))
+                {
+                    CommentViewModel comment = new CommentViewModel();
+                    comment.CommentId = xmlComment.Attribute("id").Value;
+                    comment.CommentType = xmlComment.Attribute("type").Value;
+                    comment.Promoted = xmlComment.Attribute("p").Value == "1";
+                    comment.Time = xmlComment.Element("time").Value;
+                    comment.CommentValue = xmlComment.Element("value").Value;
+                    comment.UserId = xmlComment.Element("user_id").Value;
+                    comment.User = xmlComment.Element("user").Value;
+                    comments.Add(comment);
+                }
 
-                            item.Comments = comments;
-                            item.CommentsSummaryList.Source = item.Comments;
-                            item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
-                        }
+                item.Comments = comments;
+                item.CommentsSummaryList.Source = item.Comments;
+                item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
+            }
 #else
                         item.CommentsCnt = xmlItem.Element("comments_count").Value;
                         XElement xmlComments = xmlItem.Element("comments");
@@ -342,90 +361,77 @@ namespace StarSightings
                             item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
                         }
 #endif
-                        //item.Vote = xmlItem.Element("vote").Value;
-                       
-                        // computed properties
-                        item.GeoLocation = getGeoCoordinate(item.GeoLat, item.GeoLng);
-                        item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
-                        item.EventLocation = item.Place + (item.Place.Length == 0 ? "" : " in ") + item.Location;
-                        item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
-                        item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
-                        item.Celebs = item.Cat.Split(new Char[] { ';' });
-                        item.Cat = item.Cat.Replace(";", ", ");
-                        
-                        string filename = item.ThumbOrigLarge;
-                        if (filename.Contains("thumb"))
-                            filename = filename.Substring(filename.IndexOf("thumb"));
-                        else if (filename.Contains("nophoto"))
-                            filename = filename.Substring(filename.IndexOf("nophoto"));
-                        int start = filename.IndexOf('.') + 1;
-                        int end = filename.IndexOf('x');
-                        string size_string = filename.Substring(start, end - start);
-                        int size_int = 160;
-                        Int32.TryParse(size_string, out size_int);
-                        if (item.Rights == "1" || item.Rights == "3")
-                            item.DetailPagePhotoSize = Math.Min(480,size_int*2);                            
-                        else
-                            item.DetailPagePhotoSize = 160;
+            //item.Vote = xmlItem.Element("vote").Value;
 
-                        item.EventSourceMode = string.Empty;
-                        string host = string.Empty;
-                        try
-                        {
-                            host = new Uri(item.SourceUrl).Host;                            
-                        }
-                        catch (Exception)
-                        {                            
-                        }
-                        if (string.IsNullOrEmpty(item.Source) || item.Source.Equals("ssbot", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            if (string.IsNullOrEmpty(item.SourceUrl))
-                            {
-                                item.EventSource = string.Empty;
-                                item.EventSourceMode = string.Empty;
-                            }
-                            else
-                            {
-                                item.EventSourceMode = "source";
-                                item.EventSource = host;
-                            }
-                        }
-                        else
-                        {
-                            if (item.Rights.Equals("1"))
-                            {
-                                item.EventSourceMode = "by";
-                                item.EventSource = item.Source;
-                            }
-                            else
-                            {
-                                item.EventSourceMode = "shared by";
-                                item.EventSource = item.Source;
-                            }
-                        }
-                        if (string.IsNullOrEmpty(item.SourceUrl))
-                        {
-                            item.EventFooter = string.Empty;
-                        }
-                        else
-                        {
-                            item.EventFooter = host;
-                        }
-                        
+            // computed properties
+            item.GeoLocation = getGeoCoordinate(item.GeoLat, item.GeoLng);
+            item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
+            item.EventLocation = item.Place + (item.Place.Length == 0 ? "" : " in ") + item.Location;
+            item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
+            item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
+            item.Celebs = item.Cat.Split(new Char[] { ';' });
+            item.Cat = item.Cat.Replace(";", ", ");
 
-                        items.Add(item);
-                    }
-                    SearchEventArgs se = new SearchEventArgs(true);
-                    se.Items = items;
-                    se.SearchToken = (SearchToken)e.UserState;
-                    OnSearch(se);
+            string filename = item.ThumbOrigLarge;
+            if (filename.Contains("thumb"))
+                filename = filename.Substring(filename.IndexOf("thumb"));
+            else if (filename.Contains("nophoto"))
+                filename = filename.Substring(filename.IndexOf("nophoto"));
+            int start = filename.IndexOf('.') + 1;
+            int end = filename.IndexOf('x');
+            string size_string = filename.Substring(start, end - start);
+            int size_int = 160;
+            Int32.TryParse(size_string, out size_int);
+            if (item.Rights == "1" || item.Rights == "3")
+                item.DetailPagePhotoSize = Math.Min(480, size_int * 2);
+            else
+                item.DetailPagePhotoSize = 160;
+
+            item.EventSourceMode = string.Empty;
+            string host = string.Empty;
+            try
+            {
+                host = new Uri(item.SourceUrl).Host;
+            }
+            catch (Exception)
+            {
+            }
+            if (string.IsNullOrEmpty(item.Source) || item.Source.Equals("ssbot", StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (string.IsNullOrEmpty(item.SourceUrl))
+                {
+                    item.EventSource = string.Empty;
+                    item.EventSourceMode = string.Empty;
                 }
                 else
                 {
-                    SearchEventArgs se = new SearchEventArgs(false);                    
-                    OnSearch(se);
-                }                
+                    item.EventSourceMode = "source";
+                    item.EventSource = host;
+                }
             }
+            else
+            {
+                if (item.Rights.Equals("1"))
+                {
+                    item.EventSourceMode = "by";
+                    item.EventSource = item.Source;
+                }
+                else
+                {
+                    item.EventSourceMode = "shared by";
+                    item.EventSource = item.Source;
+                }
+            }
+            if (string.IsNullOrEmpty(item.SourceUrl))
+            {
+                item.EventFooter = string.Empty;
+            }
+            else
+            {
+                item.EventFooter = host;
+            }
+
+            return item;
         }
 
         private GeoCoordinate getGeoCoordinate(string geoLat, string geoLng)
@@ -701,6 +707,71 @@ namespace StarSightings
                 KeywordHandler(this, e);
             }
         }
+
+        public void NewComment(string comment)
+        {
+            WebClient webClient = GetWebClient();
+            webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+            string baseUri = Constants.SERVER_NAME + Constants.URL_COMMENT_NEW;
+            string query = "token=" + App.ViewModel.User.Token + "&photo_id=" + App.ViewModel.SelectedItem.PhotoId + "&value=" + HttpUtility.UrlEncode(comment);
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, "");
+
+            webClient.UploadStringCompleted += new UploadStringCompletedEventHandler(HandleNewComment);
+            webClient.UploadStringAsync(uri, query);
+        }
+
+        private void HandleNewComment(object sender, UploadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                RegisterEventArgs re = new RegisterEventArgs(false);
+                OnRegister(re);
+            }
+            else
+            {
+                XElement xmlResponse = XElement.Parse(e.Result);
+                XElement xmlItems = xmlResponse.Element("items");
+
+                ItemViewModel item = null;
+                if (xmlItems != null)
+                {                    
+                    foreach (XElement xmlItem in xmlItems.Elements("item"))
+                    {
+                        item = getItemInfoFromXML(xmlItem);
+                    }
+
+                    CommentEventArgs ce = new CommentEventArgs(true);
+                    if (item != null)
+                        ce.Item = item;
+                    OnComment(ce);
+                }                
+                else
+                {
+                    CommentEventArgs ce = new CommentEventArgs(false);
+                    OnComment(ce);
+                }
+            }
+        }
+
+        public event CommentEventHandler CommentHandler;
+
+        protected virtual void OnComment(CommentEventArgs e)
+        {
+            if (CommentHandler != null)
+            {
+                CommentHandler(this, e);
+            }
+        }
+
+
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
@@ -708,6 +779,7 @@ namespace StarSightings
     public delegate void LoginEventHandler(object sender, LoginEventArgs e);
     public delegate void AlertEventHandler(object sender, AlertEventArgs e);
     public delegate void KeywordEventHandler(object sender, KeywordEventArgs e);
+    public delegate void CommentEventHandler(object sender, CommentEventArgs e);
 
     public class SearchParams
     {	
