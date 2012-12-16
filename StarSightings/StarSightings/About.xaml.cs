@@ -17,7 +17,7 @@ namespace StarSightings
     {
         public About()
         {
-            InitializeComponent();
-        }
+            InitializeComponent();           
+        }        
     }
 }

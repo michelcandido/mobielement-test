@@ -14,7 +14,10 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
+        </Grid.Background>
         <Grid.DataContext>
             <viewModels:CommandSampleViewModel/>
         </Grid.DataContext>
@@ -24,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="APP TITLE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
             <TextBlock x:Name="PageTitle" Text="about" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
@@ -39,13 +42,13 @@
             
             <StackPanel>
                 <TextBlock 
-                    Text="Application Name" 
+                    Text="StarSightings" 
                     Margin="12,0,12,0" 
                     FontSize="{StaticResource PhoneFontSizeLarge}" 
                     FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
                 <TextBlock 
-                    Text="Version number" 
-                    Margin="12,0,12,0" 
+                    Text="{Binding AppVersion}" 
+                    Margin="12,0,12,0"                     
                     FontSize="{StaticResource PhoneFontSizeNormal}"/>
             </StackPanel>
             
@@ -78,11 +81,11 @@
                     Stretch="None" 
                     HorizontalAlignment="Left" />
                 <TextBlock 
-                    Text="Copyright" 
+                    Text="Copyright @ Star Sightings Inc. 2002-2012" 
                     Margin="0,12,0,0" 
                     FontSize="{StaticResource PhoneFontSizeNormal}"/>
                 <TextBlock 
-                    Text="Company name" 
+                    Text="Star Sightings Inc." 
                     FontSize="{StaticResource PhoneFontSizeNormal}"/>
             </StackPanel>
         </Grid>

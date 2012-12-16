@@ -28,7 +28,14 @@ namespace StarSightings
         public CommandSampleViewModel()
         {
             RateThisAppCommand = new RateThisAppCommand();
-            SendAnEmailCommand = new SendAnEmailCommand();
+            SendAnEmailCommand = new SendAnEmailCommand();            
+            AppVersion = System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0];            
+        }
+        
+        public string AppVersion
+        {
+            get;
+            private set;
         }
     }
 }
