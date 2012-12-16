@@ -56,7 +56,7 @@
 
             <!--Pivot item two-->
             <controls:PivotItem Header="comment">
-                <ListBox ItemsSource="{Binding Path=CommentList}" ItemTemplate="{StaticResource CommentViewItemTemplate}"/>
+                <ListBox ItemsSource="{Binding Path=SelectedItem.Comments}" ItemTemplate="{StaticResource CommentViewItemTemplate}"/>
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
@@ -64,7 +64,7 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
-            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment" Click="CommentButton_Click" />
             <!--<shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>

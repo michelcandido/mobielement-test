@@ -34,6 +34,7 @@ namespace StarSightings
         public const string URL_LOGOUT = "/index.php?page=profile&mode=logout&mobile=1&v=3";
         public const string URL_ALERT = "/alerts/";
         public const string URL_KEYWORD = "/index.php?mode=suggest&mobile=1&v=3";
+        public const string URL_COMMENT_NEW = "/index.php?page=comment&mode=new&mobile=1&v=3";
 
         public const int LIMIT=15;
         public const int SUMMARY_COUNT = 4;

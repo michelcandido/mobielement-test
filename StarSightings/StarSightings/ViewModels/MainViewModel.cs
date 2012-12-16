@@ -45,6 +45,8 @@ namespace StarSightings
             SearchTypeKeyword = 0;
 
             App.SSAPI.SearchHandler += new SearchEventHandler(SearchCompleted);
+            App.SSAPI.CommentHandler += new CommentEventHandler(CommentCompleted);
+
             App.GeoWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
             App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);    
        
@@ -97,26 +99,25 @@ namespace StarSightings
 
         private string keywordType;
         private string searchKeywords;
-        private bool showSearchPivotItem = false;
+        private bool showSearchPivotItem = false;               
 
-        private ObservableCollection<CommentViewModel> commentList;
-
-        public ObservableCollection<CommentViewModel> CommentList
+        private ItemViewModel selectedItem;
+        public ItemViewModel SelectedItem
         {
             get
             {
-                return this.commentList;
+                return this.selectedItem;
             }
             set
             {
-                if (value != this.commentList)
+                if (value != selectedItem)
                 {
-                    this.commentList = value;
-                    NotifyPropertyChanged("CommentList");
+                    selectedItem = value;
+                    NotifyPropertyChanged("SelectedItem");
                 }
             }
-        }
-
+        }       
+        
         public bool ShowSearchPivotItem
         {
             get
@@ -678,6 +679,23 @@ namespace StarSightings
             {
                 SearchDataReadyHandler(this, e);
             }
+        }
+
+        public void CommentCompleted(object sender, CommentEventArgs e)
+        {            
+            if (e.Successful)
+            {                
+                int count = App.ViewModel.SelectedItem.Comments.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    App.ViewModel.SelectedItem.Comments.RemoveAt(0);
+                }
+                foreach (CommentViewModel item in e.Item.Comments)
+                {
+                    App.ViewModel.SelectedItem.Comments.Add(item);                    
+                }
+                App.ViewModel.SelectedItem.CommentsCnt = e.Item.CommentsCnt;
+            }            
         }
 
         // Event handler for the GeoCoordinateWatcher.StatusChanged event.

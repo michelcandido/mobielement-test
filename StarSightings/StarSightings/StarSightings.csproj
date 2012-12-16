@@ -112,6 +112,9 @@
     </Compile>
     <Compile Include="Commands\RateThisAppCommand.cs" />
     <Compile Include="Commands\SendAnEmailCommand.cs" />
+    <Compile Include="CommentInputPage.xaml.cs">
+      <DependentUpon>CommentInputPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\BoolToValueConverter.cs" />
@@ -132,6 +135,7 @@
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Events\AlertEventArgs.cs" />
+    <Compile Include="Events\CommentEventArgs.cs" />
     <Compile Include="Events\KeywordEventArgs.cs" />
     <Compile Include="Events\SSEventArgs.cs" />
     <Compile Include="Events\LoginEventArgs.cs" />
@@ -318,6 +322,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CameraPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CommentInputPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

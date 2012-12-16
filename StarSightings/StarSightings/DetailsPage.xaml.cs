@@ -119,8 +119,25 @@ namespace StarSightings
 
         private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            App.ViewModel.CommentList = (this.slideView.SelectedItem as ItemViewModel).Comments;
+            App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
+            //App.ViewModel.CommentList = (this.slideView.SelectedItem as ItemViewModel).Comments;
             this.NavigationService.Navigate(new Uri("/VoteCommentPage.xaml?pivotItem=comment", UriKind.RelativeOrAbsolute));
+        }
+
+        private void CommentButton_Click(object sender, System.EventArgs e)
+        {
+            gotoNewComment();
+        }
+
+        private void Comment_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            gotoNewComment();
+        }
+
+        private void gotoNewComment()
+        {
+            App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
+            this.NavigationService.Navigate(new Uri("/CommentInputPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

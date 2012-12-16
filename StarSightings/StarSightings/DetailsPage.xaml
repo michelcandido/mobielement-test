@@ -152,7 +152,7 @@
                     </ListBoxItem> 
                     <ListBoxItem Margin="0,10,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <Border BorderBrush="#FF686868" BorderThickness="3" Width="208" Height="48" Margin="0,0,44,0">
+                            <Border BorderBrush="#FF686868" BorderThickness="3" Width="208" Height="48" Margin="0,0,44,0" Tap="Comment_Tap">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock Text="Comment" Margin="0,0,10,0" FontSize="23" FontWeight="Bold" />
                                     <Image Source="Images/icon_gray_comment.png" Stretch="None" />
@@ -178,7 +178,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_map.png" Text="map"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment" Click="CommentButton_Click" />
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_heart.png" Text="vote"/>
             <!--
             <shell:ApplicationBar.MenuItems>

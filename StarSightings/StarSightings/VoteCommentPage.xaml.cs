@@ -51,5 +51,10 @@ namespace StarSightings
                 }
             }            
         }
+
+        private void CommentButton_Click(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/CommentInputPage.xaml", UriKind.RelativeOrAbsolute));
+        }
     }
 }
