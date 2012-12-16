@@ -110,6 +110,8 @@ namespace StarSightings
             selectedImage.Source = image;
             ContentPanel.Children.Add(selectedImage);
 
+            App.ViewModel.SelectedImage = image;
+
             Button DoneButton = new Button();
             DoneButton.Height = 72;
             DoneButton.Width = 160;
@@ -117,7 +119,7 @@ namespace StarSightings
             DoneButton.VerticalAlignment = VerticalAlignment.Top;
             DoneButton.HorizontalAlignment = HorizontalAlignment.Left;
             //DoneButton.Foreground = new SolidColorBrush(Colors.Green);
-            DoneButton.Content = "Done";
+            DoneButton.Content = "accept";
             DoneButton.Click += new RoutedEventHandler(onDoneButtonClick);
 
             Button SAButton = new Button();
@@ -127,7 +129,7 @@ namespace StarSightings
             SAButton.VerticalAlignment = VerticalAlignment.Top;
             SAButton.HorizontalAlignment = HorizontalAlignment.Left;
             //SAButton.Foreground = new SolidColorBrush(Colors.Green);
-            SAButton.Content = "Select Another";
+            SAButton.Content = "retake";
             SAButton.Click += new RoutedEventHandler(onSAButtonClick);
 
             ContentPanel.Children.Add(SAButton);
@@ -154,7 +156,8 @@ namespace StarSightings
 
         void onDoneButtonClick(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/MySightings.xaml", UriKind.RelativeOrAbsolute));
+            //Goto scoop page; The image is in MainViewModel
+            this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
         }
 
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
@@ -176,7 +179,11 @@ namespace StarSightings
 
         private void noPictureButton_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/MySightings.xaml", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.Navigate(new Uri("/MySightings.xaml", UriKind.RelativeOrAbsolute));
+            //Trying the webserver :)
+            //App.SSAPI.TestSuggestion();
+            //this.NavigationService.Navigate(new Uri("/RadControlsWhereInput.xaml", UriKind.RelativeOrAbsolute));
         }
+
     }
 }

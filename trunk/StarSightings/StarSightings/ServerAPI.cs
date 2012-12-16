@@ -34,6 +34,174 @@ namespace StarSightings
             return webClient;
         }
 
+
+        public void ObtainLocationSuggestions(string query)
+        {
+            WebClient webClient = GetWebClient();
+            string baseUri = Constants.SERVER_NAME;
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleSmartLocationSuggestion);
+            webClient.DownloadStringAsync(uri);
+        }
+
+        private void HandleSmartLocationSuggestion(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                //SuggestionEventArgs re = new SuggestionEventArgs(false);
+                //OnSuggestion(re);
+            }
+            else
+            {
+                // Save the feed into the State property in case the application is tombstoned.                 
+                //this.State["feed"] = e.Result;
+
+                XElement xmlResponse = XElement.Parse(e.Result);
+
+                XElement xmlValues = xmlResponse.Element("suggestions").Element("values");
+
+                App.ViewModel.LocationList.Clear();
+
+                if (xmlValues != null)
+                {
+                    foreach (XElement xmlItem in xmlValues.Elements("value"))
+                    {
+                        App.ViewModel.LocationList.Add(xmlItem.Value);
+                    }
+                }
+            }
+        }
+
+        public void ObtainPlaceSuggestions(string query)
+        {
+            WebClient webClient = GetWebClient();
+            string baseUri = Constants.SERVER_NAME;
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleSmartPlaceSuggestion);
+            webClient.DownloadStringAsync(uri);
+        }
+
+        private void HandleSmartPlaceSuggestion(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+            }
+            else
+            {
+
+                XElement xmlResponse = XElement.Parse(e.Result);
+                XElement xmlValues = xmlResponse.Element("suggestions").Element("values");
+                App.ViewModel.PlaceList.Clear();
+
+                if (xmlValues != null)
+                {
+                    foreach (XElement xmlItem in xmlValues.Elements("value"))
+                    {
+                        App.ViewModel.PlaceList.Add(xmlItem.Value);
+                    }
+                }
+            }
+        }
+
+        public void ObtainEventSuggestions(string query)
+        {
+            WebClient webClient = GetWebClient();
+            string baseUri = Constants.SERVER_NAME;
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+            webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleSmartEventSuggestion);
+            webClient.DownloadStringAsync(uri);
+        }
+
+        private void HandleSmartEventSuggestion(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+            }
+            else
+            {
+
+                XElement xmlResponse = XElement.Parse(e.Result);
+                XElement xmlValues = xmlResponse.Element("suggestions").Element("values");
+                App.ViewModel.EventList.Clear();
+
+                if (xmlValues != null)
+                {
+                    foreach (XElement xmlItem in xmlValues.Elements("value"))
+                    {
+                        App.ViewModel.EventList.Add(xmlItem.Value);
+                    }
+                }
+            }
+        }
+
+        private static String toWebString(String inputString)
+        {
+            char[] inputs = inputString.ToCharArray();
+
+            string outputString = "";
+
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                char input = inputs[i];
+
+                if (input == ' ')
+                {
+                    outputString += "%20";
+                }
+                else
+                    outputString += input;
+            }
+            return outputString;
+        }
+
+        public String getLocationSuggestionString()
+        {
+            //return "page=suggest&mode=place&mobile=1&v=3&cat=Bono&local_offset=-25200&location=Hoboken,%20New%20Jersey&geo_lat=40.74541&geo_lng=-74.03509&search_feets=105680&time=1350923604.361893";
+            String toReturn = "page=suggest&mode=place&mobile=1&v=3&cat=";
+            bool firstCeleb = true;
+
+            foreach (string aString in App.ViewModel.CelebNameList)
+            {
+                if (firstCeleb)
+                {
+                    toReturn += toWebString(aString);
+                    firstCeleb = false;
+                }
+                else
+                {
+                    toReturn += ";";
+                    toReturn += toWebString(aString);
+                }
+            }
+            return toReturn;
+        }
+
+        public String getPlaceSuggestionString()
+        {
+            return (getLocationSuggestionString() + "&location=" + toWebString(App.ViewModel.StoryLocation)); 
+        }
+
+        public String getEventSuggestionString()
+        {
+            return (getLocationSuggestionString() + "&place=" + toWebString(App.ViewModel.StoryPlace));
+        }
+
+
         public void RegisterDevice()
         {
             WebClient webClient = GetWebClient();

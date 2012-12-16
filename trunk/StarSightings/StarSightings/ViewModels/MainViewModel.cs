@@ -35,6 +35,12 @@ namespace StarSightings
             //this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
             this.KeywordSearchItems = new ObservableCollection<ItemViewModel>();
 
+            this.SelectedImage = new BitmapImage();
+            this.CelebNameList = new ObservableCollection<String>();
+            this.LocationList = new ObservableCollection<String>();
+            this.PlaceList = new ObservableCollection<String>();
+            this.EventList = new ObservableCollection<String>();
+
             this.User = new UserViewModel();
             this.Alerts = new ObservableCollection<AlertViewModel>();
 
@@ -48,7 +54,8 @@ namespace StarSightings
             App.SSAPI.CommentHandler += new CommentEventHandler(CommentCompleted);
 
             App.GeoWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
-            App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);    
+            App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            
        
             PopularItemsSummaryList = new CollectionViewSource();
             LatestItemsSummaryList = new CollectionViewSource();
@@ -69,6 +76,9 @@ namespace StarSightings
         private ObservableCollection<ItemViewModel> followingItems;
         //private ObservableCollection<ItemViewModel> followingSummaryItems;
         private ObservableCollection<ItemViewModel> keywordSearchItems;
+        private List<String> placeSuggestionItems; //TODO: move
+
+       
 
         public ObservableCollection<ItemViewModel> Items { get { return items; } private set{if (value != items) {items = value; NotifyPropertyChanged("Items");}} }
         public ObservableCollection<ItemViewModel> PopularItems { get { return popularItems; } private set { if (value != popularItems) { popularItems = value; NotifyPropertyChanged("PopularItems"); } } }
@@ -80,16 +90,42 @@ namespace StarSightings
         public ObservableCollection<ItemViewModel> FollowingItems { get { return followingItems; } private set { if (value != followingItems) { followingItems = value; NotifyPropertyChanged("FollowingItems"); } } }
         //public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
         public ObservableCollection<ItemViewModel> KeywordSearchItems { get { return keywordSearchItems; } private set { if (value != keywordSearchItems) { keywordSearchItems = value; NotifyPropertyChanged("KeywordSearchItems"); } } }
+        //TODO: move
+        public List<String> PlaceSuggestionItems { get { return placeSuggestionItems; } private set { if (value != placeSuggestionItems) { placeSuggestionItems = value; } } }
 
         public CollectionViewSource popularItemsSummaryList;
         public CollectionViewSource latestItemsSummaryList;
         public CollectionViewSource nearestItemsSummaryList;
         public CollectionViewSource followingItemsSummaryList;
 
+        //The image selected
+        public BitmapImage selectedImage;
+        public String celebName;
+        public ObservableCollection<String> celebNameList;
+        public ObservableCollection<String> locationList;
+        public ObservableCollection<String> placeList;
+        public ObservableCollection<String> eventList; 
+
+        public String picStory;
+        public String storyLocation;
+        public String storyPlace;
+        public String storyEvent;
+
         public CollectionViewSource PopularItemsSummaryList { get { return popularItemsSummaryList; } private set { if (value != popularItemsSummaryList) { popularItemsSummaryList = value; NotifyPropertyChanged("PopularItemsSummaryList"); } } }
         public CollectionViewSource LatestItemsSummaryList { get { return latestItemsSummaryList; } private set { if (value != latestItemsSummaryList) { latestItemsSummaryList = value; NotifyPropertyChanged("LatestItemsSummaryList"); } } }
         public CollectionViewSource NearestItemsSummaryList { get { return nearestItemsSummaryList; } private set { if (value != nearestItemsSummaryList) { nearestItemsSummaryList = value; NotifyPropertyChanged("NearestItemsSummaryList"); } } }
         public CollectionViewSource FollowingItemsSummaryList { get { return followingItemsSummaryList; } private set { if (value != followingItemsSummaryList) { followingItemsSummaryList = value; NotifyPropertyChanged("FollowingItemsSummaryList"); } } }
+
+        public BitmapImage SelectedImage { get { return selectedImage; } set { if (value != selectedImage) { selectedImage = value; NotifyPropertyChanged("SelectedImage"); } } }
+        public String CelebName { get { return celebName; } set { if (value != celebName) { celebName = value; NotifyPropertyChanged("CelebName"); } } }
+        public ObservableCollection<String> CelebNameList { get { return celebNameList; } set { if (value != celebNameList) { celebNameList = value; NotifyPropertyChanged("CelebNameList"); } } }
+        public ObservableCollection<String> LocationList { get { return locationList; } set { if (value != locationList) { locationList = value; NotifyPropertyChanged("LocationList"); } } }
+        public ObservableCollection<String> PlaceList { get { return placeList; } set { if (value != placeList) { placeList = value; NotifyPropertyChanged("PlaceList"); } } }
+        public ObservableCollection<String> EventList { get { return eventList; } set { if (value != eventList) { eventList = value; NotifyPropertyChanged("EventList"); } } }
+        public String PicStory { get { return picStory; } set { if (value != picStory) { picStory = value; NotifyPropertyChanged("PicStory"); } } }
+        public String StoryLocation { get { return storyLocation; } set { if (value != storyLocation) { storyLocation = value; NotifyPropertyChanged("StoryLocation"); } } }
+        public String StoryPlace { get { return storyPlace; } set { if (value != storyPlace) { storyPlace = value; NotifyPropertyChanged("StoryPlace"); } } }
+        public String StoryEvent { get { return storyEvent; } set { if (value != storyEvent) { storyEvent = value; NotifyPropertyChanged("StoryEvent"); } } }
 
         private int searchTypePopular;
         private int searchTypeLatest;

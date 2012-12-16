@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage 
-    x:Class="StarSightings.CameraMode"
+    x:Class="StarSightings.Story"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -10,25 +10,27 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="False">
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True" GotFocus="OnGetFocus">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" >
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>-->
         <Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
         </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="Tell your story" Style="{StaticResource PhoneTextTitle2Style}"/>
+        </StackPanel>
+        <TextBox Height="228" HorizontalAlignment="Left" Margin="0,54,0,0" Name="storyBox" Text="Say something unique about your sighting..." VerticalAlignment="Top" Width="480" Grid.RowSpan="2"  TextWrapping="Wrap"/>
+        <Button Content="Back" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="59,487,0,0" Name="backButton" VerticalAlignment="Top" Width="160" Tap="OnBackTap"/>
+        <Button Content="Next" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="253,487,0,0" Name="nextButton" VerticalAlignment="Top" Width="160" Tap="OnNextTap" />
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1"><!-- Margin="12,0,12,0">-->
-            <Button Content="Take Picture(s)" Height="71" Name="takePictureButton" Margin="87,199,82,453" Click="TakePictureButton_Click"/>
-            <Button Content="Select a Picture" Height="71" Margin="87,311,82,341" Name="selectPictureButton" Click="SelectPictureButton_Click" />
-            <Button Content="No Picture" Height="71" Margin="87,431,82,221" Name="noPictureButton" Opacity="1" Background="Transparent" Click="noPictureButton_Click" />
-            <Button Content="Cancel" Height="71" Margin="87,546,82,106" Name="cancelButton" Click="CancelButton_Click" />
-        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
