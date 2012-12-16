@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using Microsoft.Phone.Tasks;
 using System;
 using StarSightings.Events;
+using StarSightings.ViewModels;
 
 namespace StarSightings
 {
@@ -24,8 +25,8 @@ namespace StarSightings
             InitializeComponent();
             DataContext = App.ViewModel;
             //this.items = new ObservableCollection<ItemViewModel>();
-            this.Loaded += new RoutedEventHandler(DetailsPage_Loaded);
-        }
+            this.Loaded += new RoutedEventHandler(DetailsPage_Loaded);            
+        }        
         
         private ObservableCollection<ItemViewModel> items;
         void DetailsPage_Loaded(object sender, RoutedEventArgs e)
