@@ -174,7 +174,7 @@ namespace StarSightings
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.GoBack();// .Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void noPictureButton_Click(object sender, RoutedEventArgs e)

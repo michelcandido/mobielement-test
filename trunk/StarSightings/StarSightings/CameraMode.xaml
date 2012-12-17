@@ -15,15 +15,24 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" >
-        <!--<Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>-->
+        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
         </Grid.Background>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />            
+        </StackPanel>
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1"><!-- Margin="12,0,12,0">-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,-50,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>                
+            </Grid.RowDefinitions>
             <Button Content="Take Picture(s)" Height="71" Name="takePictureButton" Margin="87,199,82,453" Click="TakePictureButton_Click"/>
             <Button Content="Select a Picture" Height="71" Margin="87,311,82,341" Name="selectPictureButton" Click="SelectPictureButton_Click" />
             <Button Content="No Picture" Height="71" Margin="87,431,82,221" Name="noPictureButton" Opacity="1" Background="Transparent" Click="noPictureButton_Click" />
