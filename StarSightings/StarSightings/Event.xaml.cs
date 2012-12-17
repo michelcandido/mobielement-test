@@ -28,10 +28,7 @@ namespace StarSightings
 
              DataContext = App.ViewModel;
 
-             String toPrint = App.SSAPI.getEventSuggestionString();
-
-             System.Windows.MessageBox.Show(toPrint);
-             App.SSAPI.ObtainEventSuggestions(toPrint);
+             App.SSAPI.ObtainEventSuggestions( App.SSAPI.getEventSuggestionString());
             //AutoCompleteBox initialization
             this.provider = new WebServiceAutoCompleteProvider();
             this.radAutoCompleteBox.InitSuggestionsProvider(this.provider);

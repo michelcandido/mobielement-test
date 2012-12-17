@@ -37,6 +37,7 @@ namespace StarSightings
         //public const string URL_SUGGEST_KEYWORD = "/index.php?mode=suggest&mobile=1";
         public const string URL_KEYWORD = "/index.php?mode=suggest&mobile=1&v=3";
         public const string URL_COMMENT_NEW = "/index.php?page=comment&mode=new&mobile=1&v=3";
+        public const string URL_POST_NEW = "/index.php?page=photo&mode=create&mobile=1";
 
         public const int LIMIT=15;
         public const int SUMMARY_COUNT = 4;

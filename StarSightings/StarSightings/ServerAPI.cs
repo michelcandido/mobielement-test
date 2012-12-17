@@ -970,7 +970,69 @@ namespace StarSightings
                 CommentHandler(this, e);
             }
         }
+        /*
+        public void NewPost(string comment)
+        {
+            WebClient webClient = GetWebClient();
+            webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
 
+            string baseUri = Constants.SERVER_NAME + Constants.URL_COMMENT_NEW;
+            string query = "token=" + App.ViewModel.User.Token + "&photo_id=" + App.ViewModel.SelectedItem.PhotoId + "&value=" + HttpUtility.UrlEncode(comment);
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, "");
+
+            webClient.UploadStringCompleted += new UploadStringCompletedEventHandler(HandleNewComment);
+            webClient.UploadStringAsync(uri, query);
+        }
+
+        private void HandleNewComment(object sender, UploadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    //MessageBox.Show(e.Error.Message);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                RegisterEventArgs re = new RegisterEventArgs(false);
+                OnRegister(re);
+            }
+            else
+            {
+                XElement xmlResponse = XElement.Parse(e.Result);
+                XElement xmlItems = xmlResponse.Element("items");
+
+                ItemViewModel item = null;
+                if (xmlItems != null)
+                {
+                    foreach (XElement xmlItem in xmlItems.Elements("item"))
+                    {
+                        item = getItemInfoFromXML(xmlItem);
+                    }
+
+                    CommentEventArgs ce = new CommentEventArgs(true);
+                    if (item != null)
+                        ce.Item = item;
+                    OnComment(ce);
+                }
+                else
+                {
+                    CommentEventArgs ce = new CommentEventArgs(false);
+                    OnComment(ce);
+                }
+            }
+        }
+
+        public event PostEventHandler PostHandler;
+
+        protected virtual void OnPost(PostEventArgs e)
+        {
+            if (PostHandler != null)
+            {
+                PostHandler(this, e);
+            }
+        }*/
 
     }
 
