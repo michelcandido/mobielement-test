@@ -172,7 +172,7 @@ namespace StarSightings
         public String getLocationSuggestionString()
         {
             //return "page=suggest&mode=place&mobile=1&v=3&cat=Bono&local_offset=-25200&location=Hoboken,%20New%20Jersey&geo_lat=40.74541&geo_lng=-74.03509&search_feets=105680&time=1350923604.361893";
-            String toReturn = "page=suggest&mode=place&mobile=1&v=3&cat=";
+            String toReturn = "page=suggest&mode=location&mobile=1&v=3&cat=";
             bool firstCeleb = true;
 
             foreach (string aString in App.ViewModel.CelebNameList)
@@ -193,12 +193,44 @@ namespace StarSightings
 
         public String getPlaceSuggestionString()
         {
-            return (getLocationSuggestionString() + "&location=" + toWebString(App.ViewModel.StoryLocation)); 
+            String toReturn = "page=suggest&mode=place&mobile=1&v=3&cat=";
+            bool firstCeleb = true;
+
+            foreach (string aString in App.ViewModel.CelebNameList)
+            {
+                if (firstCeleb)
+                {
+                    toReturn += toWebString(aString);
+                    firstCeleb = false;
+                }
+                else
+                {
+                    toReturn += ";";
+                    toReturn += toWebString(aString);
+                }
+            }
+            return (toReturn + "&location=" + toWebString(App.ViewModel.StoryLocation)); 
         }
 
         public String getEventSuggestionString()
         {
-            return (getLocationSuggestionString() + "&place=" + toWebString(App.ViewModel.StoryPlace));
+            String toReturn = "page=suggest&mode=event&mobile=1&v=3&cat=";
+            bool firstCeleb = true;
+
+            foreach (string aString in App.ViewModel.CelebNameList)
+            {
+                if (firstCeleb)
+                {
+                    toReturn += toWebString(aString);
+                    firstCeleb = false;
+                }
+                else
+                {
+                    toReturn += ";";
+                    toReturn += toWebString(aString);
+                }
+            }
+            return (toReturn + "&location=" + toWebString(App.ViewModel.StoryLocation) + "&place=" + toWebString(App.ViewModel.StoryPlace));
         }
 
 
