@@ -104,7 +104,7 @@ namespace StarSightings
         public ObservableCollection<String> celebNameList;
         public ObservableCollection<String> locationList;
         public ObservableCollection<String> placeList;
-        public ObservableCollection<String> eventList; 
+        public ObservableCollection<String> eventList;
 
         public String picStory;
         public String storyLocation;

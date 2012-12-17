@@ -16,6 +16,7 @@ using Microsoft.Phone;
 using Microsoft.Xna.Framework.Media;
 using System.Windows.Resources;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 
 namespace StarSightings
 {
@@ -30,6 +31,7 @@ namespace StarSightings
         public CameraMode()
         {
             InitializeComponent();
+            App.ViewModel.SelectedImage = null;
             cameraCaptureTask = new CameraCaptureTask();
             cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
 
@@ -95,23 +97,31 @@ namespace StarSightings
             }*/
             //this.NavigationService.Navigate(new Uri("/SelectedPicturePage.xaml", UriKind.RelativeOrAbsolute));
             //this.NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
+            
+            //ContentPanel.Children.Clear();
+            BitmapImage image = new BitmapImage();
+            image.SetSource(e.ChosenPhoto);
+            App.ViewModel.SelectedImage = image;
 
-            ContentPanel.Children.Clear();
-
+            pictureToShow1.Source = App.ViewModel.SelectedImage;
+            pictureToShow2.Source = App.ViewModel.SelectedImage;
+            ContentPanel.Visibility = Visibility.Collapsed;
+            ContentPanelChooser.Visibility = Visibility.Visible;
+            ContentPanelScoop.Visibility = Visibility.Collapsed;
+            /*
             Image selectedImage = new Image();
             selectedImage.Height = 800;
             selectedImage.Width = 480;
             selectedImage.HorizontalAlignment = HorizontalAlignment.Center;
             selectedImage.Stretch = Stretch.Uniform;
             selectedImage.VerticalAlignment = VerticalAlignment.Center;
-            
-            BitmapImage image = new BitmapImage();
-            image.SetSource(e.ChosenPhoto);
-            selectedImage.Source = image;
+            */
+
+            /*selectedImage.Source = image;
             ContentPanel.Children.Add(selectedImage);
-
-            App.ViewModel.SelectedImage = image;
-
+            */
+            
+            /*
             Button DoneButton = new Button();
             DoneButton.Height = 72;
             DoneButton.Width = 160;
@@ -134,6 +144,9 @@ namespace StarSightings
 
             ContentPanel.Children.Add(SAButton);
             ContentPanel.Children.Add(DoneButton);
+            */
+           
+            //this.NavigationService.Navigate(new Uri("/ConfirmPictureSelected.xaml", UriKind.RelativeOrAbsolute));
         }
 
         /*
@@ -148,7 +161,7 @@ namespace StarSightings
         imgPhoto.Source = image;
         }
         }*/
-
+        /*
         void onSAButtonClick(object sender, RoutedEventArgs e)
         {
             SelectPictureButton_Click(sender, e);
@@ -158,18 +171,31 @@ namespace StarSightings
         {
             //Goto scoop page; The image is in MainViewModel
             this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
-        }
+        }*/
 
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
         {
             if (e.TaskResult == TaskResult.OK)
             {
-                savedCounter++;
-                string fileName = "StarSightings_" + savedCounter + ".jpg";
+ 
+                String timestamp = DateTime.Now.ToString();
+                string fileName = "StarSightings_" + timestamp + ".jpg";
 
                 // Save the image to the camera roll album.
                 Picture pic = library.SavePictureToCameraRoll(fileName, e.ChosenPhoto);
+
+                BitmapImage image = new BitmapImage();
+                image.SetSource(e.ChosenPhoto);
+                App.ViewModel.SelectedImage = image;
+
+                pictureToShow1.Source = App.ViewModel.SelectedImage;
+                pictureToShow2.Source = App.ViewModel.SelectedImage;
+                ContentPanel.Visibility = Visibility.Collapsed;
+                ContentPanelChooser.Visibility = Visibility.Collapsed;
+                ContentPanelScoop.Visibility = Visibility.Visible;
             }
+
+
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -182,7 +208,55 @@ namespace StarSightings
             //this.NavigationService.Navigate(new Uri("/MySightings.xaml", UriKind.RelativeOrAbsolute));
             //Trying the webserver :)
             //App.SSAPI.TestSuggestion();
+//            System.Windows.MessageBox.Show("No picture taken. Con)
             //this.NavigationService.Navigate(new Uri("/RadControlsWhereInput.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        /*
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+ 
+                if (App.ViewModel.fromChooserTask)
+                {
+                    //Goto scoop page; The image is in MainViewModel
+                    App.ViewModel.fromChooserTask = false;
+                    this.NavigationService.Navigate(new Uri("/ConfirmPictureSelected.xaml", UriKind.RelativeOrAbsolute));
+                }
+
+                if (App.ViewModel.fromCameraTask)
+                {
+                    //Goto scoop page; The image is in MainViewModel
+                    App.ViewModel.fromCameraTask = false;
+                    this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
+                }
+        } */
+          
+            /*
+            if (this.NavigationContext.QueryString.ContainsKey("ProductId"))
+            {
+                productID = this.NavigationContext.QueryString["ProductId"];
+            }
+            else
+            {
+                productID = App.Current.Resources["FeaturedProductID"].ToString();
+            }*/
+
+
+        private void OnDetailsTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void OnAcceptTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void OnRetakeTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            SelectPictureButton_Click(sender, e);
         }
 
     }

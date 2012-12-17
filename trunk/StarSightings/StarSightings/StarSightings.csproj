@@ -132,9 +132,7 @@
     <Compile Include="Converters\ListTDColorConverter.cs" />
     <Compile Include="Converters\ShortRelativeTimeConverter.cs" />
     <Compile Include="Converters\UnixRelativeTimeConverter.cs" />
-    <Compile Include="RadControlsItem1.xaml.cs">
-      <DependentUpon>RadControlsItem1.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Events\PostEventArgs.cs" />
     <Compile Include="SightingDetail.xaml.cs">
       <DependentUpon>SightingDetail.xaml</DependentUpon>
     </Compile>
@@ -358,10 +356,6 @@
     <Page Include="CameraMode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RadControlsItem1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="SightingDetail.xaml">
       <SubType>Designer</SubType>
