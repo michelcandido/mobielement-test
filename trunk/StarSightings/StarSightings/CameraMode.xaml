@@ -24,7 +24,7 @@
         </Grid.Background>
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
-            <TextBlock x:Name="ApplicationTitle" Text="THE SCOOP" Style="{StaticResource  PhoneTextTitle3Style}" Visibility="Collapsed"/>
+            <TextBlock x:Name="ApplicationTitle" Text="scoop" Style="{StaticResource PhoneTextTitle1Style}" Visibility="Collapsed"/>
         </StackPanel>
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,-50,0,0" Visibility="Visible">
@@ -45,8 +45,19 @@
             <Button Content="retake" Height="72" HorizontalAlignment="Left" Margin="255,423,0,0" Name="button2" VerticalAlignment="Top" Width="160" Tap="OnRetakeTap" />
         </Grid>
         <Grid x:Name="ContentPanelScoop" Grid.Row="1" Margin="12,0,12,0" Visibility="Collapsed">
-            <Image Height="306" HorizontalAlignment="Center" Margin="23,0,0,0" Name="pictureToShow2" Stretch="Fill" VerticalAlignment="Top" Width="460" />
-            <Button Content="Add details" Height="108" HorizontalAlignment="Center" Margin="0,312,0,0" Name="DetailsButton" VerticalAlignment="Top" Width="435" Tap="OnDetailsTap" />
+            <!--<Image Height="306" HorizontalAlignment="Center" Margin="23,0,0,0" Name="pictureToShow2" Stretch="Fill" VerticalAlignment="Top" Width="460" />
+            <Button Content="Add details" Height="108" HorizontalAlignment="Center" Margin="0,312,0,0" Name="DetailsButton" VerticalAlignment="Top" Width="435" Tap="OnDetailsTap" />-->
+            <Grid VerticalAlignment="Top">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0"  Name="pictureToShow2" Width="440" Height="440" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0">
+                    <Border Height="120" Width="440" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Border.Background>
+                            <SolidColorBrush Color="#140E2A" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="Add Details" MaxWidth="440" MaxHeight="120" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="31" FontWeight="Bold" Tap="OnDetailsTap"/>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
  

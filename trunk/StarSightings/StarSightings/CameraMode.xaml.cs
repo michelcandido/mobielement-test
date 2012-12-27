@@ -193,6 +193,7 @@ namespace StarSightings
                 ContentPanel.Visibility = Visibility.Collapsed;
                 ContentPanelChooser.Visibility = Visibility.Collapsed;
                 ContentPanelScoop.Visibility = Visibility.Visible;
+                ApplicationTitle.Visibility = Visibility.Visible;
             }
 
 
