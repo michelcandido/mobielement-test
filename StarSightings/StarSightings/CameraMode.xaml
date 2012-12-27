@@ -34,10 +34,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>                
             </Grid.RowDefinitions>
-            <Button Content="Take Picture(s)" Height="71" Name="takePictureButton" Margin="87,199,82,453" Click="TakePictureButton_Click"/>
-            <Button Content="Select a Picture" Height="71" Margin="87,311,82,341" Name="selectPictureButton" Click="SelectPictureButton_Click" />
-            <Button Content="No Picture" Height="71" Margin="87,431,82,221" Name="noPictureButton" Opacity="1" Background="Transparent" Click="noPictureButton_Click" />
-            <Button Content="Cancel" Height="71" Margin="87,546,82,106" Name="cancelButton" Click="CancelButton_Click" />
+            <Button Content="Take Picture(s)" Height="71" Name="takePictureButton" Margin="87,199,82,453" Click="TakePictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25"/>
+            <Button Content="Select a Picture" Height="71" Margin="87,311,82,341" Name="selectPictureButton" Click="SelectPictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25"/>
+            <Button Content="No Picture" Height="71" Margin="87,431,82,221" Name="noPictureButton" Opacity="1" Click="noPictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25"/>
+            <Button Content="Cancel" Height="71" Margin="87,546,82,106" Name="cancelButton" Click="CancelButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25" />
         </Grid>
         <Grid x:Name="ContentPanelChooser" Grid.Row="1" Margin="12,0,12,0" Visibility="Collapsed">
             <Image Height="306" HorizontalAlignment="Center" Margin="23,0,0,0" Name="pictureToShow1" Stretch="Fill" VerticalAlignment="Top" Width="460" />
