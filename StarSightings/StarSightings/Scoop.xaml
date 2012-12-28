@@ -25,14 +25,23 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="THE SCOOP" Style="{StaticResource  PhoneTextTitle3Style}"/>
-           <!-- <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>-->
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
+            <TextBlock x:Name="ApplicationTitle" Text="scoop" Style="{StaticResource PhoneTextTitle1Style}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Image Height="306" HorizontalAlignment="Center" Margin="23,0,0,0" Name="pictureToShow" Stretch="Fill" VerticalAlignment="Top" Width="460" />
-            <Button Content="Add details" Height="108" HorizontalAlignment="Center" Margin="0,312,0,0" Name="DetailsButton" VerticalAlignment="Top" Width="435" Tap="OnDetailsTap" />
+            <Grid VerticalAlignment="Top">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0"  Name="pictureToShow" Width="440" Height="440" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0">
+                    <Border Height="120" Width="440" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                        <Border.Background>
+                            <SolidColorBrush Color="#140E2A" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="Add Details" MaxWidth="440" MaxHeight="120" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="31" FontWeight="Bold" Tap="OnDetailsTap"/>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
  
