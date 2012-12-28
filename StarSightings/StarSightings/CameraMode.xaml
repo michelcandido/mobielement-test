@@ -39,14 +39,10 @@
             <Button Content="No Picture" Height="71" Margin="87,431,82,221" Name="noPictureButton" Opacity="1" Click="noPictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25"/>
             <Button Content="Cancel" Height="71" Margin="87,546,82,106" Name="cancelButton" Click="CancelButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25" />
         </Grid>
-        <Grid x:Name="ContentPanelChooser" Grid.Row="1" Margin="12,0,12,0" Visibility="Collapsed">
-            <Image Height="306" HorizontalAlignment="Center" Margin="23,0,0,0" Name="pictureToShow1" Stretch="Fill" VerticalAlignment="Top" Width="460" />
-            <Button Content="accept" Height="72" HorizontalAlignment="Left" Margin="40,423,0,0" Name="button1" VerticalAlignment="Top" Width="160" Tap="OnAcceptTap" />
-            <Button Content="retake" Height="72" HorizontalAlignment="Left" Margin="255,423,0,0" Name="button2" VerticalAlignment="Top" Width="160" Tap="OnRetakeTap" />
+        <Grid x:Name="ContentPanelChooser" Grid.Row="1"  Visibility="Collapsed">
+            <Image  HorizontalAlignment="Center"  Name="pictureToShow1" Stretch="UniformToFill" VerticalAlignment="Top"  />            
         </Grid>
-        <Grid x:Name="ContentPanelScoop" Grid.Row="1" Margin="12,0,12,0" Visibility="Collapsed">
-            <!--<Image Height="306" HorizontalAlignment="Center" Margin="23,0,0,0" Name="pictureToShow2" Stretch="Fill" VerticalAlignment="Top" Width="460" />
-            <Button Content="Add details" Height="108" HorizontalAlignment="Center" Margin="0,312,0,0" Name="DetailsButton" VerticalAlignment="Top" Width="435" Tap="OnDetailsTap" />-->
+        <Grid x:Name="ContentPanelScoop" Grid.Row="1" Margin="12,0,12,0" Visibility="Collapsed">            
             <Grid VerticalAlignment="Top">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0"  Name="pictureToShow2" Width="440" Height="440" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0">
@@ -62,15 +58,15 @@
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="False" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.check.rest.png" Text="select" Click="OnAcceptClick" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.close.rest.png" Text="retake" Click="OnCancelClick"/>
+            <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+            </shell:ApplicationBar.MenuItems>-->
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

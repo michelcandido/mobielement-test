@@ -99,15 +99,19 @@ namespace StarSightings
             //this.NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
             
             //ContentPanel.Children.Clear();
-            BitmapImage image = new BitmapImage();
-            image.SetSource(e.ChosenPhoto);
-            App.ViewModel.SelectedImage = image;
+            if (e.TaskResult == TaskResult.OK)
+            {
+                BitmapImage image = new BitmapImage();
+                image.SetSource(e.ChosenPhoto);
+                App.ViewModel.SelectedImage = image;
 
-            pictureToShow1.Source = App.ViewModel.SelectedImage;
-            pictureToShow2.Source = App.ViewModel.SelectedImage;
-            ContentPanel.Visibility = Visibility.Collapsed;
-            ContentPanelChooser.Visibility = Visibility.Visible;
-            ContentPanelScoop.Visibility = Visibility.Collapsed;
+                pictureToShow1.Source = App.ViewModel.SelectedImage;
+                pictureToShow2.Source = App.ViewModel.SelectedImage;
+                ContentPanel.Visibility = Visibility.Collapsed;
+                ContentPanelChooser.Visibility = Visibility.Visible;
+                ContentPanelScoop.Visibility = Visibility.Collapsed;
+                this.ApplicationBar.IsVisible = true;
+            }
             /*
             Image selectedImage = new Image();
             selectedImage.Height = 800;
@@ -250,14 +254,17 @@ namespace StarSightings
             this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
         }
 
-        private void OnAcceptTap(object sender, System.Windows.Input.GestureEventArgs e)
+        
+
+        private void OnAcceptClick(object sender, EventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
         }
+       
 
-        private void OnRetakeTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void OnCancelClick(object sender, EventArgs e)
         {
-            SelectPictureButton_Click(sender, e);
+            SelectPictureButton_Click(sender, null);
         }
 
     }
