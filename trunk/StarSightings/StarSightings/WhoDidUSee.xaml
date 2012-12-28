@@ -4,19 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
     shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" >
         <Grid.Background>
-            <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
+            <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -25,24 +26,25 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="Who did you see?" Style="{StaticResource PhoneTextTitle2Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="Who did you see?" FontSize="23" Foreground="#b8b8b8"/>
         </StackPanel>
-        <TextBox Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="10,15,0,0" Name="nameBox" Text="Enter celebname" VerticalAlignment="Top" Width="460" TextChanged="onTextChange" GotFocus="OnGetFocus" />
-        <Button Content="Back" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="47,475,0,0" Name="backButton" VerticalAlignment="Top" Width="160"  Tap="onBackTap"/>
-        <Button Content="Next" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="239,475,0,0" Name="nextButton" VerticalAlignment="Top" Width="160" IsEnabled="False" Tap="onNextTap" />
+        
         <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <telerikPrimitives:RadTextBox Grid.Row="1" Watermark="Enter celebname" HorizontalAlignment="Center"  Name="tbName" VerticalAlignment="Top" Width="460" FontSize="25" Text="{Binding CelebName, Mode=TwoWay}" TextChanged="onTextChange" />
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.back.rest.png" Text="back" Click="OnBackClick" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="next" Click="OnNextClick" />
+            <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+            </shell:ApplicationBar.MenuItems>-->
+        </shell:ApplicationBar> 
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

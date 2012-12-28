@@ -10,49 +10,47 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace StarSightings
 {
     public partial class WhoDidUSee : PhoneApplicationPage
     {
-        private bool firstTime = true;
+        //private bool firstTime = true;
+        private ApplicationBarIconButton btnBack, btnNext;
 
         public WhoDidUSee()
         {
             InitializeComponent();
+            DataContext = App.ViewModel;
+
+            btnBack = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+            btnNext = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+
+            onTextChange(this, null);
         }
 
         private void onTextChange(object sender, TextChangedEventArgs e)
         {
-            if (nameBox.Text == "")
+            if (tbName.Text == "")
             {
-                nextButton.IsEnabled = false;
+                btnNext.IsEnabled = false;                
             }
             else
             {
-                nextButton.IsEnabled = true;
-                App.ViewModel.CelebName = nameBox.Text;
+                btnNext.IsEnabled = true;                
             }
 
-        }
+        }        
 
-        private void onBackTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void OnBackClick(object sender, EventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.GoBack();
         }
 
-        private void onNextTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void OnNextClick(object sender, EventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/AddWho.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void OnGetFocus(object sender, RoutedEventArgs e)
-        {
-            if (firstTime)
-            {
-                nameBox.Text = "";
-            }
-            firstTime = false;
         }
 
 
