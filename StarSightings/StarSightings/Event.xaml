@@ -44,7 +44,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter activity or event">
+            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter activity or event" Text="{Binding StoryEvent}">
                 <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>

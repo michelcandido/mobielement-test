@@ -117,7 +117,7 @@ namespace StarSightings
 
         private void noPictureButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
         }        
 
         private void OnDetailsTap(object sender, System.Windows.Input.GestureEventArgs e)

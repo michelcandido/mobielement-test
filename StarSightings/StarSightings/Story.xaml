@@ -32,7 +32,7 @@
         
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <telerikPrimitives:RadTextBox Watermark="Say something about your sighting..." HorizontalAlignment="Left"  Name="storyBox" VerticalAlignment="Top" Width="460" Height="200" AcceptsReturn="True" TextWrapping="Wrap" FontSize="25" Foreground="#686868" Text="{Binding Path=PicStory}"/>
+            <telerikPrimitives:RadTextBox Watermark="Say something about your sighting..." HorizontalAlignment="Left"  Name="storyBox" VerticalAlignment="Top" Width="460" Height="200" AcceptsReturn="True" TextWrapping="Wrap" FontSize="25" Foreground="#686868" Text="{Binding PicStory}"/>
         </Grid>
     </Grid>
  

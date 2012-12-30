@@ -46,7 +46,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter city, state, or country" TextChanged="onTextChange">
+            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter city, state, or country" TextChanged="onTextChange" Text="{Binding StoryLocation}">
                 <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>
