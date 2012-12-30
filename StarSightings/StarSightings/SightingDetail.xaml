@@ -65,7 +65,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/appbar.edit.rest.png" Tap="Time_Tap" VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding CelebName}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Text="{Binding StoryTime}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
                             <TextBlock Text="date and time" FontSize="19" Foreground="#b8b8b8"/>
                         </StackPanel>
                     </StackPanel>

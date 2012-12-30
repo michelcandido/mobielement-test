@@ -110,6 +110,7 @@ namespace StarSightings
         public String storyLocation;
         public String storyPlace;
         public String storyEvent;
+        public DateTime storyTime;
 
         public CollectionViewSource PopularItemsSummaryList { get { return popularItemsSummaryList; } private set { if (value != popularItemsSummaryList) { popularItemsSummaryList = value; NotifyPropertyChanged("PopularItemsSummaryList"); } } }
         public CollectionViewSource LatestItemsSummaryList { get { return latestItemsSummaryList; } private set { if (value != latestItemsSummaryList) { latestItemsSummaryList = value; NotifyPropertyChanged("LatestItemsSummaryList"); } } }
@@ -126,6 +127,7 @@ namespace StarSightings
         public String StoryLocation { get { return storyLocation; } set { if (value != storyLocation) { storyLocation = value; NotifyPropertyChanged("StoryLocation"); } } }
         public String StoryPlace { get { return storyPlace; } set { if (value != storyPlace) { storyPlace = value; NotifyPropertyChanged("StoryPlace"); } } }
         public String StoryEvent { get { return storyEvent; } set { if (value != storyEvent) { storyEvent = value; NotifyPropertyChanged("StoryEvent"); } } }
+        public DateTime StoryTime { get { return storyTime; } set { if (value != storyTime) { storyTime = value; NotifyPropertyChanged("StoryTime"); } } }
 
         private int searchTypePopular;
         private int searchTypeLatest;
