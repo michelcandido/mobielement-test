@@ -35,15 +35,16 @@ namespace StarSightings
             this.provider.InputChanged += this.OnProvider_InputChanged;
         }
 
-        private void OnNextTap(object sender, System.Windows.Input.GestureEventArgs e)
+        
+        private void OnBackClick(object sender, EventArgs e)
+        {
+            this.NavigationService.GoBack();
+        }
+
+        private void OnNextClick(object sender, EventArgs e)
         {
             App.ViewModel.StoryEvent = this.provider.InputString;
             this.NavigationService.Navigate(new Uri("/Story.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void OnBackTap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            this.NavigationService.Navigate(new Uri("/Place.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void OnProvider_InputChanged(object sender, EventArgs e)
