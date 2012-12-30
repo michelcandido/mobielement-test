@@ -14,32 +14,22 @@ using Microsoft.Phone.Controls;
 namespace StarSightings
 {
     public partial class Story : PhoneApplicationPage
-    {
-        private bool firstTime = true;
-
+    {        
         public Story()
         {
             InitializeComponent();
+            DataContext = App.ViewModel;
+        }        
+
+        private void OnBackClick(object sender, EventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
 
-        private void OnNextTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void OnNextClick(object sender, EventArgs e)
         {
             App.ViewModel.PicStory = storyBox.Text;
             this.NavigationService.Navigate(new Uri("/SightingDetail.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void OnBackTap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            this.NavigationService.Navigate(new Uri("/Event.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void OnGetFocus(object sender, RoutedEventArgs e)
-        {
-            if (firstTime)
-            {
-                storyBox.Text = "";
-            }
-            firstTime = false;
-        }
+        }       
     }
 }
