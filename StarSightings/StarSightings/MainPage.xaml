@@ -26,8 +26,8 @@
         </DataTemplate>
         <DataTemplate x:Key="MySummaryItemTemplate">
             <Grid Tap="Grid_Tap">
-                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,12,12,0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
                     <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
@@ -39,8 +39,8 @@
         </DataTemplate>
         <DataTemplate x:Key="MyLatestSummaryItemTemplate">
             <Grid Tap="Grid_Tap">
-                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
                     <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
@@ -56,8 +56,8 @@
         </DataTemplate>
         <DataTemplate x:Key="MyNearestSummaryItemTemplate">
             <Grid Tap="Grid_Tap">
-                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
                     <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>

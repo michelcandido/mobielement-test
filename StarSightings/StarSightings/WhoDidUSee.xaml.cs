@@ -15,8 +15,7 @@ using Microsoft.Phone.Shell;
 namespace StarSightings
 {
     public partial class WhoDidUSee : PhoneApplicationPage
-    {
-        //private bool firstTime = true;
+    {        
         private ApplicationBarIconButton btnBack, btnNext;
 
         public WhoDidUSee()
@@ -32,7 +31,7 @@ namespace StarSightings
 
         private void onTextChange(object sender, TextChangedEventArgs e)
         {
-            if (tbName.Text == "")
+            if (string.IsNullOrEmpty(tbName.Text))
             {
                 btnNext.IsEnabled = false;                
             }
@@ -50,6 +49,8 @@ namespace StarSightings
 
         private void OnNextClick(object sender, EventArgs e)
         {
+            App.ViewModel.CelebNameList.Clear();
+            App.ViewModel.CelebNameList.Add(tbName.Text);
             this.NavigationService.Navigate(new Uri("/AddWho.xaml", UriKind.RelativeOrAbsolute));
         }
 
