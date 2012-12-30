@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Telerik.Windows.Controls;
 using Microsoft.Phone.Net.NetworkInformation;
 using StarSightings.Events;
+using Microsoft.Phone.Shell;
 
 
 namespace StarSightings
@@ -21,6 +22,8 @@ namespace StarSightings
     {
         private WebServiceAutoCompleteProvider provider;
         private KeywordEventHandler keywordHandler;
+
+        private ApplicationBarIconButton btnNext;
         
         public Location()
         {
@@ -33,22 +36,38 @@ namespace StarSightings
             this.provider = new WebServiceAutoCompleteProvider();
             this.radAutoCompleteBox.InitSuggestionsProvider(this.provider);
             this.provider.InputChanged += this.OnProvider_InputChanged;
+
+            btnNext = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+            onTextChange(this, null);
         }
+
+        private void onTextChange(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.provider.InputString))
+            {
+                btnNext.IsEnabled = false;
+            }
+            else
+            {
+                btnNext.IsEnabled = true;
+            }
+
+        }        
 
         private void initializeList()
         {
             
+        }        
+
+        private void OnBackClick(object sender, EventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
 
-        private void OnNextTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void OnNextClick(object sender, EventArgs e)
         {
             App.ViewModel.StoryLocation = this.provider.InputString;
             this.NavigationService.Navigate(new Uri("/Place.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void OnBackTap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            this.NavigationService.Navigate(new Uri("/AddWho.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void OnInitSuggestions(object sender, EventArgs e)
