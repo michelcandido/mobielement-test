@@ -10,7 +10,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
     shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -25,19 +25,67 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="SIGHTING DETAIL" Style="{StaticResource  PhoneTextTitle3Style}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="Confirm sighting detail"  FontSize="23" Foreground="#b8b8b8"/>            
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Image Height="306" HorizontalAlignment="Center" Margin="23,0,0,0" Name="pictureToShow" Stretch="Fill" VerticalAlignment="Top" Width="460" />
-            <Button Content="Back" Height="72" HorizontalAlignment="Left" Margin="43,599,0,0" Name="button1" VerticalAlignment="Top" Width="160"  Tap="OnBackTap"/>
-            <Button Content="Next" Height="72" HorizontalAlignment="Left" Margin="275,599,0,0" Name="button2" VerticalAlignment="Top" Width="160"  Tap="OnNextTap"/>
-            <ListBox Height="281" HorizontalAlignment="Left" Margin="12,312,0,0" Name="listBox1" VerticalAlignment="Top" Width="458" >
-                <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.EventFooter, Converter={StaticResource StringVisibleConverter}}" Margin="0,5,0,5" Tag="{Binding ElementName=slideView, Path=SelectedItem.SourceUrl}" Tap="Name_Tap">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.EventFooter}"  FontSize="25" Foreground="Black" FontWeight="Bold"  />
-                        <TextBlock Text="celebname" FontSize="23" Foreground="#FF686868"/>
+            <ListBox>
+                <ListBoxItem>
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 12, 0, 0"  Name="pictureToShow" Width="440" Height="440" Stretch="UniformToFill" />
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/appbar.edit.rest.png" Tap="Name_Tap" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding CelebName}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Text="celebname" FontSize="19" Foreground="#b8b8b8"/>        
+                        </StackPanel>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/appbar.edit.rest.png" Tap="Place_Tap" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding StoryPlace}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Text="place or venue" FontSize="19" Foreground="#b8b8b8"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/appbar.edit.rest.png" Tap="Location_Tap" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding StoryLocation}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Text="location" FontSize="19" Foreground="#b8b8b8"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/appbar.edit.rest.png" Tap="Time_Tap" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding CelebName}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Text="date and time" FontSize="19" Foreground="#b8b8b8"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/appbar.edit.rest.png" Tap="Event_Tap" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding StoryEvent}" FontSize="35" Foreground="#ffffff" Width="400"  TextWrapping="Wrap"/>
+                            <TextBlock Text="activity or event" FontSize="19" Foreground="#b8b8b8"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/appbar.edit.rest.png" Tap="Story_Tap" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding PicStory}" FontSize="35" Foreground="#ffffff" Width="400" TextWrapping="Wrap" />
+                            <TextBlock Text="story" FontSize="19" Foreground="#b8b8b8"/>
+                        </StackPanel>
                     </StackPanel>
                 </ListBoxItem>
             </ListBox>
@@ -45,15 +93,15 @@
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.back.rest.png" Text="back" Click="OnBackClick" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="next" Click="OnNextClick" />
+            <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+            </shell:ApplicationBar.MenuItems>-->
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

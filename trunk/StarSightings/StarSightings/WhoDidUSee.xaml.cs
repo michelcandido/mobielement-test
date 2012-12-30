@@ -49,8 +49,9 @@ namespace StarSightings
 
         private void OnNextClick(object sender, EventArgs e)
         {
-            App.ViewModel.CelebNameList.Clear();
-            App.ViewModel.CelebNameList.Add(tbName.Text);
+            //App.ViewModel.CelebNameList.Clear();
+            if (!App.ViewModel.CelebNameList.Contains(tbName.Text))
+                App.ViewModel.CelebNameList.Add(tbName.Text);
             this.NavigationService.Navigate(new Uri("/AddWho.xaml", UriKind.RelativeOrAbsolute));
         }
 
