@@ -41,7 +41,7 @@
                     </Border>
                     <TextBlock Text="Add Details" MaxWidth="440" MaxHeight="120" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="31" FontWeight="Bold" />
                 </Grid>
-            </Grid>
+            </Grid>            
         </Grid>
     </Grid>
  

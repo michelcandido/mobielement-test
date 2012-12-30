@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Windows.Resources;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using ExifLib;
 
 namespace StarSightings
 {
@@ -69,6 +70,7 @@ namespace StarSightings
             
             if (e.TaskResult == TaskResult.OK)
             {
+                JpegInfo info = ExifLib.ExifReader.ReadJpeg(e.ChosenPhoto, e.OriginalFileName);
                 BitmapImage image = new BitmapImage();
                 image.SetSource(e.ChosenPhoto);
                 App.ViewModel.SelectedImage = image;
@@ -79,6 +81,9 @@ namespace StarSightings
                 ContentPanelChooser.Visibility = Visibility.Visible;
                 ContentPanelScoop.Visibility = Visibility.Collapsed;
                 this.ApplicationBar.IsVisible = true;
+
+                
+                getPicDateTime(info);
             }
             
         }
@@ -88,26 +93,70 @@ namespace StarSightings
         {
             if (e.TaskResult == TaskResult.OK)
             {
- 
-                String timestamp = DateTime.Now.ToString();
-                string fileName = "StarSightings_" + timestamp + ".jpg";
 
-                // Save the image to the camera roll album.
+                App.ViewModel.StoryTime = DateTime.Now;
+                string fileName = "StarSightings_" + App.ViewModel.StoryTime.ToString() + ".jpg";
+
                 Picture pic = library.SavePictureToCameraRoll(fileName, e.ChosenPhoto);
 
+                Stream capturedImage = e.ChosenPhoto;
                 BitmapImage image = new BitmapImage();
                 image.SetSource(e.ChosenPhoto);
                 App.ViewModel.SelectedImage = image;
 
+                
+                /*
+                e.ChosenPhoto.Position = 0;
+                JpegInfo info = ExifReader.ReadJpeg(e.ChosenPhoto, e.OriginalFileName);
+
+                switch (info.Orientation)
+                {
+
+                    case ExifOrientation.TopLeft:
+
+                    case ExifOrientation.Undefined:
+                        ImageRotate.Angle = 0d;
+                        break;
+
+                    case ExifOrientation.TopRight:
+                        ImageRotate.Angle = 90d;
+                        break;
+
+                    case ExifOrientation.BottomRight:
+                        ImageRotate.Angle = 180d;
+                        break;
+
+                    case ExifOrientation.BottomLeft:
+                        ImageRotate.Angle = 270d;
+                        break;
+                }
+
+                */
+                // Save the image to the camera roll album.                
+                
+               
                 pictureToShow1.Source = App.ViewModel.SelectedImage;
                 pictureToShow2.Source = App.ViewModel.SelectedImage;
                 ContentPanel.Visibility = Visibility.Collapsed;
-                ContentPanelChooser.Visibility = Visibility.Collapsed;
-                ContentPanelScoop.Visibility = Visibility.Visible;
-                ApplicationTitle.Visibility = Visibility.Visible;
+                ContentPanelChooser.Visibility = Visibility.Visible;
+                ContentPanelScoop.Visibility = Visibility.Collapsed;
+                this.ApplicationBar.IsVisible = true;
+
+                                
             }
 
 
+        }
+
+        private void getPicDateTime(JpegInfo info)
+        {
+            if (!string.IsNullOrEmpty(info.DateTime) && !string.IsNullOrWhiteSpace(info.DateTime))
+            {
+                string[] dt = info.DateTime.Split(new char[]{' '});
+                string[] dates = dt[0].Split(new char[]{':'});
+                string[] times = dt[1].Split(new char[]{':'});
+                App.ViewModel.StoryTime = new DateTime(int.Parse(dates[0]), int.Parse(dates[1]), int.Parse(dates[2]),int.Parse(times[0]), int.Parse(times[1]), int.Parse(times[2]));                
+            }            
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

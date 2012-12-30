@@ -63,6 +63,7 @@
     <Reference Include="Coding4Fun.Phone.Storage">
       <HintPath>packages\Coding4Fun.Phone.Storage.1.6.1\lib\sl4-windowsphone71\Coding4Fun.Phone.Storage.dll</HintPath>
     </Reference>
+    <Reference Include="ExifLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Facebook.6.0.24\lib\sl4-windowsphone71\Facebook.dll</HintPath>
     </Reference>
@@ -107,6 +108,9 @@
   <ItemGroup>
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DatePickerPage.xaml.cs">
+      <DependentUpon>DatePickerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Event.xaml.cs">
       <DependentUpon>Event.xaml</DependentUpon>
@@ -221,6 +225,9 @@
     <Compile Include="Post.xaml.cs">
       <DependentUpon>Post.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TimePickerPage.xaml.cs">
+      <DependentUpon>TimePickerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="ViewModels\CommandSampleViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
@@ -255,6 +262,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\FrameThumbnail.png" />
+    <Content Include="Helpers\ExifLib.dll" />
     <Content Include="Images\appbar.add.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -363,6 +371,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DatePickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Event.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -460,6 +472,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SSLoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TimePickerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

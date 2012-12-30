@@ -19,11 +19,16 @@ namespace StarSightings
         {
             InitializeComponent();
             pictureToShow.Source = App.ViewModel.SelectedImage;
+            DataContext = App.ViewModel;
         }
 
         private void OnDetailsTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
+            DateTime zero = new DateTime(0);
+            if (App.ViewModel.StoryTime.CompareTo(zero) <= 0)
+                this.NavigationService.Navigate(new Uri("/DatePickerPage.xaml", UriKind.RelativeOrAbsolute));
+            else
+                this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }
