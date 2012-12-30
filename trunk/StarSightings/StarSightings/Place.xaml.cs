@@ -32,17 +32,17 @@ namespace StarSightings
             this.provider = new WebServiceAutoCompleteProvider();
             this.radAutoCompleteBox.InitSuggestionsProvider(this.provider);
             this.provider.InputChanged += this.OnProvider_InputChanged;
+        }        
+
+        private void OnBackClick(object sender, EventArgs e)
+        {
+            this.NavigationService.GoBack();
         }
 
-        private void OnNextTap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void OnNextClick(object sender, EventArgs e)
         {
             App.ViewModel.StoryPlace = this.provider.InputString;
             this.NavigationService.Navigate(new Uri("/Event.xaml", UriKind.RelativeOrAbsolute));
-        }
-
-        private void OnBackTap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            this.NavigationService.Navigate(new Uri("/Location.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Place_Tap(object sender, System.Windows.Input.GestureEventArgs e)

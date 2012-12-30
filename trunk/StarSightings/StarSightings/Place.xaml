@@ -12,22 +12,13 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
     shell:SystemTray.IsVisible="False">
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="PlaceViewItemTemplate">
-            <Grid Margin="0,0,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="400"/>
-                </Grid.ColumnDefinitions>
-
-                <Image Grid.Column="0"   Width="60" Height="60" Source="{Binding}"/>
-                <StackPanel Grid.Column="1" Width="400">
-                    <TextBlock   Text="{Binding}" FontSize="23" FontWeight="Bold" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />
-                    <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
-                </StackPanel>
+            <Grid Margin="0,0,0,10">                
+                <TextBlock Text="{Binding}" FontSize="40" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />                
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
@@ -35,8 +26,9 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" >
         <Grid.Background>
-            <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
+            <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
         </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -44,34 +36,36 @@
         
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="Where did it take place?" Style="{StaticResource PhoneTextTitle2Style}"/>
-            <telerikInput:RadAutoCompleteBox Grid.Row="1"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains">
+            <TextBlock x:Name="ApplicationTitle" Text="Where did it take place?" FontSize="23" Foreground="#b8b8b8"/>                        
+        </StackPanel>
+        
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter name of place or venue">
                 <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>
                     </DataTemplate>
                 </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
             </telerikInput:RadAutoCompleteBox>
-        </StackPanel>
-        
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Content="Back" Height="72" HorizontalAlignment="Left" Margin="36,510,0,0" Name="button1" VerticalAlignment="Top" Width="160" Tap="OnBackTap"/>
-            <Button Content="Next" Height="72" HorizontalAlignment="Left" Margin="266,510,0,0" Name="button2" VerticalAlignment="Top" Width="160" Tap="OnNextTap" />
-            <ListBox Height="493" HorizontalAlignment="Left" Name="listBox1" VerticalAlignment="Top" Width="460" Margin="12,-36,0,0"  ItemsSource="{Binding Path=PlaceList}" ItemTemplate="{StaticResource PlaceViewItemTemplate}" Tap="Place_Tap" />
+            <ListBox Grid.Row="1" HorizontalAlignment="Left" Name="listBox1" VerticalAlignment="Top" Width="460" ItemsSource="{Binding Path=PlaceList}" ItemTemplate="{StaticResource PlaceViewItemTemplate}" Tap="Place_Tap" />
         </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.back.rest.png" Text="back" Click="OnBackClick" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="next" Click="OnNextClick" />
+            <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+            </shell:ApplicationBar.MenuItems>-->
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
