@@ -95,6 +95,9 @@ namespace StarSightings
             {
 
                 App.ViewModel.StoryTime = DateTime.Now;
+                App.ViewModel.StoryLat = App.ViewModel.MyLocation.Latitude;
+                App.ViewModel.StoryLng = App.ViewModel.MyLocation.Longitude;
+
                 string fileName = "StarSightings_" + App.ViewModel.StoryTime.ToString() + ".jpg";
 
                 Picture pic = library.SavePictureToCameraRoll(fileName, e.ChosenPhoto);
@@ -156,7 +159,25 @@ namespace StarSightings
                 string[] dates = dt[0].Split(new char[]{':'});
                 string[] times = dt[1].Split(new char[]{':'});
                 App.ViewModel.StoryTime = new DateTime(int.Parse(dates[0]), int.Parse(dates[1]), int.Parse(dates[2]),int.Parse(times[0]), int.Parse(times[1]), int.Parse(times[2]));                
-            }            
+            }
+            App.ViewModel.StoryLat = info.GpsLatitude[0] + info.GpsLatitude[1] * 1 / 60.0 + info.GpsLatitude[2] * 1 / 3600.0;
+            App.ViewModel.StoryLng = info.GpsLongitude[0] + info.GpsLongitude[1] * 1 / 60.0 + info.GpsLongitude[2] * 1 / 3600.0;
+
+            if (info.GpsLatitudeRef.ToString() == "South")
+                App.ViewModel.StoryLat = -App.ViewModel.StoryLat;
+            if (info.GpsLongitudeRef.ToString() == "West")
+                App.ViewModel.StoryLng = -App.ViewModel.StoryLng;
+            if (info.GpsLatitudeRef.ToString() == "Unknown" || info.GpsLongitudeRef.ToString() == "Unknown")
+            {
+                App.ViewModel.StoryLat = 0;
+                App.ViewModel.StoryLng = 0;
+            }
+            /*
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                MessageBox.Show("lat:" + info.GpsLatitude[0] + "///" + info.GpsLatitude[1] + "///" + info.GpsLatitude[2] + "///" + "lng:" + info.GpsLongitude[0] + "///" + info.GpsLongitude[1] + "///" + info.GpsLongitude[2] +"slat:"+App.ViewModel.StoryLat+"///"+"slng:"+App.ViewModel.StoryLng);
+            });
+             * */
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
