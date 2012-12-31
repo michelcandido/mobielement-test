@@ -49,7 +49,7 @@ namespace StarSightings
 
         private void Time_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            //this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri("/DatePickerPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void Event_Tap(object sender, System.Windows.Input.GestureEventArgs e)
