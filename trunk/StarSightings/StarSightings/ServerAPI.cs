@@ -38,7 +38,7 @@ namespace StarSightings
         public void ObtainLocationSuggestions(string query)
         {
             WebClient webClient = GetWebClient();
-            string baseUri = Constants.SERVER_NAME;
+            string baseUri = Constants.SERVER_NAME + Constants.URL_SUGGEST;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleSmartLocationSuggestion);
             webClient.DownloadStringAsync(uri);
@@ -82,7 +82,7 @@ namespace StarSightings
         public void ObtainPlaceSuggestions(string query)
         {
             WebClient webClient = GetWebClient();
-            string baseUri = Constants.SERVER_NAME;
+            string baseUri = Constants.SERVER_NAME + Constants.URL_SUGGEST;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleSmartPlaceSuggestion);
             webClient.DownloadStringAsync(uri);
@@ -117,7 +117,7 @@ namespace StarSightings
         public void ObtainEventSuggestions(string query)
         {
             WebClient webClient = GetWebClient();
-            string baseUri = Constants.SERVER_NAME;
+            string baseUri = Constants.SERVER_NAME + Constants.URL_SUGGEST;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleSmartEventSuggestion);
             webClient.DownloadStringAsync(uri);
@@ -169,68 +169,60 @@ namespace StarSightings
             return outputString;
         }
 
+        private String getCatList()
+        {
+            string result = "";
+            foreach (string celeb in App.ViewModel.CelebNameList)
+                result += HttpUtility.UrlEncode(celeb) + ";";
+            return result.Substring(0, result.Length - 1);
+        }
+
         public String getLocationSuggestionString()
         {
             //return "page=suggest&mode=place&mobile=1&v=3&cat=Bono&local_offset=-25200&location=Hoboken,%20New%20Jersey&geo_lat=40.74541&geo_lng=-74.03509&search_feets=105680&time=1350923604.361893";
-            String toReturn = "page=suggest&mode=location&mobile=1&v=3&cat=";
-            bool firstCeleb = true;
-
-            foreach (string aString in App.ViewModel.CelebNameList)
-            {
-                if (firstCeleb)
-                {
-                    toReturn += toWebString(aString);
-                    firstCeleb = false;
-                }
-                else
-                {
-                    toReturn += ";";
-                    toReturn += toWebString(aString);
-                }
-            }
+            String toReturn = "mode=location&cat=";
+            toReturn += getCatList();
+            toReturn += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
+            if (App.ViewModel.StoryLat !=0.0)
+                toReturn += "&geo_lat=" + App.ViewModel.StoryLat;
+            if (App.ViewModel.StoryLng != 0.0)
+                toReturn += "&geo_lng=" + App.ViewModel.StoryLng;
+            toReturn += "&device_id=" + App.ViewModel.DeviceId;
             return toReturn;
         }
 
         public String getPlaceSuggestionString()
         {
-            String toReturn = "page=suggest&mode=place&mobile=1&v=3&cat=";
-            bool firstCeleb = true;
+            String toReturn = "mode=place&cat=";
+            toReturn += getCatList();
+            toReturn += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
+            if (App.ViewModel.StoryLat != 0.0)
+                toReturn += "&geo_lat=" + App.ViewModel.StoryLat;
+            if (App.ViewModel.StoryLng != 0.0)
+                toReturn += "&geo_lng=" + App.ViewModel.StoryLng;
+            toReturn += "&location=" + HttpUtility.UrlEncode(App.ViewModel.StoryLocation);
+            toReturn += "&device_id=" + App.ViewModel.DeviceId;
 
-            foreach (string aString in App.ViewModel.CelebNameList)
-            {
-                if (firstCeleb)
-                {
-                    toReturn += toWebString(aString);
-                    firstCeleb = false;
-                }
-                else
-                {
-                    toReturn += ";";
-                    toReturn += toWebString(aString);
-                }
-            }
-            return (toReturn + "&location=" + toWebString(App.ViewModel.StoryLocation)); 
+            //return (toReturn + "&location=" + toWebString(App.ViewModel.StoryLocation)); 
+            return toReturn;
         }
 
         public String getEventSuggestionString()
         {
-            String toReturn = "page=suggest&mode=event&mobile=1&v=3&cat=";
-            bool firstCeleb = true;
+            String toReturn = "mode=event&cat=";
+            toReturn += getCatList();
+            toReturn += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
+            if (App.ViewModel.StoryLat != 0.0)
+                toReturn += "&geo_lat=" + App.ViewModel.StoryLat;
+            if (App.ViewModel.StoryLng != 0.0)
+                toReturn += "&geo_lng=" + App.ViewModel.StoryLng;
+            toReturn += "&location=" + HttpUtility.UrlEncode(App.ViewModel.StoryLocation);
+            if (!string.IsNullOrEmpty(App.ViewModel.StoryPlace) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryPlace))
+                toReturn += "&place=" + HttpUtility.UrlEncode(App.ViewModel.StoryPlace); 
+            toReturn += "&device_id=" + App.ViewModel.DeviceId;
 
-            foreach (string aString in App.ViewModel.CelebNameList)
-            {
-                if (firstCeleb)
-                {
-                    toReturn += toWebString(aString);
-                    firstCeleb = false;
-                }
-                else
-                {
-                    toReturn += ";";
-                    toReturn += toWebString(aString);
-                }
-            }
-            return (toReturn + "&location=" + toWebString(App.ViewModel.StoryLocation) + "&place=" + toWebString(App.ViewModel.StoryPlace));
+            return toReturn;
+            //return (toReturn + "&location=" + toWebString(App.ViewModel.StoryLocation) + "&place=" + toWebString(App.ViewModel.StoryPlace));
         }
 
 

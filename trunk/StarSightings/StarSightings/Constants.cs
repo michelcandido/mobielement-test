@@ -33,8 +33,8 @@ namespace StarSightings
         public const string URL_LOGIN = "/index.php?page=profile&mode=login&mobile=1&v=3";
         public const string URL_LOGOUT = "/index.php?page=profile&mode=logout&mobile=1&v=3";
         public const string URL_ALERT = "/alerts/";
-        public const string URL_SUGGEST_PLACE = "/index.php?page=place&mode=suggest&mobile=1";
-        //public const string URL_SUGGEST_KEYWORD = "/index.php?mode=suggest&mobile=1";
+        
+        public const string URL_SUGGEST = "/index.php?page=suggest&mobile=1&v=3";
         public const string URL_KEYWORD = "/index.php?mode=suggest&mobile=1&v=3";
         public const string URL_COMMENT_NEW = "/index.php?page=comment&mode=new&mobile=1&v=3";
         public const string URL_POST_NEW = "/index.php?page=photo&mode=create&mobile=1";

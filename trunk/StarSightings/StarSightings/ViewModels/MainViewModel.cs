@@ -106,11 +106,14 @@ namespace StarSightings
         public ObservableCollection<String> placeList;
         public ObservableCollection<String> eventList;
 
-        public String picStory;
-        public String storyLocation;
-        public String storyPlace;
-        public String storyEvent;
-        public DateTime storyTime;
+        private String picStory;
+        private String storyLocation;
+        private String storyPlace;
+        private String storyEvent;
+        private DateTime storyTime;
+        private double storyLat;
+        private double storyLng;
+
 
         public CollectionViewSource PopularItemsSummaryList { get { return popularItemsSummaryList; } private set { if (value != popularItemsSummaryList) { popularItemsSummaryList = value; NotifyPropertyChanged("PopularItemsSummaryList"); } } }
         public CollectionViewSource LatestItemsSummaryList { get { return latestItemsSummaryList; } private set { if (value != latestItemsSummaryList) { latestItemsSummaryList = value; NotifyPropertyChanged("LatestItemsSummaryList"); } } }
@@ -128,6 +131,8 @@ namespace StarSightings
         public String StoryPlace { get { return storyPlace; } set { if (value != storyPlace) { storyPlace = value; NotifyPropertyChanged("StoryPlace"); } } }
         public String StoryEvent { get { return storyEvent; } set { if (value != storyEvent) { storyEvent = value; NotifyPropertyChanged("StoryEvent"); } } }
         public DateTime StoryTime { get { return storyTime; } set { if (value != storyTime) { storyTime = value; NotifyPropertyChanged("StoryTime"); } } }
+        public double StoryLat { get { return storyLat; } set { if (value != storyLat) { storyLat = value; NotifyPropertyChanged("StoryLat"); } } }
+        public double StoryLng { get { return storyLng; } set { if (value != storyLng) { storyLng = value; NotifyPropertyChanged("StoryLng"); } } }
 
         private int searchTypePopular;
         private int searchTypeLatest;
