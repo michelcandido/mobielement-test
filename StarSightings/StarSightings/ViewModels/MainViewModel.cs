@@ -100,6 +100,7 @@ namespace StarSightings
 
         //The image selected
         public BitmapImage selectedImage;
+        public WriteableBitmap writeableSelectedBitmap;
         public String celebName;
         public ObservableCollection<String> celebNameList;
         public ObservableCollection<String> locationList;
@@ -121,6 +122,7 @@ namespace StarSightings
         public CollectionViewSource FollowingItemsSummaryList { get { return followingItemsSummaryList; } private set { if (value != followingItemsSummaryList) { followingItemsSummaryList = value; NotifyPropertyChanged("FollowingItemsSummaryList"); } } }
 
         public BitmapImage SelectedImage { get { return selectedImage; } set { if (value != selectedImage) { selectedImage = value; NotifyPropertyChanged("SelectedImage"); } } }
+        public WriteableBitmap WriteableSelectedBitmap { get { return writeableSelectedBitmap; } set { if (value != writeableSelectedBitmap) { writeableSelectedBitmap = value; NotifyPropertyChanged("WriteableSelectedBitmap"); } } }
         public String CelebName { get { return celebName; } set { if (value != celebName) { celebName = value; NotifyPropertyChanged("CelebName"); } } }
         public ObservableCollection<String> CelebNameList { get { return celebNameList; } set { if (value != celebNameList) { celebNameList = value; NotifyPropertyChanged("CelebNameList"); } } }
         public ObservableCollection<String> LocationList { get { return locationList; } set { if (value != locationList) { locationList = value; NotifyPropertyChanged("LocationList"); } } }

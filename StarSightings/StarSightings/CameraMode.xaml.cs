@@ -74,6 +74,7 @@ namespace StarSightings
                 BitmapImage image = new BitmapImage();
                 image.SetSource(e.ChosenPhoto);
                 App.ViewModel.SelectedImage = image;
+                App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);
 
                 pictureToShow1.Source = App.ViewModel.SelectedImage;
                 pictureToShow2.Source = App.ViewModel.SelectedImage;
@@ -81,7 +82,6 @@ namespace StarSightings
                 ContentPanelChooser.Visibility = Visibility.Visible;
                 ContentPanelScoop.Visibility = Visibility.Collapsed;
                 this.ApplicationBar.IsVisible = true;
-
                 
                 getPicDateTime(info);
             }
@@ -101,12 +101,11 @@ namespace StarSightings
                 string fileName = "StarSightings_" + App.ViewModel.StoryTime.ToString() + ".jpg";
 
                 Picture pic = library.SavePictureToCameraRoll(fileName, e.ChosenPhoto);
-
-                Stream capturedImage = e.ChosenPhoto;
-                BitmapImage image = new BitmapImage();
+                
+                BitmapImage image = new BitmapImage();                
                 image.SetSource(e.ChosenPhoto);
                 App.ViewModel.SelectedImage = image;
-
+                App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);                
                 
                 /*
                 e.ChosenPhoto.Position = 0;
