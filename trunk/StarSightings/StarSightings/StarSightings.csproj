@@ -146,6 +146,7 @@
     <Compile Include="Converters\ShortRelativeTimeConverter.cs" />
     <Compile Include="Converters\UnixRelativeTimeConverter.cs" />
     <Compile Include="Events\PostEventArgs.cs" />
+    <Compile Include="Helpers\AsyncHttpPostHelper.cs" />
     <Compile Include="SightingDetail.xaml.cs">
       <DependentUpon>SightingDetail.xaml</DependentUpon>
     </Compile>

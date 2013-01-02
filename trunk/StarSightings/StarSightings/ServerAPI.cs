@@ -169,7 +169,7 @@ namespace StarSightings
             return outputString;
         }
 
-        private String getCatList()
+        public String getCatList()
         {
             string result = "";
             foreach (string celeb in App.ViewModel.CelebNameList)
