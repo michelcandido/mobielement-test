@@ -101,6 +101,7 @@ namespace StarSightings
             switch (pageMode)
             {
                 case 0:
+                    App.ViewModel.KeywordType = Constants.KEYWORD_NAME;
                     break;
                 case 1:                    
                     App.ViewModel.KeywordType = Constants.KEYWORD_EVENT;

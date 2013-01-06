@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.Text;
 using StarSightings.Events;
+using System.Windows.Navigation;
 
 namespace StarSightings
 {
@@ -58,7 +59,12 @@ namespace StarSightings
                     App.ViewModel.LatestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.NearestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.FollowingItemsLoadReday +=new SearchCompletedCallback(ViewModel_ItemsLoadReday);
- 
+
+                    this.busyIndicator_popular.IsRunning = true;
+                    this.busyIndicator_latest.IsRunning = true;
+                    this.busyIndicator_nearest.IsRunning = true;
+                    this.busyIndicator_following.IsRunning = true;
+
                     App.ViewModel.LoadData();                    
                 }
             }
@@ -209,6 +215,17 @@ namespace StarSightings
             this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
-       
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.NavigationMode == NavigationMode.New && NavigationContext.QueryString.ContainsKey("clear"))
+            {
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            }
+        }
     }
 }

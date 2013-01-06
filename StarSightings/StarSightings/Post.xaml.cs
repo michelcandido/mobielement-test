@@ -10,8 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using StarSightings.Helpers;
 using Microsoft.Xna.Framework.Media;
+using StarSightings.Events;
+using System.Windows.Navigation;
 
 namespace StarSightings
 {
@@ -26,7 +27,7 @@ namespace StarSightings
 
         private void OnCancelTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }
         
         private void OnPostTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -60,7 +61,7 @@ namespace StarSightings
                 nvc.Add("geo_lat", App.ViewModel.StoryLat.ToString());
             if (App.ViewModel.StoryLng != 0.0)
                 nvc.Add("geo_lng",App.ViewModel.StoryLng.ToString());
-            nvc.Add("location",HttpUtility.UrlEncode(App.ViewModel.StoryLocation));
+            nvc.Add("location",HttpUtility.UrlEncode(App.ViewModel.StoryLocation).Replace("+", "%20"));
             
             if (!string.IsNullOrEmpty(App.ViewModel.StoryPlace) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryPlace))
                 nvc.Add("place",HttpUtility.UrlEncode(App.ViewModel.StoryPlace));
@@ -71,25 +72,43 @@ namespace StarSightings
             nvc.Add("token" , App.ViewModel.User.Token);
             
             string baseUri = Constants.SERVER_NAME + Constants.URL_POST_NEW;
-            AsyncHttpPostHelper.HttpUploadFile(baseUri,"wpupload", "file", "image/jpeg", nvc);
+            postHandler = new PostEventHandler(PostCompleted);
+            App.SSAPI.NewPostHandler += postHandler;
+            //AsyncHttpPostHelper.HttpUploadFile(baseUri,"wpupload", "file", "image/jpeg", nvc);
+            this.busyIndicator.IsRunning = true;
+            App.SSAPI.NewPost();
         }
 
+        private PostEventHandler postHandler;
         
-
-        /*
-         public void CommentCompleted(object sender, CommentEventArgs e)
+        public void PostCompleted(object sender, PostEventArgs e)
         {
-            App.SSAPI.CommentHandler -= commentHandler;
+            this.busyIndicator.IsRunning = false;
+            App.SSAPI.NewPostHandler -= postHandler;
             if (e.Successful)
-            {                
-                //App.ViewModel.SelectedItem = e.Item;
-                this.NavigationService.GoBack();
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("New sighting has been posted successfully.");
+                });
+                this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
             }
             else
-            {                
-                MessageBox.Show("Failed in posting new comment.");
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("Failed in posting new sightings, please try again.");
+                });
+                
             }
         }
-       */
+
+        protected void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            this.busyIndicator.IsRunning = false;
+        }
+
+       
     }
 }

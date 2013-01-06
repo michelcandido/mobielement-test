@@ -146,7 +146,6 @@
     <Compile Include="Converters\ShortRelativeTimeConverter.cs" />
     <Compile Include="Converters\UnixRelativeTimeConverter.cs" />
     <Compile Include="Events\PostEventArgs.cs" />
-    <Compile Include="Helpers\AsyncHttpPostHelper.cs" />
     <Compile Include="SightingDetail.xaml.cs">
       <DependentUpon>SightingDetail.xaml</DependentUpon>
     </Compile>
@@ -166,7 +165,6 @@
     <Compile Include="FilterPage.xaml.cs">
       <DependentUpon>FilterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\StringToUpperConverter.cs" />
     <Compile Include="ListPage.xaml.cs">
       <DependentUpon>ListPage.xaml</DependentUpon>
     </Compile>
