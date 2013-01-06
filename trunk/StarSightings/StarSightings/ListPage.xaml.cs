@@ -109,6 +109,11 @@ namespace StarSightings
         private void GoToSearch(object sender, EventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));            
+        }
+
+        private void GoToPost(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/CameraMode.xaml", UriKind.RelativeOrAbsolute));
         }        
     }
 }

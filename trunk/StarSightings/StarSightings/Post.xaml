@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"         
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -16,7 +17,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" >
         <Grid.Background>
-            <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
+            <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -27,14 +28,36 @@
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="Share on" FontSize="23" Foreground="#b8b8b8"/>            
         </StackPanel>
-        <CheckBox Content="Facebook" Grid.Row="1" Height="92" HorizontalAlignment="Left" Name="checkBox1" VerticalAlignment="Top" Margin="24,0,0,0" FontSize="29"/>
+        <!--<CheckBox Content="Facebook" Grid.Row="1" Height="92" HorizontalAlignment="Left" Name="checkBox1" VerticalAlignment="Top" Margin="24,0,0,0" FontSize="29"/>
         <CheckBox Content="Twitter" Grid.Row="1" Height="92" HorizontalAlignment="Left" Margin="303,0,0,0" Name="checkBox2" VerticalAlignment="Top" FontSize="29"/>
         <TextBlock Grid.Row="1" Height="47" HorizontalAlignment="Left" Margin="31,141,0,0" Name="textBlock1" Text="Not a real sighting?" VerticalAlignment="Top" Width="238" FontSize="23" Foreground="#b8b8b8" />
         <CheckBox Content="Just testing" Grid.Row="1" Height="92" HorizontalAlignment="Left" Margin="24,170,0,0" Name="checkBox3" VerticalAlignment="Top" Width="246" FontSize="29"/>
         <TextBlock Grid.Row="1" Height="87" HorizontalAlignment="Left" Margin="15,479,0,0" Name="textBlock2" Text="By posting this picture I certify that I took this photo or otherwise own all rights regarding its distribution." VerticalAlignment="Top" Width="453"  TextWrapping="Wrap" FontStretch="Normal" FontSize="23" Foreground="#b8b8b8" />
         <Button Content="cancel" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="45,623,0,0" Name="button1" VerticalAlignment="Top" Width="160" Tap="OnCancelTap" />
-        <Button Content="post now" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="265,623,0,0" Name="button2" VerticalAlignment="Top" Width="160" Tap="OnPostTap" />
+        <Button Content="post now" Grid.Row="1" Height="72" HorizontalAlignment="Left" Margin="265,623,0,0" Name="button2" VerticalAlignment="Top" Width="160" Tap="OnPostTap" />-->
         <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid>
+                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" Content="Posting..." />
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Content="Facebook" Name="checkBox1" FontSize="29" Margin="0,0,80,0"/>
+                        <CheckBox Content="Twitter" Name="checkBox2" FontSize="29"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <TextBlock HorizontalAlignment="Left" Text="Not a real sighting?" FontSize="23" Foreground="#b8b8b8" Margin="12"/>
+                        <CheckBox Content="Just testing"  HorizontalAlignment="Left" Name="checkBox3"  FontSize="29"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="12,200,0,0" VerticalAlignment="Bottom">
+                        <TextBlock  HorizontalAlignment="Left" Name="textBlock2" Text="By posting this picture I certify that I took this photo or otherwise own all rights regarding its distribution."    TextWrapping="Wrap" FontStretch="Normal" FontSize="23" Foreground="#b8b8b8" />
+                        <StackPanel Orientation="Horizontal" Margin="12,50,0,0">
+                            <Button Width="160" Content="cancel" HorizontalAlignment="Left" Name="button1" Tap="OnCancelTap" Margin="0,0,80,0"/>
+                            <Button Width="160" Content="post now" HorizontalAlignment="Left" Name="button2" Tap="OnPostTap" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->

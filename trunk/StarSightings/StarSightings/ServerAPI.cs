@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using StarSightings.ViewModels;
 using System.Device.Location;
 using System.Collections.Generic;
+using System.Windows.Media.Imaging;
 
 namespace StarSightings
 {
@@ -174,6 +175,7 @@ namespace StarSightings
             string result = "";
             foreach (string celeb in App.ViewModel.CelebNameList)
                 result += HttpUtility.UrlEncode(celeb) + ";";
+            result = result.Replace("+", "%20");
             return result.Substring(0, result.Length - 1);
         }
 
@@ -924,8 +926,8 @@ namespace StarSightings
                     //MessageBox.Show(e.Error.Message);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
-                RegisterEventArgs re = new RegisterEventArgs(false);
-                OnRegister(re);
+                CommentEventArgs ce = new CommentEventArgs(false);
+                OnComment(ce);
             }
             else
             {
@@ -962,69 +964,153 @@ namespace StarSightings
                 CommentHandler(this, e);
             }
         }
-        /*
-        public void NewPost(string comment)
+
+        public  void NewPost()
         {
-            WebClient webClient = GetWebClient();
-            webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
+            string url = Constants.SERVER_NAME + Constants.URL_POST_NEW;
+            string file = "wpupload"; 
+            string paramName = "file";
+            string contentType = "image/jpeg";
+            Dictionary<string, string> nvc = new Dictionary<string, string>();
 
-            string baseUri = Constants.SERVER_NAME + Constants.URL_COMMENT_NEW;
-            string query = "token=" + App.ViewModel.User.Token + "&photo_id=" + App.ViewModel.SelectedItem.PhotoId + "&value=" + HttpUtility.UrlEncode(comment);
-            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, "");
+            nvc.Add("cat", App.SSAPI.getCatList());
+            nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
 
-            webClient.UploadStringCompleted += new UploadStringCompletedEventHandler(HandleNewComment);
-            webClient.UploadStringAsync(uri, query);
-        }
 
-        private void HandleNewComment(object sender, UploadStringCompletedEventArgs e)
-        {
-            if (e.Error != null)
+            if (App.ViewModel.StoryLat != 0.0)
+                nvc.Add("geo_lat", App.ViewModel.StoryLat.ToString());
+            if (App.ViewModel.StoryLng != 0.0)
+                nvc.Add("geo_lng", App.ViewModel.StoryLng.ToString());
+            nvc.Add("location", HttpUtility.UrlEncode(App.ViewModel.StoryLocation).Replace("+", "%20"));
+
+            if (!string.IsNullOrEmpty(App.ViewModel.StoryPlace) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryPlace))
+                nvc.Add("place", HttpUtility.UrlEncode(App.ViewModel.StoryPlace).Replace("+", "%20"));
+            if (!string.IsNullOrEmpty(App.ViewModel.StoryEvent) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryEvent))
+                nvc.Add("event", HttpUtility.UrlEncode(App.ViewModel.StoryEvent).Replace("+", "%20"));
+            if (!string.IsNullOrEmpty(App.ViewModel.PicStory) && !string.IsNullOrWhiteSpace(App.ViewModel.PicStory))
+                nvc.Add("descr", HttpUtility.UrlEncode(App.ViewModel.PicStory).Replace("+", "%20"));
+            nvc.Add("token", App.ViewModel.User.Token);
+
+            string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+            byte[] boundarybytes = Encoding.UTF8.GetBytes("\r\n--" + boundary + "\r\n");
+
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "multipart/form-data; boundary=" + boundary;
+            httpWebRequest.Method = "POST";
+            //wr.KeepAlive = true;
+            //wr.Credentials = System.Net.CredentialCache.DefaultCredentials;
+#if (DEBUG)
+            string auth = Constants.BASE_AUTH_USERNAME + ":" + Constants.BASE_AUTH_PASSWORD;
+            string authString = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(auth));
+            httpWebRequest.Headers[HttpRequestHeader.Authorization] = "Basic " + authString;
+#endif
+
+            //Stream rs = wr.GetRequestStream();
+            httpWebRequest.BeginGetRequestStream((result) =>
             {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                try
                 {
-                    // Showing the exact error message is useful for debugging. In a finalized application, 
-                    // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
-                    App.Logger.log(LogLevel.error, e.Error.Message);
-                });
-                RegisterEventArgs re = new RegisterEventArgs(false);
-                OnRegister(re);
-            }
-            else
-            {
-                XElement xmlResponse = XElement.Parse(e.Result);
-                XElement xmlItems = xmlResponse.Element("items");
-
-                ItemViewModel item = null;
-                if (xmlItems != null)
-                {
-                    foreach (XElement xmlItem in xmlItems.Elements("item"))
+                    HttpWebRequest request = (HttpWebRequest)result.AsyncState;
+                    using (Stream requestStream = request.EndGetRequestStream(result))
                     {
-                        item = getItemInfoFromXML(xmlItem);
+                        string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+                        foreach (string key in nvc.Keys)
+                        {
+                            requestStream.Write(boundarybytes, 0, boundarybytes.Length);
+                            string formitem = string.Format(formdataTemplate, key, nvc[key]);
+                            byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                            requestStream.Write(formitembytes, 0, formitembytes.Length);
+                        }
+                        requestStream.Write(boundarybytes, 0, boundarybytes.Length);
+
+                        string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+                        string header = string.Format(headerTemplate, paramName, file, contentType);
+                        byte[] headerbytes = Encoding.UTF8.GetBytes(header);
+                        requestStream.Write(headerbytes, 0, headerbytes.Length);
+
+                        using (MemoryStream stream = new MemoryStream())
+                        {                            
+                            App.ViewModel.WriteableSelectedBitmap.SaveJpeg(stream, App.ViewModel.WriteableSelectedBitmap.PixelWidth, App.ViewModel.WriteableSelectedBitmap.PixelHeight, 0, 100);
+                            stream.Seek(0, SeekOrigin.Begin);
+                            byte[] buffer = new byte[4096];
+                            int bytesRead = 0;
+                            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
+                            {
+                                requestStream.Write(buffer, 0, bytesRead);
+                            }
+                            stream.Close();
+                        }
+
+                        byte[] trailer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                        requestStream.Write(trailer, 0, trailer.Length);
+
+                        requestStream.Close();
                     }
 
-                    CommentEventArgs ce = new CommentEventArgs(true);
-                    if (item != null)
-                        ce.Item = item;
-                    OnComment(ce);
+                    request.BeginGetResponse(a =>
+                    {
+                        try
+                        {
+                            var response = request.EndGetResponse(a);
+                            var responseStream = response.GetResponseStream();
+                            using (var sr = new StreamReader(responseStream))
+                            {
+                                string serverresult = string.Format(sr.ReadToEnd());
+
+                                Deployment.Current.Dispatcher.BeginInvoke(()=>
+                                {
+                                    XElement xmlResponse = XElement.Parse(serverresult);
+                                    XElement xmlItems = xmlResponse.Element("items");
+
+                                    if (xmlItems != null)
+                                    {
+                                        ObservableCollection<ItemViewModel> items = new ObservableCollection<ItemViewModel>();
+                                        foreach (XElement xmlItem in xmlItems.Elements("item"))
+                                        {
+
+                                            ItemViewModel item = getItemInfoFromXML(xmlItem);
+                                            items.Add(item);
+                                        }
+                                        PostEventArgs pe = new PostEventArgs(true);
+                                        pe.Items = items;
+                                        OnNewPost(pe);
+                                    }
+                                    else
+                                    {
+                                        PostEventArgs pe = new PostEventArgs(false);
+                                        OnNewPost(pe);
+                                    }
+                                             
+                                });
+
+                                            
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.StackTrace);
+                            PostEventArgs pe = new PostEventArgs(false);
+                            OnNewPost(pe);
+                        }
+                    }, null);
                 }
-                else
+                catch (Exception e)
                 {
-                    CommentEventArgs ce = new CommentEventArgs(false);
-                    OnComment(ce);
+                    PostEventArgs pe = new PostEventArgs(false);
+                    OnNewPost(pe);
                 }
+
+            }, httpWebRequest);
+        }
+        public event PostEventHandler NewPostHandler;
+
+        protected virtual void OnNewPost(PostEventArgs e)
+        {
+            if (NewPostHandler != null)
+            {
+                NewPostHandler(this, e);
             }
         }
-
-        public event PostEventHandler PostHandler;
-
-        protected virtual void OnPost(PostEventArgs e)
-        {
-            if (PostHandler != null)
-            {
-                PostHandler(this, e);
-            }
-        }*/
 
     }
 
@@ -1034,6 +1120,7 @@ namespace StarSightings
     public delegate void AlertEventHandler(object sender, AlertEventArgs e);
     public delegate void KeywordEventHandler(object sender, KeywordEventArgs e);
     public delegate void CommentEventHandler(object sender, CommentEventArgs e);
+    public delegate void PostEventHandler(object sender, PostEventArgs e);
 
     public class SearchParams
     {	
