@@ -42,6 +42,7 @@
                     <ListBoxItem Content="Event" />
                     <ListBoxItem Content="Place / Venue" />
                     <ListBoxItem Content="Location" />
+                    <ListBoxItem Content="My Sightings" />
                 </ListBox>
             </Grid>
         </Grid>

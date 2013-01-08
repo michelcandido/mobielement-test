@@ -112,6 +112,9 @@ namespace StarSightings
                 case 3:
                     App.ViewModel.KeywordType = Constants.KEYWORD_LOCATION;
                     break;
+                case 4: 
+                    App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                    break;
             }
             App.ViewModel.SearchKeywords = this.provider.InputString;
             App.ViewModel.SearchKeywordSearch(true, 0, null);

@@ -534,6 +534,10 @@ namespace StarSightings
             {
                 param.search_place_name = HttpUtility.UrlEncode(App.ViewModel.SearchKeywords);
             }
+            else if (App.ViewModel.KeywordType == Constants.KEYWORD_MY)
+            {
+                param.search_user_name = App.ViewModel.User.UserName;
+            }
            
             SearchToken token = new SearchToken();
             token.searchGroup = Constants.SEARCH_KEYWORDSEARCH;
