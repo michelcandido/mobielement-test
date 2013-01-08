@@ -58,12 +58,12 @@ namespace StarSightings
                     App.ViewModel.PopularItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.LatestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.NearestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
-                    App.ViewModel.FollowingItemsLoadReday +=new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+                    //App.ViewModel.FollowingItemsLoadReday +=new SearchCompletedCallback(ViewModel_ItemsLoadReday);
 
                     this.busyIndicator_popular.IsRunning = true;
                     this.busyIndicator_latest.IsRunning = true;
                     this.busyIndicator_nearest.IsRunning = true;
-                    this.busyIndicator_following.IsRunning = true;
+                    //this.busyIndicator_following.IsRunning = true;
 
                     App.ViewModel.LoadData();                    
                 }

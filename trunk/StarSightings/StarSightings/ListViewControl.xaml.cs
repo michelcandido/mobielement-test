@@ -109,6 +109,7 @@ namespace StarSightings
                     App.ViewModel.SearchKeywordSearch(true, 0, null);
                     break;
             }
+            this.listBox.EmptyContent = "Loading...";
         }
 
         private void OnListBox_DataRequested(object sender, EventArgs e)
@@ -137,6 +138,7 @@ namespace StarSightings
                     break;
             }
             this.requestIssued = true;
+            this.listBox.EmptyContent = "Loading...";
         }
 
         public void SearchDataDelivered(object sender, SearchEventArgs e)
@@ -149,6 +151,10 @@ namespace StarSightings
             {
                 this.listBox.StopPullToRefreshLoading(true);
                 this.requestIssued = false;
+                if (this.listBox.ItemCount == 0)
+                {
+                    this.listBox.EmptyContent = "No data.";
+                }
                 /*
                 if (this.loadedPagesCount >= 11)
                 {
