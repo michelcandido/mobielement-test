@@ -170,12 +170,18 @@ namespace StarSightings
             return outputString;
         }
 
-        public String getCatList()
+        public String getCatList(bool encode)
         {
             string result = "";
             foreach (string celeb in App.ViewModel.CelebNameList)
-                result += HttpUtility.UrlEncode(celeb) + ";";
-            result = result.Replace("+", "%20");
+            {
+                if (encode)
+                    result += HttpUtility.UrlEncode(celeb) + ";";
+                else
+                    result += celeb + ";";
+            }
+            if (encode)
+                result = result.Replace("+", "%20");
             return result.Substring(0, result.Length - 1);
         }
 
@@ -183,7 +189,7 @@ namespace StarSightings
         {
             //return "page=suggest&mode=place&mobile=1&v=3&cat=Bono&local_offset=-25200&location=Hoboken,%20New%20Jersey&geo_lat=40.74541&geo_lng=-74.03509&search_feets=105680&time=1350923604.361893";
             String toReturn = "mode=location&cat=";
-            toReturn += getCatList();
+            toReturn += getCatList(true);
             toReturn += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
             if (App.ViewModel.StoryLat !=0.0)
                 toReturn += "&geo_lat=" + App.ViewModel.StoryLat;
@@ -196,7 +202,7 @@ namespace StarSightings
         public String getPlaceSuggestionString()
         {
             String toReturn = "mode=place&cat=";
-            toReturn += getCatList();
+            toReturn += getCatList(true);
             toReturn += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
             if (App.ViewModel.StoryLat != 0.0)
                 toReturn += "&geo_lat=" + App.ViewModel.StoryLat;
@@ -212,7 +218,7 @@ namespace StarSightings
         public String getEventSuggestionString()
         {
             String toReturn = "mode=event&cat=";
-            toReturn += getCatList();
+            toReturn += getCatList(true);
             toReturn += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
             if (App.ViewModel.StoryLat != 0.0)
                 toReturn += "&geo_lat=" + App.ViewModel.StoryLat;
@@ -973,7 +979,7 @@ namespace StarSightings
             string contentType = "image/jpeg";
             Dictionary<string, string> nvc = new Dictionary<string, string>();
 
-            nvc.Add("cat", App.SSAPI.getCatList());
+            nvc.Add("cat", App.SSAPI.getCatList(false));
             nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
 
 
@@ -981,14 +987,15 @@ namespace StarSightings
                 nvc.Add("geo_lat", App.ViewModel.StoryLat.ToString());
             if (App.ViewModel.StoryLng != 0.0)
                 nvc.Add("geo_lng", App.ViewModel.StoryLng.ToString());
-            nvc.Add("location", HttpUtility.UrlEncode(App.ViewModel.StoryLocation).Replace("+", "%20"));
+            
+            nvc.Add("location", App.ViewModel.StoryLocation);
 
             if (!string.IsNullOrEmpty(App.ViewModel.StoryPlace) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryPlace))
-                nvc.Add("place", HttpUtility.UrlEncode(App.ViewModel.StoryPlace).Replace("+", "%20"));
+                nvc.Add("place", App.ViewModel.StoryPlace);
             if (!string.IsNullOrEmpty(App.ViewModel.StoryEvent) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryEvent))
-                nvc.Add("event", HttpUtility.UrlEncode(App.ViewModel.StoryEvent).Replace("+", "%20"));
+                nvc.Add("event", App.ViewModel.StoryEvent);
             if (!string.IsNullOrEmpty(App.ViewModel.PicStory) && !string.IsNullOrWhiteSpace(App.ViewModel.PicStory))
-                nvc.Add("descr", HttpUtility.UrlEncode(App.ViewModel.PicStory).Replace("+", "%20"));
+                nvc.Add("descr", App.ViewModel.PicStory);
             nvc.Add("token", App.ViewModel.User.Token);
 
             string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
