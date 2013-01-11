@@ -51,6 +51,8 @@ namespace StarSightings
             AsyncHttpPostHelper asyncHttpPostHelper = new AsyncHttpPostHelper(null, requestUri);
             asyncHttpPostHelper.BeginSend(OnHttpPostCompleteDelegate);
              * */
+
+            /*
             Dictionary<string, string> nvc = new Dictionary<string,string>();
 
             nvc.Add("cat", App.SSAPI.getCatList());
@@ -70,7 +72,7 @@ namespace StarSightings
             if (!string.IsNullOrEmpty(App.ViewModel.PicStory) && !string.IsNullOrWhiteSpace(App.ViewModel.PicStory))
                 nvc.Add("descr", HttpUtility.UrlEncode(App.ViewModel.PicStory));
             nvc.Add("token" , App.ViewModel.User.Token);
-            
+            */
             string baseUri = Constants.SERVER_NAME + Constants.URL_POST_NEW;
             postHandler = new PostEventHandler(PostCompleted);
             App.SSAPI.NewPostHandler += postHandler;
@@ -85,12 +87,13 @@ namespace StarSightings
         {
             this.busyIndicator.IsRunning = false;
             App.SSAPI.NewPostHandler -= postHandler;
-            if (e.Successful)
-            {
+            if (e.Successful && e.Items.Any(i=>i.Hidden==false))
+            {                
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
                     MessageBox.Show("New sighting has been posted successfully.");
                 });
+                App.ViewModel.SearchLatest(true, 0, null);
                 this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
             }
             else
