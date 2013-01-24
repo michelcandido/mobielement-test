@@ -59,11 +59,13 @@ namespace StarSightings
                     App.ViewModel.LatestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.NearestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     //App.ViewModel.FollowingItemsLoadReday +=new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+                    App.ViewModel.MySightingsItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
 
                     this.busyIndicator_popular.IsRunning = true;
                     this.busyIndicator_latest.IsRunning = true;
                     this.busyIndicator_nearest.IsRunning = true;
                     //this.busyIndicator_following.IsRunning = true;
+                    this.busyIndicator_my.IsRunning = true;
 
                     App.ViewModel.LoadData();                    
                 }
@@ -87,6 +89,10 @@ namespace StarSightings
             if (e.SearchToken.searchGroup == Constants.SEARCH_FOLLOWING)
             {
                 this.busyIndicator_following.IsRunning = false;
+            }
+            if (e.SearchToken.searchGroup == Constants.SEARCH_KEYWORDSEARCH && App.ViewModel.KeywordType == Constants.KEYWORD_MY)
+            {
+                this.busyIndicator_my.IsRunning = false;
             }
         }
 
@@ -226,6 +232,22 @@ namespace StarSightings
                     NavigationService.RemoveBackEntry();
                 }
             }
+            /*
+            if (e.NavigationMode == NavigationMode.New && NavigationContext.QueryString.ContainsKey("screen"))
+            {
+                string screenId = NavigationContext.QueryString["screen"];
+                int sId = 0;
+                if (int.TryParse(screenId, out sId))
+                {
+                    this.panoramaControl.SelectedIndex = sId;                    
+                }
+            }
+             * */
+        }
+
+        private void Post_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/CameraMode.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

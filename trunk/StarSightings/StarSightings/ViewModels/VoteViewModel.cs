@@ -83,6 +83,23 @@ namespace StarSightings.ViewModels
             }
         }
 
+        private string input;
+        public string Input
+        {
+            get
+            {
+                return this.input;
+            }
+            set
+            {
+                if (value != input)
+                {
+                    input = value;
+                    NotifyPropertyChanged("Input");
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

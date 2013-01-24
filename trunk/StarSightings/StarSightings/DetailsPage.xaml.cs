@@ -140,5 +140,22 @@ namespace StarSightings
             App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
             this.NavigationService.Navigate(new Uri("/CommentInputPage.xaml", UriKind.RelativeOrAbsolute));
         }
+
+        private void Vote_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            gotoVote();
+        }
+
+        private void VoteButton_Click(object sender, System.EventArgs e)
+        {
+            gotoVote();
+        }
+
+        private void gotoVote()
+        {
+            App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
+            //App.ViewModel.CommentList = (this.slideView.SelectedItem as ItemViewModel).Comments;
+            this.NavigationService.Navigate(new Uri("/VoteCommentPage.xaml?pivotItem=vote", UriKind.RelativeOrAbsolute));
+        }
     }
 }

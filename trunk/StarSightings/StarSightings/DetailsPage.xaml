@@ -165,7 +165,7 @@
                                     <Image Source="Images/icon_gray_comment.png" Stretch="None" />
                                 </StackPanel>
                             </Border>
-                            <Border BorderBrush="#FF686868" BorderThickness="3" Width="208" Height="48">
+                            <Border BorderBrush="#FF686868" BorderThickness="3" Width="208" Height="48" Tap="Vote_Tap">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock Text="Vote" Margin="0,0,10,0" FontSize="23" FontWeight="Bold" />
                                     <Image Source="Images/icon_gray_heart.png" Stretch="None" Margin="0,0,10,0"/>
@@ -186,7 +186,7 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_map.png" Text="map"/>
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment" Click="CommentButton_Click" />
-            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_heart.png" Text="vote"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_heart.png" Text="vote" Click="VoteButton_Click" />
             <!--
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>

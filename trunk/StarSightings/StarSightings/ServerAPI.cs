@@ -18,6 +18,9 @@ using StarSightings.ViewModels;
 using System.Device.Location;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
+using Microsoft.Phone.BackgroundTransfer;
+using System.Windows.Resources;
+using System.Linq;
 
 namespace StarSightings
 {
@@ -238,7 +241,7 @@ namespace StarSightings
         {
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_REGISTER_DEVICE;
-            string query = "device_id=2_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
+            string query = "device_id=3_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
             webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleRegisterDevice);
@@ -423,6 +426,7 @@ namespace StarSightings
                baseUri  = Constants.SERVER_NAME + Constants.URL_INDEX_PAGE_SEARCH;
             else
                 baseUri = Constants.SERVER_NAME + Constants.URL_SEARCH;
+            baseUri += "&token=" + App.ViewModel.User.Token;
             string query = searchParams.ToString(); 
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
@@ -561,7 +565,35 @@ namespace StarSightings
                             item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
                         }
 #endif
-            //item.Vote = xmlItem.Element("vote").Value;
+
+            item.VotesPrompt = xmlItem.Element("votes").Attribute("prompt").Value;
+            XElement xmlVotes = xmlItem.Element("votes");
+            ObservableCollection<VoteViewModel> votes = new ObservableCollection<VoteViewModel>();
+            if (xmlVotes != null)
+            {
+                foreach (XElement xmlVote in xmlVotes.Elements("v"))
+                {
+                    VoteViewModel vote = new VoteViewModel();
+                    vote.VoteValue = xmlVote.Attribute("value").Value;
+                    try
+                    {
+                        vote.Selected = xmlVote.Attribute("selected").Value.Trim() == "1";
+                        vote.Input = vote.VoteValue + "##" + vote.Selected;
+                    }
+                    catch (Exception e)
+                    {
+                        vote.Selected = false;
+                        vote.Input = vote.VoteValue + "#false";
+                    }
+                    //vote.ImageFilename = xmlVote.Attribute("img_file").Value;
+                    vote.ImageFilename = "/img/buttons/nice_v1";
+                    vote.ImageFilename = Constants.SERVER_NAME + vote.ImageFilename + "_iphone.png";
+                    vote.Count = xmlVote.Element("count").Value;
+                    votes.Add(vote);
+                }
+
+                item.Votes = votes;                
+            }
 
             // computed properties
             item.GeoLocation = getGeoCoordinate(item.GeoLat, item.GeoLng);
@@ -908,6 +940,31 @@ namespace StarSightings
             }
         }
 
+        public void SetVote(string value, int selected)
+        {
+            WebClient webClient = GetWebClient();
+            webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
+
+            string baseUri = Constants.SERVER_NAME + Constants.URL_VOTE;
+            string query = "token=" + App.ViewModel.User.Token + "&photo_id=" + App.ViewModel.SelectedItem.PhotoId + "&value=" + HttpUtility.UrlEncode(value).Replace("+","%20") + "&selected=" + selected;
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, "");
+
+            webClient.UploadStringCompleted += new UploadStringCompletedEventHandler(HandleNewComment);
+            webClient.UploadStringAsync(uri, query);
+        }
+
+        
+        /*
+        public event CommentEventHandler CommentHandler;
+
+        protected virtual void OnComment(CommentEventArgs e)
+        {
+            if (CommentHandler != null)
+            {
+                CommentHandler(this, e);
+            }
+        }
+        */
         public void NewComment(string comment)
         {
             WebClient webClient = GetWebClient();
@@ -969,9 +1026,315 @@ namespace StarSightings
             {
                 CommentHandler(this, e);
             }
+        }               
+
+        public void NewPost()
+        {
+            // prepare upload uri
+            string baseUri = Constants.SERVER_NAME + Constants.URL_POST_NEW;
+            /*
+            string query = "cat=" + App.SSAPI.getCatList(true);
+            query += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
+            query += "&location=" + HttpUtility.UrlEncode(App.ViewModel.StoryLocation).Replace("+", "%20");
+            query += "&token=" + App.ViewModel.User.Token;
+
+            if (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)
+            {
+                query += "&geo_lat=" + App.ViewModel.StoryLat + "&geo_lng=" + App.ViewModel.StoryLng;                
+            }
+            if (!string.IsNullOrEmpty(App.ViewModel.StoryPlace) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryPlace))
+                query += "&place" + HttpUtility.UrlEncode(App.ViewModel.StoryPlace);
+            if (!string.IsNullOrEmpty(App.ViewModel.StoryEvent) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryEvent))
+                query += "&event" + HttpUtility.UrlEncode(App.ViewModel.StoryEvent);
+            if (!string.IsNullOrEmpty(App.ViewModel.PicStory) && !string.IsNullOrWhiteSpace(App.ViewModel.PicStory))
+                query += "&descr" + HttpUtility.UrlEncode(App.ViewModel.PicStory);
+
+            Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+            */
+
+            // save the picture to upload location
+            Dictionary<string, string> nvc = new Dictionary<string, string>();
+
+            nvc.Add("cat", App.SSAPI.getCatList(false));
+            nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
+
+
+            if (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)
+            {
+                nvc.Add("geo_lat", App.ViewModel.StoryLat.ToString());
+                nvc.Add("geo_lng", App.ViewModel.StoryLng.ToString());
+            }
+
+            nvc.Add("location", App.ViewModel.StoryLocation);
+
+            if (!string.IsNullOrEmpty(App.ViewModel.StoryPlace) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryPlace))
+                nvc.Add("place", App.ViewModel.StoryPlace);
+            if (!string.IsNullOrEmpty(App.ViewModel.StoryEvent) && !string.IsNullOrWhiteSpace(App.ViewModel.StoryEvent))
+                nvc.Add("event", App.ViewModel.StoryEvent);
+            if (!string.IsNullOrEmpty(App.ViewModel.PicStory) && !string.IsNullOrWhiteSpace(App.ViewModel.PicStory))
+                nvc.Add("descr", App.ViewModel.PicStory);
+            nvc.Add("token", App.ViewModel.User.Token);
+
+            string FileName = @"/shared\transfers/" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime) + "_" + (new Random()).Next();
+            string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+            byte[] boundarybytes = Encoding.UTF8.GetBytes("\r\n--" + boundary + "\r\n");
+            
+
+            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (myIsolatedStorage.FileExists(FileName))
+                {
+                    myIsolatedStorage.DeleteFile(FileName);
+                }
+
+                using (IsolatedStorageFileStream fileStream = new IsolatedStorageFileStream(FileName, FileMode.Create, myIsolatedStorage))
+                {
+                    using (BinaryWriter writer = new BinaryWriter(fileStream))
+                    {
+                        string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+                        foreach (string key in nvc.Keys)
+                        {
+                            writer.Write(boundarybytes, 0, boundarybytes.Length);
+                            string formitem = string.Format(formdataTemplate, key, nvc[key]);
+                            byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                            writer.Write(formitembytes, 0, formitembytes.Length);
+                        }
+                        writer.Write(boundarybytes, 0, boundarybytes.Length);
+
+                        string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+                        string header = string.Format(headerTemplate, "file", FileName, "image/jpeg");
+                        byte[] headerbytes = Encoding.UTF8.GetBytes(header);
+                        writer.Write(headerbytes, 0, headerbytes.Length);
+
+                        using (MemoryStream stream = new MemoryStream())
+                        {
+                            App.ViewModel.WriteableSelectedBitmap.SaveJpeg(stream, App.ViewModel.WriteableSelectedBitmap.PixelWidth, App.ViewModel.WriteableSelectedBitmap.PixelHeight, 0, 100);
+                            stream.Seek(0, SeekOrigin.Begin);
+                            byte[] buffer = new byte[4096];
+                            int bytesRead = 0;
+                            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
+                            {
+                                writer.Write(buffer, 0, bytesRead);
+                            }
+                            stream.Close();
+                        }
+
+                        byte[] trailer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                        writer.Write(trailer, 0, trailer.Length);
+                        
+                        writer.Close();
+                    }
+                }
+            }
+            /*
+            String tempJPEG = @"/shared\transfers/" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime) + "_" + (new Random()).Next() + ".jpg";
+
+            // Create virtual store and file stream. Check for duplicate tempJPEG files.
+            using (IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (myIsolatedStorage.FileExists(tempJPEG))
+                {
+                    myIsolatedStorage.DeleteFile(tempJPEG);
+                }
+
+                IsolatedStorageFileStream fileStream = myIsolatedStorage.CreateFile(tempJPEG);
+
+                StreamResourceInfo sri = null;
+                Uri picuri = new Uri(tempJPEG, UriKind.Relative);
+                sri = Application.GetResourceStream(picuri);
+
+                WriteableBitmap wb = App.ViewModel.WriteableSelectedBitmap;
+
+                // Encode WriteableBitmap object to a JPEG stream.
+                System.Windows.Media.Imaging.Extensions.SaveJpeg(wb, fileStream, wb.PixelWidth, wb.PixelHeight, 0, 85);
+
+                //wb.SaveJpeg(fileStream, wb.PixelWidth, wb.PixelHeight, 0, 85);
+                fileStream.Close();
+            }
+            */
+            // create transfer request
+            var btr = new BackgroundTransferRequest(new Uri(baseUri));
+            btr.TransferPreferences = TransferPreferences.AllowCellularAndBattery;
+            btr.Method = "POST";
+            btr.Tag = FileName; 
+            btr.Headers.Add("Content-Type", "multipart/form-data; boundary=" + boundary);
+            //btr.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+
+#if (DEBUG)
+            string auth = Constants.BASE_AUTH_USERNAME + ":" + Constants.BASE_AUTH_PASSWORD;
+            string authString = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(auth));
+            btr.Headers.Add("Authorization", "Basic " + authString);
+#endif
+
+            //btr.UploadLocation = new Uri(tempJPEG, UriKind.Relative);
+            btr.UploadLocation = new Uri(FileName, UriKind.Relative);
+            btr.TransferStatusChanged += new EventHandler<BackgroundTransferEventArgs>(btr_TransferStatusChanged);
+            btr.TransferProgressChanged += new EventHandler<BackgroundTransferEventArgs>(btr_TransferProgressChanged);
+
+            try
+            {
+                BackgroundTransferService.Add(btr);
+                App.ViewModel.IsUploading = true;
+            }
+            catch (Exception e)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    MessageBox.Show("Unable to add background transfer request.");
+                    App.Logger.log(LogLevel.error, e.Message);
+                });                 
+            }
         }
 
-        public  void NewPost()
+        public void btr_TransferProgressChanged(object sender, BackgroundTransferEventArgs e)
+        {
+            
+        }
+
+        public void btr_TransferStatusChanged(object sender, BackgroundTransferEventArgs e)
+        {
+            ProcessTransfer(e.Request);
+        }
+
+        private void ProcessTransfer(BackgroundTransferRequest transfer)
+        {
+            switch (transfer.TransferStatus)
+            {
+                case TransferStatus.Completed:
+
+                    // If the status code of a completed transfer is 200 or 206, the
+                    // transfer was successful
+                    if (transfer.StatusCode == 200 || transfer.StatusCode == 206)
+                    {
+                        // Remove the transfer request in order to make room in the 
+                        // queue for more transfers. Transfers are not automatically
+                        // removed by the system.
+                        RemoveTransferRequest(transfer.RequestId);
+
+                        // In this example, the downloaded file is moved into the root
+                        // Isolated Storage directory
+                        using (IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication())
+                        {
+                            string filename = transfer.Tag;
+                            if (isoStore.FileExists(filename))
+                            {
+                                isoStore.DeleteFile(filename);
+                            }                            
+                        }
+                        /*
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            // Showing the exact error message is useful for debugging. In a finalized application, 
+                            // output a friendly and applicable string to the user instead. 
+                            MessageBox.Show("Your post has been submitted successfully.");                            
+                        });
+                         * */
+                        PostEventArgs pe = new PostEventArgs(true);                        
+                        OnNewPost(pe);
+                    }
+                    else
+                    {
+                        // This is where you can handle whatever error is indicated by the
+                        // StatusCode and then remove the transfer from the queue. 
+                        RemoveTransferRequest(transfer.RequestId);
+
+                        if (transfer.TransferError != null)
+                        {
+                            // Handle TransferError, if there is one.
+                            /*
+                            Deployment.Current.Dispatcher.BeginInvoke(() =>
+                            {
+                                // Showing the exact error message is useful for debugging. In a finalized application, 
+                                // output a friendly and applicable string to the user instead. 
+                                MessageBox.Show("Errors in your submission, please try again.");
+                            });
+                             * */
+                        }
+                        PostEventArgs pe = new PostEventArgs(false);
+                        OnNewPost(pe);
+                    }
+                    break;
+
+                case TransferStatus.WaitingForExternalPower:
+                    //WaitingForExternalPower = true;
+                    break;
+
+                case TransferStatus.WaitingForExternalPowerDueToBatterySaverMode:
+                    //WaitingForExternalPowerDueToBatterySaverMode = true;
+                    break;
+
+                case TransferStatus.WaitingForNonVoiceBlockingNetwork:
+                    //WaitingForNonVoiceBlockingNetwork = true;
+                    break;
+
+                case TransferStatus.WaitingForWiFi:
+                    //WaitingForWiFi = true;
+                    break;
+            }
+        }
+
+        public void RemoveTransferRequest(string transferID)
+        {
+            // Use Find to retrieve the transfer request with the specified ID.
+            BackgroundTransferRequest transferToRemove = BackgroundTransferService.Find(transferID);
+
+            // Try to remove the transfer from the background transfer service.
+            try
+            {
+                BackgroundTransferService.Remove(transferToRemove);
+                if (BackgroundTransferService.Requests.Count<BackgroundTransferRequest>() <= 0)
+                {
+                    App.ViewModel.IsUploading = false;
+                }
+                else
+                {
+                    App.ViewModel.IsUploading = true;
+                }
+            }
+            catch (Exception e)
+            {
+                // Handle the exception.
+            }
+        }
+
+        public void UpdateRequestsList()
+        {
+            // The Requests property returns new references, so make sure that
+            // you dispose of the old references to avoid memory leaks.
+            if (App.ViewModel.TransferRequests != null)
+            {
+                foreach (var request in App.ViewModel.TransferRequests)
+                {
+                    request.Dispose();
+                }
+            }
+            App.ViewModel.TransferRequests = BackgroundTransferService.Requests;
+            if (App.ViewModel.TransferRequests.Count<BackgroundTransferRequest>() <= 0)
+            {
+                App.ViewModel.IsUploading = false;
+            }
+            else
+            {
+                App.ViewModel.IsUploading = true;
+            }
+
+        }
+
+        public void InitialTansferStatusCheck()
+        {
+            UpdateRequestsList();
+
+            foreach (var transfer in App.ViewModel.TransferRequests)
+            {
+                transfer.TransferStatusChanged += new EventHandler<BackgroundTransferEventArgs>(btr_TransferStatusChanged);
+                transfer.TransferProgressChanged += new EventHandler<BackgroundTransferEventArgs>(btr_TransferProgressChanged);
+                ProcessTransfer(transfer);                 
+            }
+        }
+
+        public  void NewPost2()
         {
             string url = Constants.SERVER_NAME + Constants.URL_POST_NEW;
             string file = "wpupload"; 
@@ -983,10 +1346,11 @@ namespace StarSightings
             nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
 
 
-            if (App.ViewModel.StoryLat != 0.0)
+            if (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)
+            {
                 nvc.Add("geo_lat", App.ViewModel.StoryLat.ToString());
-            if (App.ViewModel.StoryLng != 0.0)
                 nvc.Add("geo_lng", App.ViewModel.StoryLng.ToString());
+            }
             
             nvc.Add("location", App.ViewModel.StoryLocation);
 
@@ -1119,6 +1483,7 @@ namespace StarSightings
             }
         }
 
+        
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);
@@ -1156,6 +1521,7 @@ namespace StarSightings
 	    public String search_place_name;
 	    public String search_location_name;
         public String search_user_name;
+        public String search_photographer_name; 
         public String logic;
 	
 	    public bool isAlert;
@@ -1197,6 +1563,8 @@ namespace StarSightings
                     sb.Append("&search_place_name=" + search_place_name);
                 if (search_location_name != null)
                     sb.Append("&search_location_name=" + search_location_name);
+                if (search_photographer_name != null)
+                    sb.Append("&search_photographer_name=" + search_photographer_name);
                 return sb.ToString();
             }
             else if (start > 0)

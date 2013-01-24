@@ -14,7 +14,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-  shell:SystemTray.IsVisible="False">
+  shell:SystemTray.IsVisible="False" >
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="MyPanoramaItemHeaderTemplate">
@@ -86,7 +86,7 @@
         </Grid.RowDefinitions>
         <!--<TextBlock x:Name="tbUserName" Text="{Binding User.UserName}" Grid.Row="0"/>-->
         <!--Panorama control-->
-        <controls:Panorama Grid.Row="1">
+        <controls:Panorama Grid.Row="1" x:Name="panoramaControl">
             <controls:Panorama.Background>
                 <ImageBrush ImageSource="Images/Panorama_1024x800.jpg"/>
             </controls:Panorama.Background>
@@ -164,33 +164,44 @@
             </controls:PanoramaItem>
 
             <controls:PanoramaItem Header="my sightings">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="7*"/>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <!--Double line list with image placeholder and text wrapping-->
-                    <ListBox Grid.Row="0" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItems}" SelectionChanged="ListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,17">
-                                    <!--Replace rectangle with image-->
-                                    <Rectangle Height="100" Width="100" Fill="#FFE5001b" Margin="12,0,9,0"/>
-                                    <StackPanel Width="311">
-                                        <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                        <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                <ListBox ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
+                    <ListBoxItem>
+                        <Grid Background="#FFee0053" Width="380" Height="120" Tap="Post_Tap">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="Images/camera.png" Stretch="None"/>
+                            <TextBlock Grid.Row="1" Text="Post a sighting" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                        </Grid>
+                    </ListBoxItem>
+                    <ListBoxItem>                            
+                        <TextBlock Text="{Binding User.UserName}" FontSize="25" Foreground="#1ca7ff" Margin="5,0,0,0" TextTrimming="WordEllipsis" Width="350"/>                        
+                    </ListBoxItem>
+                    <ListBox Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Button Tap="GoToLogin">Login now</Button>
                     </ListBox>
-                    <TextBlock Grid.Row="1" Style="{StaticResource PhoneTextExtraLargeStyle}" Tap="GoToList">more...</TextBlock>
-                </Grid>
+                    <ListBoxItem Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="uploading" FontSize="25" Foreground="#b8b8b8" />
+                            <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_upload" AnimationStyle="AnimationStyle9" IsRunning="True" Content=""/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>                    
+                        <StackPanel>                                                
+                            <Grid>
+                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_my" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
+                                <ListBox Tag="4" Margin="0,0,-12,0" ItemsSource="{Binding MySightingsItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" />
+                            </Grid>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0" Margin="0,30,0,0">more...</TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
             </controls:PanoramaItem>
 
             <!--Panorama item one-->
             <controls:PanoramaItem Header="more">
-                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
                     <ListBoxItem Content="settings" Tap="GoToAbout" />
                     <ListBoxItem Content="about" Tap="GoToAbout"/>
                     <ListBoxItem x:Name="ItemLogin" Content="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Tap="GoToLogin"/>
@@ -225,10 +236,10 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.camera.rest.png" Text="post" Click="GoToCameraMode"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search" Click="GoToSearch"/>
-            <shell:ApplicationBar.MenuItems>
+            <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+            </shell:ApplicationBar.MenuItems>-->
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

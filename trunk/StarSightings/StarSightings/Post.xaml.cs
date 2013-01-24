@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Xna.Framework.Media;
 using StarSightings.Events;
 using System.Windows.Navigation;
+using System.Threading;
 
 namespace StarSightings
 {
@@ -77,14 +78,44 @@ namespace StarSightings
             postHandler = new PostEventHandler(PostCompleted);
             App.SSAPI.NewPostHandler += postHandler;
             //AsyncHttpPostHelper.HttpUploadFile(baseUri,"wpupload", "file", "image/jpeg", nvc);
-            this.busyIndicator.IsRunning = true;
-            App.SSAPI.NewPost();
+            //this.busyIndicator.IsRunning = true;
+            //new Thread(App.SSAPI.NewPost).Start();
+            //App.SSAPI.NewPost();
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                App.SSAPI.NewPost();
+            });                 
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear&screen=2", UriKind.RelativeOrAbsolute));
         }
 
         private PostEventHandler postHandler;
         
         public void PostCompleted(object sender, PostEventArgs e)
         {
+            App.SSAPI.NewPostHandler -= postHandler;
+            if (e.Successful)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    MessageBox.Show("Your post has been submitted successfully.");
+                });
+                App.ViewModel.SearchLatest(true, 0, null);   
+                App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);
+            }
+            else
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    MessageBox.Show("Errors in your submission, please try again.");
+                });         
+
+            }
+            /*
             this.busyIndicator.IsRunning = false;
             App.SSAPI.NewPostHandler -= postHandler;
             if (e.Successful && e.Items.Any(i=>i.Hidden==false))
@@ -104,6 +135,7 @@ namespace StarSightings
                 });
                 
             }
+             * */
         }
 
         protected void OnNavigatedFrom(NavigationEventArgs e)

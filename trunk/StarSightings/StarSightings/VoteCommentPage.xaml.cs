@@ -47,7 +47,9 @@ namespace StarSightings
                 {
                     string pivotItem = NavigationContext.QueryString["pivotItem"];
                     if (pivotItem == "comment")
-                        this.pivotControl.SelectedIndex = 1;                    
+                        this.pivotControl.SelectedIndex = 1;
+                    else if (pivotItem == "vote")
+                        this.pivotControl.SelectedIndex = 0;
                 }
             }            
         }
@@ -55,6 +57,12 @@ namespace StarSightings
         private void CommentButton_Click(object sender, EventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/CommentInputPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Vote_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            string[] input = ((sender as Grid).Tag as string).Split(new Char[] { '#' });
+            App.SSAPI.SetVote(input[0], input[1].Equals("true", StringComparison.CurrentCultureIgnoreCase) ? 0 : 1);
         }
     }
 }
