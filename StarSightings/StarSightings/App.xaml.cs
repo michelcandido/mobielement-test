@@ -200,6 +200,7 @@ namespace StarSightings
             {
                 App.ViewModel.LoadData();
             }
+            App.SSAPI.InitialTansferStatusCheck();
         }
 
         // Code to execute when the application is deactivated (sent to background)

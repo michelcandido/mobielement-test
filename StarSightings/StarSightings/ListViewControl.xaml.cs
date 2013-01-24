@@ -25,12 +25,12 @@ namespace StarSightings
         private int currentStartIndex = 0;
         private bool requestIssued = false;
         private bool isNewInstance = false;
-
+        private SearchCompletedCallback searchDataDelivered;
         public ListViewControl()
         {
             InitializeComponent();
             isNewInstance = true;
-            App.ViewModel.SearchDataReadyHandler += new SearchCompletedCallback(SearchDataDelivered);
+            
         }
 
         protected override void OnDisplayed()
@@ -91,6 +91,10 @@ namespace StarSightings
         {
             //FiveHundredPxAPI.BeginGetPhotosByCategory("fresh", this.loadedPagesCount, this.PhotoDataDelivered);
             //currentStartIndex = 0;
+            if (this.requestIssued)
+            {
+                return;
+            }
             switch (this.SearchGroup)
             {
                 case Constants.SEARCH_POPULAR:
@@ -109,6 +113,9 @@ namespace StarSightings
                     App.ViewModel.SearchKeywordSearch(true, 0, null);
                     break;
             }
+            searchDataDelivered = new SearchCompletedCallback(SearchDataDelivered);
+            App.ViewModel.SearchDataReadyHandler += searchDataDelivered;
+            this.requestIssued = true;
             this.listBox.EmptyContent = "Loading...";
         }
 
@@ -137,12 +144,15 @@ namespace StarSightings
                     App.ViewModel.SearchKeywordSearch(false, currentStartIndex, null);
                     break;
             }
+            searchDataDelivered = new SearchCompletedCallback(SearchDataDelivered);
+            App.ViewModel.SearchDataReadyHandler += searchDataDelivered;
             this.requestIssued = true;
             this.listBox.EmptyContent = "Loading...";
         }
 
         public void SearchDataDelivered(object sender, SearchEventArgs e)
         {
+            App.ViewModel.SearchDataReadyHandler -= searchDataDelivered;
             if (e.Successful)
             {
                 currentStartIndex += e.Items.Count;

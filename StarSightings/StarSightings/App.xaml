@@ -5,6 +5,7 @@
     <SolidColorBrush Color="YellowGreen" x:Key="greenColor" />
     <SolidColorBrush Color="Red" x:Key="redColor" />
     <converters:BoolToStringConverter x:Key="BoolToStringConverter" FalseValue="logout" TrueValue="login" />
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" FalseValue="Collapsed" TrueValue="Visible" />
     <converters:ImageConverter x:Key="ImageConverter" />
     <converters:FontSizeConverter x:Key="FontSizeConverter" />
     <converters:UnixRelativeTimeConverter x:Key="UnixRelativeTimeConverter" />

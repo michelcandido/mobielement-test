@@ -62,7 +62,8 @@ namespace StarSightings
         private string rights;
         private Boolean hasPhoto;
         private string localOffset;
-        private string vote;
+        private string votesPrompt;
+        private ObservableCollection<VoteViewModel> votes; 
         private GeoCoordinate geoLocation;
         private double distance;
         private string commentsCnt;
@@ -70,6 +71,22 @@ namespace StarSightings
         private CollectionViewSource commentsSummaryList;
         private string[] celebs;
         private int detailPagePhotoSize;
+
+        public ObservableCollection<VoteViewModel> Votes
+        {
+            get
+            {
+                return this.votes;
+            }
+            set
+            {
+                if (value != this.votes)
+                {
+                    this.votes = value;
+                    NotifyPropertyChanged("Votes");
+                }
+            }
+        }
 
         public int DetailPagePhotoSize
         {
@@ -262,19 +279,19 @@ namespace StarSightings
                 }
             }
         }
-                        
-        public string Vote
+
+        public string VotesPrompt
         {
             get
             {
-                return this.vote;
+                return this.votesPrompt;
             }
             set
             {
-                if (value != this.vote)
+                if (value != this.votesPrompt)
                 {
-                    this.vote = value;
-                    NotifyPropertyChanged("Vote");
+                    this.votesPrompt = value;
+                    NotifyPropertyChanged("VotesPrompt");
                 }      
             }
         }
