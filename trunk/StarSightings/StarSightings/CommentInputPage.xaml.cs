@@ -26,9 +26,12 @@ namespace StarSightings
         {
             if (!string.IsNullOrEmpty(this.tbComment.Text))
             {
-                commentHandler = new CommentEventHandler(CommentCompleted);
-                App.SSAPI.CommentHandler += commentHandler;
-                App.SSAPI.NewComment(this.tbComment.Text.Trim());
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    commentHandler = new CommentEventHandler(CommentCompleted);
+                    App.SSAPI.CommentHandler += commentHandler;
+                    App.SSAPI.NewComment(this.tbComment.Text.Trim());
+                });                   
             }
         }
 

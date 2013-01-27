@@ -74,17 +74,25 @@ namespace StarSightings
                 nvc.Add("descr", HttpUtility.UrlEncode(App.ViewModel.PicStory));
             nvc.Add("token" , App.ViewModel.User.Token);
             */
-            string baseUri = Constants.SERVER_NAME + Constants.URL_POST_NEW;
+            
             postHandler = new PostEventHandler(PostCompleted);
             App.SSAPI.NewPostHandler += postHandler;
-            //AsyncHttpPostHelper.HttpUploadFile(baseUri,"wpupload", "file", "image/jpeg", nvc);
-            //this.busyIndicator.IsRunning = true;
-            //new Thread(App.SSAPI.NewPost).Start();
-            //App.SSAPI.NewPost();
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+
+            if (App.ViewModel.PostMode == 1)
             {
-                App.SSAPI.NewPost();
-            });                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.SSAPI.NewPost();
+                });
+            }
+            else
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.SSAPI.NewPost2();
+                });
+            }
+
             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear&screen=2", UriKind.RelativeOrAbsolute));
         }
 

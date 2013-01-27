@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using StarSightings.Events;
 
 namespace StarSightings
 {
@@ -58,11 +59,39 @@ namespace StarSightings
         {
             this.NavigationService.Navigate(new Uri("/CommentInputPage.xaml", UriKind.RelativeOrAbsolute));
         }
-
+        
         private void Vote_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            string[] input = ((sender as Grid).Tag as string).Split(new Char[] { '#' });
-            App.SSAPI.SetVote(input[0], input[1].Equals("true", StringComparison.CurrentCultureIgnoreCase) ? 0 : 1);
+            //string[] input = ((sender as Grid).Tag as string).Split(new Char[] { '#' });
+            UIElement marker = (sender as Grid).Children.First(c => (c as Grid).Name == "mark");
+            TextBlock value = (((sender as Grid).Children.First() as Grid).Children.First(c => (c as FrameworkElement).Name == "value")) as TextBlock;
+            marker.Visibility = marker.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                //App.SSAPI.SetVote(input[0], input[1].Equals("true", StringComparison.CurrentCultureIgnoreCase) ? 0 : 1);
+                voteHandler = new CommentEventHandler(VoteCompleted);
+                App.SSAPI.CommentHandler += voteHandler;
+                markers.Enqueue(marker);
+                App.SSAPI.SetVote(value.Text, marker.Visibility == Visibility.Visible ? 1 : 0);
+            });            
+        }
+
+        private CommentEventHandler voteHandler;
+        private Queue<UIElement> markers = new Queue<UIElement>();
+        public void VoteCompleted(object sender, CommentEventArgs e)
+        {
+            App.SSAPI.CommentHandler -= voteHandler;
+            if (e.Successful)
+            {
+                markers.Dequeue();
+            }
+            else
+            {
+                UIElement marker = markers.Dequeue();
+                marker.Visibility = marker.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+                MessageBox.Show("You can only vote at most 3 times.");
+            }
         }
     }
 }

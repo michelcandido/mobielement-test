@@ -41,7 +41,8 @@ namespace StarSightings
         }
 
         private void TakePictureButton_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            App.ViewModel.PostMode = 1;
             try
             {
                 cameraCaptureTask.Show();
@@ -54,6 +55,7 @@ namespace StarSightings
 
         private void SelectPictureButton_Click(object sender, RoutedEventArgs e)
         {
+            App.ViewModel.PostMode = 1;
             photoChooserTask.ShowCamera = false;
             try
             {
@@ -186,7 +188,9 @@ namespace StarSightings
 
         private void noPictureButton_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
+            App.ViewModel.PostMode = 2;
+            this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
         }        
 
         private void OnDetailsTap(object sender, System.Windows.Input.GestureEventArgs e)

@@ -105,13 +105,13 @@ namespace StarSightings
         private CollectionViewSource mySightingsItemsSummaryList;
 
         //The image selected
-        public BitmapImage selectedImage;
-        public WriteableBitmap writeableSelectedBitmap;
-        public String celebName;
-        public ObservableCollection<String> celebNameList;
-        public ObservableCollection<String> locationList;
-        public ObservableCollection<String> placeList;
-        public ObservableCollection<String> eventList;
+        private BitmapImage selectedImage;
+        private WriteableBitmap writeableSelectedBitmap;
+        private String celebName;
+        private ObservableCollection<String> celebNameList;
+        private ObservableCollection<String> locationList;
+        private ObservableCollection<String> placeList;
+        private ObservableCollection<String> eventList;
 
         private String picStory;
         private String storyLocation;
@@ -121,6 +121,7 @@ namespace StarSightings
         private double storyLat;
         private double storyLng;
 
+        private int postMode;
 
         public CollectionViewSource PopularItemsSummaryList { get { return popularItemsSummaryList; } private set { if (value != popularItemsSummaryList) { popularItemsSummaryList = value; NotifyPropertyChanged("PopularItemsSummaryList"); } } }
         public CollectionViewSource LatestItemsSummaryList { get { return latestItemsSummaryList; } private set { if (value != latestItemsSummaryList) { latestItemsSummaryList = value; NotifyPropertyChanged("LatestItemsSummaryList"); } } }
@@ -142,6 +143,7 @@ namespace StarSightings
         public DateTime StoryTime { get { return storyTime; } set { if (value != storyTime) { storyTime = value; NotifyPropertyChanged("StoryTime"); } } }
         public double StoryLat { get { return storyLat; } set { if (value != storyLat) { storyLat = value; NotifyPropertyChanged("StoryLat"); } } }
         public double StoryLng { get { return storyLng; } set { if (value != storyLng) { storyLng = value; NotifyPropertyChanged("StoryLng"); } } }
+        public int PostMode { get { return postMode; } set { if (value != postMode) { postMode = value; NotifyPropertyChanged("PostMode"); } } }
 
         private int searchTypePopular;
         private int searchTypeLatest;
