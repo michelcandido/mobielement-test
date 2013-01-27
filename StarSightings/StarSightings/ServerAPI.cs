@@ -508,9 +508,15 @@ namespace StarSightings
             item.Hidden = xmlItem.Element("hidden").Value.Trim() == "1";
             item.Rights = xmlItem.Element("rights").Value.Trim();
             item.HasPhoto = xmlItem.Element("has_photo").Value.Trim() == "1";
-            item.Time = xmlItem.Element("time").Value;
-            item.LocalTime = xmlItem.Element("local_time").Value;
-            item.LocalOffset = xmlItem.Element("local_offset").Value;
+            try
+            {
+                item.Time = xmlItem.Element("time").Value;
+                item.LocalTime = xmlItem.Element("local_time").Value;
+                item.LocalOffset = xmlItem.Element("local_offset").Value;
+            }
+            catch (Exception e)
+            {
+            }
 
 #if (DEBUG)
             item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value;
@@ -578,16 +584,16 @@ namespace StarSightings
                     try
                     {
                         vote.Selected = xmlVote.Attribute("selected").Value.Trim() == "1";
-                        vote.Input = vote.VoteValue + "##" + vote.Selected;
+                        //vote.Input = vote.VoteValue + "#" + vote.Selected;
                     }
                     catch (Exception e)
                     {
                         vote.Selected = false;
-                        vote.Input = vote.VoteValue + "#false";
+                        //vote.Input = vote.VoteValue + "#false";
                     }
-                    //vote.ImageFilename = xmlVote.Attribute("img_file").Value;
-                    vote.ImageFilename = "/img/buttons/nice_v1";
-                    vote.ImageFilename = Constants.SERVER_NAME + vote.ImageFilename + "_iphone.png";
+                    vote.ImageFilename = xmlVote.Attribute("img_file").Value;
+                    //vote.ImageFilename = "/img/buttons/nice_v1";
+                    vote.ImageFilename = Constants.SERVER_NAME + vote.ImageFilename + "_winphone.png";
                     vote.Count = xmlVote.Element("count").Value;
                     votes.Add(vote);
                 }
@@ -600,7 +606,8 @@ namespace StarSightings
             item.Distance = Math.Round(Utils.Between(Utils.DistanceIn.Miles, App.ViewModel.MyLocation, item.GeoLocation));
             item.EventLocation = item.Place + (item.Place.Length == 0 ? "" : " in ") + item.Location;
             item.EventDescr = item.Descr.Length != 0 ? item.Descr : item.EventName;
-            item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
+            //item.ThumbOrigLarge = Constants.SERVER_NAME + item.ThumbOrigLarge;
+            
             item.Celebs = item.Cat.Split(new Char[] { ';' });
             item.Cat = item.Cat.Replace(";", ", ");
 
@@ -1392,6 +1399,7 @@ namespace StarSightings
                             byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
                             requestStream.Write(formitembytes, 0, formitembytes.Length);
                         }
+                        /*
                         requestStream.Write(boundarybytes, 0, boundarybytes.Length);
 
                         string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
@@ -1411,7 +1419,7 @@ namespace StarSightings
                             }
                             stream.Close();
                         }
-
+                        */
                         byte[] trailer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
                         requestStream.Write(trailer, 0, trailer.Length);
 
@@ -1492,7 +1500,7 @@ namespace StarSightings
     public delegate void AlertEventHandler(object sender, AlertEventArgs e);
     public delegate void KeywordEventHandler(object sender, KeywordEventArgs e);
     public delegate void CommentEventHandler(object sender, CommentEventArgs e);
-    public delegate void PostEventHandler(object sender, PostEventArgs e);
+    public delegate void PostEventHandler(object sender, PostEventArgs e);    
 
     public class SearchParams
     {	

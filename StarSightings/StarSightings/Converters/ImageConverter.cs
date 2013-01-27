@@ -31,17 +31,29 @@ namespace StarSightings.Converters
                 string authString = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(auth));
                 request.Headers["Authorization"] = "Basic " + authString;            
 #endif
-            request.BeginGetResponse((s) =>
-            {
-                HttpWebRequest requestResult = (HttpWebRequest)s.AsyncState;
-                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(s);
-                Stream content = response.GetResponseStream();
-                System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    bmp.SetSource(content);
-                });
-            }, request);
-
+                
+                    request.BeginGetResponse((s) =>
+                    {
+                        try
+                        {
+                            HttpWebRequest requestResult = (HttpWebRequest)s.AsyncState;
+                            HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(s);
+                            Stream content = response.GetResponseStream();
+                            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
+                            {
+                                bmp.SetSource(content);
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                            System.Windows.Deployment.Current.Dispatcher.BeginInvoke(() =>
+                            {
+                                bmp.UriSource = new Uri("Images/default_v1_winphone.png", UriKind.RelativeOrAbsolute);
+                            });
+                            
+                        }
+                    }, request);
+                
             return bmp;
         }
 

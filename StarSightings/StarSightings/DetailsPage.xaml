@@ -34,7 +34,7 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <ListBox x:Name="ContentPanel" Grid.Row="1" Background="White">
+        <ListBox x:Name="ContentPanel" Grid.Row="1" Background="White" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
             <ListBox.Resources>
                 <DataTemplate x:Key="SlideViewItemTemplate">
                     <Grid Background="Black">
@@ -111,7 +111,7 @@
                 </telerikPrimitives:RadSlideView>
             </ListBoxItem>
             <ListBoxItem>
-                <ListBox Padding="10,0,10,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black">
+                <ListBox Padding="10,0,10,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" Foreground="Black" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
                     <ListBoxItem Content="{Binding ElementName=slideView, Path=SelectedItem.Time, Converter={StaticResource DateTimeConverter}}" FontSize="23" Foreground="#686868"/>
                     <ListBoxItem>
                         <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Cat}" FontSize="47" FontWeight="Bold" TextWrapping="Wrap" />
