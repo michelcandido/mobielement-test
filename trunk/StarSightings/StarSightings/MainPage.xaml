@@ -25,7 +25,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MySummaryItemTemplate">
-            <Grid Tap="Grid_Tap">
+            <Grid Tap="Grid_Tap" Tag="0">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,12,12,0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
                     <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -36,9 +36,9 @@
                     <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
-        </DataTemplate>
+        </DataTemplate>        
         <DataTemplate x:Key="MyLatestSummaryItemTemplate">
-            <Grid Tap="Grid_Tap">
+            <Grid Tap="Grid_Tap" Tag="1">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
                     <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -55,7 +55,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="MyNearestSummaryItemTemplate">
-            <Grid Tap="Grid_Tap">
+            <Grid Tap="Grid_Tap" Tag="2">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
                     <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -69,6 +69,32 @@
                     <Image Source="Images/distance_icon.png" Margin="0,0,8,0"/>
                     <TextBlock Text="{Binding Distance, StringFormat=\{0\} mi}"  FontFamily="Segoe WP"  FontWeight="Bold" FontSize="23" Margin="0,0,5,0"/>
                 </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="MyFollowingSummaryItemTemplate">
+            <Grid Tap="Grid_Tap" Tag="3">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,12,12,0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
+                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <Border.Background>
+                            <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="MySightingsSummaryItemTemplate">
+            <Grid Tap="Grid_Tap" Tag="4">
+                <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,12,12,0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
+                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <Border.Background>
+                            <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
+                        </Border.Background>
+                    </Border>
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                </Grid>
             </Grid>
         </DataTemplate>
         
@@ -136,7 +162,7 @@
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="3" Margin="0,60,0,0">following</TextBlock>
                             <Grid>
                                 <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_following" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
-                                <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
+                                <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyFollowingSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
                             </Grid>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="3" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
@@ -191,7 +217,7 @@
                         <StackPanel>                                                
                             <Grid>
                                 <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_my" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
-                                <ListBox Tag="4" Margin="0,0,-12,0" ItemsSource="{Binding MySightingsItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" />
+                                <ListBox Tag="4" Margin="0,0,-12,0" ItemsSource="{Binding MySightingsItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySightingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" />
                             </Grid>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
