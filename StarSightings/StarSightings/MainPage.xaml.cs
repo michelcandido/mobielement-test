@@ -209,9 +209,12 @@ namespace StarSightings
         private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             ItemViewModel selectedItemData = (sender as Grid).DataContext as ItemViewModel;
+            string selectedGroupId = (string)(sender as FrameworkElement).Tag;
+            if (selectedGroupId == Constants.SEARCH_KEYWORDSEARCH.ToString())
+                App.ViewModel.KeywordType = Constants.KEYWORD_MY;
             if (selectedItemData != null)
-            {
-                this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, (string)(sender as FrameworkElement).Tag), UriKind.RelativeOrAbsolute));
+            {                
+                this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, selectedGroupId), UriKind.RelativeOrAbsolute));
             }
             
         }        
