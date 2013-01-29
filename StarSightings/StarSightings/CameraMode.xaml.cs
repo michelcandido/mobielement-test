@@ -208,7 +208,10 @@ namespace StarSightings
 
         private void OnCancelClick(object sender, EventArgs e)
         {
-            SelectPictureButton_Click(sender, null);
+            ContentPanel.Visibility = Visibility.Visible;
+            ContentPanelChooser.Visibility = Visibility.Collapsed;
+            ContentPanelScoop.Visibility = Visibility.Collapsed;
+            this.ApplicationBar.IsVisible = false;
         }
 
     }

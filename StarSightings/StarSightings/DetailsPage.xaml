@@ -123,7 +123,7 @@
                                 <ColumnDefinition Width="*"/>                                
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" MinWidth="360" HorizontalAlignment="Stretch" Text="{Binding ElementName=slideView, Path=SelectedItem.EventLocation}" FontSize="47" TextWrapping="Wrap" />
-                            <StackPanel Grid.Column="1" HorizontalAlignment="Right" >
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Tap="Map_Tap">
                                 <Border BorderBrush="#FF686868" BorderThickness="1">
                                     <map:Map Name="Map"  Width="100" Height="100" HorizontalAlignment="Center"  CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Center="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation, Mode=TwoWay}" ZoomLevel="8">
                                         <map:Pushpin Location="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation,Mode=TwoWay}" Style="{StaticResource MyPushpinStyle}" />                                                                                    
@@ -184,7 +184,7 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
-            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_map.png" Text="map"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_map.png" Text="map" Click="MapButton_Click" />
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment" Click="CommentButton_Click" />
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_heart.png" Text="vote" Click="VoteButton_Click" />
             <!--
