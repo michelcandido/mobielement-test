@@ -69,7 +69,9 @@ namespace StarSightings
 
                 XElement xmlResponse = XElement.Parse(e.Result);
 
-                XElement xmlValues = xmlResponse.Element("suggestions").Element("values");
+                XElement xmlValues = null;
+                if (xmlResponse.Element("suggestions") != null)
+                    xmlValues = xmlResponse.Element("suggestions").Element("values");
 
                 App.ViewModel.LocationList.Clear();
 
@@ -105,7 +107,9 @@ namespace StarSightings
             {
 
                 XElement xmlResponse = XElement.Parse(e.Result);
-                XElement xmlValues = xmlResponse.Element("suggestions").Element("values");
+                XElement xmlValues = null;
+                if (xmlResponse.Element("suggestions") != null)
+                    xmlValues = xmlResponse.Element("suggestions").Element("values");
                 App.ViewModel.PlaceList.Clear();
 
                 if (xmlValues != null)
@@ -140,7 +144,9 @@ namespace StarSightings
             {
 
                 XElement xmlResponse = XElement.Parse(e.Result);
-                XElement xmlValues = xmlResponse.Element("suggestions").Element("values");
+                XElement xmlValues = null;
+                if (xmlResponse.Element("suggestions") != null)
+                    xmlValues = xmlResponse.Element("suggestions").Element("values");
                 App.ViewModel.EventList.Clear();
 
                 if (xmlValues != null)
@@ -405,11 +411,11 @@ namespace StarSightings
                 if (Double.TryParse(xmlTokenExpiration.Value, out expiration))
                     user.TokenExpiration = expiration;
                 XElement xmlUserInfo = xmlResponse.Element("userinfo");
-                user.UserName = xmlUserInfo.Element("username").Value;
-                user.UserId = xmlUserInfo.Element("user_id").Value;
-
-                
-
+                if (xmlUserInfo != null)
+                {
+                    user.UserName = getElementValue(xmlUserInfo, "username");
+                    user.UserId = getElementValue(xmlUserInfo, "user_id");
+                }
                 return user;
             }
             else
@@ -460,7 +466,7 @@ namespace StarSightings
                     foreach (XElement xmlItem in xmlItems.Elements("item"))
                     {                             
                         
-                        ItemViewModel item = getItemInfoFromXML(xmlItem);
+                        ItemViewModel item = getItemInfoFromXML(xmlItem);                        
                         items.Add(item);
                     }
                     SearchEventArgs se = new SearchEventArgs(true);
@@ -479,47 +485,44 @@ namespace StarSightings
         private ItemViewModel getItemInfoFromXML(XElement xmlItem)
         {
             ItemViewModel item = new ItemViewModel();
-            item.PhotoId = xmlItem.Element("photo_id").Value;
-            item.GeoLat = xmlItem.Element("geo_lat").Value;
-            item.GeoLng = xmlItem.Element("geo_lng").Value;
-            item.Source = xmlItem.Element("source").Value.Trim(); ;
-            item.ForumId = xmlItem.Element("forum_id").Value;
-            item.TopicId = xmlItem.Element("topic_id").Value;
-            item.PostId = xmlItem.Element("post_id").Value;
-            item.Name = xmlItem.Element("name").Value;
-            item.Descr = xmlItem.Element("descr").Value;
-            item.Location = xmlItem.Element("location").Value;
-            item.EventName = xmlItem.Element("event").Value;
-            item.Place = xmlItem.Element("place").Value;
-            item.SourceUrl = xmlItem.Element("source_url").Value.Trim();
-            item.ViewCnt = xmlItem.Element("view_cnt").Value;
-            item.UserId = xmlItem.Element("user_id").Value;
-            item.CanEdit = xmlItem.Element("can_edit").Value.Trim() == "1";
-            item.ThumbUserSmall = xmlItem.Element("thumb_user_small").Value;
-            item.ThumbUserLarge = xmlItem.Element("thumb_user_large").Value;
-            item.ThumbOrigSmall = xmlItem.Element("thumb_orig_small").Value;
-            item.ThumbOrigLarge = xmlItem.Element("thumb_orig_large").Value;
-            item.Cat = xmlItem.Element("cat").Value;
-            item.Types = xmlItem.Element("types").Value;
-            item.MaxBid = xmlItem.Element("max_bid").Value;
-            item.MaxBidTime = xmlItem.Element("max_bid_time").Value;
-            item.BidCnt = xmlItem.Element("bid_cnt").Value;
-            item.VisibleMode = xmlItem.Element("visible_mode").Value;
-            item.Hidden = xmlItem.Element("hidden").Value.Trim() == "1";
-            item.Rights = xmlItem.Element("rights").Value.Trim();
-            item.HasPhoto = xmlItem.Element("has_photo").Value.Trim() == "1";
-            try
-            {
-                item.Time = xmlItem.Element("time").Value;
-                item.LocalTime = xmlItem.Element("local_time").Value;
-                item.LocalOffset = xmlItem.Element("local_offset").Value;
-            }
-            catch (Exception e)
-            {
-            }
+            item.PhotoId = getElementValue(xmlItem,"photo_id");
+            item.GeoLat = getElementValue(xmlItem, "geo_lat");
+            item.GeoLng = getElementValue(xmlItem,"geo_lng");
+            item.Source = getElementValue(xmlItem,"source");
+            item.ForumId = getElementValue(xmlItem,"forum_id");
+            item.TopicId = getElementValue(xmlItem,"topic_id");
+            item.PostId = getElementValue(xmlItem,"post_id");
+            item.Name = getElementValue(xmlItem,"name");
+            item.Descr = getElementValue(xmlItem,"descr");
+            item.Location = getElementValue(xmlItem,"location");
+            item.EventName = getElementValue(xmlItem,"event");
+            item.Place = getElementValue(xmlItem,"place");
+            item.SourceUrl = getElementValue(xmlItem,"source_url");
+            item.ViewCnt = getElementValue(xmlItem,"view_cnt");
+            item.UserId = getElementValue(xmlItem,"user_id");
+            item.CanEdit = getElementValue(xmlItem,"can_edit") == "1";
+            item.ThumbUserSmall = getElementValue(xmlItem,"thumb_user_small");
+            item.ThumbUserLarge = getElementValue(xmlItem,"thumb_user_large");
+            item.ThumbOrigSmall = getElementValue(xmlItem,"thumb_orig_small");
+            item.ThumbOrigLarge = getElementValue(xmlItem,"thumb_orig_large");
+            item.Cat = getElementValue(xmlItem,"cat");
+            item.Types = getElementValue(xmlItem,"types");
+            item.MaxBid = getElementValue(xmlItem,"max_bid");
+            item.MaxBidTime = getElementValue(xmlItem,"max_bid_time");
+            item.BidCnt = getElementValue(xmlItem,"bid_cnt");
+            item.VisibleMode = getElementValue(xmlItem,"visible_mode");
+            item.Hidden = getElementValue(xmlItem,"hidden") == "1";
+            item.Rights = getElementValue(xmlItem,"rights");
+            item.HasPhoto = getElementValue(xmlItem,"has_photo") == "1";
+            
+            item.Time = getElementValue(xmlItem,"time");
+            item.LocalTime = getElementValue(xmlItem,"local_time");
+            item.LocalOffset = getElementValue(xmlItem,"local_offset");
 
 #if (DEBUG)
-            item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value;
+            if (xmlItem.Element("comments") != null && xmlItem.Element("comments").Attribute("count") != null) 
+                item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value.Trim();
+            
             XElement xmlComments = xmlItem.Element("comments");
             ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
             if (xmlComments != null)
@@ -527,13 +530,13 @@ namespace StarSightings
                 foreach (XElement xmlComment in xmlComments.Elements("c"))
                 {
                     CommentViewModel comment = new CommentViewModel();
-                    comment.CommentId = xmlComment.Attribute("id").Value;
-                    comment.CommentType = xmlComment.Attribute("type").Value;
-                    comment.Promoted = xmlComment.Attribute("p").Value == "1";
-                    comment.Time = xmlComment.Element("time").Value;
-                    comment.CommentValue = xmlComment.Element("value").Value;
-                    comment.UserId = xmlComment.Element("user_id").Value;
-                    comment.User = xmlComment.Element("user").Value;
+                    comment.CommentId = getElementAttribute(xmlComment, "id");
+                    comment.CommentType = getElementAttribute(xmlComment, "type");
+                    comment.Promoted = getElementAttribute(xmlComment, "p") == "1";
+                    comment.Time = getElementValue(xmlComment, "time");
+                    comment.CommentValue = getElementValue(xmlComment, "value");
+                    comment.UserId = getElementValue(xmlComment, "user_id");
+                    comment.User = getElementValue(xmlComment, "user");
                     comments.Add(comment);
                 }
 
@@ -571,8 +574,9 @@ namespace StarSightings
                             item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
                         }
 #endif
+            if (xmlItem.Element("votes") != null && xmlItem.Element("votes").Attribute("prompt") != null)
+                item.VotesPrompt = xmlItem.Element("votes").Attribute("prompt").Value.Trim();
 
-            item.VotesPrompt = xmlItem.Element("votes").Attribute("prompt").Value;
             XElement xmlVotes = xmlItem.Element("votes");
             ObservableCollection<VoteViewModel> votes = new ObservableCollection<VoteViewModel>();
             if (xmlVotes != null)
@@ -580,21 +584,12 @@ namespace StarSightings
                 foreach (XElement xmlVote in xmlVotes.Elements("v"))
                 {
                     VoteViewModel vote = new VoteViewModel();
-                    vote.VoteValue = xmlVote.Attribute("value").Value;
-                    try
-                    {
-                        vote.Selected = xmlVote.Attribute("selected").Value.Trim() == "1";
-                        //vote.Input = vote.VoteValue + "#" + vote.Selected;
-                    }
-                    catch (Exception e)
-                    {
-                        vote.Selected = false;
-                        //vote.Input = vote.VoteValue + "#false";
-                    }
-                    vote.ImageFilename = xmlVote.Attribute("img_file").Value;
-                    //vote.ImageFilename = "/img/buttons/nice_v1";
-                    vote.ImageFilename = Constants.SERVER_NAME + vote.ImageFilename + "_winphone.png";
-                    vote.Count = xmlVote.Element("count").Value;
+                    vote.VoteValue = getElementAttribute(xmlVote, "value");
+                    vote.Selected = getElementAttribute(xmlVote, "selected") == "1";
+                    vote.ImageFilename = getElementAttribute(xmlVote, "img_file");                    
+                    //vote.ImageFilename = Constants.SERVER_NAME + vote.ImageFilename + "_winphone.png";
+                    vote.ImageFilename = vote.ImageFilename + "_winphone.png";
+                    vote.Count = getElementValue(xmlVote, "count");
                     votes.Add(vote);
                 }
 
@@ -724,14 +719,7 @@ namespace StarSightings
                 if (user != null)
                 {                    
                     LoginEventArgs le = new LoginEventArgs(true);
-                    le.User = user;
-                    /*
-                    // we can also get the alets information from here                    
-                    XElement xmlResponse = XElement.Parse(e.Result);
-                    XElement xmlAlerts = xmlResponse.Element("alerts");
-                    ObservableCollection<AlertViewModel> alerts = UpdateAlerts(xmlAlerts);
-                    le.Alerts = alerts;
-                    */
+                    le.User = user;                    
                     OnLogin(le);
                 }
                 else
@@ -803,9 +791,9 @@ namespace StarSightings
             WebClient webClient = GetWebClient();
             string baseUri;
             if (string.IsNullOrEmpty(subjectType))
-                baseUri = Constants.SERVER_NAME + Constants.URL_ALERT + alertMethod + "?mobile=1&v=3";
+                baseUri = Constants.SERVER_NAME + Constants.URL_ALERT + alertMethod + "?mobile=1&v=4";
             else
-                baseUri = Constants.SERVER_NAME + Constants.URL_ALERT + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1&v=3";
+                baseUri = Constants.SERVER_NAME + Constants.URL_ALERT + alertMethod + subjectType + HttpUtility.UrlEncode(subjectName) + "?mobile=1&v=4";
             string query = "token="+App.ViewModel.User.Token;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
 
@@ -865,7 +853,7 @@ namespace StarSightings
             foreach (XElement xmlAlert in xmlAlerts.Elements("alert"))
             {
                 AlertViewModel alert = new AlertViewModel();
-                alert.Type = xmlAlert.Element("type").Value.Trim();
+                alert.Type = getElementValue(xmlAlert, "type");
                 if (alert.Type.Equals("geo"))
                 {
                     alert.GeoLat = xmlAlert.Element("lat").Value.Trim();
@@ -873,9 +861,9 @@ namespace StarSightings
                 }
                 else
                 {
-                    alert.Name = xmlAlert.Element("name").Value.Trim();
+                    alert.Name = getElementValue(xmlAlert, "name");
                 }
-                alert.Active = xmlAlert.Element("active").Value.Trim() == "1";
+                alert.Active = getElementValue(xmlAlert, "active") == "1";
                 alerts.Add(alert);
             }
             return alerts;
@@ -913,7 +901,9 @@ namespace StarSightings
 
                 XElement xmlResponse = XElement.Parse(e.Result);
                 XElement xmlSuggestions = xmlResponse.Element("suggestions");
-                XElement xmlValues = xmlSuggestions.Element("values");
+                XElement xmlValues = null;
+                if (xmlSuggestions != null)
+                    xmlValues = xmlSuggestions.Element("values");
 
                 if (xmlValues != null)
                 {
@@ -1491,7 +1481,21 @@ namespace StarSightings
             }
         }
 
-        
+        private string getElementValue(XElement element, XName name)
+        {
+            if (element.Element(name) != null)
+                return element.Element(name).Value.Trim();
+            else
+                return string.Empty;
+        }
+
+        private string getElementAttribute(XElement element, XName name)
+        {
+            if (element.Attribute(name) != null)
+                return element.Attribute(name).Value.Trim();
+            else
+                return string.Empty;
+        }
     }
 
     public delegate void RegisterEventHandler(object sender, RegisterEventArgs e);

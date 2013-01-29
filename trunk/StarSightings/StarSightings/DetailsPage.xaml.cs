@@ -15,6 +15,8 @@ using Microsoft.Phone.Tasks;
 using System;
 using StarSightings.Events;
 using StarSightings.ViewModels;
+using Microsoft.Phone.Tasks;
+using System.Device.Location;
 
 namespace StarSightings
 {
@@ -156,6 +158,27 @@ namespace StarSightings
             App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
             //App.ViewModel.CommentList = (this.slideView.SelectedItem as ItemViewModel).Comments;
             this.NavigationService.Navigate(new Uri("/VoteCommentPage.xaml?pivotItem=vote", UriKind.RelativeOrAbsolute));
+        }
+
+        private void MapButton_Click(object sender, System.EventArgs e)
+        {
+
+            gotoMap();
+        }
+
+        private void Map_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            gotoMap();
+        }
+
+        private void gotoMap()
+        {
+            App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
+            BingMapsTask mapsTask = new BingMapsTask();
+            mapsTask.Center = App.ViewModel.SelectedItem.GeoLocation;
+            mapsTask.ZoomLevel = 12;
+            mapsTask.Show();
+            
         }
     }
 }
