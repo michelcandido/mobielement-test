@@ -112,6 +112,7 @@ namespace StarSightings
                 App.ViewModel.Alerts = e.Alerts;
                 Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
                 MessageBox.Show("Your request has been set.");
+                App.ViewModel.UpdateMyFollowings();
                 App.ViewModel.SearchFollowing(true, 0, null);
             }
             else

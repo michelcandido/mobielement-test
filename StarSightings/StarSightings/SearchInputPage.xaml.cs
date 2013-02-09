@@ -119,7 +119,8 @@ namespace StarSightings
             App.ViewModel.SearchKeywords = this.provider.InputString;
             App.ViewModel.SearchKeywordSearch(true, 0, null);
             App.ViewModel.ShowSearchPivotItem = true;
-            this.NavigationService.Navigate(new Uri("/ListPage.xaml?pivotItemId=4", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.Navigate(new Uri("/ListPage.xaml?pivotItemId=4", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using System.Text;
 using StarSightings.Events;
 using System.Windows.Navigation;
+using StarSightings.ViewModels;
 
 namespace StarSightings
 {
@@ -217,7 +218,22 @@ namespace StarSightings
                 this.NavigationService.Navigate(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, selectedGroupId), UriKind.RelativeOrAbsolute));
             }
             
-        }        
+        }
+
+        private void GoToFollowed(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            UserViewModel selectedItemData = (sender as StackPanel).DataContext as UserViewModel;
+            
+            if (selectedItemData != null)
+            {
+                App.ViewModel.KeywordType = Constants.KEYWORD_NAME;
+                App.ViewModel.SearchKeywords = selectedItemData.UserName;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);
+                
+                this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
+            }
+
+        }  
 
         private void GoToSearch(object sender, EventArgs e)
         {
@@ -251,6 +267,48 @@ namespace StarSightings
         private void Post_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/CameraMode.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void GoToMyList(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+            NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void AddFollowing(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private AlertEventHandler followAlertEventHandler;
+        private void DeleteFollowed(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            UserViewModel selectedItemData = (sender as TextBlock).DataContext as UserViewModel;
+
+            if (selectedItemData != null)
+            {
+                followAlertEventHandler = new AlertEventHandler(DeleteFollowCompleted);
+                App.SSAPI.AlertHandler += followAlertEventHandler;
+                App.SSAPI.Alert(Constants.ALERT_REMOVE, selectedItemData.UserType, selectedItemData.UserName);
+                
+            }
+        }
+
+        public void DeleteFollowCompleted(object sender, AlertEventArgs e)
+        {
+            App.SSAPI.AlertHandler -= followAlertEventHandler;
+            if (e.Successful)
+            {
+                App.ViewModel.Alerts = e.Alerts;
+                Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
+                MessageBox.Show("Your request has been set.");
+                App.ViewModel.UpdateMyFollowings();
+                App.ViewModel.SearchFollowing(true, 0, null);
+            }
+            else
+            {
+                MessageBox.Show("Your Alert request cannot be fullfilled, please try again.");
+            }
         }
     }
 }

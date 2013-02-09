@@ -469,6 +469,10 @@ namespace StarSightings
                         ItemViewModel item = getItemInfoFromXML(xmlItem);                        
                         items.Add(item);
                     }
+
+                    XElement xmlEntityInfo = xmlResponse.Element("entity_info");
+
+
                     SearchEventArgs se = new SearchEventArgs(true);
                     se.Items = items;
                     se.SearchToken = (SearchToken)e.UserState;
