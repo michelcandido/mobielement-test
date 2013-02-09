@@ -32,6 +32,23 @@ namespace StarSightings.ViewModels
             }
         }
 
+        private string userType;
+        public string UserType
+        {
+            get
+            {
+                return this.userType;
+            }
+            set
+            {
+                if (value != userType)
+                {
+                    userType = value;
+                    NotifyPropertyChanged("UserType");
+                }
+            }
+        }
+
         private string password;
         public string Password
         {

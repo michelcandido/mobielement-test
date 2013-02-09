@@ -50,20 +50,27 @@ namespace StarSightings
                 switch (itemId)
                 {
                     case 0:
-                        this.GroupTitle.Text = "popular";
+                        //this.GroupTitle.Text = "popular";
                         items = App.ViewModel.PopularItems;
                         break;
                     case 1:
-                        this.GroupTitle.Text = "latest";
+                        //this.GroupTitle.Text = "latest";
                         items = App.ViewModel.LatestItems;
                         break;
                     case 2:
-                        this.GroupTitle.Text = "nearest";
+                        //this.GroupTitle.Text = "nearest";
                         items = App.ViewModel.NearestItems;
                         break;
                     case 3:
-                        this.GroupTitle.Text = "following";
+                        //this.GroupTitle.Text = "following";
                         items = App.ViewModel.FollowingItems;
+                        break;
+                    case 4:
+                        //this.GroupTitle.Text = "search";
+                        if (App.ViewModel.KeywordType == Constants.KEYWORD_MY)
+                            items = App.ViewModel.MySightingsItems;
+                        else
+                            items = App.ViewModel.KeywordSearchItems;
                         break;
                 }
 

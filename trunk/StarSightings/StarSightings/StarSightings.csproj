@@ -146,6 +146,9 @@
     <Compile Include="Converters\ShortRelativeTimeConverter.cs" />
     <Compile Include="Converters\UnixRelativeTimeConverter.cs" />
     <Compile Include="Events\PostEventArgs.cs" />
+    <Compile Include="SearchResultPage.xaml.cs">
+      <DependentUpon>SearchResultPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SightingDetail.xaml.cs">
       <DependentUpon>SightingDetail.xaml</DependentUpon>
     </Compile>
@@ -392,6 +395,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CameraMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

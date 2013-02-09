@@ -36,6 +36,9 @@ namespace StarSightings
             this.MySightingsItems = new ObservableCollection<ItemViewModel>();
             //this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
             this.KeywordSearchItems = new ObservableCollection<ItemViewModel>();
+            this.MyFollowingCelebs = new ObservableCollection<UserViewModel>();
+            this.MyFollowingUsers = new ObservableCollection<UserViewModel>();
+
 
             this.SelectedImage = new BitmapImage();
             this.CelebNameList = new ObservableCollection<String>();
@@ -64,6 +67,8 @@ namespace StarSightings
             NearestItemsSummaryList = new CollectionViewSource();
             FollowingItemsSummaryList = new CollectionViewSource();
             MySightingsItemsSummaryList = new CollectionViewSource();
+            MyFollowingCelebsSummaryList = new CollectionViewSource();
+            MyFollowingUsersSummaryList = new CollectionViewSource();
         }
 
         /// <summary>
@@ -80,7 +85,8 @@ namespace StarSightings
         //private ObservableCollection<ItemViewModel> followingSummaryItems;
         private ObservableCollection<ItemViewModel> keywordSearchItems;
         private ObservableCollection<ItemViewModel> mySightingsItems;
-        private List<String> placeSuggestionItems; //TODO: move
+        private ObservableCollection<UserViewModel> myFollowingCelebs;
+        private ObservableCollection<UserViewModel> myFollowingUsers;
 
        
 
@@ -95,14 +101,17 @@ namespace StarSightings
         //public ObservableCollection<ItemViewModel> FollowingSummaryItems { get { return followingSummaryItems; } private set { if (value != followingSummaryItems) { followingSummaryItems = value; NotifyPropertyChanged("FollowingSummaryItems"); } } }
         public ObservableCollection<ItemViewModel> KeywordSearchItems { get { return keywordSearchItems; } private set { if (value != keywordSearchItems) { keywordSearchItems = value; NotifyPropertyChanged("KeywordSearchItems"); } } }
         public ObservableCollection<ItemViewModel> MySightingsItems { get { return mySightingsItems; } private set { if (value != mySightingsItems) { mySightingsItems = value; NotifyPropertyChanged("MySightingsItems"); } } }
-        //TODO: move
-        public List<String> PlaceSuggestionItems { get { return placeSuggestionItems; } private set { if (value != placeSuggestionItems) { placeSuggestionItems = value; } } }
+        public ObservableCollection<UserViewModel> MyFollowingCelebs { get { return myFollowingCelebs; } private set { if (value != myFollowingCelebs) { myFollowingCelebs = value; NotifyPropertyChanged("MyFollowingCelebs"); } } }
+        public ObservableCollection<UserViewModel> MyFollowingUsers { get { return myFollowingUsers; } private set { if (value != myFollowingUsers) { myFollowingUsers = value; NotifyPropertyChanged("MyFollowingUsers"); } } }
+        
 
         private CollectionViewSource popularItemsSummaryList;
         private CollectionViewSource latestItemsSummaryList;
         private CollectionViewSource nearestItemsSummaryList;
         private CollectionViewSource followingItemsSummaryList;
         private CollectionViewSource mySightingsItemsSummaryList;
+        private CollectionViewSource myFollowingCelebsSummaryList;
+        private CollectionViewSource myFollowingUsersSummaryList;
 
         //The image selected
         private BitmapImage selectedImage;
@@ -128,6 +137,8 @@ namespace StarSightings
         public CollectionViewSource NearestItemsSummaryList { get { return nearestItemsSummaryList; } private set { if (value != nearestItemsSummaryList) { nearestItemsSummaryList = value; NotifyPropertyChanged("NearestItemsSummaryList"); } } }
         public CollectionViewSource FollowingItemsSummaryList { get { return followingItemsSummaryList; } private set { if (value != followingItemsSummaryList) { followingItemsSummaryList = value; NotifyPropertyChanged("FollowingItemsSummaryList"); } } }
         public CollectionViewSource MySightingsItemsSummaryList { get { return mySightingsItemsSummaryList; } private set { if (value != mySightingsItemsSummaryList) { mySightingsItemsSummaryList = value; NotifyPropertyChanged("MySightingsItemsSummaryList"); } } }
+        public CollectionViewSource MyFollowingCelebsSummaryList { get { return myFollowingCelebsSummaryList; } private set { if (value != myFollowingCelebsSummaryList) { myFollowingCelebsSummaryList = value; NotifyPropertyChanged("MyFollowingCelebsSummaryList"); } } }
+        public CollectionViewSource MyFollowingUsersSummaryList { get { return myFollowingUsersSummaryList; } private set { if (value != myFollowingUsersSummaryList) { myFollowingUsersSummaryList = value; NotifyPropertyChanged("MyFollowingUsersSummaryList"); } } }
 
         public BitmapImage SelectedImage { get { return selectedImage; } set { if (value != selectedImage) { selectedImage = value; NotifyPropertyChanged("SelectedImage"); } } }
         public WriteableBitmap WriteableSelectedBitmap { get { return writeableSelectedBitmap; } set { if (value != writeableSelectedBitmap) { writeableSelectedBitmap = value; NotifyPropertyChanged("WriteableSelectedBitmap"); } } }
@@ -527,19 +538,29 @@ namespace StarSightings
                 param = new SearchParams();
             param.start = start;
             param.search_types = SearchType.CATEGORY_FILTER_NAMES[App.ViewModel.SearchTypeFollowing];
-            param.search_user_name = App.ViewModel.User.UserName;
-            IEnumerable<string> query = App.ViewModel.Alerts.Where(alert => alert.Type == "celebrity").Select(alert => alert.Name);
-            foreach (string name in query)
+            //param.search_user_name = App.ViewModel.User.UserName;
+            IEnumerable<string> query1 = App.ViewModel.Alerts.Where(alert => alert.Type == "celebrity").Select(alert => alert.Name);
+            foreach (string name in query1)
             {
-                param.search_cat_name += HttpUtility.UrlEncode(name) + ";";
+                param.search_cat_name += HttpUtility.UrlEncode(name) + ";";                
             }
-            param.logic = "or";            
-            SearchToken token = new SearchToken();
-            token.searchGroup = Constants.SEARCH_FOLLOWING;
-            token.isFresh = fresh;
-            token.start = start;
-            isUpdatingFollowing = true;
-            App.SSAPI.DoSearch(param, token);
+
+            IEnumerable<string> query2 = App.ViewModel.Alerts.Where(alert => alert.Type == "photographer").Select(alert => alert.Name);
+            foreach (string name in query2)
+            {
+                param.search_user_name += HttpUtility.UrlEncode(name) + ";";
+            }
+
+            if (query1.Count() != 0 || query2.Count() != 0)
+            {
+                param.logic = "or";
+                SearchToken token = new SearchToken();
+                token.searchGroup = Constants.SEARCH_FOLLOWING;
+                token.isFresh = fresh;
+                token.start = start;
+                isUpdatingFollowing = true;
+                App.SSAPI.DoSearch(param, token);
+            }
         }
 
         private bool isUpdatingKeywordSearch = false;
@@ -926,7 +947,39 @@ namespace StarSightings
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
-        }        
+        }
+
+        /*
+         * Update the list of people I am following, celebrity or photographer
+         * */
+        public void UpdateMyFollowings()
+        {
+            IEnumerable<string> query = App.ViewModel.Alerts.Where(alert => alert.Type == "celebrity").Select(alert => alert.Name);
+            App.ViewModel.MyFollowingCelebs.Clear();
+            foreach (string name in query)
+            {                
+                UserViewModel u = new UserViewModel();
+                u.UserName = name;
+                u.UserType = Constants.ALERT_TYPE_CELEBRITY;
+                App.ViewModel.MyFollowingCelebs.Add(u);
+            }
+
+            this.MyFollowingCelebsSummaryList.Source = App.ViewModel.MyFollowingCelebs;
+            this.MyFollowingCelebsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.MyFollowingCelebs.IndexOf((UserViewModel)a.Item) < Constants.SUMMARY_COUNT;
+            
+            query = App.ViewModel.Alerts.Where(alert => alert.Type == "photographer").Select(alert => alert.Name);
+            App.ViewModel.MyFollowingUsers.Clear();
+            foreach (string name in query)
+            {
+                UserViewModel u = new UserViewModel();
+                u.UserName = name;
+                u.UserType = Constants.ALERT_TYPE_PHOTOGRAPHER;
+                App.ViewModel.MyFollowingUsers.Add(u);
+            }
+
+            this.MyFollowingUsersSummaryList.Source = App.ViewModel.MyFollowingUsers;
+            this.MyFollowingUsersSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.MyFollowingUsers.IndexOf((UserViewModel)a.Item) < Constants.SUMMARY_COUNT;
+        }
     }
     public delegate void SearchCompletedCallback(object sender, SearchEventArgs e);
 }

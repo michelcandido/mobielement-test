@@ -154,6 +154,7 @@ namespace StarSightings
                 }
                 
             }
+            App.ViewModel.UpdateMyFollowings();
             App.ViewModel.SearchFollowing(true, 0, null);
             InitCompleted(loginSuccess);
         }
