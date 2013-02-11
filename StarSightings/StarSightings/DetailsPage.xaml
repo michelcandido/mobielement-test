@@ -19,10 +19,10 @@
     shell:SystemTray.IsVisible="True" xmlns:my="clr-namespace:System.Device.Location;assembly=System.Device">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot">
-        <Grid.Background>
+    <Grid x:Name="LayoutRoot" Background="#000662">
+        <!--<Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -146,18 +146,18 @@
                             <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.EventFooter}"  FontSize="25" Foreground="Black" FontWeight="Bold"  />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem Content="More" FontSize="23" Foreground="#FF686868" Margin="0,5,0,5" />
+                    <!--<ListBoxItem Content="More" FontSize="23" Foreground="#FF686868" Margin="0,5,0,5" />-->
                     <ListBoxItem>
                         <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.Celebs}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource WikiViewItemTemplate}"/>                            
                     </ListBoxItem>
-                    <ListBoxItem Content="Comments" FontSize="47" Foreground="Black" Margin="0,5,0,5" Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}"/>
+                    <ListBoxItem Content="Comments" FontSize="47" Foreground="Black" Margin="0,30,0,5" Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}"/>
                     <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}">
                         <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.CommentsSummaryList.View}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource CommentViewItemTemplate}"/>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}" Margin="0,5,0,5">
                         <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.CommentsCnt, StringFormat='See  all  \{0\} comments...'}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" FontWeight="Bold" Tap="TextBlock_Tap" />
                     </ListBoxItem> 
-                    <ListBoxItem Margin="0,10,0,0">
+                    <ListBoxItem Margin="0,30,0,0">
                         <StackPanel Orientation="Horizontal">
                             <Border BorderBrush="#FF686868" BorderThickness="3" Width="208" Height="48" Margin="0,0,44,0" Tap="Comment_Tap">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -183,7 +183,7 @@
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_map.png" Text="map" Click="MapButton_Click" />
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_comment.png" Text="comment" Click="CommentButton_Click" />
             <shell:ApplicationBarIconButton IconUri="/Images/toolbar_icon_heart.png" Text="vote" Click="VoteButton_Click" />

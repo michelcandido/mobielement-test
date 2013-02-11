@@ -42,7 +42,7 @@ namespace StarSightings
 
         public const int LIMIT=15;
         public const int SUMMARY_COUNT = 4;
-        public const int COMMENT_COUNT = 2;        
+        public const int COMMENT_COUNT = 10;        
 
         public const int SEARCH_POPULAR = 0;
         public const int SEARCH_LATEST = 1;
