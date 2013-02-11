@@ -310,5 +310,10 @@ namespace StarSightings
                 MessageBox.Show("Your Alert request cannot be fullfilled, please try again.");
             }
         }
+
+        private void GoToMoreFollowing(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri(string.Format("/FollowingPage.xaml?pivotItemId={0}", (string)(sender as FrameworkElement).Tag), UriKind.RelativeOrAbsolute));
+        }
     }
 }

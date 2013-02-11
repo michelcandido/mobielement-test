@@ -561,6 +561,10 @@ namespace StarSightings
                 isUpdatingFollowing = true;
                 App.SSAPI.DoSearch(param, token);
             }
+            else
+            {
+                App.ViewModel.FollowingItems.Clear();
+            }
         }
 
         private bool isUpdatingKeywordSearch = false;

@@ -14,10 +14,10 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
-    <Grid x:Name="LayoutRoot">
-        <Grid.Background>
+    <Grid x:Name="LayoutRoot" Background="#000662">
+        <!--<Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.DataContext>
             <viewModels:CommandSampleViewModel/>
         </Grid.DataContext>

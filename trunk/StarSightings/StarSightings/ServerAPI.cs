@@ -541,9 +541,9 @@ namespace StarSightings
                     comment.CommentValue = getElementValue(xmlComment, "value");
                     comment.UserId = getElementValue(xmlComment, "user_id");
                     comment.User = getElementValue(xmlComment, "user");
-                    comments.Add(comment);
+                    comments.Insert(0,comment);
                 }
-
+                
                 item.Comments = comments;
                 item.CommentsSummaryList.Source = item.Comments;
                 item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;

@@ -125,10 +125,10 @@
         </Grid.RowDefinitions>
         <!--<TextBlock x:Name="tbUserName" Text="{Binding User.UserName}" Grid.Row="0"/>-->
         <!--Panorama control-->
-        <controls:Panorama Grid.Row="1" x:Name="panoramaControl">
-            <controls:Panorama.Background>
+        <controls:Panorama Grid.Row="1" x:Name="panoramaControl" Background="#000662">            
+            <!--<controls:Panorama.Background>
                 <ImageBrush ImageSource="Images/Panorama_1024x800.jpg"/>
-            </controls:Panorama.Background>
+            </controls:Panorama.Background>-->
             <controls:Panorama.Title>
                 <StackPanel Orientation="Vertical" Margin="0,80,0,0">
                     <Image x:Name="icon" Source="Images/SS_logo_large.png" />
@@ -189,7 +189,7 @@
                 <ListBox>
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="30" Tap="GoToList" Tag="0" VerticalAlignment="Center" Text="Celebs you're following"/>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="30" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebs you're following"/>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />
                         </StackPanel>
                     </ListBoxItem>
@@ -197,17 +197,17 @@
                         <ListBox  ItemsSource="{Binding MyFollowingCelebsSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}"/>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0" Margin="0,30,0,20">more...</TextBlock>
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
                     </ListBoxItem>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="30" Tap="GoToList" Tag="0" VerticalAlignment="Center" Text="Photogs you're following"/>
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="30" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members you're following"/>
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>
                     </StackPanel>
                     <ListBoxItem>
                         <ListBox  ItemsSource="{Binding MyFollowingUsersSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}"/>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0" Margin="0,30,0,0">more...</TextBlock>
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,30,0,0">more...</TextBlock>
                     </ListBoxItem>
                 </ListBox>
                 
@@ -226,7 +226,7 @@
                         </Grid>
                     </ListBoxItem>
                     <ListBoxItem>                            
-                        <TextBlock Text="{Binding User.UserName}" FontSize="25" Foreground="#1ca7ff" Margin="5,0,0,0" TextTrimming="WordEllipsis" Width="350"/>                        
+                        <TextBlock Text="{Binding User.UserName}" FontSize="25" Foreground="#1ca7ff" Margin="5,30,0,30" TextTrimming="WordEllipsis" Width="350"/>                        
                     </ListBoxItem>
                     <ListBox Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Button Tap="GoToLogin">Login now</Button>
@@ -283,7 +283,7 @@
 
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#000047">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.camera.rest.png" Text="post" Click="GoToCameraMode"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search" Click="GoToSearch"/>
             <!--<shell:ApplicationBar.MenuItems>
