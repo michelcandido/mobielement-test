@@ -17,6 +17,7 @@
     <converters:FacebookPictureConverter x:Key="FacebookPictureConverter" />
     <converters:StringVisibleConverter x:Key="StringVisibleConverter" />
     <converters:PhotoSizeConverter x:Key="PhotoSizeConverter" />
+    <converters:FollowingStatusConverter x:Key="FollowingStatusConverter" />  
     <Style TargetType="m:Pushpin" x:Key="MyPushpinStyle">
       <Setter Property="Template">
         <Setter.Value>

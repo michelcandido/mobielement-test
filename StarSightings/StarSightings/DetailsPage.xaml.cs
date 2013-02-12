@@ -17,6 +17,7 @@ using StarSightings.Events;
 using StarSightings.ViewModels;
 using Microsoft.Phone.Tasks;
 using System.Device.Location;
+using System.Windows.Data;
 
 namespace StarSightings
 {
@@ -99,9 +100,14 @@ namespace StarSightings
         private AlertEventHandler followAlertEventHandler;
         private void Follow_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            string name = ((string)((sender as Grid).Tag)).Trim();
+            bool isFollowing = App.ViewModel.MyFollowingCelebs.Where(user => user.UserName == name).Count() != 0;
             followAlertEventHandler = new AlertEventHandler(FollowCompleted);
             App.SSAPI.AlertHandler += followAlertEventHandler;
-            App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_CELEBRITY,((string)((sender as Grid).Tag)).Trim());
+            if (isFollowing)
+                App.SSAPI.Alert(Constants.ALERT_REMOVE, Constants.ALERT_TYPE_CELEBRITY, name);
+            else
+                App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_CELEBRITY, name);
         }
 
         public void FollowCompleted(object sender, AlertEventArgs e)
@@ -109,6 +115,9 @@ namespace StarSightings
             App.SSAPI.AlertHandler -= followAlertEventHandler;
             if (e.Successful)
             {
+                // force update the binding
+                (this.slideView.SelectedItem as ItemViewModel).Celebs = (string[])((this.slideView.SelectedItem as ItemViewModel).Celebs.Clone());
+
                 App.ViewModel.Alerts = e.Alerts;
                 Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
                 MessageBox.Show("Your request has been set.");
