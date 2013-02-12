@@ -53,7 +53,7 @@
                 <DataTemplate x:Key="WikiViewItemTemplate">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
-                            <Border Height="60" Width="300" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Border Height="60" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <Border.Background>
                                     <SolidColorBrush Color="#ededed" />
                                 </Border.Background>
@@ -69,12 +69,12 @@
                             <Image Stretch="UniformToFill" Source="Images/Wikipedia_button.png"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
                         </Grid>
                         <Grid Tag="{Binding}" Tap="Follow_Tap">
-                            <Border Height="60" Width="100" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Border Height="60" Width="120" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <Border.Background>
-                                    <SolidColorBrush Color="#ee005e" />
+                                    <SolidColorBrush Color="{Binding Converter={StaticResource FollowingStatusConverter}, ConverterParameter='Color'}" />
                                 </Border.Background>
                             </Border>
-                            <TextBlock Text="Follow" FontFamily="Segoe WP" FontSize="23" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"  />
+                            <TextBlock Text="{Binding Converter={StaticResource FollowingStatusConverter}, ConverterParameter='Text'}" FontFamily="Segoe WP" FontSize="23" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"  />
                         </Grid>
                     </StackPanel>
                 </DataTemplate>

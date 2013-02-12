@@ -109,6 +109,7 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\FollowingStatusConverter.cs" />
     <Compile Include="DatePickerPage.xaml.cs">
       <DependentUpon>DatePickerPage.xaml</DependentUpon>
     </Compile>
