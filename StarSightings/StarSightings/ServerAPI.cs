@@ -21,6 +21,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Phone.BackgroundTransfer;
 using System.Windows.Resources;
 using System.Linq;
+using Facebook;
 
 namespace StarSightings
 {
@@ -1027,7 +1028,47 @@ namespace StarSightings
             {
                 CommentHandler(this, e);
             }
-        }               
+        }
+
+        public void PostOnFacebook()
+        {
+            var fb = new FacebookClient(App.ViewModel.User.FBToken);
+
+            byte[] data = null;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                App.ViewModel.WriteableSelectedBitmap.SaveJpeg(stream, App.ViewModel.WriteableSelectedBitmap.PixelWidth, App.ViewModel.WriteableSelectedBitmap.PixelHeight, 0, 100);
+                stream.Seek(0, SeekOrigin.Begin);
+                data = stream.GetBuffer();
+                stream.Close();
+            }
+
+            fb.PostCompleted += (o, e) =>
+            {
+                if (e.Cancelled || e.Error != null)
+                {
+                    return;
+                }
+
+                var result = e.GetResultData();
+            };
+
+            var parameters = new Dictionary<string, object>();
+            parameters["message"] = App.SSAPI.getCatList(false) + " @ " + App.ViewModel.StoryLocation + "\n" + App.ViewModel.PicStory;
+            //parameters["place"] = App.ViewModel.StoryPlace;
+            
+            //parameters["name"] = "name";
+            //parameters["caption"] = "caption";
+            //parameters["description"] = "description";
+            
+            parameters["file"] = new FacebookMediaObject
+                        {
+                            ContentType = "image/jpeg",
+                            FileName = "image.jpeg"
+                        }.SetValue(data);
+
+            fb.PostAsync("me/photos", parameters);
+        }
 
         public void NewPost()
         {

@@ -93,6 +93,14 @@ namespace StarSightings
                 });
             }
 
+            if (this.cbFacebook.IsChecked && !string.IsNullOrEmpty(App.ViewModel.User.FBToken))
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.SSAPI.PostOnFacebook();
+                });
+            }
+
             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear&screen=2", UriKind.RelativeOrAbsolute));
         }
 
