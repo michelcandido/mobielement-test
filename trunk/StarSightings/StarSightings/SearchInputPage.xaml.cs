@@ -113,6 +113,9 @@ namespace StarSightings
                     App.ViewModel.KeywordType = Constants.KEYWORD_LOCATION;
                     break;
                 case 4: 
+                    App.ViewModel.KeywordType = Constants.KEYWORD_USER;
+                    break;
+                case 5:
                     App.ViewModel.KeywordType = Constants.KEYWORD_MY;
                     break;
             }

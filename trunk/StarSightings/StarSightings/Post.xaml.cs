@@ -24,6 +24,7 @@ namespace StarSightings
         public Summary()
         {
             InitializeComponent();
+            DataContext = App.ViewModel;
         }
 
         private void OnCancelTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -93,7 +94,7 @@ namespace StarSightings
                 });
             }
 
-            if (this.cbFacebook.IsChecked && !string.IsNullOrEmpty(App.ViewModel.User.FBToken))
+            if (this.cbFacebook.IsChecked==true && !string.IsNullOrEmpty(App.ViewModel.User.FBToken))
             {
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {

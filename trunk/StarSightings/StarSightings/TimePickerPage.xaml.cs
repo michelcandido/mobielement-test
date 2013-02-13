@@ -18,6 +18,7 @@ namespace StarSightings
         public TimePickerPage()
         {
             InitializeComponent();
+            DataContext = App.ViewModel;
         }
 
         private void OnBackClick(object sender, EventArgs e)

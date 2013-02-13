@@ -60,6 +60,7 @@ namespace StarSightings
         public const string KEYWORD_PLACE = "place";
         public const string KEYWORD_LOCATION = "location";
         public const string KEYWORD_NAME = "cat";
+        public const string KEYWORD_USER = "user";
         public const string KEYWORD_MY = "my";
 
         public const string ALERT_SET = "set/";

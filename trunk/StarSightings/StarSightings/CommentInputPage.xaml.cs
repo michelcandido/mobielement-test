@@ -48,5 +48,24 @@ namespace StarSightings
                 MessageBox.Show("Failed in posting new comment.");
             }
         }
+
+         private void OnPost(object sender, EventArgs e)
+         {
+             if (!string.IsNullOrEmpty(this.tbComment.Text))
+             {
+                 Deployment.Current.Dispatcher.BeginInvoke(() =>
+                 {
+                     commentHandler = new CommentEventHandler(CommentCompleted);
+                     App.SSAPI.CommentHandler += commentHandler;
+                     App.SSAPI.NewComment(this.tbComment.Text.Trim());
+                 });
+             }
+
+         }
+
+         private void OnCancel(object sender, EventArgs e)
+         {
+             this.NavigationService.GoBack();
+         }
     }
 }

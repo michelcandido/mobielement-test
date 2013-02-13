@@ -45,7 +45,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter name of place or venue" Text="{Binding StoryPlace}">
+            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter name of place or venue" Text="{Binding StoryPlace}" ClearButtonVisibility="Visible">
                 <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>
@@ -58,7 +58,7 @@
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.back.rest.png" Text="back" Click="OnBackClick" />
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="next" Click="OnNextClick" />
             <!--<shell:ApplicationBar.MenuItems>
