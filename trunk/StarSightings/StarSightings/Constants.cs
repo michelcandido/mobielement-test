@@ -23,6 +23,8 @@ namespace StarSightings
         public const string BASE_AUTH_USERNAME = "starsight0";
         public const string BASE_AUTH_PASSWORD = "20zohtNAbcSzE15";
 
+        public const string APP_ID_FACEBOOK = "147665825278093";
+
         //URLS
         public const string URL_REGISTER_DEVICE = "/index.php?page=device&mode=register&mobile=1&v=4";
         public const string URL_UNREGISTER_DEVICE = "/index.php?page=device&mode=unregister&mobile=1&v=4";

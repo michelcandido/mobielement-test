@@ -117,6 +117,23 @@ namespace StarSightings.ViewModels
             }
         }
 
+        private string fbToken;
+        public string FBToken
+        {
+            get
+            {
+                return this.fbToken;
+            }
+            set
+            {
+                if (value != fbToken)
+                {
+                    fbToken = value;
+                    NotifyPropertyChanged("FBToken");
+                }
+            }
+        }
+
         private string userId;
         public string UserId
         {

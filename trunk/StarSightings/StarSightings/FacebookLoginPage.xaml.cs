@@ -16,8 +16,7 @@ using StarSightings.Events;
 namespace StarSightings
 {
     public partial class FacebookLoginPage : PhoneApplicationPage
-    {
-        private const string AppId = "147665825278093";
+    {        
 
         /// <summary>
         /// Extended permissions is a comma separated list of permissions to ask the user.
@@ -30,6 +29,8 @@ namespace StarSightings
 
         private readonly FacebookClient _fb = new FacebookClient();
 
+        private string fbToken;
+
         public FacebookLoginPage()
         {
             InitializeComponent();
@@ -37,7 +38,7 @@ namespace StarSightings
 
         private void webBrowser1_Loaded(object sender, RoutedEventArgs e)
         {
-            var loginUrl = GetFacebookLoginUrl(AppId, ExtendedPermissions);
+            var loginUrl = GetFacebookLoginUrl(Constants.APP_ID_FACEBOOK, ExtendedPermissions);
             webBrowser1.Navigate(loginUrl);
         }
 
@@ -70,6 +71,7 @@ namespace StarSightings
             if (oauthResult.IsSuccess)
             {
                 var accessToken = oauthResult.AccessToken;
+                fbToken = accessToken;
                 LoginSucceded(accessToken);
             }
             else
@@ -117,9 +119,12 @@ namespace StarSightings
         public void LoginCompleted(object sender, LoginEventArgs e)
         {
             App.SSAPI.LoginHandler -= myLoginEventHandler;
+            if (fbToken != null)
+                App.ViewModel.User.FBToken = fbToken;
             if (e.Successful)
             {
                 App.ViewModel.User = e.User;
+                
                 Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
                 Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
                 if (App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_DEVICE)

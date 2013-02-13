@@ -41,13 +41,13 @@
                 <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" Content="Posting..." />
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Content="Facebook" Name="checkBox1" FontSize="29" Margin="0,0,80,0"/>
-                        <CheckBox Content="Twitter" Name="checkBox2" FontSize="29"/>
+                        <CheckBox Content="Facebook" Name="cbFacebook" FontSize="29" Margin="0,0,80,0"/>
+                        <!--<CheckBox Content="Twitter" Name="checkBox2" FontSize="29"/>-->
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                    <!--<StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                         <TextBlock HorizontalAlignment="Left" Text="Not a real sighting?" FontSize="23" Foreground="#b8b8b8" Margin="12"/>
                         <CheckBox Content="Just testing"  HorizontalAlignment="Left" Name="checkBox3"  FontSize="29"/>
-                    </StackPanel>
+                    </StackPanel>-->
                     <StackPanel Orientation="Vertical" Margin="12,200,0,0" VerticalAlignment="Bottom">
                         <TextBlock  HorizontalAlignment="Left" Name="textBlock2" Text="By posting this picture I certify that I took this photo or otherwise own all rights regarding its distribution."    TextWrapping="Wrap" FontStretch="Normal" FontSize="23" Foreground="#b8b8b8" />
                         <StackPanel Orientation="Horizontal" Margin="12,50,0,0">
