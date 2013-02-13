@@ -37,7 +37,7 @@
  
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.back.rest.png" Text="back" Click="OnBackClick" />
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="next" Click="OnNextClick" />
             <!--<shell:ApplicationBar.MenuItems>

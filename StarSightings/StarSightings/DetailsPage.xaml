@@ -122,14 +122,14 @@
                                 <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="*"/>                                
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" MinWidth="360" HorizontalAlignment="Stretch" Text="{Binding ElementName=slideView, Path=SelectedItem.EventLocation}" FontSize="47" TextWrapping="Wrap" />
+                            <TextBlock Grid.Column="0" MinWidth="360" HorizontalAlignment="Stretch" Text="{Binding ElementName=slideView, Path=SelectedItem.EventLocation}" FontSize="39" TextWrapping="Wrap" />
                             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Tap="Map_Tap">
                                 <Border BorderBrush="#FF686868" BorderThickness="1">
                                     <map:Map Name="Map"  Width="100" Height="100" HorizontalAlignment="Center"  CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Center="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation, Mode=TwoWay}" ZoomLevel="8">
                                         <map:Pushpin Location="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation,Mode=TwoWay}" Style="{StaticResource MyPushpinStyle}" />                                                                                    
                                     </map:Map>
                                 </Border>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 10, 10, 0">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                                     <Image Source="Images/icon_gray_distance.png" Margin="0,0,8,0"/>
                                     <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Distance, StringFormat='\{0\} mi'}"  FontFamily="Segoe WP"  FontSize="23" Foreground="#FF686868" />
                                 </StackPanel>

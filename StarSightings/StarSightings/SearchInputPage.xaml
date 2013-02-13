@@ -40,7 +40,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" Margin="{StaticResource PhoneHorizontalMargin}" Text="SEARCH" Foreground="#3BB23B" FontSize="{StaticResource PhoneFontSizeNormal}" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
-                <telerikInput:RadAutoCompleteBox Grid.Row="1"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains">
+                <telerikInput:RadAutoCompleteBox Grid.Row="1"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" ClearButtonVisibility="Visible">
                     <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"/>

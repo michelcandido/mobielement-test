@@ -20,7 +20,7 @@
         <DataTemplate x:Key="MyPanoramaItemHeaderTemplate">
             <Grid>
                 <ContentPresenter>
-                    <TextBlock Text="{Binding}"  Margin="0,0,-12,0" FontFamily="Segoe WP" Foreground="White" FontSize="72" />
+                    <TextBlock Text="{Binding}"  Margin="-12,0,-12,0" FontFamily="Segoe WP" Foreground="White" FontSize="72" />
                 </ContentPresenter>
             </Grid>
         </DataTemplate>
@@ -28,12 +28,12 @@
             <Grid Tap="Grid_Tap" Tag="0">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,12,12,0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
-                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Border Height="70" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
         </DataTemplate>        
@@ -41,12 +41,12 @@
             <Grid Tap="Grid_Tap" Tag="1">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
-                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Border Height="70" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Image Source="Images/time_stamp.png" Margin="0,0,8,0"/>
@@ -58,12 +58,12 @@
             <Grid Tap="Grid_Tap" Tag="2">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
-                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Border Height="70" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Image Source="Images/distance_icon.png" Margin="0,0,8,0"/>
@@ -75,12 +75,12 @@
             <Grid Tap="Grid_Tap" Tag="3">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,12,12,0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
-                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Border Height="70" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -88,12 +88,12 @@
             <Grid Tap="Grid_Tap" Tag="4">
                 <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,12,12,0" Source="{Binding ThumbOrigLarge, Converter={StaticResource ImageConverter}}" Width="185" Height="185" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0, 12, 12, 0">
-                    <Border Height="60" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Border Height="70" Width="185" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                         <Border.Background>
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -107,7 +107,7 @@
                     <Image   Width="60" Height="60" Source="Images/default_v1_winphone.png" />
                     <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="385" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </StackPanel>
-                <TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />
+                <TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />
             </Grid>
         </DataTemplate>
         
@@ -188,23 +188,23 @@
             <controls:PanoramaItem Header="following" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}" Orientation="Horizontal">
                 <ListBox>
                     <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="30" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebs you're following"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
+                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebs you're following" Width="310"/>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <ListBox  ItemsSource="{Binding MyFollowingCelebsSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}"/>
+                        <ListBox  ItemsSource="{Binding MyFollowingCelebsSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
                     </ListBoxItem>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="30" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members you're following"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
+                        <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members you're following" Width="310"/>
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>
                     </StackPanel>
                     <ListBoxItem>
-                        <ListBox  ItemsSource="{Binding MyFollowingUsersSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}"/>
+                        <ListBox  ItemsSource="{Binding MyFollowingUsersSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,30,0,0">more...</TextBlock>
@@ -213,7 +213,7 @@
                 
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem Header="my sightings">
+            <controls:PanoramaItem Header="my sightings" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}">
                 <ListBox ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
                     <ListBoxItem>
                         <Grid Background="#FFee0053" Width="380" Height="120" Tap="Post_Tap">
