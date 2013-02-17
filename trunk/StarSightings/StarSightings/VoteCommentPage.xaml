@@ -41,7 +41,7 @@
 
         <DataTemplate x:Key="VoteItemTemplate">
             <Grid Tap="Vote_Tap" Tag="{Binding Input}">
-                <Grid Width="108" Height="108" Margin="0,10,10,0" Background="#ffffff" Opacity="0.85">
+                <Grid Width="120" Height="120" Margin="15,15,15,0" Background="#ffffff" Opacity="0.85">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="*"/>
@@ -54,11 +54,11 @@
                         <Image Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Source="{Binding ImageFilename, Converter={StaticResource ImageConverter}}" Stretch="None"/>
                         <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Count}" Foreground="Black" FontSize="25" FontWeight="Bold"/>
                     </Grid>
-                    <TextBlock x:Name="value" Grid.Row="1" Margin="0,-15,0,0" Text="{Binding VoteValue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Black" TextWrapping="Wrap" />
+                    <TextBlock x:Name="value" Grid.Row="1" Margin="0,-15,0,0" Text="{Binding VoteValue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="Black" TextWrapping="Wrap" TextAlignment="Center" />
                 </Grid>
                 <Grid x:Name="mark" Visibility="{Binding Selected, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Image Source="Images/checkmark_pink.png" Margin="0,10,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None"/>
-                    <Border BorderBrush="#ee005e" BorderThickness="2" Margin="0,10,10,0" Width="108" Height="108" />
+                    <Image Source="Images/checkmark_pink.png" Margin="15,15,15,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="None"/>
+                    <Border BorderBrush="#ee005e" BorderThickness="2" Margin="15,15,15,0" Width="120" Height="120" />
                 </Grid>
             </Grid>
         </DataTemplate>

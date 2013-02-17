@@ -31,21 +31,21 @@
                     </StackPanel>
                 </DataTemplate>
             </controls:Pivot.TitleTemplate>
-            
-            <controls:PivotItem Header="popular">
-                <local:ListViewControl x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails"/>
-            </controls:PivotItem>           
-            <controls:PivotItem Header="latest">
-                <local:ListViewControl x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails"/>             
+
+            <controls:PivotItem  Header="popular">
+                <local:ListViewControl Margin="10,0,0,0" x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails"/>
             </controls:PivotItem>
-            <controls:PivotItem Header="nearest">
-                <local:ListViewControl x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails"/>
-            </controls:PivotItem>                        
-            <controls:PivotItem Header="following">
-                <local:ListViewControl x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
+            <controls:PivotItem  Header="latest">
+                <local:ListViewControl Margin="10,0,0,0" x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails"/>             
             </controls:PivotItem>
-            <controls:PivotItem Header="search" x:Name="SearchPivotItem">
-                <local:ListViewControl x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails" />
+            <controls:PivotItem  Header="nearest">
+                <local:ListViewControl Margin="10,0,0,0" x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails"/>
+            </controls:PivotItem>
+            <controls:PivotItem  Header="following">
+                <local:ListViewControl Margin="10,0,0,0" x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
+            </controls:PivotItem>
+            <controls:PivotItem  Header="search" x:Name="SearchPivotItem">
+                <local:ListViewControl Margin="10,0,0,0" x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails" />
             </controls:PivotItem>
         </controls:Pivot>                        
     </Grid>

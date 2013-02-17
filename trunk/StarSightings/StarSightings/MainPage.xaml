@@ -107,7 +107,8 @@
                     <Image   Width="60" Height="60" Source="Images/default_v1_winphone.png" />
                     <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="385" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </StackPanel>
-                <TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />
+                <!--<TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />-->
+                <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,5,0" Tap="DeleteFollowed" Stretch="None"/>
             </Grid>
         </DataTemplate>
         
@@ -130,13 +131,13 @@
                 <ImageBrush ImageSource="Images/Panorama_1024x800.jpg"/>
             </controls:Panorama.Background>-->
             <controls:Panorama.Title>
-                <StackPanel Orientation="Vertical" Margin="0,80,0,0">
+                <StackPanel Orientation="Vertical" Margin="10,80,0,0">
                     <Image x:Name="icon" Source="Images/SS_logo_large.png" />
                     <!--<TextBlock Text="my application" FontStyle="Italic" FontSize="40" VerticalAlignment="Center" Margin="0,-40,0,0" />-->
                 </StackPanel>
             </controls:Panorama.Title>
             <controls:PanoramaItem>
-                <ListBox>
+                <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="10,0,0,0">
                     <ListBoxItem>
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Margin="0,-24,0,24" Tap="GoToList" Tag="0" >popular</TextBlock>
@@ -185,11 +186,11 @@
 
             <!--Panorama item two-->
             <!--Use 'Orientation="Horizontal"' to enable a panel that lays out horizontally-->
-            <controls:PanoramaItem Header="following" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}" Orientation="Horizontal">
-                <ListBox>
+            <controls:PanoramaItem Margin="10,0,0,0" Header="following" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}" Orientation="Horizontal">
+                <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
-                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebs you're following" Width="310"/>
+                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebs you're following" Width="305"/>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />
                         </StackPanel>
                     </ListBoxItem>
@@ -200,7 +201,7 @@
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
                     </ListBoxItem>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
-                        <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members you're following" Width="310"/>
+                        <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members you're following" Width="305"/>
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>
                     </StackPanel>
                     <ListBoxItem>
@@ -213,8 +214,8 @@
                 
             </controls:PanoramaItem>
 
-            <controls:PanoramaItem Header="my sightings" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}">
-                <ListBox ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
+            <controls:PanoramaItem Margin="10,0,0,0" Header="my sightings" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}">
+                <ListBox  ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
                     <ListBoxItem>
                         <Grid Background="#FFee0053" Width="380" Height="120" Tap="Post_Tap">
                             <Grid.RowDefinitions>
@@ -226,10 +227,10 @@
                         </Grid>
                     </ListBoxItem>
                     <ListBoxItem>                            
-                        <TextBlock Text="{Binding User.UserName}" FontSize="25" Foreground="#1ca7ff" Margin="5,30,0,30" TextTrimming="WordEllipsis" Width="350"/>                        
+                        <TextBlock Text="{Binding User.UserName}" FontSize="25" Foreground="#1ca7ff" Margin="5,30,0,30" TextTrimming="WordEllipsis" Width="350" Tap="GoToMyList" />                        
                     </ListBoxItem>
                     <ListBox Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Button Tap="GoToLogin">Login now</Button>
+                        <Button Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}">Login now</Button>
                     </ListBox>
                     <ListBoxItem Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Vertical">
@@ -250,8 +251,8 @@
             </controls:PanoramaItem>
 
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="more">
-                <ListBox Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
+            <controls:PanoramaItem Margin="10,0,0,0" Header="more" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}">
+                <ListBox Margin="0,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
                     <ListBoxItem Content="settings" Tap="GoToAbout" />
                     <ListBoxItem Content="about" Tap="GoToAbout"/>
                     <ListBoxItem x:Name="ItemLogin" Content="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Tap="GoToLogin"/>

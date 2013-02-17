@@ -98,10 +98,11 @@ namespace StarSightings
         }
 
         private AlertEventHandler followAlertEventHandler;
+        private bool isFollowing;
         private void Follow_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             string name = ((string)((sender as Grid).Tag)).Trim();
-            bool isFollowing = App.ViewModel.MyFollowingCelebs.Where(user => user.UserName == name).Count() != 0;
+            isFollowing = App.ViewModel.MyFollowingCelebs.Where(user => user.UserName == name).Count() != 0;
             followAlertEventHandler = new AlertEventHandler(FollowCompleted);
             App.SSAPI.AlertHandler += followAlertEventHandler;
             if (isFollowing)
@@ -120,7 +121,10 @@ namespace StarSightings
 
                 App.ViewModel.Alerts = e.Alerts;
                 Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
-                MessageBox.Show("Your request has been set.");
+                if (isFollowing)
+                    MessageBox.Show("Removed from your following list.");
+                else
+                    MessageBox.Show("Added to your following list.");
                 App.ViewModel.UpdateMyFollowings();
                 App.ViewModel.SearchFollowing(true, 0, null);
             }
@@ -189,6 +193,25 @@ namespace StarSightings
             mapsTask.ZoomLevel = 12;
             mapsTask.Show();
             
+        }
+
+        private void CelebName_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            App.ViewModel.KeywordType = Constants.KEYWORD_NAME;
+            App.ViewModel.SearchKeywords = ((string)((sender as Grid).Tag)).Trim();
+            App.ViewModel.SearchKeywordSearch(true, 0, null);
+            this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Pic_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
+            WebBrowserTask webBrowserTask = new WebBrowserTask();
+            if (!string.IsNullOrEmpty(App.ViewModel.SelectedItem.SourceUrl))
+            {
+                webBrowserTask.Uri = new Uri(App.ViewModel.SelectedItem.SourceUrl, UriKind.Absolute);
+                webBrowserTask.Show();
+            }
         }
     }
 }

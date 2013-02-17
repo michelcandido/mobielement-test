@@ -24,66 +24,66 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="Confirm sighting detail"  FontSize="23" Foreground="#b8b8b8"/>            
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
             <ListBox>
                 <ListBoxItem>
                     <Image HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 12, 0, 0"  Name="pictureToShow" Width="440" Height="440" Stretch="UniformToFill" />
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem  Margin="0,5,0,5" Tap="Name_Tap">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/appbar.edit.rest.png" Tap="Name_Tap" VerticalAlignment="Center"/>
+                        <Image Source="/Images/appbar.edit.rest.png"  VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding CelebName}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Text="{Binding CelebNameList, Converter={StaticResource StringToStringConverter}, ConverterParameter='ListToString'}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
                             <TextBlock Text="celebname" FontSize="19" Foreground="#b8b8b8"/>        
                         </StackPanel>
                     </StackPanel>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem  Margin="0,5,0,5" Tap="Place_Tap">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/appbar.edit.rest.png" Tap="Place_Tap" VerticalAlignment="Center"/>
+                        <Image Source="/Images/appbar.edit.rest.png"  VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding StoryPlace}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
+                            <TextBlock Text="{Binding StoryPlace, Converter={StaticResource StringToStringConverter}, ConverterParameter='n/a'}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
                             <TextBlock Text="place or venue" FontSize="19" Foreground="#b8b8b8"/>
                         </StackPanel>
                     </StackPanel>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem  Margin="0,5,0,5" Tap="Location_Tap">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/appbar.edit.rest.png" Tap="Location_Tap" VerticalAlignment="Center"/>
+                        <Image Source="/Images/appbar.edit.rest.png"  VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="{Binding StoryLocation}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
                             <TextBlock Text="location" FontSize="19" Foreground="#b8b8b8"/>
                         </StackPanel>
                     </StackPanel>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem  Margin="0,5,0,5" Tap="Time_Tap">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/appbar.edit.rest.png" Tap="Time_Tap" VerticalAlignment="Center"/>
+                        <Image Source="/Images/appbar.edit.rest.png"  VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="{Binding StoryTime}" FontSize="35" Foreground="#ffffff" TextWrapping="Wrap" Width="400"/>
                             <TextBlock Text="date and time" FontSize="19" Foreground="#b8b8b8"/>
                         </StackPanel>
                     </StackPanel>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem  Margin="0,5,0,5" Tap="Event_Tap">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/appbar.edit.rest.png" Tap="Event_Tap" VerticalAlignment="Center"/>
+                        <Image Source="/Images/appbar.edit.rest.png"  VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding StoryEvent}" FontSize="35" Foreground="#ffffff" Width="400"  TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding StoryEvent, Converter={StaticResource StringToStringConverter}, ConverterParameter='n/a'}" FontSize="35" Foreground="#ffffff" Width="400"  TextWrapping="Wrap"/>
                             <TextBlock Text="activity or event" FontSize="19" Foreground="#b8b8b8"/>
                         </StackPanel>
                     </StackPanel>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem  Margin="0,5,0,5" Tap="Story_Tap">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/appbar.edit.rest.png" Tap="Story_Tap" VerticalAlignment="Center"/>
+                        <Image Source="/Images/appbar.edit.rest.png"  VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding PicStory}" FontSize="35" Foreground="#ffffff" Width="400" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding PicStory, Converter={StaticResource StringToStringConverter}, ConverterParameter='n/a'}" FontSize="35" Foreground="#ffffff" Width="400" TextWrapping="Wrap" />
                             <TextBlock Text="story" FontSize="19" Foreground="#b8b8b8"/>
                         </StackPanel>
                     </StackPanel>

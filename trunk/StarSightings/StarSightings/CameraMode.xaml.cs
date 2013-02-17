@@ -189,6 +189,9 @@ namespace StarSightings
         private void noPictureButton_Click(object sender, RoutedEventArgs e)
         {
             App.ViewModel.PostMode = 2;
+            BitmapImage image = new BitmapImage(new Uri("/Images/no-photo.png", UriKind.RelativeOrAbsolute));            
+            App.ViewModel.SelectedImage = image;
+            //App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);
             this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
             //this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
         }        

@@ -25,13 +25,13 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="Tell your story" FontSize="23" Foreground="#b8b8b8"/>
         </StackPanel>
         
         
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
             <telerikPrimitives:RadTextBox Watermark="Say something about your sighting..." HorizontalAlignment="Left"  Name="storyBox" VerticalAlignment="Top" Width="460" Height="200" AcceptsReturn="True" TextWrapping="Wrap" FontSize="25" Foreground="#686868" Text="{Binding PicStory}"/>
         </Grid>
     </Grid>

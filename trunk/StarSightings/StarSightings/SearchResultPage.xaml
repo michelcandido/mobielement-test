@@ -28,10 +28,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Background="#FFee0053">
-                        <TextBlock  Text="Follow" FontSize="38" HorizontalAlignment="Center"/>
+                    <Grid Margin="10,0,0,0" Grid.Row="0" Background="#FFee0053" Width="380" HorizontalAlignment="Left">
+                        <TextBlock  Text="Follow" FontWeight="Bold" FontSize="25"  HorizontalAlignment="Center"/>
                     </Grid>
-                    <local:ListViewControl Grid.Row="1" x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails" />
+                    <local:ListViewControl Margin="10,0,0,0" Grid.Row="1" x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails" />
                 </Grid>
             </controls:PivotItem>
 

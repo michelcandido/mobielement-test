@@ -122,13 +122,13 @@ namespace StarSightings
         private ObservableCollection<String> placeList;
         private ObservableCollection<String> eventList;
 
-        private String picStory;
-        private String storyLocation;
-        private String storyPlace;
-        private String storyEvent;
+        private String picStory = string.Empty;
+        private String storyLocation = string.Empty;
+        private String storyPlace = string.Empty;
+        private String storyEvent = string.Empty;
         private DateTime storyTime;
-        private double storyLat;
-        private double storyLng;
+        private double storyLat = 0.0;
+        private double storyLng = 0.0;
 
         private int postMode;
 

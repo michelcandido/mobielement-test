@@ -25,14 +25,14 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
-            <TextBlock x:Name="PageTitle" Text="comment" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="comment" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <telerikPrimitives:RadTextBox Watermark="What say you?" HorizontalAlignment="Left" Margin="6,10,0,0" Name="tbComment" VerticalAlignment="Top" Width="460" Height="200" AcceptsReturn="True" TextWrapping="Wrap"/>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
+            <telerikPrimitives:RadTextBox Watermark="What say you?" HorizontalAlignment="Left" Margin="0,10,0,0" Name="tbComment" VerticalAlignment="Top" Width="460" Height="200" AcceptsReturn="True" TextWrapping="Wrap"/>
             <!--<Button Content="Post" Height="72" HorizontalAlignment="Left" Margin="21,224,0,0" Name="button" VerticalAlignment="Top" Width="417" Click="button_Click" />-->
         </Grid>
     </Grid>

@@ -524,7 +524,7 @@ namespace StarSightings
             item.LocalTime = getElementValue(xmlItem,"local_time");
             item.LocalOffset = getElementValue(xmlItem,"local_offset");
 
-#if (DEBUG)
+//#if (DEBUG)
             if (xmlItem.Element("comments") != null && xmlItem.Element("comments").Attribute("count") != null) 
                 item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value.Trim();
             
@@ -549,7 +549,8 @@ namespace StarSightings
                 item.CommentsSummaryList.Source = item.Comments;
                 item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
             }
-#else
+//#else
+            /*
                         item.CommentsCnt = xmlItem.Element("comments_count").Value;
                         XElement xmlComments = xmlItem.Element("comments");
                         ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
@@ -578,7 +579,8 @@ namespace StarSightings
                             item.CommentsSummaryList.Source = item.Comments;
                             item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
                         }
-#endif
+             * */
+//#endif
             if (xmlItem.Element("votes") != null && xmlItem.Element("votes").Attribute("prompt") != null)
                 item.VotesPrompt = xmlItem.Element("votes").Attribute("prompt").Value.Trim();
 
