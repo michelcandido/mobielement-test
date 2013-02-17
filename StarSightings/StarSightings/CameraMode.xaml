@@ -22,7 +22,7 @@
         <!--<Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
         </Grid.Background>-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
             <TextBlock x:Name="ApplicationTitle" Text="scoop" Style="{StaticResource PhoneTextTitle1Style}" Visibility="Collapsed"/>
         </StackPanel>

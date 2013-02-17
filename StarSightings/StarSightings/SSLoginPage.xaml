@@ -31,8 +31,8 @@
                 </DataTemplate>
             </controls:Pivot.TitleTemplate>
             <!--Pivot item one-->
-            <controls:PivotItem Header="login">                
-                    <Grid >
+            <controls:PivotItem Header="login">
+                <Grid >
                         <telerikPrimitives:RadTextBox Watermark="Username" HorizontalAlignment="Left" Margin="6,29,0,0" Name="tbLoginUserName" VerticalAlignment="Top" Width="460" MaxLength="20"/>
                         <telerikPrimitives:RadTextBox Watermark="Password" HorizontalAlignment="Left" Margin="6,129,0,0" Name="tbLoginPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" />
                         <PasswordBox Margin="6,129,0,0" HorizontalAlignment="Left" Name="pbLoginPassword" VerticalAlignment="Top" Width="460" LostFocus="LoginPasswordLostFocus" Opacity="0" GotFocus="LoginPasswordGotFocus" MaxLength="20" />
@@ -42,7 +42,7 @@
 
             <!--Pivot item two-->
             <controls:PivotItem Header="new user">
-                <Grid>
+                <Grid >
                     <telerikPrimitives:RadTextBox Watermark="Username (3 - 20 characters)" HorizontalAlignment="Left" Margin="6,29,0,0" Name="tbUserName" VerticalAlignment="Top" Width="460" MaxLength="20" Text="{Binding UserName, Mode=TwoWay}" KeyDown="tbUserName_KeyDown" LostFocus="UsernameLostFocus" />
                     <telerikPrimitives:RadTextBox Watermark="Password (6 - 20 characters)" HorizontalAlignment="Left" Margin="6,129,0,0" Name="tbPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" />
                     <PasswordBox Margin="6,129,0,0" HorizontalAlignment="Left" Name="pbPassword" VerticalAlignment="Top" Width="460" LostFocus="PasswordLostFocus" Opacity="0" GotFocus="PasswordGotFocus" Password="{Binding Password, Mode=TwoWay}" MaxLength="20" KeyDown="pbPassword_KeyDown" />

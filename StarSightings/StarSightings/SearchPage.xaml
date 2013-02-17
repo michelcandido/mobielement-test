@@ -24,12 +24,12 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -43,7 +43,7 @@
                     <ListBoxItem Content="Place / Venue" />
                     <ListBoxItem Content="Location" />
                     <ListBoxItem Content="User"/>
-                    <ListBoxItem Content="My Sightings" />
+                    <!--<ListBoxItem Content="My Sightings" />-->
                 </ListBox>
             </Grid>
         </Grid>

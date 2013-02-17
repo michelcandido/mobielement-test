@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
         </StackPanel>
 
@@ -37,7 +37,7 @@
         <ListBox x:Name="ContentPanel" Grid.Row="1" Background="White" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
             <ListBox.Resources>
                 <DataTemplate x:Key="SlideViewItemTemplate">
-                    <Grid Background="Black">
+                    <Grid Background="Black" Tap="Pic_Tap">
                         <Image Stretch="UniformToFill" Source="{Binding ThumbOrigLarge}" Width="{Binding DetailPagePhotoSize}" Height="{Binding DetailPagePhotoSize}"/>
                         <!--Width="{Binding Rights, Converter={StaticResource PhotoSizeConverter}}" Height="{Binding Rights, Converter={StaticResource PhotoSizeConverter}}"-->
                         <StackPanel HorizontalAlignment="Right" Margin="0,0,5,0">
@@ -52,7 +52,7 @@
                 </DataTemplate>
                 <DataTemplate x:Key="WikiViewItemTemplate">
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                        <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
+                        <Grid Margin="0,0,5,0" Tag="{Binding}" Tap="CelebName_Tap">
                             <Border Height="60" Width="280" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <Border.Background>
                                     <SolidColorBrush Color="#ededed" />
@@ -63,7 +63,7 @@
                         <Grid Margin="0,0,5,0" Tap="Wiki_Tap" Tag="{Binding}">
                             <Border Height="60" Width="50" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <Border.Background>
-                                    <SolidColorBrush Color="#ededed" />
+                                    <SolidColorBrush Color="#ededed"/>
                                 </Border.Background>
                             </Border>
                             <Image Stretch="UniformToFill" Source="Images/Wikipedia_button.png"  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
@@ -123,10 +123,10 @@
                                 <ColumnDefinition Width="*"/>                                
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" MinWidth="360" HorizontalAlignment="Stretch" Text="{Binding ElementName=slideView, Path=SelectedItem.EventLocation}" FontSize="39" TextWrapping="Wrap" />
-                            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Tap="Map_Tap">
+                            <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Right" Tap="Map_Tap">
                                 <Border BorderBrush="#FF686868" BorderThickness="1">
-                                    <map:Map Name="Map"  Width="100" Height="100" HorizontalAlignment="Center"  CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Center="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation, Mode=TwoWay}" ZoomLevel="8">
-                                        <map:Pushpin Location="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation,Mode=TwoWay}" Style="{StaticResource MyPushpinStyle}" />                                                                                    
+                                    <map:Map Name="Map"  Width="100" Height="100" HorizontalAlignment="Center"  CredentialsProvider="AuuPPRTa-vVACG8Iu1_ZkD5MIBMNxe3qAE9b6Fnb8J-v5z3GBFgdmUqngrU1fTD3" Center="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation, Mode=TwoWay}" ZoomLevel="8" LogoVisibility="Collapsed">
+                                        <map:Pushpin Location="{Binding ElementName=slideView, Path=SelectedItem.GeoLocation,Mode=TwoWay}" Style="{StaticResource MyPushpinStyle}" />
                                     </map:Map>
                                 </Border>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
@@ -140,14 +140,14 @@
                     <ListBoxItem>
                         <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.Descr}" FontSize="25" TextWrapping="Wrap" />
                     </ListBoxItem>
-                    <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.EventFooter, Converter={StaticResource StringVisibleConverter}}" Margin="0,5,0,5" Tag="{Binding ElementName=slideView, Path=SelectedItem.SourceUrl}" Tap="Source_Tap">
+                    <ListBoxItem Visibility="{Binding ElementName=slideView, Path=SelectedItem.EventFooter, Converter={StaticResource StringVisibleConverter}}" Margin="0,15,0,15" Tag="{Binding ElementName=slideView, Path=SelectedItem.SourceUrl}" Tap="Source_Tap">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Larger photo and original story at" FontSize="23" Foreground="#FF686868"/>
                             <TextBlock Text="{Binding ElementName=slideView, Path=SelectedItem.EventFooter}"  FontSize="25" Foreground="Black" FontWeight="Bold"  />
                         </StackPanel>
                     </ListBoxItem>
                     <!--<ListBoxItem Content="More" FontSize="23" Foreground="#FF686868" Margin="0,5,0,5" />-->
-                    <ListBoxItem>
+                    <ListBoxItem Margin="0,5,0,5">
                         <ListBox ItemsSource="{Binding ElementName=slideView, Path=SelectedItem.Celebs}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemTemplate="{StaticResource WikiViewItemTemplate}"/>                            
                     </ListBoxItem>
                     <ListBoxItem Content="Comments" FontSize="47" Foreground="Black" Margin="0,30,0,5" Visibility="{Binding ElementName=slideView, Path=SelectedItem.Comments, Converter={StaticResource CommentVisibleConverter}}"/>

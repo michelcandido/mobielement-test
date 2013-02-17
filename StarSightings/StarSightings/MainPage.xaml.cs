@@ -14,6 +14,7 @@ using System.Text;
 using StarSightings.Events;
 using System.Windows.Navigation;
 using StarSightings.ViewModels;
+using System.Windows.Controls.Primitives;
 
 namespace StarSightings
 {
@@ -315,5 +316,10 @@ namespace StarSightings
         {
             this.NavigationService.Navigate(new Uri(string.Format("/FollowingPage.xaml?pivotItemId={0}", (string)(sender as FrameworkElement).Tag), UriKind.RelativeOrAbsolute));
         }
+
+        private void ListBox_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+
+        }        
     }
 }

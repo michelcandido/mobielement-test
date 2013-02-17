@@ -9,31 +9,24 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Data;
-using System.Collections.ObjectModel;
-using StarSightings.ViewModels;
 
 namespace StarSightings.Converters
 {
-    public class CollectionCountVisibleConverter<T> : IValueConverter
+    public class StringToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            if (value == null)
-                return Visibility.Collapsed;
-            Collection<T> set = (Collection<T>)value;
-            if (parameter != null)
+            string para = (string)parameter;
+            if (para == "ListToString")
             {
-                if (set.Count == 0)
-                    return Visibility.Visible;
-                else
-                    return Visibility.Collapsed;
+                return App.SSAPI.getCatList(false);
             }
             else
             {
-                if (set.Count == 0)
-                    return Visibility.Collapsed;
+                if (string.IsNullOrEmpty((string)value))
+                    return para;
                 else
-                    return Visibility.Visible;
+                    return (string)value;
             }
         }
 
@@ -42,7 +35,4 @@ namespace StarSightings.Converters
             throw new NotImplementedException();
         }
     }
-
-    public class CommentVisibleConverter : CollectionCountVisibleConverter<CommentViewModel> { }
-    public class FollowingVisibleConverter : CollectionCountVisibleConverter<UserViewModel> { }
 }
