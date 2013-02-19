@@ -40,13 +40,21 @@
                     <Grid Background="Black" Tap="Pic_Tap">
                         <Image Stretch="UniformToFill" Source="{Binding ThumbOrigLarge}" Width="{Binding DetailPagePhotoSize}" Height="{Binding DetailPagePhotoSize}"/>
                         <!--Width="{Binding Rights, Converter={StaticResource PhotoSizeConverter}}" Height="{Binding Rights, Converter={StaticResource PhotoSizeConverter}}"-->
+                        <Border Height="100" Width="480" VerticalAlignment="Top" HorizontalAlignment="Center">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStop Color="#CC000000" Offset="0.0" />
+                                    <GradientStop Color="#00000000" Offset="1.0" />
+                                </LinearGradientBrush>                                
+                            </Border.Background>
+                        </Border>
                         <StackPanel HorizontalAlignment="Right" Margin="0,0,5,0">
                             <TextBlock Text="{Binding ViewCnt}" FontSize="32" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" />
                             <TextBlock Text="views" FontSize="23" Foreground="#686868" HorizontalAlignment="Center" />
                         </StackPanel>
-                        <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0" Orientation="Horizontal">
+                        <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0" Orientation="Horizontal" >
                             <TextBlock Text="{Binding EventSourceMode}" FontSize="23" Foreground="#686868" Margin="0,0,5,0"/>
-                            <TextBlock Text="{Binding EventSource}" FontSize="25" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" />
+                            <TextBlock Text="{Binding EventSource}" FontSize="25" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" Tap="EventSource_Tap" />
                         </StackPanel>
                     </Grid>                    
                 </DataTemplate>
@@ -87,7 +95,7 @@
 
                         <Image Grid.Column="0"   Width="60" Height="60" Source="{Binding FacebookUid, Converter={StaticResource FacebookPictureConverter}}"/>
                         <StackPanel Grid.Column="1" Width="400">
-                            <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" />
+                            <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Tap="User_Tap" />
                             <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
                             <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="#010e2a">
                                 <krempel:HtmlTextBlock Html="{Binding CommentValue}" Width="360"  FontSize="23"   Margin="5" NavigationRequested="htmlTextBlock_NavigationRequested"/>                                 

@@ -98,32 +98,39 @@ namespace StarSightings
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            switch (pageMode)
+            if (string.IsNullOrEmpty(this.provider.InputString))
             {
-                case 0:
-                    App.ViewModel.KeywordType = Constants.KEYWORD_NAME;
-                    break;
-                case 1:                    
-                    App.ViewModel.KeywordType = Constants.KEYWORD_EVENT;
-                    break;
-                case 2:
-                    App.ViewModel.KeywordType = Constants.KEYWORD_PLACE;
-                    break;
-                case 3:
-                    App.ViewModel.KeywordType = Constants.KEYWORD_LOCATION;
-                    break;
-                case 4: 
-                    App.ViewModel.KeywordType = Constants.KEYWORD_USER;
-                    break;
-                case 5:
-                    App.ViewModel.KeywordType = Constants.KEYWORD_MY;
-                    break;
+                MessageBox.Show("Please input your query first.");
             }
-            App.ViewModel.SearchKeywords = this.provider.InputString;
-            App.ViewModel.SearchKeywordSearch(true, 0, null);
-            //App.ViewModel.ShowSearchPivotItem = true;
-            //this.NavigationService.Navigate(new Uri("/ListPage.xaml?pivotItemId=4", UriKind.RelativeOrAbsolute));
-            this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
+            else
+            {
+                switch (pageMode)
+                {
+                    case 0:
+                        App.ViewModel.KeywordType = Constants.KEYWORD_NAME;
+                        break;
+                    case 1:                    
+                        App.ViewModel.KeywordType = Constants.KEYWORD_EVENT;
+                        break;
+                    case 2:
+                        App.ViewModel.KeywordType = Constants.KEYWORD_PLACE;
+                        break;
+                    case 3:
+                        App.ViewModel.KeywordType = Constants.KEYWORD_LOCATION;
+                        break;
+                    case 4: 
+                        App.ViewModel.KeywordType = Constants.KEYWORD_USER;
+                        break;
+                    case 5:
+                        App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                        break;
+                }
+                App.ViewModel.SearchKeywords = this.provider.InputString;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);
+                //App.ViewModel.ShowSearchPivotItem = true;
+                //this.NavigationService.Navigate(new Uri("/ListPage.xaml?pivotItemId=4", UriKind.RelativeOrAbsolute));
+                this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
+            }
         }
     }
 }

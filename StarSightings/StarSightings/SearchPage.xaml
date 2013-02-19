@@ -36,13 +36,13 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Margin="{StaticResource PhoneHorizontalMargin}" Text="Search for" Foreground="#3BB23B" FontSize="{StaticResource PhoneFontSizeLarge}" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
-                <ListBox Grid.Row="1" Margin="14,0,-12,0" FontSize="{StaticResource PhoneFontSizeLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged">
+                <TextBlock Grid.Row="0" Margin="{StaticResource PhoneHorizontalMargin}" Text="Search for" Foreground="#b8b8b8" FontSize="23" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
+                <ListBox Grid.Row="1" Margin="14,0,-12,0" FontSize="35" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged">
                     <ListBoxItem Content="Celebrity"/>                    
                     <ListBoxItem Content="Event" />
                     <ListBoxItem Content="Place / Venue" />
                     <ListBoxItem Content="Location" />
-                    <ListBoxItem Content="User"/>
+                    <ListBoxItem Content="Member"/>
                     <!--<ListBoxItem Content="My Sightings" />-->
                 </ListBox>
             </Grid>

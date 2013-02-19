@@ -267,7 +267,11 @@ namespace StarSightings
             }
             set
             {
-                this.keywordType = value;
+                if (value != keywordType)
+                {
+                    keywordType = value;
+                    NotifyPropertyChanged("KeywordType");
+                }
             }
         }
 
@@ -279,7 +283,11 @@ namespace StarSightings
             }
             set
             {
-                this.searchKeywords = value;
+                if (value != searchKeywords)
+                {
+                    searchKeywords = value;
+                    NotifyPropertyChanged("SearchKeywords");
+                }
             }
         }
 
@@ -964,7 +972,7 @@ namespace StarSightings
             {                
                 UserViewModel u = new UserViewModel();
                 u.UserName = name;
-                u.UserType = Constants.ALERT_TYPE_CELEBRITY;
+                u.UserType = Constants.KEYWORD_NAME;//.ALERT_TYPE_CELEBRITY;
                 App.ViewModel.MyFollowingCelebs.Add(u);
             }
 
@@ -977,7 +985,7 @@ namespace StarSightings
             {
                 UserViewModel u = new UserViewModel();
                 u.UserName = name;
-                u.UserType = Constants.ALERT_TYPE_PHOTOGRAPHER;
+                u.UserType = Constants.KEYWORD_USER;// ALERT_TYPE_PHOTOGRAPHER;
                 App.ViewModel.MyFollowingUsers.Add(u);
             }
 
