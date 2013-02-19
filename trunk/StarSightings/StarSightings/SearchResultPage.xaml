@@ -15,6 +15,22 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="FollowingsSummaryItemTemplate">
+            <Grid  Background="#010E2A" Margin="0,0,0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Tap="GoToFollowed" Grid.Column="0"  Orientation="Horizontal">
+                    <Image   Width="60" Height="60" Source="Images/default_v1_winphone.png" />
+                    <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="375" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                </StackPanel>
+                <!--<TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />-->
+                <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,15,0" Tap="DeleteFollowed" Stretch="None"/>
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#000662">
         <!--<Grid.Background>
@@ -22,20 +38,47 @@
         </Grid.Background>-->
         <!--Pivot Control-->
         <controls:Pivot Title="MY APPLICATION" x:Name="pivotControl">
-            <controls:PivotItem Header="sightings" x:Name="SearchPivotItem">                
+            <controls:PivotItem Header="sightings" x:Name="SightingsPivotItem">                
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid Margin="10,0,0,0" Grid.Row="0" Background="#FFee0053" Width="380" HorizontalAlignment="Left">
-                        <TextBlock  Text="Follow" FontWeight="Bold" FontSize="25"  HorizontalAlignment="Center"/>
+                    <Grid x:Name="Follow_Sightings" Margin="10,0,0,10" Grid.Row="0" Background="{Binding SearchKeywords, Converter={StaticResource FollowingStatusConverter}, ConverterParameter='@Color'}" Width="380" Height="60" HorizontalAlignment="Left" Tap="Follow_Tap">
+                        <TextBlock  Text="{Binding SearchKeywords, Converter={StaticResource FollowingStatusConverter}, ConverterParameter='@Text'}" FontWeight="Bold" FontSize="25"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                     <local:ListViewControl Margin="10,0,0,0" Grid.Row="1" x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails" />
                 </Grid>
             </controls:PivotItem>
 
-            <!--Pivot item two-->
+            <controls:PivotItem Header="following" x:Name="FollowingPivotItem">
+                <Grid>
+                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                        <ListBoxItem>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
+                                <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebrities" Width="305"/>
+                                <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />-->
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <ListBox x:Name="CelebsList"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
+                        </ListBoxItem>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
+                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members" Width="305"/>
+                            <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>-->
+                        </StackPanel>
+                        <ListBoxItem>
+                            <ListBox x:Name="UsersList"   ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,30,0,0">more...</TextBlock>
+                        </ListBoxItem>
+                    </ListBox>
+                </Grid>
+            </controls:PivotItem>
             <controls:PivotItem Header="followers">
                 <Grid/>
             </controls:PivotItem>

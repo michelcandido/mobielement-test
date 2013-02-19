@@ -16,17 +16,17 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="FollowingsSummaryItemTemplate">
-            <Grid  Background="#010E2A" Margin="0,0,0,5">
+            <Grid  Background="#010E2A" Margin="0,0,0,5" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="360"/>
+                    <ColumnDefinition Width="400"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Tap="GoToFollowed" Grid.Column="0" Width="360"  Orientation="Horizontal">
+                <StackPanel Tap="GoToFollowed" Grid.Column="0" Orientation="Horizontal">
                     <Image   Width="60" Height="60" Source="Images/default_v1_winphone.png" />
-                    <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="385" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="375" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </StackPanel>
                 <!--<TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />-->
-                <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,5,0" Tap="DeleteFollowed" Stretch="None"/>
+                <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,15,0" Tap="DeleteFollowed" Stretch="None"/>
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
@@ -48,11 +48,11 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="celebs">
                 <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ListBoxItem HorizontalAlignment="Right" Margin="0,0,60,0">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Tap="AddFollowing" />
+                    <ListBoxItem HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />
                     </ListBoxItem>
                     <ListBoxItem>
-                        <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;add&quot; to search for members to follow."/>
+                        <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;add&quot; to search for celebs to follow."/>
                     </ListBoxItem>
                     <ListBoxItem>
                         <ListBox  ItemsSource="{Binding MyFollowingCelebs}"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
@@ -63,8 +63,8 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="members">
                 <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ListBoxItem HorizontalAlignment="Right" Margin="0,0,60,0">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Tap="AddFollowing" />
+                    <ListBoxItem HorizontalAlignment="Right" Margin="0,0,10,0">
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;add&quot; to search for members to follow."/>

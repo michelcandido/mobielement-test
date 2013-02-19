@@ -93,5 +93,14 @@ namespace StarSightings
                 MessageBox.Show("You can only vote at most 3 times.");
             }
         }
+
+        private void User_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            App.ViewModel.KeywordType = Constants.KEYWORD_USER;
+            App.ViewModel.SearchKeywords = (sender as TextBlock).Text;
+            App.ViewModel.SearchKeywordSearch(true, 0, null);
+                
+            this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));                        
+        }
     }
 }

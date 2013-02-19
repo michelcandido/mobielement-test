@@ -19,9 +19,22 @@ namespace StarSightings.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            int mode = 0;
             string type = (string)parameter;
             string name = (string)value;
-            bool isFollowing = App.ViewModel.MyFollowingCelebs.Where(user => user.UserName == name).Count() != 0;
+            bool isFollowing = false;
+            if (type.Contains('@'))
+                mode = 1;
+            if (mode == 0)
+            {
+                isFollowing = App.ViewModel.MyFollowingCelebs.Where(user => user.UserName == name).Count() != 0;
+            }
+            else if (mode == 1)
+            {
+                type = type.Substring(1);
+                isFollowing = App.ViewModel.Alerts.Where(alert => alert.Type == App.ViewModel.KeywordType).Where(alert => alert.Name.Equals(App.ViewModel.SearchKeywords, StringComparison.OrdinalIgnoreCase)).Count() != 0;                
+            }
+
             if (type == "Color")
             {
                 if (isFollowing)

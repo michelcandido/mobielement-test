@@ -14,7 +14,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-  shell:SystemTray.IsVisible="False" >
+    shell:SystemTray.IsVisible="False" >
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="MyPanoramaItemHeaderTemplate">
@@ -108,7 +108,7 @@
                     <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="385" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </StackPanel>
                 <!--<TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />-->
-                <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,5,0" Tap="DeleteFollowed" Stretch="None"/>
+                <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,15,0" Tap="DeleteFollowed" Stretch="None"/>
             </Grid>
         </DataTemplate>
         
@@ -195,7 +195,7 @@
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <ListBox  ItemsSource="{Binding MyFollowingCelebsSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                        <ListBox  ItemsSource="{Binding MyFollowingCelebsSummaryList.View}" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
@@ -205,7 +205,7 @@
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>
                     </StackPanel>
                     <ListBoxItem>
-                        <ListBox  ItemsSource="{Binding MyFollowingUsersSummaryList.View}" SelectionChanged="ListBox_SelectionChanged" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                        <ListBox  ItemsSource="{Binding MyFollowingUsersSummaryList.View}"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,30,0,0">more...</TextBlock>

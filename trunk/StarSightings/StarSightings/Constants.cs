@@ -59,8 +59,8 @@ namespace StarSightings
         public const string KEYWORD_EVENT = "event";
         public const string KEYWORD_PLACE = "place";
         public const string KEYWORD_LOCATION = "location";
-        public const string KEYWORD_NAME = "cat";
-        public const string KEYWORD_USER = "user";
+        public const string KEYWORD_NAME = "celebrity";
+        public const string KEYWORD_USER = "photographer";
         public const string KEYWORD_MY = "my";
 
         public const string ALERT_SET = "set/";
@@ -73,7 +73,7 @@ namespace StarSightings
         public const string ALERT_TYPE_LOCATION = "location/";
         public const string ALERT_TYPE_PLACE = "place/";
         public const string ALERT_TYPE_CELEBRITY = "celebrity/";
-        public const string ALERT_TYPE_PHOTOGRAPHER = "photographer/";
+        public const string ALERT_TYPE_PHOTOGRAPHER = "photographer/";//"user" is also ok
         public const string ALERT_TYPE_GEO = "geo/";
         public const string ALERT_TYPE_ALL = "all";
     }

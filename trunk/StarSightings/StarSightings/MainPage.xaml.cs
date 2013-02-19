@@ -129,9 +129,12 @@ namespace StarSightings
 
         private void DoTest(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            //this.NavigationService.Navigate(new Uri("/SignupPage.xaml", UriKind.RelativeOrAbsolute));
-            //App.SSAPI.Logout();
-            App.SSAPI.Keyword(Constants.KEYWORD_PLACE, "coffee");
+            //App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_LOCATION, "Seattle");
+            //App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_EVENT, "Basketball game");
+            //App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_PLACE, "101 Coffee Shop");
+            //App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_PHOTOGRAPHER, "JamieBolton");
+            App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_PHOTOGRAPHER, "Joe Giordano 71686");
+            
         }
 
         public void RegisterDeviceCompleted(object sender, RegisterEventArgs e)
@@ -227,7 +230,7 @@ namespace StarSightings
             
             if (selectedItemData != null)
             {
-                App.ViewModel.KeywordType = Constants.KEYWORD_NAME;
+                App.ViewModel.KeywordType = selectedItemData.UserType; //Constants.KEYWORD_NAME;
                 App.ViewModel.SearchKeywords = selectedItemData.UserName;
                 App.ViewModel.SearchKeywordSearch(true, 0, null);
                 

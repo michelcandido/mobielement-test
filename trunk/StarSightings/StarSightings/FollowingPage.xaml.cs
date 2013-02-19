@@ -83,7 +83,7 @@ namespace StarSightings
 
             if (selectedItemData != null)
             {
-                App.ViewModel.KeywordType = Constants.KEYWORD_NAME;
+                App.ViewModel.KeywordType = selectedItemData.UserType; //Constants.KEYWORD_NAME;
                 App.ViewModel.SearchKeywords = selectedItemData.UserName;
                 App.ViewModel.SearchKeywordSearch(true, 0, null);
 

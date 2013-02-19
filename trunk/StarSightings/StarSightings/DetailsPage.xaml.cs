@@ -130,7 +130,7 @@ namespace StarSightings
             }
             else
             {
-                MessageBox.Show("Your Alert request cannot be fullfilled, please try again.");
+                MessageBox.Show("Your request cannot be fullfilled, please try again.");
             }
         }
 
@@ -211,6 +211,28 @@ namespace StarSightings
             {
                 webBrowserTask.Uri = new Uri(App.ViewModel.SelectedItem.SourceUrl, UriKind.Absolute);
                 webBrowserTask.Show();
+            }
+        }
+
+        private void User_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            App.ViewModel.KeywordType = Constants.KEYWORD_USER;
+            App.ViewModel.SearchKeywords = (sender as TextBlock).Text;
+            App.ViewModel.SearchKeywordSearch(true, 0, null);
+
+            this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void EventSource_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
+            if (App.ViewModel.SelectedItem.EventSourceMode != "source")
+            {
+                App.ViewModel.KeywordType = Constants.KEYWORD_USER;
+                App.ViewModel.SearchKeywords = (sender as TextBlock).Text;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);
+
+                this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
             }
         }
     }
