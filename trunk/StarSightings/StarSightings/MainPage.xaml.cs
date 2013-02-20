@@ -181,9 +181,17 @@ namespace StarSightings
         {
             if (!App.ViewModel.NeedLogin)
             {
-                myLoginEventHandler = new LoginEventHandler(LogoutCompleted);
-                App.SSAPI.LoginHandler += myLoginEventHandler;
-                App.SSAPI.Logout();
+                MessageBoxResult result =
+                    MessageBox.Show("Are you sure you want to logout of your StarSightings account?",
+                    "Logout", MessageBoxButton.OKCancel);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    myLoginEventHandler = new LoginEventHandler(LogoutCompleted);
+                    App.SSAPI.LoginHandler += myLoginEventHandler;
+                    App.SSAPI.Logout();
+                }
+                
             }
             else
             {

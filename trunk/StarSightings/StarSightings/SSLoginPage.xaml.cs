@@ -247,7 +247,7 @@ namespace StarSightings
         {
             WebBrowserTask webBrowserTask = new WebBrowserTask();
 
-            webBrowserTask.Uri = new Uri("http://m.starsightings.com/forum/ucp.php?mode=sendpassword", UriKind.Absolute);
+            webBrowserTask.Uri = new Uri(Constants.SERVER_NAME + "/forum/ucp.php?mode=sendpassword", UriKind.Absolute);
 
             webBrowserTask.Show();
             
