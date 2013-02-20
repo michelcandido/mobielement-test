@@ -229,8 +229,11 @@
                     <ListBoxItem>                            
                         <TextBlock Text="{Binding User.UserName}" FontSize="25" Foreground="#1ca7ff" Margin="5,30,0,30" TextTrimming="WordEllipsis" Width="350" Tap="GoToMyList" />                        
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <TextBlock Width="380" Text="You are logged in as a guest. Login to join the celebrity photo stream!" Margin="5,0,0,0" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    </ListBoxItem>
                     <ListBox Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Button Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}">Login now</Button>
+                        <Button Width="390" Margin="-5,0" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3">Login now</Button>
                     </ListBox>
                     <ListBoxItem Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Vertical">

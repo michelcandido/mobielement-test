@@ -212,6 +212,11 @@ namespace StarSightings
                 webBrowserTask.Uri = new Uri(App.ViewModel.SelectedItem.SourceUrl, UriKind.Absolute);
                 webBrowserTask.Show();
             }
+            else
+            {
+                webBrowserTask.Uri = new Uri(Constants.SERVER_NAME + "/photo/view_large/" + App.ViewModel.SelectedItem.PhotoId, UriKind.Absolute);
+                webBrowserTask.Show();
+            }
         }
 
         private void User_Tap(object sender, System.Windows.Input.GestureEventArgs e)
