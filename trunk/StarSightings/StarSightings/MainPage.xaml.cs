@@ -35,7 +35,13 @@ namespace StarSightings
         }
 
 		void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {            
+        {
+            this.busyIndicator_popular.IsRunning = true;
+            this.busyIndicator_latest.IsRunning = true;
+            this.busyIndicator_nearest.IsRunning = true;
+            this.busyIndicator_following.IsRunning = true;
+            this.busyIndicator_my.IsRunning = true;
+
             if (!App.Config.IsAppInit)
             {
                 App.Config.InitAppCompletedHandler +=new InitAppHandler(InitAppCompleted);
@@ -45,6 +51,7 @@ namespace StarSightings
 
         private void InitAppCompleted(Object sender, SSEventArgs e)
         {
+            this.busyIndicator_following.IsRunning = false;
             if (!e.Successful)
             {
                 // problem with init, probably because of login, we need to show login page.
@@ -61,13 +68,7 @@ namespace StarSightings
                     App.ViewModel.LatestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.NearestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     //App.ViewModel.FollowingItemsLoadReday +=new SearchCompletedCallback(ViewModel_ItemsLoadReday);
-                    App.ViewModel.MySightingsItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
-
-                    this.busyIndicator_popular.IsRunning = true;
-                    this.busyIndicator_latest.IsRunning = true;
-                    this.busyIndicator_nearest.IsRunning = true;
-                    //this.busyIndicator_following.IsRunning = true;
-                    this.busyIndicator_my.IsRunning = true;
+                    App.ViewModel.MySightingsItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);                    
 
                     App.ViewModel.LoadData();                    
                 }
@@ -205,16 +206,16 @@ namespace StarSightings
             if (e.Successful)
             {                                
                 App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_DEVICE;
+                App.ViewModel.User = null;
                 Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
                 Utils.RemoveIsolatedStorageSettings("User");
-                if (App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_DEVICE)
-                    App.ViewModel.NeedLogin = true;
-                else
-                    App.ViewModel.NeedLogin = false;
-                App.Config.Login();
+                
+                App.ViewModel.NeedLogin = true;                
+                App.Config.Login();                
             }
             else
             {
+                App.ViewModel.NeedLogin = false;
                 MessageBox.Show("Cannot logout, please try again.");
             }
         }
@@ -295,13 +296,13 @@ namespace StarSightings
         private AlertEventHandler followAlertEventHandler;
         private void DeleteFollowed(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            UserViewModel selectedItemData = (sender as TextBlock).DataContext as UserViewModel;
+            UserViewModel selectedItemData = (sender as Image).DataContext as UserViewModel;
 
             if (selectedItemData != null)
             {
                 followAlertEventHandler = new AlertEventHandler(DeleteFollowCompleted);
                 App.SSAPI.AlertHandler += followAlertEventHandler;
-                App.SSAPI.Alert(Constants.ALERT_REMOVE, selectedItemData.UserType, selectedItemData.UserName);
+                App.SSAPI.Alert(Constants.ALERT_REMOVE, selectedItemData.UserType +"/", selectedItemData.UserName);
                 
             }
         }

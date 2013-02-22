@@ -110,7 +110,7 @@ namespace StarSightings
         private void LoginSS(string accessToken)
         {
             App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_FACEBOOK;
-            string query = "fb_token=" + accessToken + "&device_id=" + App.ViewModel.DeviceId +"&auto_register=1";// ;
+            string query = string.Format("fb_token={0}&device_id={1}&auto_register=1",accessToken, App.ViewModel.DeviceId);
             myLoginEventHandler = new LoginEventHandler(LoginCompleted);
             App.SSAPI.LoginHandler += myLoginEventHandler;
             App.SSAPI.Login(App.ViewModel.AccountType, query);
@@ -123,19 +123,26 @@ namespace StarSightings
                 App.ViewModel.User.FBToken = fbToken;
             if (e.Successful)
             {
-                App.ViewModel.User = e.User;
-                
+                App.ViewModel.User = e.User;                
                 Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
                 Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
+                /*
                 if (App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_DEVICE)
                     App.ViewModel.NeedLogin = true;
-                else
-                    App.ViewModel.NeedLogin = false;
+                else*/
+                App.ViewModel.NeedLogin = false;
+
+                App.Config.UpdateAlerts();
+                /*
+                App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);
+                */
                 NavigationService.RemoveBackEntry();
                 this.NavigationService.GoBack();                
             }
             else
             {
+                App.ViewModel.NeedLogin = true;
                 MessageBox.Show("Cannot login, please try again.");
                 NavigationService.RemoveBackEntry();
                 this.NavigationService.GoBack();

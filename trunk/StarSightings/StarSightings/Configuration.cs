@@ -84,16 +84,17 @@ namespace StarSightings
 
             if (needLogin)
             {
-                string query = "";
+                string query = string.Empty;
                 switch (App.ViewModel.AccountType)
                 {
                     case Constants.ACCOUNT_TYPE_DEVICE:
-                        query = "device_id=" + (string)Utils.GetIsolatedStorageSettings("DeviceId");
+                        query = string.Format("device_id={0}",(string)Utils.GetIsolatedStorageSettings("DeviceId"));
                         break;
                     case Constants.ACCOUNT_TYPE_SS:
-                        query = "username=" + App.ViewModel.User.UserName + "&password=" + App.ViewModel.User.Password;
+                        query = string.Format("username={0}&password={1}",App.ViewModel.User.UserName,App.ViewModel.User.Password);
                         break;
                     case Constants.ACCOUNT_TYPE_FACEBOOK:
+                        query = string.Format("fb_token={0}",App.ViewModel.User.FBToken);
                         break;
                 }
                 myLoginEventHandler = new LoginEventHandler(LoginCompleted);
@@ -156,6 +157,10 @@ namespace StarSightings
             }
             App.ViewModel.UpdateMyFollowings();
             App.ViewModel.SearchFollowing(true, 0, null);
+
+            App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+            App.ViewModel.SearchKeywordSearch(true, 0, null);
+
             InitCompleted(loginSuccess);
         }
 

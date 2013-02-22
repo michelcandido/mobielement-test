@@ -33,7 +33,7 @@
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
         </DataTemplate>        
@@ -46,7 +46,7 @@
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Image Source="Images/time_stamp.png" Margin="0,0,8,0"/>
@@ -63,7 +63,7 @@
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Image Source="Images/distance_icon.png" Margin="0,0,8,0"/>
@@ -80,7 +80,7 @@
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -93,7 +93,7 @@
                             <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="185" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -256,10 +256,10 @@
             <!--Panorama item one-->
             <controls:PanoramaItem Margin="10,0,0,0" Header="more" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}">
                 <ListBox Margin="0,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
-                    <ListBoxItem Content="settings" Tap="GoToAbout" />
-                    <ListBoxItem Content="about" Tap="GoToAbout"/>
+                    <!--<ListBoxItem Content="settings" Tap="GoToAbout" />-->                    
                     <ListBoxItem x:Name="ItemLogin" Content="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Tap="GoToLogin"/>
-                    <ListBoxItem Content="test" Tap="DoTest"/>
+                    <ListBoxItem Content="about" Tap="GoToAbout"/>
+                    <!--<ListBoxItem Content="test" Tap="DoTest"/>-->
                 </ListBox>
             </controls:PanoramaItem>
 

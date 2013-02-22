@@ -19,12 +19,13 @@ namespace StarSightings
     public partial class SSLoginPage : PhoneApplicationPage
     {
         private LoginEventHandler myLoginEventHandler;
+        private RegisterEventHandler myRegisterEventHandler;
         public SSLoginPage()
         {
             InitializeComponent();
             DataContext = App.ViewModel.User;
             this.Loaded += new RoutedEventHandler(SSLoginPage_Loaded);
-            App.SSAPI.RegisterHandler += new RegisterEventHandler(RegisterCompleted);
+            //App.SSAPI.RegisterHandler += new RegisterEventHandler(RegisterCompleted);
         }
 
         void SSLoginPage_Loaded(object sender, RoutedEventArgs e)
@@ -80,21 +81,7 @@ namespace StarSightings
             ValidateEmail();
         }
 
-        public void RegisterCompleted(object sender, RegisterEventArgs e)
-        {
-            if (e.Successful)
-            {
-                Utils.AddOrUpdateIsolatedStorageSettings("User", e.User);
-                App.ViewModel.NeedLogin = false;
-                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", Constants.ACCOUNT_TYPE_SS);
-                this.NavigationService.GoBack();
-            }
-            else
-            {
-                App.ViewModel.NeedLogin = true;
-                MessageBox.Show("Failed in registering new user");
-            }
-        }
+        
 
         private bool ValidateUserName()
         {
@@ -195,11 +182,11 @@ namespace StarSightings
 
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
+            App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_SS;
             switch (this.pivotControl.SelectedIndex)
             {
-                case 0: 
-                    App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_SS;
-                    string query = "username=" + tbUserName.Text + "&password=" + pbPassword.Password;
+                case 0:
+                    string query = string.Format("username={0}&password={1}", tbLoginUserName.Text, pbLoginPassword.Password);
                     myLoginEventHandler = new LoginEventHandler(LoginCompleted);
                     App.SSAPI.LoginHandler += myLoginEventHandler;
                     App.SSAPI.Login(App.ViewModel.AccountType, query);
@@ -207,7 +194,8 @@ namespace StarSightings
                 case 1:
                     if (ValidateUserName() && ValidatePassword() && ValidateVerifyPassword() && ValidateEmail())
                     {
-
+                        myRegisterEventHandler = new RegisterEventHandler(RegisterCompleted);
+                        App.SSAPI.RegisterHandler += myRegisterEventHandler;
                         App.SSAPI.RegisterUser();
                     }
                     break;
@@ -228,18 +216,46 @@ namespace StarSightings
             {
                 App.ViewModel.User = e.User;
                 Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
-                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
-                if (App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_DEVICE)
-                    App.ViewModel.NeedLogin = true;
-                else
-                    App.ViewModel.NeedLogin = false;
+                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);                
+                App.ViewModel.NeedLogin = false;
+
                 App.Config.UpdateAlerts();
-                //App.ViewModel.SearchFollowing(true, 0, null);
+                /*
+                App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);                
+                */
+                NavigationService.RemoveBackEntry();
                 this.NavigationService.GoBack();
             }
             else
             {
+                App.ViewModel.NeedLogin = true;                
                 MessageBox.Show("Cannot login, please try again.");
+            }
+        }
+
+        public void RegisterCompleted(object sender, RegisterEventArgs e)
+        {
+            App.SSAPI.RegisterHandler -= myRegisterEventHandler;
+            if (e.Successful)
+            {
+                App.ViewModel.User = e.User;
+                Utils.AddOrUpdateIsolatedStorageSettings("User", e.User);
+                App.ViewModel.NeedLogin = false;
+                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
+                
+                App.Config.UpdateAlerts();
+                /*
+                App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);
+                */
+                NavigationService.RemoveBackEntry();
+                this.NavigationService.GoBack();
+            }
+            else
+            {
+                App.ViewModel.NeedLogin = true;                
+                MessageBox.Show("Failed in registering new user");
             }
         }
 
