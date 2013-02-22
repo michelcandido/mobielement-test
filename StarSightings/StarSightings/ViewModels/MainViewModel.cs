@@ -421,6 +421,7 @@ namespace StarSightings
         public void LoadData()
         {
             // Sample data; replace with real data
+            /*
             this.Items.Add(new ItemViewModel() { ID = 1, LineOne = "runtime one", LineTwo = "Maecenas praesent accumsan bibendum", LineThree = "Facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu", ImageSource = new Uri("Images/Frame.png", UriKind.RelativeOrAbsolute) });
             this.Items.Add(new ItemViewModel() { ID = 2, LineOne = "runtime two", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus", ImageSource = new Uri("Images/Frame.png", UriKind.RelativeOrAbsolute) });
             this.Items.Add(new ItemViewModel() { ID = 3, LineOne = "runtime three", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Habitant inceptos interdum lobortis nascetur pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent", ImageSource = new Uri("Images/Frame.png", UriKind.RelativeOrAbsolute) });
@@ -437,7 +438,7 @@ namespace StarSightings
             this.Items.Add(new ItemViewModel() { ID = 14, LineOne = "runtime fourteen", LineTwo = "Dictumst eleifend facilisi faucibus", LineThree = "Pharetra placerat pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent", ImageSource = new Uri("Images/Frame.png", UriKind.RelativeOrAbsolute) });
             this.Items.Add(new ItemViewModel() { ID = 15, LineOne = "runtime fifteen", LineTwo = "Habitant inceptos interdum lobortis", LineThree = "Accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur pharetra placerat", ImageSource = new Uri("Images/Frame.png", UriKind.RelativeOrAbsolute) });
             this.Items.Add(new ItemViewModel() { ID = 16, LineOne = "runtime sixteen", LineTwo = "Nascetur pharetra placerat pulvinar", LineThree = "Pulvinar sagittis senectus sociosqu suscipit torquent ultrices vehicula volutpat maecenas praesent accumsan bibendum", ImageSource = new Uri("Images/Frame.png", UriKind.RelativeOrAbsolute) });
-
+            */
             this.IsDataLoaded = true;
 
             foreach (ItemViewModel item in this.Items)
@@ -490,7 +491,10 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingPopular = true;
-            App.SSAPI.DoSearch(param, token);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                App.SSAPI.DoSearch(param, token);
+            });
         }
 
         private bool isUpdatingLatest = false;
@@ -509,7 +513,10 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingLatest = true;
-            App.SSAPI.DoSearch(param, token);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                App.SSAPI.DoSearch(param, token);
+            });
         }
 
         private bool isUpdatingNearest = false;
@@ -534,7 +541,10 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingNearest = true;
-            App.SSAPI.DoSearch(param, token);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                App.SSAPI.DoSearch(param, token);
+            });
         }
 
         private bool isUpdatingFollowing = false;
@@ -567,7 +577,10 @@ namespace StarSightings
                 token.isFresh = fresh;
                 token.start = start;
                 isUpdatingFollowing = true;
-                App.SSAPI.DoSearch(param, token);
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    App.SSAPI.DoSearch(param, token);
+                });
             }
             else
             {
@@ -612,7 +625,10 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingKeywordSearch = true;
-            App.SSAPI.DoSearch(param, token);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                App.SSAPI.DoSearch(param, token);
+            });
         }
 
         public void SearchCompleted(object sender, SearchEventArgs e)

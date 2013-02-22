@@ -135,7 +135,7 @@ namespace StarSightings
             {
                 followAlertEventHandler = new AlertEventHandler(DeleteFollowCompleted);
                 App.SSAPI.AlertHandler += followAlertEventHandler;
-                App.SSAPI.Alert(Constants.ALERT_REMOVE, selectedItemData.UserType, selectedItemData.UserName);
+                App.SSAPI.Alert(Constants.ALERT_REMOVE, selectedItemData.UserType + "/", selectedItemData.UserName);
 
             }
         }

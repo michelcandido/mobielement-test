@@ -121,6 +121,7 @@ namespace StarSightings
                 App.ViewModel.SearchLatest(true, 0, null);   
                 App.ViewModel.KeywordType = Constants.KEYWORD_MY;
                 App.ViewModel.SearchKeywordSearch(true, 0, null);
+                App.ViewModel.StoryTime = new DateTime(0);
             }
             else
             {
