@@ -74,7 +74,7 @@
             <controls:Pivot.TitleTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >
-                        <Image x:Name="icon" Source="Images/SS_logo_small.png" />
+                        <Image x:Name="icon" Source="Images/SS_logo_small.png" Tap="GoHome" />
                     </StackPanel>
                 </DataTemplate>
             </controls:Pivot.TitleTemplate>

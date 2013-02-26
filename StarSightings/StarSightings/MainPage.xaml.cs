@@ -36,14 +36,18 @@ namespace StarSightings
 
 		void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.busyIndicator_popular.IsRunning = true;
-            this.busyIndicator_latest.IsRunning = true;
-            this.busyIndicator_nearest.IsRunning = true;
-            this.busyIndicator_following.IsRunning = true;
-            this.busyIndicator_my.IsRunning = true;
-
+            
             if (!App.Config.IsAppInit)
             {
+                if (!App.ViewModel.IsDataLoaded)
+                {
+                    this.busyIndicator_popular.IsRunning = true;
+                    this.busyIndicator_latest.IsRunning = true;
+                    this.busyIndicator_nearest.IsRunning = true;
+                    this.busyIndicator_following.IsRunning = true;
+                    this.busyIndicator_my.IsRunning = true;
+                }
+
                 App.Config.InitAppCompletedHandler +=new InitAppHandler(InitAppCompleted);
                 App.Config.InitApp();                
             }			
@@ -290,7 +294,14 @@ namespace StarSightings
 
         private void AddFollowing(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", 0), UriKind.RelativeOrAbsolute));
+        }
+
+        private void AddFollowing2(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            //this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", 4), UriKind.RelativeOrAbsolute));
         }
 
         private AlertEventHandler followAlertEventHandler;

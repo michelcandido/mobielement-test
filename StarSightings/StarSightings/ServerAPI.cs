@@ -1000,6 +1000,7 @@ namespace StarSightings
             {
                 XElement xmlResponse = XElement.Parse(e.Result);
                 XElement xmlItems = xmlResponse.Element("items");
+                XElement xmlError = xmlResponse.Element("error");
 
                 ItemViewModel item = null;
                 if (xmlItems != null)
@@ -1013,7 +1014,16 @@ namespace StarSightings
                     if (item != null)
                         ce.Item = item;
                     OnComment(ce);
-                }                
+                } 
+                else if (xmlError != null)
+                {
+                    string errorCode = string.Empty;                    
+                    errorCode = getElementValue(xmlError,"code");
+                    
+                    CommentEventArgs ce = new CommentEventArgs(false);
+                    ce.ErrorCode = errorCode;
+                    OnComment(ce);
+                }
                 else
                 {
                     CommentEventArgs ce = new CommentEventArgs(false);

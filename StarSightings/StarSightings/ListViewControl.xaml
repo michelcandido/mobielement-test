@@ -11,11 +11,19 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
-    
+    d:DesignHeight="480" d:DesignWidth="480" Loaded="ListViewBase_Loaded">
+
+    <local:ListViewBase.Resources>
+        <DataTemplate x:Key="EmptyBusyTemplate">
+            <telerikPrimitives:RadBusyIndicator AnimationStyle="AnimationStyle7" Foreground="White" IsRunning="True" Content="Loading..."/>
+        </DataTemplate>
+        <DataTemplate x:Key="EmptyNoDataTemplate">
+            <TextBlock Text="0 results found." Foreground="#b8b8b8" FontSize="21"/>
+        </DataTemplate>
+    </local:ListViewBase.Resources>
     <Grid x:Name="LayoutRoot">
         <telerikPrimitives:RadDataBoundListBox 
-            EmptyContent="Loading..."            
+            EmptyContentTemplate="{StaticResource EmptyNoDataTemplate}"
             x:Name="listBox"
             IsPullToRefreshEnabled="True"
             RefreshRequested="OnListBox_RefreshRequested"
@@ -32,6 +40,11 @@
                     <telerikPrimitives:RadBusyIndicator AnimationStyle="AnimationStyle9" IsRunning="True" Content=""/>
                 </DataTemplate>
             </telerikPrimitives:RadDataBoundListBox.ItemLoadingTemplate>
+            <!--<telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
+                <DataTemplate>
+                    <telerikPrimitives:RadBusyIndicator AnimationStyle="AnimationStyle7" Foreground="White" IsRunning="True" Content="Loading..."/>
+                </DataTemplate>
+            </telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>-->
             <telerikPrimitives:RadDataBoundListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0, 24, 0, 0">

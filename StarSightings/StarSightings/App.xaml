@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application x:Class="StarSightings.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:m="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps" xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:converters="clr-namespace:StarSightings.Converters" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:StarSightings.ViewModel" mc:Ignorable="d">
+<Application x:Class="StarSightings.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:m="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps" xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:converters="clr-namespace:StarSightings.Converters" xmlns:bar="clr-namespace:BindableApplicationBar;assembly=BindableApplicationBar" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:StarSightings.ViewModel" mc:Ignorable="d">
   <!--Application Resources-->
   <Application.Resources>
     <SolidColorBrush Color="YellowGreen" x:Key="greenColor" />
@@ -19,7 +19,7 @@
     <converters:StringVisibleConverter x:Key="StringVisibleConverter" />
     <converters:PhotoSizeConverter x:Key="PhotoSizeConverter" />
     <converters:FollowingStatusConverter x:Key="FollowingStatusConverter" />
-        <converters:StringToStringConverter x:Key="StringToStringConverter" />
+    <converters:StringToStringConverter x:Key="StringToStringConverter" />
     <Style TargetType="m:Pushpin" x:Key="MyPushpinStyle">
       <Setter Property="Template">
         <Setter.Value>
@@ -114,7 +114,15 @@
         </Setter.Value>
       </Setter>
     </Style>
-  </Application.Resources>
+        <bar:BindableApplicationBar x:Key="GlobalAppBar" IsVisible="True" IsMenuEnabled="True"  BackgroundColor="#0021a2">
+            <bar:BindableApplicationBarButton IconUri="/Images/appbar.check.rest.png" Text="select" Tap="OnAcceptTap" />
+            <bar:BindableApplicationBar.MenuItems>
+                    <bar:BindableApplicationBarMenuItem Text="home page" Tap="GoHome"/>
+                    <bar:BindableApplicationBarMenuItem Text="settings" Tap="GoSettings"/>
+                    <bar:BindableApplicationBarMenuItem Text="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Tap="GoLogin"/>
+                </bar:BindableApplicationBar.MenuItems>            
+        </bar:BindableApplicationBar>
+    </Application.Resources>
   <Application.ApplicationLifetimeObjects>
     <!--Required object that handles lifetime events for the application-->
     <shell:PhoneApplicationService Launching="Application_Launching" Closing="Application_Closing" Activated="Application_Activated" Deactivated="Application_Deactivated" />

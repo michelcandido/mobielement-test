@@ -28,7 +28,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,8" Orientation="Horizontal">
-            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome" />
             <!--<TextBlock  x:Name="GroupTitle" Text="" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle2Style}" TextAlignment="Right" HorizontalAlignment="Right" />-->
         </StackPanel>
         <!--<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
@@ -49,12 +49,14 @@
                 <map:MapItemsControl Name="MapPins">
                     <map:MapItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <map:Pushpin  Location="{Binding GeoLocation}" Tap="Pin_Tap">
+                            <map:Pushpin Background="#0021a2" Location="{Binding GeoLocation}" Tap="Pin_Tap">
                                 <map:Pushpin.Content>
-                                    <Border Background="Black" Width="200" Visibility="Collapsed" x:Name="border"  HorizontalAlignment="Center" >
+                                    <Border Background="#0021a2" Width="200" Visibility="Collapsed" x:Name="border"  HorizontalAlignment="Center" >
                                         <StackPanel>
                                             <TextBlock Text="{Binding Cat}"/>
-                                            <Image Source="Images/Smile.png" Stretch="None" Margin="10"/>
+                                            <TextBlock Text="{Binding Location}"/>
+                                            <TextBlock Text="{Binding Time, Converter={StaticResource UnixRelativeTimeConverter}}"/>
+                                            <!--<Image Source="Images/Smile.png" Stretch="None" Margin="10"/>-->
                                         </StackPanel>
                                     </Border>
                                 </map:Pushpin.Content>

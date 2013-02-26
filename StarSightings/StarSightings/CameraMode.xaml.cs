@@ -32,7 +32,9 @@ namespace StarSightings
         public CameraMode()
         {
             InitializeComponent();
+            DataContext = App.ViewModel;
             App.ViewModel.SelectedImage = null;
+            
             cameraCaptureTask = new CameraCaptureTask();
             cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
 
@@ -215,7 +217,18 @@ namespace StarSightings
             ContentPanelChooser.Visibility = Visibility.Collapsed;
             ContentPanelScoop.Visibility = Visibility.Collapsed;
             this.ApplicationBar.IsVisible = false;
+        }        
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }
+
+        private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            GoHome(sender, null);
+        }        
 
     }
 }

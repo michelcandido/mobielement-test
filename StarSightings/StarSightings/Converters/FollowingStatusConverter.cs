@@ -48,6 +48,13 @@ namespace StarSightings.Converters
                     return "Following";
                 else
                     return "Follow";
+            } 
+            else if (type == "Visibility")
+            {
+                if (isFollowing)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
             }
             else
                 return null;

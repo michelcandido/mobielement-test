@@ -328,7 +328,7 @@ namespace StarSightings
             }
         }
 
-        private bool needLogin = false;
+        private bool needLogin = true;
         public bool NeedLogin
         {
             get
@@ -491,10 +491,8 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingPopular = true;
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                App.SSAPI.DoSearch(param, token);
-            });
+            
+            App.SSAPI.DoSearch(param, token);            
         }
 
         private bool isUpdatingLatest = false;
@@ -513,10 +511,8 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingLatest = true;
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                App.SSAPI.DoSearch(param, token);
-            });
+            
+            App.SSAPI.DoSearch(param, token);            
         }
 
         private bool isUpdatingNearest = false;
@@ -541,10 +537,7 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingNearest = true;
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                App.SSAPI.DoSearch(param, token);
-            });
+            App.SSAPI.DoSearch(param, token);            
         }
 
         private bool isUpdatingFollowing = false;
@@ -569,22 +562,25 @@ namespace StarSightings
                 param.search_user_name += HttpUtility.UrlEncode(name) + ";";
             }
 
+            SearchToken token = new SearchToken();
+            token.searchGroup = Constants.SEARCH_FOLLOWING;
+            token.isFresh = fresh;
+            token.start = start;
+
             if (query1.Count() != 0 || query2.Count() != 0)
             {
-                param.logic = "or";
-                SearchToken token = new SearchToken();
-                token.searchGroup = Constants.SEARCH_FOLLOWING;
-                token.isFresh = fresh;
-                token.start = start;
+                param.logic = "or";                
                 isUpdatingFollowing = true;
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    App.SSAPI.DoSearch(param, token);
-                });
+                App.SSAPI.DoSearch(param, token);                
             }
             else
             {
                 App.ViewModel.FollowingItems.Clear();
+
+                SearchEventArgs se = new SearchEventArgs(true);
+                se.SearchToken = token;
+                se.Items = App.ViewModel.FollowingItems;
+                OnSearchCompleted(se);
             }
         }
 

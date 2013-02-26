@@ -5,7 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
-    xmlns:telerikTextBox="clr-namespace:Telerik.Windows.Controls.PhoneTextBox;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikTextBox="clr-namespace:Telerik.Windows.Controls.PhoneTextBox;assembly=Telerik.Windows.Controls.Primitives"    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -17,14 +17,13 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="CelebViewItemTemplate">
-            <Grid Margin="0,0,0,10">
+            <Grid Margin="0,0,0,10" Width="440">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Text="X" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,5"/>
-                <TextBlock Grid.Column="1" Text="{Binding}" FontSize="40"  Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,5" TextTrimming="WordEllipsis" />                    
+                <TextBlock Grid.Column="0" Text="{Binding}" FontSize="40"  Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,5" TextTrimming="WordEllipsis" />
+                <Image Grid.Column="1" Source="Images/x.png" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,5"/>                
             </Grid>
         </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
@@ -71,5 +70,5 @@
             </shell:ApplicationBar.MenuItems>-->
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
-
+    
 </phone:PhoneApplicationPage>

@@ -90,7 +90,26 @@ namespace StarSightings
             {
                 UIElement marker = markers.Dequeue();
                 marker.Visibility = marker.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-                MessageBox.Show("You can only vote at most 3 times.");
+                if (!string.IsNullOrEmpty(e.ErrorCode))
+                {
+                    if (e.ErrorCode == Constants.ERROR_VOTE_LIMIT)
+                    {
+                        MessageBox.Show("You can only vote at most 3 times.");
+                    }
+                    else if (e.ErrorCode == Constants.ERROR_VOTE_DENIED)
+                    {
+                        MessageBox.Show("Your voting request is denied.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Errors in voting, please try again.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Errors in voting, please try again.");
+                }
+                
             }
         }
 
@@ -101,6 +120,11 @@ namespace StarSightings
             App.ViewModel.SearchKeywordSearch(true, 0, null);
                 
             this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));                        
+        }
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }
     }
 }

@@ -141,7 +141,7 @@ namespace StarSightings
             this.NavigationService.Navigate(new Uri("/VoteCommentPage.xaml?pivotItem=comment", UriKind.RelativeOrAbsolute));
         }
 
-        private void CommentButton_Click(object sender, System.EventArgs e)
+        private void CommentButton_Click(object sender, EventArgs e)
         {
             gotoNewComment();
         }
@@ -162,7 +162,7 @@ namespace StarSightings
             gotoVote();
         }
 
-        private void VoteButton_Click(object sender, System.EventArgs e)
+        private void VoteButton_Click(object sender, EventArgs e)
         {
             gotoVote();
         }
@@ -174,7 +174,7 @@ namespace StarSightings
             this.NavigationService.Navigate(new Uri("/VoteCommentPage.xaml?pivotItem=vote", UriKind.RelativeOrAbsolute));
         }
 
-        private void MapButton_Click(object sender, System.EventArgs e)
+        private void MapButton_Click(object sender, EventArgs e)
         {
 
             gotoMap();
@@ -190,6 +190,7 @@ namespace StarSightings
             App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
             BingMapsTask mapsTask = new BingMapsTask();
             mapsTask.Center = App.ViewModel.SelectedItem.GeoLocation;
+            mapsTask.SearchTerm = App.ViewModel.SelectedItem.EventLocation;//App.ViewModel.SelectedItem.GeoLocation.ToString();//App.ViewModel.SelectedItem.EventLocation;
             mapsTask.ZoomLevel = 12;
             mapsTask.Show();
             
@@ -239,6 +240,16 @@ namespace StarSightings
 
                 this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
             }
+        }
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
+        }
+
+        private void BindableApplicationBarButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }
     }
 }
