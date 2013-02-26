@@ -29,5 +29,10 @@ namespace StarSightings
         {
             NavigationService.Navigate(new Uri("/FacebookLoginPage.xaml", UriKind.Relative));
         }
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
+        }
     }
 }

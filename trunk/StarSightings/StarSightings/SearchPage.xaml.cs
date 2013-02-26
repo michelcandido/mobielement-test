@@ -21,8 +21,15 @@ namespace StarSightings
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", (sender as ListBox).SelectedIndex), UriKind.RelativeOrAbsolute));
+        {
+            int index = (sender as ListBox).SelectedIndex;
+            (sender as ListBox).SelectedItem = null;
+            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", index), UriKind.RelativeOrAbsolute));
+        }
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }
 
         

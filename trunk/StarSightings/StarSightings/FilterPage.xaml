@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:toolkitPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -26,13 +26,13 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
-            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" />            
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome"/>            
             <TextBlock x:Name="PageTitle" Text="filters" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
-            <toolkitPrimitives:LoopingSelector Grid.Column="1" x:Name="selectorCategory" ItemMargin="5" ItemSize="320,160" FontSize="38">
+            <toolkitPrimitives:LoopingSelector Grid.Column="1" x:Name="selectorCategory" ItemMargin="5" ItemSize="320,160" FontSize="38" IsExpanded="True">
                 <toolkitPrimitives:LoopingSelector.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -48,7 +48,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.check.rest.png" Text="Confirm" Click="CheckButton_Click" />
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.close.rest.png" Text="Cancel" Click="CloseButton_Click" />            
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.close.rest.png" Text="Cancel" Click="CloseButton_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

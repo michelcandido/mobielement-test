@@ -272,5 +272,64 @@ namespace StarSightings
         }
 
         #endregion
+
+        private void OnAcceptTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
+        }
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
+        }
+
+        private void GoSettings(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            //this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
+        }
+
+        private LoginEventHandler myLoginEventHandler;
+        private void GoLogin(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (!App.ViewModel.NeedLogin)
+            {
+                MessageBoxResult result =
+                    MessageBox.Show("Are you sure you want to logout of your StarSightings account?",
+                    "Logout", MessageBoxButton.OKCancel);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    myLoginEventHandler = new LoginEventHandler(LogoutCompleted);
+                    App.SSAPI.LoginHandler += myLoginEventHandler;
+                    App.SSAPI.Logout();
+                }
+
+            }
+            else
+            {
+
+                (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/LoginOptionsPage.xaml", UriKind.RelativeOrAbsolute));
+            }
+        }
+
+        private void LogoutCompleted(object sender, LoginEventArgs e)
+        {
+            App.SSAPI.LoginHandler -= myLoginEventHandler;
+            if (e.Successful)
+            {
+                App.ViewModel.AccountType = Constants.ACCOUNT_TYPE_DEVICE;
+                App.ViewModel.User = null;
+                Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);
+                Utils.RemoveIsolatedStorageSettings("User");
+
+                App.ViewModel.NeedLogin = true;
+                App.Config.Login();
+            }
+            else
+            {
+                App.ViewModel.NeedLogin = false;
+                MessageBox.Show("Cannot logout, please try again.");
+            }
+        }
     }
 }

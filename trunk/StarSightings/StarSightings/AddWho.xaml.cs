@@ -24,7 +24,7 @@ namespace StarSightings
             DataContext = App.ViewModel;
 
             btnNext = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
-        }               
+        }
 
         private void OnBackClick(object sender, EventArgs e)
         {

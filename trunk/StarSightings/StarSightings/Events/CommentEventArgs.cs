@@ -16,11 +16,24 @@ namespace StarSightings.Events
     {
         private readonly bool successful = false;
         private ItemViewModel item;
-        private ObservableCollection<ItemViewModel> items;        
+        private ObservableCollection<ItemViewModel> items;
+        private string errorCode;
 
         public CommentEventArgs(bool successful)
         {
             this.successful = successful;
+        }
+
+        public string ErrorCode
+        {
+            get
+            {
+                return this.errorCode;
+            }
+            set
+            {
+                this.errorCode = value;
+            }
         }
 
         public ItemViewModel Item

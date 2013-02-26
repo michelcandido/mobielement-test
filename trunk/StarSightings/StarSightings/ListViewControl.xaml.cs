@@ -116,7 +116,8 @@ namespace StarSightings
             searchDataDelivered = new SearchCompletedCallback(SearchDataDelivered);
             App.ViewModel.SearchDataReadyHandler += searchDataDelivered;
             this.requestIssued = true;
-            this.listBox.EmptyContent = "Loading...";
+            //this.listBox.EmptyContent = "Loading...";
+            this.listBox.EmptyContentTemplate = this.Resources["EmptyBusyTemplate"] as DataTemplate;
         }
 
         private void OnListBox_DataRequested(object sender, EventArgs e)
@@ -125,6 +126,14 @@ namespace StarSightings
             {
                 return;
             }
+
+            searchDataDelivered = new SearchCompletedCallback(SearchDataDelivered);
+            App.ViewModel.SearchDataReadyHandler += searchDataDelivered;
+            this.requestIssued = true;
+            //this.listBox.EmptyContent = "Loading...";
+            this.listBox.EmptyContentTemplate = this.Resources["EmptyBusyTemplate"] as DataTemplate;
+
+
             //currentStartIndex += Constants.LIMIT;
             switch (this.SearchGroup)
             {
@@ -144,10 +153,7 @@ namespace StarSightings
                     App.ViewModel.SearchKeywordSearch(false, currentStartIndex, null);
                     break;
             }
-            searchDataDelivered = new SearchCompletedCallback(SearchDataDelivered);
-            App.ViewModel.SearchDataReadyHandler += searchDataDelivered;
-            this.requestIssued = true;
-            this.listBox.EmptyContent = "Loading...";
+            
         }
 
         public void SearchDataDelivered(object sender, SearchEventArgs e)
@@ -163,7 +169,8 @@ namespace StarSightings
                 this.requestIssued = false;
                 if (this.listBox.ItemCount == 0)
                 {
-                    this.listBox.EmptyContent = "No data.";
+                    //this.listBox.EmptyContent = "0 result found.";
+                    this.listBox.EmptyContentTemplate = this.Resources["EmptyNoDataTemplate"] as DataTemplate;
                 }
                 /*
                 if (this.loadedPagesCount >= 11)
@@ -182,6 +189,15 @@ namespace StarSightings
                 NavigateToDetails(new Uri(string.Format("/DetailsPage.xaml?selectedItemId={0}&selectedGroupId={1}", selectedItemData.PhotoId, this.SearchGroup), UriKind.RelativeOrAbsolute));
             }
             (sender as RadDataBoundListBox).SelectedItem = null;
+        }
+
+        private void ListViewBase_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (this.listBox.ItemCount == 0)
+            {
+                //this.listBox.EmptyContent = "0 result found.";
+                this.listBox.EmptyContentTemplate = this.Resources["EmptyNoDataTemplate"] as DataTemplate;
+            }
         }
 
         

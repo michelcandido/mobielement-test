@@ -43,13 +43,20 @@ namespace StarSightings
 
         private void AddFollowing(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", 0), UriKind.RelativeOrAbsolute));
+        }
+
+        private void AddFollowing2(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            //this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", 4), UriKind.RelativeOrAbsolute));
         }
 
         private AlertEventHandler followAlertEventHandler;
         private void DeleteFollowed(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            UserViewModel selectedItemData = (sender as TextBlock).DataContext as UserViewModel;
+            UserViewModel selectedItemData = (sender as Image).DataContext as UserViewModel;
 
             if (selectedItemData != null)
             {
@@ -90,6 +97,11 @@ namespace StarSightings
                 this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
             }
 
+        }
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }  
     }
 }

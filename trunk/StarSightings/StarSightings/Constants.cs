@@ -76,6 +76,11 @@ namespace StarSightings
         public const string ALERT_TYPE_PHOTOGRAPHER = "photographer/";//"user" is also ok
         public const string ALERT_TYPE_GEO = "geo/";
         public const string ALERT_TYPE_ALL = "all";
+
+        public const string ERROR_VOTE_DENIED = "600";
+        public const string ERROR_VOTE_LIMIT = "602";
+        public const string ERROR_COMMENT_DENIED = "700";
+        public const string ERROR_COMMENT_LIMIT = "702";
     }
 
 }

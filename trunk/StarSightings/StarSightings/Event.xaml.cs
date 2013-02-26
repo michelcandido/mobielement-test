@@ -35,7 +35,7 @@ namespace StarSightings
             this.provider.InputChanged += this.OnProvider_InputChanged;
         }
 
-        
+
         private void OnBackClick(object sender, EventArgs e)
         {
             this.NavigationService.GoBack();

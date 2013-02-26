@@ -41,19 +41,23 @@
             <controls:Pivot.TitleTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >
-                        <Image x:Name="icon" Source="Images/SS_logo_small.png" />
+                        <Image x:Name="icon" Source="Images/SS_logo_small.png" Tap="GoHome" />
                     </StackPanel>
                 </DataTemplate>
             </controls:Pivot.TitleTemplate>
             <!--Pivot item one-->
             <controls:PivotItem Header="celebs">
-                <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ListBoxItem HorizontalAlignment="Right" Margin="0,0,10,0">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />
+                <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">                    
+                    <ListBoxItem  Margin="0,0,10,0">
+                        <Grid Width="440">
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}}" Text="You are following:"/>
+                            <!--<TextBlock Grid.Column="1"  HorizontalAlignment="Right" FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />-->
+                            <Image Grid.Column="1"  HorizontalAlignment="Right" Source="/Images/appbar.add.rest.png" Stretch="None" Margin="0,0,0,10" Tap="AddFollowing" />
+                        </Grid>                        
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;add&quot; to search for celebs to follow."/>
-                    </ListBoxItem>
+                    </ListBoxItem>                    
                     <ListBoxItem>
                         <ListBox  ItemsSource="{Binding MyFollowingCelebs}"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
@@ -63,8 +67,12 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="members">
                 <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                    <ListBoxItem HorizontalAlignment="Right" Margin="0,0,10,0">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />
+                    <ListBoxItem  Margin="0,0,10,0">
+                        <Grid Width="440">
+                            <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}}" Text="You are following:"/>
+                            <!--<TextBlock Grid.Column="1"  HorizontalAlignment="Right" FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />-->
+                            <Image Grid.Column="1"  HorizontalAlignment="Right" Source="/Images/appbar.add.rest.png" Stretch="None" Margin="0,0,0,10" Tap="AddFollowing2" />
+                        </Grid>
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;add&quot; to search for members to follow."/>

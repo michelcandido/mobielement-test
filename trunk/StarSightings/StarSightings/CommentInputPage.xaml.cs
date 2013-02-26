@@ -20,7 +20,7 @@ namespace StarSightings
         public CommentInputPage()
         {
             InitializeComponent();
-        }
+        }        
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -44,8 +44,26 @@ namespace StarSightings
                 this.NavigationService.GoBack();
             }
             else
-            {                
-                MessageBox.Show("Failed in posting new comment.");
+            {
+                if (!string.IsNullOrEmpty(e.ErrorCode))
+                {
+                    if (e.ErrorCode == Constants.ERROR_COMMENT_LIMIT)
+                    {
+                        MessageBox.Show("You has reached your comment limit.");
+                    }
+                    else if (e.ErrorCode == Constants.ERROR_COMMENT_DENIED)
+                    {
+                        MessageBox.Show("Your commenting request is denied.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Errors in commenting, please try again.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Errors in commenting, please try again.");
+                }
             }
         }
 
@@ -66,6 +84,16 @@ namespace StarSightings
          private void OnCancel(object sender, EventArgs e)
          {
              this.NavigationService.GoBack();
+         }         
+
+         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+         {
+             tbComment.Focus();
+         }
+
+         private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+         {
+             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
          }
     }
 }

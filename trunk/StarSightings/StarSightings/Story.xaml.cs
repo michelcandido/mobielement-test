@@ -30,6 +30,11 @@ namespace StarSightings
         {
             App.ViewModel.PicStory = storyBox.Text;
             this.NavigationService.Navigate(new Uri("/SightingDetail.xaml", UriKind.RelativeOrAbsolute));
-        }       
+        }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            storyBox.Focus();
+        }
     }
 }

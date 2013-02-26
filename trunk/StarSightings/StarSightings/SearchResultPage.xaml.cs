@@ -45,9 +45,9 @@ namespace StarSightings
             if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
             {
                 if (App.ViewModel.KeywordType != Constants.KEYWORD_MY)
-                    this.pivotControl.Title = App.ViewModel.SearchKeywords;
+                    this.pivotControl.Title = App.ViewModel.SearchKeywords.ToUpper();
                 else
-                    this.pivotControl.Title = App.ViewModel.User.UserName;
+                    this.pivotControl.Title = App.ViewModel.User.UserName.ToUpper();
 
                 if (App.ViewModel.KeywordType != Constants.KEYWORD_USER && App.ViewModel.KeywordType != Constants.KEYWORD_MY && followingPivotItem != null)
                 {
@@ -129,7 +129,7 @@ namespace StarSightings
         private AlertEventHandler followAlertEventHandler;
         private void DeleteFollowed(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            UserViewModel selectedItemData = (sender as TextBlock).DataContext as UserViewModel;
+            UserViewModel selectedItemData = (sender as Image).DataContext as UserViewModel;
 
             if (selectedItemData != null)
             {
