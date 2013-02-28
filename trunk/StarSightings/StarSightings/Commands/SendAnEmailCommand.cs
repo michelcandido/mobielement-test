@@ -24,7 +24,7 @@ namespace StarSightings
         public void Execute(object parameter)
         {
             EmailComposeTask emailTask = new EmailComposeTask();
-            emailTask.To = "info@company.com";
+            emailTask.To = "support@starsightings.com";
             emailTask.Show();
         }
     }

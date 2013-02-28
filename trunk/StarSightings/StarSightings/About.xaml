@@ -54,38 +54,39 @@
             
             <TextBlock 
                 Grid.Row="1" 
-                Text="App description, about information in few sentences"
+                Text="Join the celebrity photo stream! The #1 FREE celebrity app, StarSightings feeds your celebrity news addiction. Follow your favorite celebrities and celebrity photographers, share your own celebrity encounters, comment on photos, and join in the fun. Community of mobile photographers locates celebs spotted near you or anywhere."
                 Margin="12,24,12,24" 
                 TextWrapping="Wrap" 
-                Foreground="{StaticResource PhoneSubtleBrush}" 
-                FontSize="{StaticResource PhoneFontSizeNormal}" />
+                Foreground="#b8b8b8" 
+                FontSize="21" />
             <HyperlinkButton 
-                Grid.Row="2" 
-                Content="technical support/feedback email" 
-                Margin="0,12,0,0" 
-                HorizontalAlignment="Left" 
-                Foreground="{StaticResource PhoneAccentBrush}" 
-                FontSize="{StaticResource PhoneFontSizeNormal}" 
-                Command="{Binding SendAnEmailCommand}"/>
-            <HyperlinkButton 
-                Grid.Row="3"
+                Grid.Row="2"
                 Content="rate this app" 
                 Margin="0,12,0,0" 
                 HorizontalAlignment="Left" 
-                Foreground="{StaticResource PhoneAccentBrush}" 
-                FontSize="{StaticResource PhoneFontSizeNormal}" 
+                Foreground="#ffffff" 
+                FontSize="35" 
                 Command="{Binding RateThisAppCommand}"/>
-            <StackPanel Grid.Row="4" Margin="12,0,12,50" VerticalAlignment="Bottom">
-                <Image 
+            <HyperlinkButton 
+                Grid.Row="3" 
+                Content="contact us" 
+                Margin="0,12,0,0" 
+                HorizontalAlignment="Left" 
+                Foreground="#ffffff" 
+                FontSize="35" 
+                Command="{Binding SendAnEmailCommand}"/>
+            
+            <StackPanel Grid.Row="4" Margin="12,0,12,25" VerticalAlignment="Bottom">
+                <!--<Image 
                     Source="Images/CompanyLogo.png" 
                     Stretch="None" 
-                    HorizontalAlignment="Left" />
+                    HorizontalAlignment="Left" />-->
                 <TextBlock 
-                    Text="Copyright @ Star Sightings Inc. 2002-2012" 
+                    Text="Copyright @ StarSightings Inc. 2008-2013" 
                     Margin="0,12,0,0" 
                     FontSize="{StaticResource PhoneFontSizeNormal}"/>
                 <TextBlock 
-                    Text="Star Sightings Inc." 
+                    Text="StarSightings Inc." 
                     FontSize="{StaticResource PhoneFontSizeNormal}"/>
             </StackPanel>
         </Grid>

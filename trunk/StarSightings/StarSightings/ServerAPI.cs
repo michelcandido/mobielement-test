@@ -1082,7 +1082,7 @@ namespace StarSightings
             fb.PostAsync("me/photos", parameters);
         }
 
-        public void NewPost()
+        public void NewPost(bool test)
         {
             // prepare upload uri
             string baseUri = Constants.SERVER_NAME + Constants.URL_POST_NEW;
@@ -1108,6 +1108,11 @@ namespace StarSightings
 
             // save the picture to upload location
             Dictionary<string, string> nvc = new Dictionary<string, string>();
+
+            if (test)
+            {
+                nvc.Add("visible_mode", "4");
+            }
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
             nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
@@ -1388,13 +1393,18 @@ namespace StarSightings
             }
         }
 
-        public  void NewPost2()
+        public  void NewPost2(bool test)
         {
             string url = Constants.SERVER_NAME + Constants.URL_POST_NEW;
             string file = "wpupload"; 
             string paramName = "file";
             string contentType = "image/jpeg";
             Dictionary<string, string> nvc = new Dictionary<string, string>();
+
+            if (test)
+            {
+                nvc.Add("visible_mode", "4");
+            }
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
             nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());

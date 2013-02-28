@@ -24,7 +24,7 @@
         </Grid.Background>-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome" />
-            <TextBlock x:Name="ApplicationTitle" Text="scoop" Style="{StaticResource PhoneTextTitle1Style}" Visibility="Collapsed"/>
+            <TextBlock x:Name="ApplicationTitle" Text="scoop" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Visibility="Collapsed"/>            
         </StackPanel>
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,-50,0,0" Visibility="Visible">
@@ -60,15 +60,15 @@
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <phone:PhoneApplicationPage.ApplicationBar>
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="False" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.check.rest.png" Text="select" Click="OnAcceptClick" />
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.close.rest.png" Text="retake" Click="OnCancelClick"/>
-            <!--<shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>-->
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

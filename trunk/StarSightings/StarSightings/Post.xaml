@@ -44,10 +44,10 @@
                         <CheckBox Content="Facebook" Name="cbFacebook" FontSize="29" Margin="0,0,80,0"/>
                         <!--<CheckBox Content="Twitter" Name="checkBox2" FontSize="29"/>-->
                     </StackPanel>
-                    <!--<StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                        <TextBlock HorizontalAlignment="Left" Text="Not a real sighting?" FontSize="23" Foreground="#b8b8b8" Margin="12"/>
-                        <CheckBox Content="Just testing"  HorizontalAlignment="Left" Name="checkBox3"  FontSize="29"/>
-                    </StackPanel>-->
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <TextBlock HorizontalAlignment="Left" Text="Is this a real celebrity sighting?" FontSize="23" Foreground="#b8b8b8" Margin="12"/>
+                        <CheckBox Content="Just testing"  HorizontalAlignment="Left" Name="cbTest"  FontSize="29"/>
+                    </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="12,200,0,0" VerticalAlignment="Bottom">
                         <TextBlock  HorizontalAlignment="Left" Name="textBlock2" Text="By posting this picture I certify that I took this photo or otherwise own all rights regarding its distribution."    TextWrapping="Wrap" FontStretch="Normal" FontSize="23" Foreground="#b8b8b8" />
                         <StackPanel Orientation="Horizontal" Margin="12,50,0,0">

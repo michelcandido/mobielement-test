@@ -83,14 +83,14 @@ namespace StarSightings
             {
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    App.SSAPI.NewPost();
+                    App.SSAPI.NewPost((bool)cbTest.IsChecked);
                 });
             }
             else
             {
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
-                    App.SSAPI.NewPost2();
+                    App.SSAPI.NewPost2((bool)cbTest.IsChecked);
                 });
             }
 
