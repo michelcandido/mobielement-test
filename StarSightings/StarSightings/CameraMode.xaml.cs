@@ -80,14 +80,18 @@ namespace StarSightings
                 App.ViewModel.SelectedImage = image;
                 App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);
 
+                
                 pictureToShow1.Source = App.ViewModel.SelectedImage;
                 pictureToShow2.Source = App.ViewModel.SelectedImage;
                 ContentPanel.Visibility = Visibility.Collapsed;
-                ContentPanelChooser.Visibility = Visibility.Visible;
-                ContentPanelScoop.Visibility = Visibility.Collapsed;
-                this.ApplicationBar.IsVisible = true;
+                ContentPanelChooser.Visibility = Visibility.Collapsed;//Visibility.Visible;
+                ContentPanelScoop.Visibility = Visibility.Visible;//.Collapsed;
+                ApplicationTitle.Visibility = Visibility.Visible;
+
+                //this.ApplicationBar.IsVisible = true;
                 
                 getPicDateTime(info);
+                //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
             }
             
         }
@@ -144,11 +148,13 @@ namespace StarSightings
                 pictureToShow1.Source = App.ViewModel.SelectedImage;
                 pictureToShow2.Source = App.ViewModel.SelectedImage;
                 ContentPanel.Visibility = Visibility.Collapsed;
-                ContentPanelChooser.Visibility = Visibility.Visible;
-                ContentPanelScoop.Visibility = Visibility.Collapsed;
-                this.ApplicationBar.IsVisible = true;
+                ContentPanelChooser.Visibility = Visibility.Collapsed;//.Visible;
+                ContentPanelScoop.Visibility = Visibility.Visible;//.Collapsed;
+                ApplicationTitle.Visibility = Visibility.Visible;
 
-                                
+                //this.ApplicationBar.IsVisible = true;
+                
+                //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));                                
             }
 
 
@@ -200,7 +206,11 @@ namespace StarSightings
 
         private void OnDetailsTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
+            DateTime zero = new DateTime(0);
+            if (App.ViewModel.StoryTime.CompareTo(zero) <= 0)
+                this.NavigationService.Navigate(new Uri("/DatePickerPage.xaml", UriKind.RelativeOrAbsolute));
+            else
+                this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
         }
 
         
@@ -216,7 +226,7 @@ namespace StarSightings
             ContentPanel.Visibility = Visibility.Visible;
             ContentPanelChooser.Visibility = Visibility.Collapsed;
             ContentPanelScoop.Visibility = Visibility.Collapsed;
-            this.ApplicationBar.IsVisible = false;
+            //this.ApplicationBar.IsVisible = false;
         }        
 
         private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
@@ -227,8 +237,23 @@ namespace StarSightings
         private void PhoneApplicationPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            GoHome(sender, null);
-        }        
+            if (this.ApplicationTitle.Visibility == Visibility.Visible)
+            { // in scoop
+                MessageBoxResult result = MessageBox.Show("This photo is saved on your camera roll.");
+                if (result == MessageBoxResult.OK)
+                {
+                    ContentPanel.Visibility = Visibility.Visible;
+                    ContentPanelChooser.Visibility = Visibility.Collapsed;
+                    ContentPanelScoop.Visibility = Visibility.Collapsed;
+                    ApplicationTitle.Visibility = Visibility.Collapsed;
 
+                    //this.ApplicationBar.IsVisible = false;
+                }
+            }
+            else
+            {
+                GoHome(sender, null);
+            }
+        }        
     }
 }
