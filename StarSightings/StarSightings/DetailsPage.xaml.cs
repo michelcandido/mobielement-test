@@ -207,17 +207,26 @@ namespace StarSightings
         private void Pic_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
+            string url;
             WebBrowserTask webBrowserTask = new WebBrowserTask();
             if (!string.IsNullOrEmpty(App.ViewModel.SelectedItem.SourceUrl))
             {
+                url = App.ViewModel.SelectedItem.SourceUrl;
+                /*
                 webBrowserTask.Uri = new Uri(App.ViewModel.SelectedItem.SourceUrl, UriKind.Absolute);
                 webBrowserTask.Show();
+                 * */
             }
             else
             {
+                url = Constants.SERVER_NAME + "/photo/view_large/" + App.ViewModel.SelectedItem.PhotoId;
+                
+                /*
                 webBrowserTask.Uri = new Uri(Constants.SERVER_NAME + "/photo/view_large/" + App.ViewModel.SelectedItem.PhotoId, UriKind.Absolute);
                 webBrowserTask.Show();
+                 * */
             }
+            this.NavigationService.Navigate(new Uri(string.Format("/WebPage.xaml?url={0}", url), UriKind.RelativeOrAbsolute));
         }
 
         private void User_Tap(object sender, System.Windows.Input.GestureEventArgs e)

@@ -243,6 +243,9 @@
     <Compile Include="VoteCommentPage.xaml.cs">
       <DependentUpon>VoteCommentPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WebPage.xaml.cs">
+      <DependentUpon>WebPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WhoDidUSee.xaml.cs">
       <DependentUpon>WhoDidUSee.xaml</DependentUpon>
     </Compile>
@@ -526,6 +529,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Post.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WebPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

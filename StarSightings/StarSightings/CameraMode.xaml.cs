@@ -33,7 +33,7 @@ namespace StarSightings
         {
             InitializeComponent();
             DataContext = App.ViewModel;
-            App.ViewModel.SelectedImage = null;
+            //App.ViewModel.SelectedImage = null;
             
             cameraCaptureTask = new CameraCaptureTask();
             cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
@@ -91,6 +91,7 @@ namespace StarSightings
                 //this.ApplicationBar.IsVisible = true;
                 
                 getPicDateTime(info);
+                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "library", (App.ViewModel.StoryTime.CompareTo(new DateTime(0)) <= 0) ? "user" : "exif", "asset");
                 //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
             }
             
@@ -102,7 +103,7 @@ namespace StarSightings
             if (e.TaskResult == TaskResult.OK)
             {
 
-                App.ViewModel.StoryTime = DateTime.Now;
+                App.ViewModel.StoryTime = DateTime.UtcNow;
                 App.ViewModel.StoryLat = App.ViewModel.MyLocation.Latitude;
                 App.ViewModel.StoryLng = App.ViewModel.MyLocation.Longitude;
 
@@ -152,6 +153,7 @@ namespace StarSightings
                 ContentPanelScoop.Visibility = Visibility.Visible;//.Collapsed;
                 ApplicationTitle.Visibility = Visibility.Visible;
 
+                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "app", "asset", "app");
                 //this.ApplicationBar.IsVisible = true;
                 
                 //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));                                
@@ -200,8 +202,13 @@ namespace StarSightings
             BitmapImage image = new BitmapImage(new Uri("/Images/no-photo.png", UriKind.RelativeOrAbsolute));            
             App.ViewModel.SelectedImage = image;
             //App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);
-            this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
-            //this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
+
+            App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "none", "user", "nil");
+            //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
+            ContentPanel.Visibility = Visibility.Collapsed;
+            ContentPanelChooser.Visibility = Visibility.Collapsed;//Visibility.Visible;
+            ContentPanelScoop.Visibility = Visibility.Visible;//.Collapsed;
+            ApplicationTitle.Visibility = Visibility.Visible;
         }        
 
         private void OnDetailsTap(object sender, System.Windows.Input.GestureEventArgs e)

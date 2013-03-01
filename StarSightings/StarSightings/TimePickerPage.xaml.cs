@@ -29,7 +29,7 @@ namespace StarSightings
         private void OnNextClick(object sender, EventArgs e)
         {
             DateTime value = this.timePicker.SelectedValue;
-            App.ViewModel.StoryTime = storyDateTime.Add(value.TimeOfDay);             
+            App.ViewModel.StoryTime = storyDateTime.Add(value.TimeOfDay).ToUniversalTime();             
             this.NavigationService.Navigate(new Uri("/WhoDidUSee.xaml", UriKind.RelativeOrAbsolute));
         }
 
