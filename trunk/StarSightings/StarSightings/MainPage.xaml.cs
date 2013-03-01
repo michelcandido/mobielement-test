@@ -343,6 +343,11 @@ namespace StarSightings
         private void ListBox_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
 
+        }
+
+        private void GoToSettings(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.RelativeOrAbsolute));
         }        
     }
 }
