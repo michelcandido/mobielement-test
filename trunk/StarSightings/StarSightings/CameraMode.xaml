@@ -46,7 +46,7 @@
         </Grid>
         <Grid x:Name="ContentPanelScoop" Grid.Row="1" Margin="12,0,12,0" Visibility="Collapsed">            
             <Grid VerticalAlignment="Top">
-                <Image VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0"  Name="pictureToShow2" Width="440" Height="440" Stretch="UniformToFill" />
+                <Image Source="{Binding SelectedImage}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0"  Name="pictureToShow2" Width="440" Height="440" Stretch="UniformToFill" />
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0, 12, 0, 0" Tap="OnDetailsTap">
                     <Border Height="120" Width="440" VerticalAlignment="Bottom" HorizontalAlignment="Center">
                         <Border.Background>
