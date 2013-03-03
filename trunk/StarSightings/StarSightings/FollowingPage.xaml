@@ -49,14 +49,16 @@
             <controls:PivotItem Header="celebs">
                 <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">                    
                     <ListBoxItem  Margin="0,0,10,0">
-                        <Grid Width="440">
+                        <Grid Width="435">
                             <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}}" Text="You are following:"/>
                             <!--<TextBlock Grid.Column="1"  HorizontalAlignment="Right" FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />-->
-                            <Image Grid.Column="1"  HorizontalAlignment="Right" Source="/Images/appbar.add.rest.png" Stretch="None" Margin="0,0,0,10" Tap="AddFollowing" />
+                            <Border Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e" Padding="0,8,0,0" Width="35" Height="35">
+                                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Images/appbar.add.rest.png" Margin="0,0,0,10" Tap="AddFollowing" Stretch="UniformToFill"/>
+                            </Border>
                         </Grid>                        
                     </ListBoxItem>
                     <ListBoxItem>
-                        <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;add&quot; to search for celebs to follow."/>
+                        <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;+&quot; button to search for celebs to follow."/>
                     </ListBoxItem>                    
                     <ListBoxItem>
                         <ListBox  ItemsSource="{Binding MyFollowingCelebs}"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
@@ -68,14 +70,16 @@
             <controls:PivotItem Header="members">
                 <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBoxItem  Margin="0,0,10,0">
-                        <Grid Width="440">
+                        <Grid Width="435">
                             <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}}" Text="You are following:"/>
                             <!--<TextBlock Grid.Column="1"  HorizontalAlignment="Right" FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" Margin="0,0,0,10" Tap="AddFollowing" />-->
-                            <Image Grid.Column="1"  HorizontalAlignment="Right" Source="/Images/appbar.add.rest.png" Stretch="None" Margin="0,0,0,10" Tap="AddFollowing2" />
+                            <Border Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e" Padding="0,8,0,0" Width="35" Height="35">
+                                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Images/appbar.add.rest.png"  Margin="0,0,0,10" Tap="AddFollowing2" Stretch="UniformToFill"/>
+                            </Border>
                         </Grid>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;add&quot; to search for members to follow."/>
+                        <TextBlock FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;+&quot; button to search for members to follow."/>
                     </ListBoxItem>
                     <ListBoxItem>
                         <ListBox  ItemsSource="{Binding MyFollowingUsers}"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>

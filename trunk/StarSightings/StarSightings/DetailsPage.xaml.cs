@@ -260,5 +260,10 @@ namespace StarSightings
         {
             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }
+
+        private void GoToCameraMode(object sender, EventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/CameraMode.xaml", UriKind.RelativeOrAbsolute));
+        } 
     }
 }

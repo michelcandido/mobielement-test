@@ -81,6 +81,17 @@ namespace StarSightings
         public const string ERROR_VOTE_LIMIT = "602";
         public const string ERROR_COMMENT_DENIED = "700";
         public const string ERROR_COMMENT_LIMIT = "702";
+
+        public const string ERROR_LOGIN_USERNAME = "201";
+        public const string ERROR_LOGIN_PASSWORD = "203";
+        public const string ERROR_REGISTER_USERNAME = "202";
+        public const string ERROR_REGISTER_EMAIL_INVALID = "205";
+        public const string ERROR_REGISTER_EMAIL_UNAVAILABLE = "206";
+
+        public const string ICON_URI_BACK = "/Images/appbar.back.rest.png";
+        public const string ICON_URI_NEXT = "/Images/appbar.next.rest.png";
+        public const string ICON_URI_CANCEL = "/Images/appbar.close.rest.png";
+        public const string ICON_URI_CONFIRM = "/Images/appbar.check.rest.png";
     }
 
 }

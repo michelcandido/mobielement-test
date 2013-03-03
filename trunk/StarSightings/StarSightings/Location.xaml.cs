@@ -23,8 +23,10 @@ namespace StarSightings
         private WebServiceAutoCompleteProvider provider;
         private KeywordEventHandler keywordHandler;
 
-        private ApplicationBarIconButton btnNext;
-        
+        private ApplicationBarIconButton btnBack,btnNext;
+        private bool edit;
+        private string editLocation;
+
         public Location()
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace StarSightings
             this.radAutoCompleteBox.InitSuggestionsProvider(this.provider);
             this.provider.InputChanged += this.OnProvider_InputChanged;
 
+            btnBack = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
             btnNext = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
             onTextChange(this, null);
         }
@@ -67,7 +70,10 @@ namespace StarSightings
         private void OnNextClick(object sender, EventArgs e)
         {
             App.ViewModel.StoryLocation = this.provider.InputString;
-            this.NavigationService.Navigate(new Uri("/Place.xaml", UriKind.RelativeOrAbsolute));
+            if (edit)
+                this.NavigationService.GoBack();
+            else
+                this.NavigationService.Navigate(new Uri("/Place.xaml", UriKind.RelativeOrAbsolute));
         }
 
         private void OnInitSuggestions(object sender, EventArgs e)
@@ -129,6 +135,32 @@ namespace StarSightings
             this.radAutoCompleteBox.Text=(App.ViewModel.LocationList.ElementAt((sender as ListBox).SelectedIndex));
             App.ViewModel.LocationList.Clear();
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
+            {
+                if (NavigationContext.QueryString.ContainsKey("edit"))
+                {
+                    edit = true;
+                    editLocation = App.ViewModel.StoryLocation;
+                }
+
+                if (edit)
+                {
+                    btnBack.IconUri = new Uri(Constants.ICON_URI_CANCEL, UriKind.RelativeOrAbsolute);
+                    btnNext.IconUri = new Uri(Constants.ICON_URI_CONFIRM, UriKind.RelativeOrAbsolute);
+
+                }
+                else
+                {
+                    btnBack.IconUri = new Uri(Constants.ICON_URI_BACK, UriKind.RelativeOrAbsolute);
+                    btnNext.IconUri = new Uri(Constants.ICON_URI_NEXT, UriKind.RelativeOrAbsolute);
+                }
+
+            }
+        }        
 
     }
 

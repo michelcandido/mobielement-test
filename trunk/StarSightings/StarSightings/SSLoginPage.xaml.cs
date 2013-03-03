@@ -229,8 +229,11 @@ namespace StarSightings
             }
             else
             {
-                App.ViewModel.NeedLogin = true;                
-                MessageBox.Show("Cannot login, please try again.");
+                App.ViewModel.NeedLogin = true;
+                if (e.ErrorCode == Constants.ERROR_LOGIN_USERNAME)
+                    MessageBox.Show("Cannot login: username doesn't exist.");
+                else if (e.ErrorCode == Constants.ERROR_LOGIN_PASSWORD)
+                    MessageBox.Show("Cannot login: password doesn't match.");
             }
         }
 
@@ -254,8 +257,13 @@ namespace StarSightings
             }
             else
             {
-                App.ViewModel.NeedLogin = true;                
-                MessageBox.Show("Failed in registering new user");
+                App.ViewModel.NeedLogin = true;
+                if (e.ErrorCode == Constants.ERROR_REGISTER_USERNAME)
+                    MessageBox.Show("Cannot register: username has been used by others.");
+                else if (e.ErrorCode == Constants.ERROR_REGISTER_EMAIL_INVALID)
+                    MessageBox.Show("Cannot login: invalid email address.");
+                else if (e.ErrorCode == Constants.ERROR_REGISTER_EMAIL_UNAVAILABLE)
+                    MessageBox.Show("Cannot login: email address has been registered by others.");
             }
         }
 

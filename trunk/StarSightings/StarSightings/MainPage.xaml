@@ -192,7 +192,9 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
                             <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebs you're following" Width="305"/>
                             <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />-->
-                            <Image Source="/Images/appbar.add.rest.png"  Stretch="None" VerticalAlignment="Center" Margin="50,0,0,0" Tap="AddFollowing" />
+                            <Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
+                                <Image Source="/Images/appbar.add.rest.png"  Stretch="UniformToFill"  VerticalAlignment="Center"  Tap="AddFollowing" />
+                            </Border>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
@@ -204,7 +206,9 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
                         <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members you're following" Width="305"/>
                         <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>-->
-                        <Image Source="/Images/appbar.add.rest.png"  Stretch="None" VerticalAlignment="Center" Margin="50,0,0,0" Tap="AddFollowing2" />
+                        <Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
+                            <Image Source="/Images/appbar.add.rest.png"  Stretch="UniformToFill" VerticalAlignment="Center" Tap="AddFollowing2" />
+                        </Border>
                     </StackPanel>
                     <ListBoxItem>
                         <ListBox  ItemsSource="{Binding MyFollowingUsersSummaryList.View}"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
