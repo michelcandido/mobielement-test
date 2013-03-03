@@ -39,7 +39,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.back.rest.png" Text="back" Click="OnBackClick" />
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="next" Click="OnNextClick" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.next.rest.png" Text="next" Click="OnNextClick" />            
             <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>

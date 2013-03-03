@@ -15,6 +15,9 @@ namespace StarSightings
 {
     public partial class DatePickerPage : PhoneApplicationPage
     {
+        private bool edit = false;
+        //private string editDate;
+
         public DatePickerPage()
         {
             InitializeComponent();
@@ -28,9 +31,27 @@ namespace StarSightings
 
         private void OnNextClick(object sender, EventArgs e)
         {
-            DateTime value = this.datePicker.SelectedValue;           
-            this.NavigationService.Navigate(new Uri(string.Format("/TimePickerPage.xaml?date={0}",value.ToShortDateString()), UriKind.RelativeOrAbsolute));
+            DateTime value = this.datePicker.SelectedValue;
+            if (edit)
+                this.NavigationService.Navigate(new Uri(string.Format("/TimePickerPage.xaml?edit&date={0}", value.ToShortDateString()), UriKind.RelativeOrAbsolute));
+            else
+                this.NavigationService.Navigate(new Uri(string.Format("/TimePickerPage.xaml?date={0}",value.ToShortDateString()), UriKind.RelativeOrAbsolute));
             
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            this.datePicker.MaxValue = DateTime.Now;
+            if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
+            {
+                if (NavigationContext.QueryString.ContainsKey("edit"))
+                {
+                    edit = true;
+                    //editDate = App.ViewModel.StoryTime.ToShortDateString();
+                    this.datePicker.SelectedValue = App.ViewModel.StoryTime.ToLocalTime();
+                }                
+            }
+        }        
     }
 }

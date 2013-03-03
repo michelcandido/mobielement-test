@@ -182,7 +182,7 @@ namespace StarSightings
 
         public String getCatList(bool encode)
         {
-            string result = "";
+            string result = string.Empty;
             foreach (string celeb in App.ViewModel.CelebNameList)
             {
                 if (encode)
@@ -379,6 +379,8 @@ namespace StarSightings
             }
             else
             {
+                XElement xmlResponse = XElement.Parse(e.Result);
+                XElement xmlError = xmlResponse.Element("error");
                 UserViewModel user = this.GetUserInfoFromXML(e.Result);
                 if (user != null)
                 {
@@ -388,6 +390,15 @@ namespace StarSightings
 
                     RegisterEventArgs re = new RegisterEventArgs(true);
                     re.User = user;
+                    OnRegister(re);
+                }
+                else if (xmlError != null)
+                {
+                    string errorCode = string.Empty;
+                    errorCode = getElementValue(xmlError, "code");
+
+                    RegisterEventArgs re = new RegisterEventArgs(false);
+                    re.ErrorCode = errorCode;
                     OnRegister(re);
                 }
                 else
@@ -722,12 +733,24 @@ namespace StarSightings
             }
             else
             {
+                XElement xmlResponse = XElement.Parse(e.Result);
+                XElement xmlError = xmlResponse.Element("error");
+
                 UserViewModel user = this.GetUserInfoFromXML(e.Result);
                 if (user != null)
                 {                    
                     LoginEventArgs le = new LoginEventArgs(true);
                     le.User = user;                    
                     OnLogin(le);
+                }
+                else if (xmlError != null)
+                {
+                    string errorCode = string.Empty;
+                    errorCode = getElementValue(xmlError, "code");
+
+                    LoginEventArgs le = new LoginEventArgs(false);
+                    le.ErrorCode = errorCode;
+                    OnLogin(le);                    
                 }
                 else
                 {
@@ -769,11 +792,21 @@ namespace StarSightings
 
                 XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
                 XElement xmlStatus = xmlResponse.Element("status");
+                XElement xmlError = xmlResponse.Element("error");
 
                 if (xmlStatus != null && String.Compare(xmlStatus.Value, "OK", StringComparison.CurrentCultureIgnoreCase) == 0)
                 {
                     LoginEventArgs re = new LoginEventArgs(true);                    
                     OnLogin(re);
+                }
+                else if (xmlError != null)
+                {
+                    string errorCode = string.Empty;
+                    errorCode = getElementValue(xmlError, "code");
+
+                    LoginEventArgs le = new LoginEventArgs(false);
+                    le.ErrorCode = errorCode;
+                    OnLogin(le);
                 }
                 else
                 {
@@ -1117,8 +1150,8 @@ namespace StarSightings
             nvc.Add("camera_info", App.ViewModel.CameraInfo);
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
-            nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
-
+            //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
+            nvc.Add("time", App.ViewModel.StoryTime.ToLocalTime().ToString());
 
             if (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)
             {
@@ -1411,7 +1444,8 @@ namespace StarSightings
             nvc.Add("camera_info", App.ViewModel.CameraInfo);
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
-            nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
+            //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
+            nvc.Add("time", App.ViewModel.StoryTime.ToLocalTime().ToString());
 
 
             if (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)

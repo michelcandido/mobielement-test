@@ -19,7 +19,7 @@ namespace StarSightings.Converters
             string para = (string)parameter;
             if (para == "ListToString")
             {
-                return App.SSAPI.getCatList(false);
+                return App.SSAPI.getCatList(false).Replace(";",", ");
             }
             else
             {

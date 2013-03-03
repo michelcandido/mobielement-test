@@ -23,6 +23,19 @@ namespace StarSightings.Events
             this.successful = successful;
         }
 
+        private string errorCode;
+        public string ErrorCode
+        {
+            get
+            {
+                return this.errorCode;
+            }
+            set
+            {
+                this.errorCode = value;
+            }
+        }
+
         public string DeviceId
         {
             get

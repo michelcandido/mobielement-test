@@ -17,6 +17,8 @@ namespace StarSightings
     public partial class WhoDidUSee : PhoneApplicationPage
     {        
         private ApplicationBarIconButton btnBack, btnNext;
+        private bool edit = false;
+        private string editName;
 
         public WhoDidUSee()
         {
@@ -44,6 +46,11 @@ namespace StarSightings
 
         private void OnBackClick(object sender, EventArgs e)
         {
+            if (edit)
+            { //edit mode, discard the change and restore the celebName to unchanged value
+                tbName.Text = editName;
+                App.ViewModel.CelebName = editName;                
+            }
             this.NavigationService.GoBack();
         }
 
@@ -52,9 +59,44 @@ namespace StarSightings
             //App.ViewModel.CelebNameList.Clear();
             if (!App.ViewModel.CelebNameList.Contains(tbName.Text))
                 App.ViewModel.CelebNameList.Add(tbName.Text);
-            this.NavigationService.Navigate(new Uri("/AddWho.xaml", UriKind.RelativeOrAbsolute));
+
+            if (edit)
+            { //edit mode, next page should be edit more too, we should also remove the old name
+                if (tbName.Text != editName)
+                    App.ViewModel.CelebNameList.Remove(editName);
+                // keep an origional copy
+                this.NavigationService.Navigate(new Uri(string.Format("/AddWho.xaml?edit&name={0}",editName), UriKind.RelativeOrAbsolute));
+            }
+            else
+            {
+                this.NavigationService.Navigate(new Uri("/AddWho.xaml", UriKind.RelativeOrAbsolute));
+            }
         }
 
-
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
+            {
+                if (NavigationContext.QueryString.ContainsKey("edit"))
+                {
+                    edit = true;
+                    editName = App.ViewModel.CelebName;
+                }
+                /*
+                if (edit)
+                {
+                    btnBack.IconUri = new Uri(Constants.ICON_URI_CANCEL,UriKind.RelativeOrAbsolute);
+                    btnNext.IconUri = new Uri(Constants.ICON_URI_CONFIRM, UriKind.RelativeOrAbsolute);
+                    
+                }
+                else
+                {
+                    btnBack.IconUri = new Uri(Constants.ICON_URI_BACK, UriKind.RelativeOrAbsolute);
+                    btnNext.IconUri = new Uri(Constants.ICON_URI_NEXT, UriKind.RelativeOrAbsolute);
+                }
+                 * */
+            }
+        }        
     }
 }

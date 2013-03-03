@@ -126,6 +126,13 @@ namespace StarSightings
                 else
                     App.ViewModel.NeedLogin = false;
             }
+            else
+            {
+                if (e.ErrorCode == Constants.ERROR_LOGIN_USERNAME)
+                    MessageBox.Show("Cannot login: username doesn't exist.");
+                else if (e.ErrorCode == Constants.ERROR_LOGIN_PASSWORD)
+                    MessageBox.Show("Cannot login: password doesn't match.");
+            }
             
             loginSuccess = e.Successful;
             UpdateAlerts();
