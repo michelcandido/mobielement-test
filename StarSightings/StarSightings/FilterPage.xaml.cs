@@ -16,14 +16,14 @@ namespace StarSightings
 {
     public partial class Filter : PhoneApplicationPage
     {
-        private string[] categoryFilterNames = new string[] { "All", "Celebrities", "Musicians", "Politicians", "Models", "Athletes" };
-        private string[] mapFilterNames = new string[] { "Near Me", "Near Map Center", "Expand" };
-        private string[] followFilterNames = new string[] { "New", "All", "Photographers", "Friends" };
+        //private string[] categoryFilterNames = new string[] { "All", "Celebrities", "Musicians", "Politicians", "Models", "Athletes" };
+        //private string[] mapFilterNames = new string[] { "Near Me", "Near Map Center", "Expand" };
+        //private string[] followFilterNames = new string[] { "New", "All", "Photographers", "Friends" };
         private int searchGroupId;
         public Filter()
         {
-            InitializeComponent();                                    
-            this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = "All" };
+            InitializeComponent();
+            this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = Constants.categoryFilterNames, SelectedItem = "All" };
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -38,19 +38,19 @@ namespace StarSightings
                 switch (itemId)
                 {
                     case 0:
-                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = categoryFilterNames[App.ViewModel.SearchTypePopular] };
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = Constants.categoryFilterNames, SelectedItem = Constants.categoryFilterNames[App.ViewModel.SearchTypePopular] };
                         break;
                     case 1:
-                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = categoryFilterNames[App.ViewModel.SearchTypeLatest] };
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = Constants.categoryFilterNames, SelectedItem = Constants.categoryFilterNames[App.ViewModel.SearchTypeLatest] };
                         break;
                     case 2:
-                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = mapFilterNames, SelectedItem = mapFilterNames[App.ViewModel.SearchTypeNearest] };
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = Constants.mapFilterNames, SelectedItem = Constants.mapFilterNames[App.ViewModel.SearchTypeNearest] };
                         break;
                     case 3:
-                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = followFilterNames, SelectedItem = followFilterNames[App.ViewModel.SearchTypeFollowing] };
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = Constants.followFilterNames, SelectedItem = Constants.followFilterNames[App.ViewModel.SearchTypeFollowing] };
                         break;
                     case 4:
-                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = categoryFilterNames, SelectedItem = categoryFilterNames[App.ViewModel.SearchTypeKeyword] };
+                        this.selectorCategory.DataSource = new ListLoopingDataSource<string>() { Items = Constants.categoryFilterNames, SelectedItem = Constants.categoryFilterNames[App.ViewModel.SearchTypeKeyword] };
                         break;
                 }
                 searchGroupId = itemId;
@@ -237,7 +237,7 @@ namespace StarSightings
             switch (searchGroupId)
             {
                 case 0:
-                    idx = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    idx = Array.IndexOf(Constants.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
                     if (App.ViewModel.SearchTypePopular != idx)
                     {
                         App.ViewModel.SearchTypePopular = idx;
@@ -245,7 +245,7 @@ namespace StarSightings
                     }
                     break;
                 case 1:
-                    idx = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    idx = Array.IndexOf(Constants.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
                     if (App.ViewModel.SearchTypeLatest != idx)
                     {
                         App.ViewModel.SearchTypeLatest = idx;
@@ -253,7 +253,7 @@ namespace StarSightings
                     }
                     break;
                 case 2:
-                    idx = Array.IndexOf(this.mapFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    idx = Array.IndexOf(Constants.mapFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
                     if (App.ViewModel.SearchTypeNearest != idx)
                     {
                         App.ViewModel.SearchTypeNearest = idx;
@@ -279,10 +279,10 @@ namespace StarSightings
                     }
                     break;
                 case 3:
-                    App.ViewModel.SearchTypeFollowing = Array.IndexOf(this.followFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    App.ViewModel.SearchTypeFollowing = Array.IndexOf(Constants.followFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);                    
                     break;
                 case 4:
-                    idx = Array.IndexOf(this.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
+                    idx = Array.IndexOf(Constants.categoryFilterNames, (string)this.selectorCategory.DataSource.SelectedItem);
                     if (App.ViewModel.SearchTypeKeyword != idx)
                     {
                         App.ViewModel.SearchTypeKeyword = idx;

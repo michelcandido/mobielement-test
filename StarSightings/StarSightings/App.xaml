@@ -21,7 +21,8 @@
     <converters:FollowingStatusConverter x:Key="FollowingStatusConverter" />
     <converters:StringToStringConverter x:Key="StringToStringConverter" />
     <converters:SightingsVisibleConverter x:Key="SightingsVisibleConverter" />
-    <Style TargetType="m:Pushpin" x:Key="MyPushpinStyle">
+    <converters:FilterConverter x:Key="FilterConverter" />
+      <Style TargetType="m:Pushpin" x:Key="MyPushpinStyle">
       <Setter Property="Template">
         <Setter.Value>
           <ControlTemplate TargetType="m:Pushpin">

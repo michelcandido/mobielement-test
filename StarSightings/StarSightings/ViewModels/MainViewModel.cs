@@ -233,7 +233,11 @@ namespace StarSightings
             }
             set
             {
-                this.searchTypePopular = value;
+                if (value != searchTypePopular)
+                {
+                    this.searchTypePopular = value;
+                    NotifyPropertyChanged("SearchTypePopular");
+                }
             }
         }
 
@@ -245,7 +249,11 @@ namespace StarSightings
             }
             set
             {
-                this.searchTypeLatest = value;
+                if (value != searchTypeLatest)
+                {
+                    this.searchTypeLatest = value;
+                    NotifyPropertyChanged("SearchTypeLatest");
+                }
             }
         }
 
@@ -257,7 +265,11 @@ namespace StarSightings
             }
             set
             {
-                this.searchTypeNearest = value;
+                if (value != searchTypeNearest)
+                {
+                    this.searchTypeNearest = value;
+                    NotifyPropertyChanged("SearchTypeNearest");
+                }
             }
         }
 
@@ -269,7 +281,11 @@ namespace StarSightings
             }
             set
             {
-                this.searchTypeFollowing = value;
+                if (value != searchTypeFollowing)
+                {
+                    this.searchTypeFollowing = value;
+                    NotifyPropertyChanged("SearchTypeFollowing");
+                }
             }
         }
 
@@ -281,7 +297,11 @@ namespace StarSightings
             }
             set
             {
-                this.searchTypeKeyword = value;
+                if (value != searchTypeKeyword)
+                {
+                    this.searchTypeKeyword = value;
+                    NotifyPropertyChanged("SearchTypeKeyword");
+                }
             }
         }
 
