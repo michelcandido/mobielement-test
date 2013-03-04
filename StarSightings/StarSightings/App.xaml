@@ -20,6 +20,7 @@
     <converters:PhotoSizeConverter x:Key="PhotoSizeConverter" />
     <converters:FollowingStatusConverter x:Key="FollowingStatusConverter" />
     <converters:StringToStringConverter x:Key="StringToStringConverter" />
+    <converters:SightingsVisibleConverter x:Key="SightingsVisibleConverter" />
     <Style TargetType="m:Pushpin" x:Key="MyPushpinStyle">
       <Setter Property="Template">
         <Setter.Value>

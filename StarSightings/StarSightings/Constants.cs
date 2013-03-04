@@ -92,6 +92,10 @@ namespace StarSightings
         public const string ICON_URI_NEXT = "/Images/appbar.next.rest.png";
         public const string ICON_URI_CANCEL = "/Images/appbar.close.rest.png";
         public const string ICON_URI_CONFIRM = "/Images/appbar.check.rest.png";
+
+        public const string[] categoryFilterNames = new string[] { "All", "Celebrities", "Musicians", "Politicians", "Models", "Athletes" };
+        public const string[] mapFilterNames = new string[] { "Near Me", "Near Map Center", "Expand" };
+        public const string[] followFilterNames = new string[] { "New", "All", "Photographers", "Friends" };
     }
 
 }

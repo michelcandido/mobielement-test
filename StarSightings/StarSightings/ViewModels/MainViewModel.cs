@@ -33,11 +33,15 @@ namespace StarSightings
             this.NearestItems = new ObservableCollection<ItemViewModel>();
             //this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
+            this.FollowingItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(FollowingItems_CollectionChanged);
             this.MySightingsItems = new ObservableCollection<ItemViewModel>();
+            this.MySightingsItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MySightingsItems_CollectionChanged);
             //this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
             this.KeywordSearchItems = new ObservableCollection<ItemViewModel>();
             this.MyFollowingCelebs = new ObservableCollection<UserViewModel>();
+            this.MyFollowingCelebs.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MyFollowingCelebs_CollectionChanged);
             this.MyFollowingUsers = new ObservableCollection<UserViewModel>();
+            this.MyFollowingUsers.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MyFollowingUsers_CollectionChanged);
 
 
             this.SelectedImage = new BitmapImage();
@@ -69,6 +73,26 @@ namespace StarSightings
             MySightingsItemsSummaryList = new CollectionViewSource();
             MyFollowingCelebsSummaryList = new CollectionViewSource();
             MyFollowingUsersSummaryList = new CollectionViewSource();
+        }
+
+        void MySightingsItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("MySightingsItems");
+        }
+
+        void MyFollowingUsers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("MyFollowingUsers");
+        }
+
+        void MyFollowingCelebs_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("MyFollowingCelebs");
+        }
+
+        void FollowingItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("FollowingItems");
         }
 
         /// <summary>
@@ -623,6 +647,7 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingKeywordSearch = true;
+            App.ViewModel.KeywordSearchItems.Clear();
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 App.SSAPI.DoSearch(param, token);
@@ -736,6 +761,8 @@ namespace StarSightings
                 {
                     if (e.SearchToken.isFresh)
                     {
+                        App.ViewModel.FollowingItems.Clear();                       
+                        
                         int count = App.ViewModel.FollowingItems.Count;
                         foreach (ItemViewModel item in e.Items)
                         {
@@ -744,10 +771,12 @@ namespace StarSightings
                             App.ViewModel.FollowingItems.Add(item);
                             id = item.PhotoId;
                         }
+                        /*
                         for (int i = 0; i < count; i++)
                         {
                             App.ViewModel.FollowingItems.RemoveAt(0);
                         }
+                         * */
                         //UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 3);
                         this.FollowingItemsSummaryList.Source = App.ViewModel.FollowingItems;
                         this.FollowingItemsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.FollowingItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
@@ -981,30 +1010,46 @@ namespace StarSightings
         public void UpdateMyFollowings()
         {
             IEnumerable<string> query = App.ViewModel.Alerts.Where(alert => alert.Type == "celebrity").Select(alert => alert.Name);
-            App.ViewModel.MyFollowingCelebs.Clear();
+            App.ViewModel.MyFollowingCelebs.Clear();            
             foreach (string name in query)
             {                
                 UserViewModel u = new UserViewModel();
                 u.UserName = name;
                 u.UserType = Constants.KEYWORD_NAME;//.ALERT_TYPE_CELEBRITY;
-                App.ViewModel.MyFollowingCelebs.Add(u);
+                App.ViewModel.MyFollowingCelebs.Add(u);                
             }
-
+            
             this.MyFollowingCelebsSummaryList.Source = App.ViewModel.MyFollowingCelebs;
             this.MyFollowingCelebsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.MyFollowingCelebs.IndexOf((UserViewModel)a.Item) < Constants.SUMMARY_COUNT;
-            
+
+            IEnumerable<UserViewModel> oq = App.ViewModel.MyFollowingCelebs.OrderBy(u => u.UserName);
+            ObservableCollection<UserViewModel> list = new ObservableCollection<UserViewModel>();
+            foreach (UserViewModel u in oq)
+            {
+                list.Add(u);
+            }
+            App.ViewModel.MyFollowingCelebs = list;
+
             query = App.ViewModel.Alerts.Where(alert => alert.Type == "photographer").Select(alert => alert.Name);
-            App.ViewModel.MyFollowingUsers.Clear();
+            App.ViewModel.MyFollowingUsers.Clear();            
             foreach (string name in query)
             {
                 UserViewModel u = new UserViewModel();
                 u.UserName = name;
                 u.UserType = Constants.KEYWORD_USER;// ALERT_TYPE_PHOTOGRAPHER;
-                App.ViewModel.MyFollowingUsers.Add(u);
-            }
+                App.ViewModel.MyFollowingUsers.Add(u);                
+            }            
 
             this.MyFollowingUsersSummaryList.Source = App.ViewModel.MyFollowingUsers;
             this.MyFollowingUsersSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.MyFollowingUsers.IndexOf((UserViewModel)a.Item) < Constants.SUMMARY_COUNT;
+
+            oq = App.ViewModel.MyFollowingUsers.OrderBy(u => u.UserName);
+            list = new ObservableCollection<UserViewModel>();
+            foreach (UserViewModel u in oq)
+            {
+                list.Add(u);
+            }
+            App.ViewModel.MyFollowingUsers = list;
         }
     }
     public delegate void SearchCompletedCallback(object sender, SearchEventArgs e);

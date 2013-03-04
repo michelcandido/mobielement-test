@@ -45,4 +45,5 @@ namespace StarSightings.Converters
 
     public class CommentVisibleConverter : CollectionCountVisibleConverter<CommentViewModel> { }
     public class FollowingVisibleConverter : CollectionCountVisibleConverter<UserViewModel> { }
+    public class SightingsVisibleConverter : CollectionCountVisibleConverter<ItemViewModel> { }
 }

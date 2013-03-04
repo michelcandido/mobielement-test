@@ -247,6 +247,8 @@ namespace StarSightings
                 App.ViewModel.SearchKeywords = (sender as TextBlock).Text;
                 App.ViewModel.SearchKeywordSearch(true, 0, null);
 
+                e.Handled = true;
+
                 this.NavigationService.Navigate(new Uri("/SearchResultPage.xaml", UriKind.RelativeOrAbsolute));
             }
         }
