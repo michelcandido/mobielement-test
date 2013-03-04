@@ -87,13 +87,13 @@ namespace StarSightings
                     locations[i++] = item.GeoLocation;                                        
                 }
                 this.Map.SetView(LocationRect.CreateLocationRect(locations));
-
+                this.MapPins.ItemsSource = this.items;
             }
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            this.Map.Children.Clear();
+            //this.Map.Children.Clear();
         }
 
         private void GoToList(object sender, EventArgs e)

@@ -33,16 +33,44 @@
             </controls:Pivot.TitleTemplate>
 
             <controls:PivotItem  Header="popular">
-                <local:ListViewControl Margin="10,0,0,0" x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypePopular, Converter={StaticResource FilterConverter}, ConverterParameter='category'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails"/>
+                </Grid>
             </controls:PivotItem>
             <controls:PivotItem  Header="latest">
-                <local:ListViewControl Margin="10,0,0,0" x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails"/>             
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypeLatest, Converter={StaticResource FilterConverter}, ConverterParameter='category'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails"/>
+                </Grid>
             </controls:PivotItem>
             <controls:PivotItem  Header="nearest">
-                <local:ListViewControl Margin="10,0,0,0" x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypeNearest, Converter={StaticResource FilterConverter}, ConverterParameter='map'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails"/>
+                </Grid>
             </controls:PivotItem>
             <controls:PivotItem  Header="following">
-                <local:ListViewControl Margin="10,0,0,0" x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypeFollowing, Converter={StaticResource FilterConverter}, ConverterParameter='follow'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
+                </Grid>
             </controls:PivotItem>
             <controls:PivotItem  Header="search" x:Name="SearchPivotItem">
                 <local:ListViewControl Margin="10,0,0,0" x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails" />
