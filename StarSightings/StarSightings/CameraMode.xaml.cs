@@ -97,7 +97,8 @@ namespace StarSightings
             
         }
 
-        
+        private Stream capturedImage;
+        int _angle;
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
         {
             if (e.TaskResult == TaskResult.OK)
@@ -110,42 +111,43 @@ namespace StarSightings
                 string fileName = "StarSightings_" + App.ViewModel.StoryTime.ToString() + ".jpg";
 
                 Picture pic = library.SavePictureToCameraRoll(fileName, e.ChosenPhoto);
-                
-                BitmapImage image = new BitmapImage();                
-                image.SetSource(e.ChosenPhoto);
-                App.ViewModel.SelectedImage = image;
-                App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);                
-                
-                /*
+
                 e.ChosenPhoto.Position = 0;
                 JpegInfo info = ExifReader.ReadJpeg(e.ChosenPhoto, e.OriginalFileName);
 
                 switch (info.Orientation)
                 {
-
                     case ExifOrientation.TopLeft:
-
                     case ExifOrientation.Undefined:
-                        ImageRotate.Angle = 0d;
+                        _angle = 0;
                         break;
-
                     case ExifOrientation.TopRight:
-                        ImageRotate.Angle = 90d;
+                        _angle = 90;
                         break;
-
                     case ExifOrientation.BottomRight:
-                        ImageRotate.Angle = 180d;
+                        _angle = 180;
                         break;
-
                     case ExifOrientation.BottomLeft:
-                        ImageRotate.Angle = 270d;
+                        _angle = 270;
                         break;
                 }
 
-                */
-                // Save the image to the camera roll album.                
-                
-               
+                if (_angle > 0d)
+                {
+                    capturedImage = RotateStream(e.ChosenPhoto, _angle);
+                }
+                else
+                {
+                    capturedImage = e.ChosenPhoto;
+                }
+
+                BitmapImage image = new BitmapImage();
+                image.SetSource(capturedImage);//(e.ChosenPhoto);
+
+
+                App.ViewModel.SelectedImage = image;
+                App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);                
+                                                             
                 pictureToShow1.Source = App.ViewModel.SelectedImage;
                 pictureToShow2.Source = App.ViewModel.SelectedImage;
                 ContentPanel.Visibility = Visibility.Collapsed;
@@ -160,6 +162,49 @@ namespace StarSightings
             }
 
 
+        }
+
+        private Stream RotateStream(Stream stream, int angle)
+        {
+            stream.Position = 0;
+            if (angle % 90 != 0 || angle < 0) throw new ArgumentException();
+            if (angle % 360 == 0) return stream;
+
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.SetSource(stream);
+            WriteableBitmap wbSource = new WriteableBitmap(bitmap);
+
+            WriteableBitmap wbTarget = null;
+            if (angle % 180 == 0)
+            {
+                wbTarget = new WriteableBitmap(wbSource.PixelWidth, wbSource.PixelHeight);
+            }
+            else
+            {
+                wbTarget = new WriteableBitmap(wbSource.PixelHeight, wbSource.PixelWidth);
+            }
+
+            for (int x = 0; x < wbSource.PixelWidth; x++)
+            {
+                for (int y = 0; y < wbSource.PixelHeight; y++)
+                {
+                    switch (angle % 360)
+                    {
+                        case 90:
+                            wbTarget.Pixels[(wbSource.PixelHeight - y - 1) + x * wbTarget.PixelWidth] = wbSource.Pixels[x + y * wbSource.PixelWidth];
+                            break;
+                        case 180:
+                            wbTarget.Pixels[(wbSource.PixelWidth - x - 1) + (wbSource.PixelHeight - y - 1) * wbSource.PixelWidth] = wbSource.Pixels[x + y * wbSource.PixelWidth];
+                            break;
+                        case 270:
+                            wbTarget.Pixels[y + (wbSource.PixelWidth - x - 1) * wbTarget.PixelWidth] = wbSource.Pixels[x + y * wbSource.PixelWidth];
+                            break;
+                    }
+                }
+            }
+            MemoryStream targetStream = new MemoryStream();
+            wbTarget.SaveJpeg(targetStream, wbTarget.PixelWidth, wbTarget.PixelHeight, 0, 100);
+            return targetStream;
         }
 
         private void getPicDateTime(JpegInfo info)
