@@ -107,7 +107,7 @@
                                 </StackPanel>
                                 <StackPanel HorizontalAlignment="Left" Margin="5,0,0,0" Orientation="Horizontal" >
                                     <TextBlock Text="{Binding EventSourceMode}" FontSize="23" Foreground="#ffffff" Margin="0,0,5,0"/>
-                                    <TextBlock Text="{Binding EventSource}" FontSize="25" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" Tap="EventSource_Tap" />
+                                    <TextBlock Text="{Binding EventSource}"  FontSize="25" Foreground="White" FontWeight="Bold" MaxWidth="360" TextTrimming="WordEllipsis" Tap="EventSource_Tap" />
                                 </StackPanel>
                             </Grid>
                         </ListBoxItem>

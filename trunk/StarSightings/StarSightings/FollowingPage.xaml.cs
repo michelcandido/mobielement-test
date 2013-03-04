@@ -58,6 +58,8 @@ namespace StarSightings
         {
             UserViewModel selectedItemData = (sender as Image).DataContext as UserViewModel;
 
+            App.ViewModel.MyFollowingCelebs.Remove(selectedItemData);
+
             if (selectedItemData != null)
             {
                 followAlertEventHandler = new AlertEventHandler(DeleteFollowCompleted);
@@ -74,13 +76,13 @@ namespace StarSightings
             {
                 App.ViewModel.Alerts = e.Alerts;
                 Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
-                MessageBox.Show("Your request has been set.");
+                MessageBox.Show("Removed from your following list.");
                 App.ViewModel.UpdateMyFollowings();
                 App.ViewModel.SearchFollowing(true, 0, null);
             }
             else
             {
-                MessageBox.Show("Your Alert request cannot be fullfilled, please try again.");
+                MessageBox.Show("Cannot remove it from your following list, please try again.");
             }
         }
 
