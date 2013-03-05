@@ -236,7 +236,7 @@
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem >
-                        <TextBlock Width="400" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;+&quot; button to search for celebs to follow."/>
+                        <TextBlock Width="400" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any celebrity yet. Tap on &quot;+&quot; button to search for celebs to follow."/>
                     </ListBoxItem>
                     <ListBoxItem>
                         <ListBox  ItemsSource="{Binding MyFollowingCelebsSummaryList.View}" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>

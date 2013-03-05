@@ -380,7 +380,7 @@ namespace StarSightings
             else
             {
                 XElement xmlResponse = XElement.Parse(e.Result);
-                XElement xmlError = xmlResponse.Element("error");
+                string errorCode = GetErrorFromXML(xmlResponse);
                 UserViewModel user = this.GetUserInfoFromXML(e.Result);
                 if (user != null)
                 {
@@ -392,11 +392,8 @@ namespace StarSightings
                     re.User = user;
                     OnRegister(re);
                 }
-                else if (xmlError != null)
-                {
-                    string errorCode = string.Empty;
-                    errorCode = getElementValue(xmlError, "code");
-
+                else if (errorCode != string.Empty)
+                {                    
                     RegisterEventArgs re = new RegisterEventArgs(false);
                     re.ErrorCode = errorCode;
                     OnRegister(re);
@@ -407,6 +404,12 @@ namespace StarSightings
                     OnRegister(re);
                 }                                
             }
+        }
+
+        private string GetErrorFromXML(XElement xmlResponse)
+        {
+            XElement xmlError = xmlResponse.Element("error");            
+            return getElementValue(xmlError, "code");            
         }
 
         private UserViewModel GetUserInfoFromXML(string data)
@@ -734,7 +737,7 @@ namespace StarSightings
             else
             {
                 XElement xmlResponse = XElement.Parse(e.Result);
-                XElement xmlError = xmlResponse.Element("error");
+                string errorCode = GetErrorFromXML(xmlResponse);
 
                 UserViewModel user = this.GetUserInfoFromXML(e.Result);
                 if (user != null)
@@ -743,11 +746,8 @@ namespace StarSightings
                     le.User = user;                    
                     OnLogin(le);
                 }
-                else if (xmlError != null)
-                {
-                    string errorCode = string.Empty;
-                    errorCode = getElementValue(xmlError, "code");
-
+                else if (errorCode != string.Empty)
+                {                    
                     LoginEventArgs le = new LoginEventArgs(false);
                     le.ErrorCode = errorCode;
                     OnLogin(le);                    
@@ -792,18 +792,15 @@ namespace StarSightings
 
                 XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
                 XElement xmlStatus = xmlResponse.Element("status");
-                XElement xmlError = xmlResponse.Element("error");
+                string errorCode = GetErrorFromXML(xmlResponse);
 
                 if (xmlStatus != null && String.Compare(xmlStatus.Value, "OK", StringComparison.CurrentCultureIgnoreCase) == 0)
                 {
                     LoginEventArgs re = new LoginEventArgs(true);                    
                     OnLogin(re);
                 }
-                else if (xmlError != null)
-                {
-                    string errorCode = string.Empty;
-                    errorCode = getElementValue(xmlError, "code");
-
+                else if (errorCode != string.Empty)
+                {                    
                     LoginEventArgs le = new LoginEventArgs(false);
                     le.ErrorCode = errorCode;
                     OnLogin(le);
@@ -1033,7 +1030,7 @@ namespace StarSightings
             {
                 XElement xmlResponse = XElement.Parse(e.Result);
                 XElement xmlItems = xmlResponse.Element("items");
-                XElement xmlError = xmlResponse.Element("error");
+                string errorCode = GetErrorFromXML(xmlResponse);
 
                 ItemViewModel item = null;
                 if (xmlItems != null)
@@ -1048,11 +1045,8 @@ namespace StarSightings
                         ce.Item = item;
                     OnComment(ce);
                 } 
-                else if (xmlError != null)
-                {
-                    string errorCode = string.Empty;                    
-                    errorCode = getElementValue(xmlError,"code");
-                    
+                else if (errorCode != string.Empty)
+                {                    
                     CommentEventArgs ce = new CommentEventArgs(false);
                     ce.ErrorCode = errorCode;
                     OnComment(ce);
@@ -1588,7 +1582,7 @@ namespace StarSightings
 
         private string getElementValue(XElement element, XName name)
         {
-            if (element.Element(name) != null)
+            if (element != null && element.Element(name) != null)
                 return element.Element(name).Value.Trim();
             else
                 return string.Empty;

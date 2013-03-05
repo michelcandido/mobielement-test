@@ -736,6 +736,10 @@ namespace StarSightings
             {
                 param.search_user_name = App.ViewModel.User.UserName;                
             }
+            else if (App.ViewModel.KeywordType == Constants.KEYWORD_USER)
+            {
+                param.search_user_name = HttpUtility.UrlEncode(App.ViewModel.SearchKeywords);
+            }
             param.order_by = "time";
             param.order_dir = "desc";
            
