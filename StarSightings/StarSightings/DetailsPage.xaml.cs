@@ -190,7 +190,7 @@ namespace StarSightings
             App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
             BingMapsTask mapsTask = new BingMapsTask();
             mapsTask.Center = App.ViewModel.SelectedItem.GeoLocation;
-            mapsTask.SearchTerm = App.ViewModel.SelectedItem.EventLocation;//App.ViewModel.SelectedItem.GeoLocation.ToString();//App.ViewModel.SelectedItem.EventLocation;
+            mapsTask.SearchTerm = App.ViewModel.SelectedItem.GeoLocation.ToString();//App.ViewModel.SelectedItem.EventLocation;
             mapsTask.ZoomLevel = 12;
             mapsTask.Show();
             

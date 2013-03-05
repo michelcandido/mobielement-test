@@ -26,20 +26,28 @@ namespace StarSightings
         public MainViewModel()
         {
             this.Items = new ObservableCollection<ItemViewModel>();
+            
             this.PopularItems = new ObservableCollection<ItemViewModel>();
-            //this.PopularSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.PopularItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(PopularItems_CollectionChanged);
+            
             this.LatestItems = new ObservableCollection<ItemViewModel>();
-            //this.LatestSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.LatestItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(LatestItems_CollectionChanged);
+            
             this.NearestItems = new ObservableCollection<ItemViewModel>();
-            //this.NearestSummaryItems = new ObservableCollection<ItemViewModel>();
+            this.NearestItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(NearestItems_CollectionChanged);
+            
             this.FollowingItems = new ObservableCollection<ItemViewModel>();
             this.FollowingItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(FollowingItems_CollectionChanged);
+            
             this.MySightingsItems = new ObservableCollection<ItemViewModel>();
             this.MySightingsItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MySightingsItems_CollectionChanged);
-            //this.FollowingSummaryItems = new ObservableCollection<ItemViewModel>();
+            
             this.KeywordSearchItems = new ObservableCollection<ItemViewModel>();
+            this.KeywordSearchItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(KeywordSearchItems_CollectionChanged);
+
             this.MyFollowingCelebs = new ObservableCollection<UserViewModel>();
             this.MyFollowingCelebs.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MyFollowingCelebs_CollectionChanged);
+            
             this.MyFollowingUsers = new ObservableCollection<UserViewModel>();
             this.MyFollowingUsers.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MyFollowingUsers_CollectionChanged);
 
@@ -67,12 +75,81 @@ namespace StarSightings
             
        
             PopularItemsSummaryList = new CollectionViewSource();
+            //PopularItemsSummaryList.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(PopularItemsSummaryList_View_CollectionChanged);
+            
             LatestItemsSummaryList = new CollectionViewSource();
+            //LatestItemsSummaryList.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(LatestItemsSummaryList_View_CollectionChanged);
+            
             NearestItemsSummaryList = new CollectionViewSource();
+            //NearestItemsSummaryList.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(NearestItemsSummaryList_View_CollectionChanged);
+            
             FollowingItemsSummaryList = new CollectionViewSource();
+            //FollowingItemsSummaryList.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(FollowingItemsSummaryList_View_CollectionChanged);
+            
             MySightingsItemsSummaryList = new CollectionViewSource();
+            //MySightingsItemsSummaryList.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MySightingsItemsSummaryList_View_CollectionChanged);
+            
             MyFollowingCelebsSummaryList = new CollectionViewSource();
+            //MyFollowingCelebsSummaryList.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MyFollowingCelebsSummaryList_View_CollectionChanged);
+            
             MyFollowingUsersSummaryList = new CollectionViewSource();
+            //MyFollowingUsersSummaryList.View.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(MyFollowingUsersSummaryList_View_CollectionChanged);
+        }
+
+        /*
+        void MyFollowingUsersSummaryList_View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("MyFollowingUsersSummaryList");
+        }
+
+        void MyFollowingCelebsSummaryList_View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("MyFollowingCelebsSummaryList");
+        }
+
+        void MySightingsItemsSummaryList_View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("MySightingsItemsSummaryList");
+        }
+
+        void FollowingItemsSummaryList_View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("FollowingItemsSummaryList");
+        }
+
+        void NearestItemsSummaryList_View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("NearestItemsSummaryList");
+        }
+
+        void LatestItemsSummaryList_View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("LatestItemsSummaryList");
+        }
+
+        void PopularItemsSummaryList_View_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("PopularItemsSummaryList");
+        }
+        */
+        void KeywordSearchItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("KeywordSearchItems");
+        }
+
+        void NearestItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("NearestItems");
+        }
+
+        void LatestItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("LatestItems");
+        }
+
+        void PopularItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("PopularItems");
         }
 
         void MySightingsItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -667,7 +744,7 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingKeywordSearch = true;
-            App.ViewModel.KeywordSearchItems.Clear();
+            //App.ViewModel.KeywordSearchItems.Clear();
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 App.SSAPI.DoSearch(param, token);
@@ -678,13 +755,13 @@ namespace StarSightings
         {
             if (e.Successful)
             {
-                string id = "";
+                string id = string.Empty;
                 if (e.SearchToken.searchGroup == Constants.SEARCH_POPULAR)
                 {
                     if (e.SearchToken.isFresh)
                     {
-                        //App.ViewModel.PopularItems.Clear();
-                        int count = App.ViewModel.PopularItems.Count;                        
+                        App.ViewModel.PopularItems.Clear();
+                        //int count = App.ViewModel.PopularItems.Count;                        
                         foreach (ItemViewModel item in e.Items)
                         {
                             if (item.PhotoId == id)
@@ -692,10 +769,12 @@ namespace StarSightings
                             App.ViewModel.PopularItems.Add(item);
                             id = item.PhotoId;                            
                         }
+                        /*
                         for (int i = 0; i < count; i++)
                         {
                             App.ViewModel.PopularItems.RemoveAt(0);
                         }
+                         * */
                         //UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 3);
                         
                         this.PopularItemsSummaryList.Source = App.ViewModel.PopularItems;
@@ -717,7 +796,8 @@ namespace StarSightings
                 {
                     if (e.SearchToken.isFresh)
                     {
-                        int count = App.ViewModel.LatestItems.Count;
+                        App.ViewModel.LatestItems.Clear();
+                        //int count = App.ViewModel.LatestItems.Count;
                         foreach (ItemViewModel item in e.Items)
                         {
                             if (item.PhotoId == id)
@@ -725,10 +805,12 @@ namespace StarSightings
                             App.ViewModel.LatestItems.Add(item);
                             id = item.PhotoId;                            
                         }
+                        /*
                         for (int i = 0; i < count; i++)
                         {
                             App.ViewModel.LatestItems.RemoveAt(0);
                         }
+                         * */
                         //UpdateSummaryItems(App.ViewModel.LatestItems, App.ViewModel.LatestSummaryItems, 0, 3);
                         this.LatestItemsSummaryList.Source = App.ViewModel.LatestItems;
                         this.LatestItemsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.LatestItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
@@ -749,7 +831,8 @@ namespace StarSightings
                 {
                     if (e.SearchToken.isFresh)
                     {
-                        int count = App.ViewModel.NearestItems.Count;
+                        App.ViewModel.NearestItems.Clear();
+                        //int count = App.ViewModel.NearestItems.Count;
                         foreach (ItemViewModel item in e.Items)
                         {
                             if (item.PhotoId == id)
@@ -757,10 +840,12 @@ namespace StarSightings
                             App.ViewModel.NearestItems.Add(item);
                             id = item.PhotoId;
                         }
+                        /*
                         for (int i = 0; i < count; i++)
                         {
                             App.ViewModel.NearestItems.RemoveAt(0);
                         }
+                         * */
                         //UpdateSummaryItems(App.ViewModel.NearestItems, App.ViewModel.NearestSummaryItems, 0, 3);
                         this.NearestItemsSummaryList.Source = App.ViewModel.NearestItems;
                         this.NearestItemsSummaryList.Filter += (s, a) => a.Accepted = App.ViewModel.NearestItems.IndexOf((ItemViewModel)a.Item) < Constants.SUMMARY_COUNT;
@@ -783,7 +868,7 @@ namespace StarSightings
                     {
                         App.ViewModel.FollowingItems.Clear();                       
                         
-                        int count = App.ViewModel.FollowingItems.Count;
+                        //int count = App.ViewModel.FollowingItems.Count;
                         foreach (ItemViewModel item in e.Items)
                         {
                             if (item.PhotoId == id)
@@ -816,13 +901,18 @@ namespace StarSightings
                 else if (e.SearchToken.searchGroup == Constants.SEARCH_KEYWORDSEARCH)
                 {
                     if (e.SearchToken.isFresh)
-                    {
-                        //App.ViewModel.PopularItems.Clear();
-                        int count = 0;
+                    {                        
+                        //int count = 0;
                         if (KeywordType == Constants.KEYWORD_MY)
-                            count = App.ViewModel.MySightingsItems.Count;
+                        {
+                            App.ViewModel.MySightingsItems.Clear();
+                            //count = App.ViewModel.MySightingsItems.Count;
+                        }
                         else
-                            count = App.ViewModel.KeywordSearchItems.Count;
+                        {
+                            App.ViewModel.KeywordSearchItems.Clear();
+                            //count = App.ViewModel.KeywordSearchItems.Count;
+                        }
 
                         foreach (ItemViewModel item in e.Items)
                         {
@@ -836,6 +926,7 @@ namespace StarSightings
                             
                             id = item.PhotoId;
                         }
+                        /*
                         for (int i = 0; i < count; i++)
                         {
                             if (KeywordType == Constants.KEYWORD_MY)
@@ -843,6 +934,7 @@ namespace StarSightings
                             else
                                 App.ViewModel.KeywordSearchItems.RemoveAt(0);
                         }
+                         * */
                         //UpdateSummaryItems(App.ViewModel.PopularItems, App.ViewModel.PopularSummaryItems, 0, 3);
 
                         if (KeywordType == Constants.KEYWORD_MY)
