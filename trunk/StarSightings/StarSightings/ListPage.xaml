@@ -72,9 +72,9 @@
                     <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
                 </Grid>
             </controls:PivotItem>
-            <controls:PivotItem  Header="search" x:Name="SearchPivotItem">
+            <!--<controls:PivotItem  Header="search" x:Name="SearchPivotItem">
                 <local:ListViewControl Margin="10,0,0,0" x:Name="SearchList" SearchGroup="4" EventForPageNavigation="GoToDetails" />
-            </controls:PivotItem>
+            </controls:PivotItem>-->
         </controls:Pivot>                        
     </Grid>
  

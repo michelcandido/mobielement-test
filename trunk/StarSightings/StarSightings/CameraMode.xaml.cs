@@ -228,6 +228,8 @@ namespace StarSightings
                 App.ViewModel.StoryLat = 0;
                 App.ViewModel.StoryLng = 0;
             }
+            App.ViewModel.StoryLat = 47.6097;
+            App.ViewModel.StoryLng = -122.1879;
             /*
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {

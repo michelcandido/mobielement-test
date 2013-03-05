@@ -165,7 +165,7 @@ namespace StarSightings
             }
             this.Dispatcher.BeginInvoke(() =>
             {
-                this.listBox.StopPullToRefreshLoading(true);
+                this.listBox.StopPullToRefreshLoading(true);                
                 this.requestIssued = false;
                 if (this.listBox.ItemCount == 0)
                 {

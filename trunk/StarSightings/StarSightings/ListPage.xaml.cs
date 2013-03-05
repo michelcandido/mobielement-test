@@ -19,7 +19,7 @@ namespace StarSightings
     {
         bool isNewPageInstance = false;
         GeoCoordinateWatcher watcher;
-        PivotItem searchPivotItem;
+        //PivotItem searchPivotItem;
 
         public ListPage()
         {
@@ -29,7 +29,7 @@ namespace StarSightings
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(ListPage_Loaded);
             isNewPageInstance = true;
-            searchPivotItem = (this.pivotControl.Items.Single(p => ((PivotItem)p).Name == "SearchPivotItem")) as PivotItem;
+            //searchPivotItem = (this.pivotControl.Items.Single(p => ((PivotItem)p).Name == "SearchPivotItem")) as PivotItem;
         }
 
         void ListPage_Loaded(object sender, RoutedEventArgs e)
@@ -52,17 +52,20 @@ namespace StarSightings
                     if (int.TryParse(pivotItemId, out itemId))
                     {
                         this.pivotControl.SelectedIndex = itemId;
+                        /*
                         if (!App.ViewModel.ShowSearchPivotItem && searchPivotItem != null)
                             this.pivotControl.Items.Remove(searchPivotItem);
-                        
+                        */
                     }
                 }                
             }
+                /*
             else
             {
                 if (App.ViewModel.ShowSearchPivotItem && searchPivotItem != null && !this.pivotControl.Items.Contains(searchPivotItem))
                     this.pivotControl.Items.Add(searchPivotItem);
             }
+                 * */
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)

@@ -19,8 +19,9 @@ namespace StarSightings.Converters
         {
             double time = 0;
             Double.TryParse((string)value, out time);
-            RelativeTimeConverter converter = new RelativeTimeConverter();            
-            return converter.Convert(Utils.ConvertFromUnixTimestamp(time), targetType, parameter, culture);            
+            RelativeTimeConverter converter = new RelativeTimeConverter();  
+            DateTime source = Utils.ConvertFromUnixTimestamp(time).ToUniversalTime();
+            return converter.Convert(source, targetType, parameter, culture);            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

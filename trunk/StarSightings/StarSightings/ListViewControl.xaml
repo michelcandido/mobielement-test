@@ -37,7 +37,7 @@
             </telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
             <telerikPrimitives:RadDataBoundListBox.ItemLoadingTemplate>
                 <DataTemplate>
-                    <telerikPrimitives:RadBusyIndicator AnimationStyle="AnimationStyle9" IsRunning="True" Content=""/>
+                    <telerikPrimitives:RadBusyIndicator Name="loadingIndicator" AnimationStyle="AnimationStyle9" IsRunning="True" Content=""/>
                 </DataTemplate>
             </telerikPrimitives:RadDataBoundListBox.ItemLoadingTemplate>
             <!--<telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
