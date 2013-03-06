@@ -5,7 +5,8 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
-    xmlns:telerikTextBox="clr-namespace:Telerik.Windows.Controls.PhoneTextBox;assembly=Telerik.Windows.Controls.Primitives"    
+    xmlns:telerikTextBox="clr-namespace:Telerik.Windows.Controls.PhoneTextBox;assembly=Telerik.Windows.Controls.Primitives"  
+    xmlns:telerikInput="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -48,13 +49,25 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>            
-            <telerikPrimitives:RadTextBox Grid.Row="0" Watermark="Enter another celebname" HorizontalAlignment="Center"  Name="tbName" VerticalAlignment="Top" Width="460" FontSize="25"  ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap">
+            <!--<telerikPrimitives:RadTextBox Grid.Row="0" Watermark="Enter another celebname" HorizontalAlignment="Center"  Name="tbName" VerticalAlignment="Top" Width="460" FontSize="25"  ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap">
                 <telerikPrimitives:RadTextBox.ActionButtonStyle>
                     <Style TargetType="telerikTextBox:TextBoxActionButton">                        
                         <Setter Property="RestStateImageSource" Value="/Images/appbar.add.rest.png"/>
                     </Style>
                 </telerikPrimitives:RadTextBox.ActionButtonStyle>
-            </telerikPrimitives:RadTextBox>            
+            </telerikPrimitives:RadTextBox>-->
+            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter another celebname" TextChanged="onTextChange"  ClearButtonVisibility="Visible" ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap">
+                <telerikPrimitives:RadTextBox.ActionButtonStyle>
+                    <Style TargetType="telerikTextBox:TextBoxActionButton">
+                        <Setter Property="RestStateImageSource" Value="/Images/appbar.add.rest.png"/>
+                    </Style>
+                </telerikPrimitives:RadTextBox.ActionButtonStyle>
+                <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
+            </telerikInput:RadAutoCompleteBox>
             <ListBox Grid.Row="1" HorizontalAlignment="Left"  Name="listBox1" VerticalAlignment="Top" Width="460" ItemsSource="{Binding Path=CelebNameList}" ItemTemplate="{StaticResource CelebViewItemTemplate}" Tap="OnTap"  />
         </Grid>
     </Grid>
