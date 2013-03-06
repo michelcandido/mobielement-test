@@ -22,11 +22,13 @@ using Microsoft.Phone.BackgroundTransfer;
 using System.Windows.Resources;
 using System.Linq;
 using Facebook;
+using System.ComponentModel;
 
 namespace StarSightings
 {
     public class ServerAPI
-    {                
+    {
+               
         private WebClient GetWebClient()
         {
             WebClient webClient = new WebClient();
@@ -1071,6 +1073,13 @@ namespace StarSightings
 
         public void PostOnFacebook()
         {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(bw_NewPostFB);
+            bw.RunWorkerAsync();
+        }
+
+        public void bw_NewPostFB(object sender, DoWorkEventArgs ea)
+        {
             var fb = new FacebookClient(App.ViewModel.User.FBToken);
 
             byte[] data = null;
@@ -1105,12 +1114,22 @@ namespace StarSightings
                             ContentType = "image/jpeg",
                             FileName = "image.jpeg"
                         }.SetValue(data);
-
-            fb.PostAsync("me/photos", parameters);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                fb.PostAsync("me/photos", parameters);
+            });
         }
 
         public void NewPost(bool test)
         {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(bw_NewPost);
+            bw.RunWorkerAsync(test);
+        }
+
+        public void bw_NewPost(object sender, DoWorkEventArgs ea)
+        {
+            bool test = (bool)ea.Argument;
             // prepare upload uri
             string baseUri = Constants.SERVER_NAME + Constants.URL_POST_NEW;
             /*
@@ -1261,8 +1280,11 @@ namespace StarSightings
 
             try
             {
-                BackgroundTransferService.Add(btr);
-                App.ViewModel.IsUploading = true;
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    BackgroundTransferService.Add(btr);
+                    App.ViewModel.IsUploading = true;
+                });
             }
             catch (Exception e)
             {
@@ -1422,8 +1444,16 @@ namespace StarSightings
             }
         }
 
-        public  void NewPost2(bool test)
+        public void NewPost2(bool test)
         {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(bw_NewPost2);
+            bw.RunWorkerAsync(test);
+        }
+
+        public void bw_NewPost2(object sender, DoWorkEventArgs ea)
+        {
+            bool test = (bool)ea.Argument;
             string url = Constants.SERVER_NAME + Constants.URL_POST_NEW;
             string file = "wpupload"; 
             string paramName = "file";

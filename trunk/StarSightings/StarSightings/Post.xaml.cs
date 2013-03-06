@@ -80,26 +80,17 @@ namespace StarSightings
             App.SSAPI.NewPostHandler += postHandler;
 
             if (App.ViewModel.PostMode == 1)
-            {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    App.SSAPI.NewPost((bool)cbTest.IsChecked);
-                });
+            {                
+                App.SSAPI.NewPost((bool)cbTest.IsChecked);                
             }
             else
             {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    App.SSAPI.NewPost2((bool)cbTest.IsChecked);
-                });
+                App.SSAPI.NewPost2((bool)cbTest.IsChecked);                
             }
 
             if (this.cbFacebook.IsChecked==true && !string.IsNullOrEmpty(App.ViewModel.User.FBToken))
-            {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    App.SSAPI.PostOnFacebook();
-                });
+            {                
+                App.SSAPI.PostOnFacebook();                
             }
 
             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear&screen=2", UriKind.RelativeOrAbsolute));

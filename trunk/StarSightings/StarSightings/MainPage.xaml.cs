@@ -15,11 +15,13 @@ using StarSightings.Events;
 using System.Windows.Navigation;
 using StarSightings.ViewModels;
 using System.Windows.Controls.Primitives;
+using System.ComponentModel;
 
 namespace StarSightings
 {
     public partial class MainPage : PhoneApplicationPage
-    {        
+    {
+        private BackgroundWorker bw_clearBackEntry = new BackgroundWorker();
         // Constructor
         public MainPage()
         {
@@ -31,7 +33,9 @@ namespace StarSightings
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             
 			//Shows the rate reminder message, according to the settings of the RateReminder.
-            (App.Current as App).rateReminder.Notify();            
+            (App.Current as App).rateReminder.Notify();
+
+            bw_clearBackEntry.DoWork += new DoWorkEventHandler(clearBackEntry);            
         }
 
 		void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -257,16 +261,14 @@ namespace StarSightings
             this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             if (e.NavigationMode == NavigationMode.New && NavigationContext.QueryString.ContainsKey("clear"))
             {
-                while (NavigationService.CanGoBack)
-                {
-                    NavigationService.RemoveBackEntry();
-                }
+                bw_clearBackEntry.RunWorkerAsync();
             }
             /*
             if (e.NavigationMode == NavigationMode.New && NavigationContext.QueryString.ContainsKey("screen"))
@@ -279,6 +281,17 @@ namespace StarSightings
                 }
             }
              * */
+        }        
+
+        private void clearBackEntry(object sender, DoWorkEventArgs ea)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            });
         }
 
         private void Post_Tap(object sender, System.Windows.Input.GestureEventArgs e)
