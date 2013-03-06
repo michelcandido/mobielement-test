@@ -82,6 +82,7 @@ namespace StarSightings
                 switch (pageMode)
                 {
                     case 0:
+                        App.SSAPI.Keyword(Constants.KEYWORD_NAME_SUGGEST, this.provider.InputString);
                         break;
                     case 1:
                         App.SSAPI.Keyword(Constants.KEYWORD_EVENT, this.provider.InputString);
@@ -91,7 +92,7 @@ namespace StarSightings
                         break;
                     case 3:
                         App.SSAPI.Keyword(Constants.KEYWORD_LOCATION, this.provider.InputString);
-                        break;
+                        break;                        
                 }
                 
 

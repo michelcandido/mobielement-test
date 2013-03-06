@@ -17,6 +17,9 @@ namespace StarSightings
 {
     public partial class AddWho : PhoneApplicationPage
     {
+        private WebServiceAutoCompleteProvider provider;
+        private KeywordEventHandler keywordHandler;
+
         private ApplicationBarIconButton btnBack, btnNext;
         private string editName;
         private bool edit;
