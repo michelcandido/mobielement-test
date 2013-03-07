@@ -42,7 +42,7 @@ namespace StarSightings
             
             if (!NetworkInterface.GetIsNetworkAvailable())
             {
-                RadMessageBox.Show("No Internet connection. This application needs Internet access to function properly.");
+                MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
                 return;
             }
 
