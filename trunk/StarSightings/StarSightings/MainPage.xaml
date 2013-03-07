@@ -306,9 +306,9 @@
             <!--Panorama item one-->
             <controls:PanoramaItem Margin="10,0,0,0" Header="more" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}">
                 <ListBox Margin="0,0,-12,0" FontSize="{StaticResource PhoneFontSizeExtraLarge}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
-                    <ListBoxItem Content="settings" Tap="GoToSettings" />
+                    <ListBoxItem Content="settings" Foreground="White" Tap="GoToSettings" />
                     <!--<ListBoxItem x:Name="ItemLogin" Content="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Tap="GoToLogin"/>-->
-                    <ListBoxItem Content="about" Tap="GoToAbout"/>
+                    <ListBoxItem Content="about" Foreground="White" Tap="GoToAbout"/>
                     <!--<ListBoxItem Content="test" Tap="DoTest"/>-->
                 </ListBox>
             </controls:PanoramaItem>
