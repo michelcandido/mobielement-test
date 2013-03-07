@@ -56,7 +56,7 @@
                     </Style>
                 </telerikPrimitives:RadTextBox.ActionButtonStyle>
             </telerikPrimitives:RadTextBox>-->
-            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter another celebname" TextChanged="onTextChange"  ClearButtonVisibility="Visible" ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap">
+            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter another celebname"  ClearButtonVisibility="Visible" ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap">
                 <telerikPrimitives:RadTextBox.ActionButtonStyle>
                     <Style TargetType="telerikTextBox:TextBoxActionButton">
                         <Setter Property="RestStateImageSource" Value="/Images/appbar.add.rest.png"/>
