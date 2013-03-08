@@ -23,6 +23,7 @@ using System.Windows.Resources;
 using System.Linq;
 using Facebook;
 using System.ComponentModel;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace StarSightings
 {
@@ -265,10 +266,11 @@ namespace StarSightings
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
                     // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    MessageBox.Show("Errors in registering your device, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
                 RegisterEventArgs re = new RegisterEventArgs(false);
+                re.ErrorCode = Constants.ERROR_UNKNOWN;
                 OnRegister(re);
             }
             else
@@ -277,6 +279,7 @@ namespace StarSightings
                     //this.State["feed"] = e.Result;
 
                 XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
+                string errorCode = GetErrorFromXML(xmlResponse);
                 XElement xmlStatus = xmlResponse.Element("status");
 
                 if (xmlStatus != null && String.Compare(xmlStatus.Value, "OK", StringComparison.CurrentCultureIgnoreCase) == 0)
@@ -292,6 +295,7 @@ namespace StarSightings
                 else
                 {
                     RegisterEventArgs re = new RegisterEventArgs(false);
+                    re.ErrorCode = Constants.ERROR_UNKNOWN;
                     OnRegister(re);
                 }                
                 //UpdateFeedList(e.Result);                
@@ -442,7 +446,7 @@ namespace StarSightings
         }
 
         public void DoSearch(SearchParams searchParams, SearchToken token)
-        {
+        {            
             WebClient webClient = GetWebClient();
             string baseUri;
             if (token.searchGroup == Constants.SEARCH_POPULAR)

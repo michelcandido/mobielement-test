@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using StarSightings.ViewModels;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace StarSightings
 {
@@ -43,6 +44,7 @@ namespace StarSightings
             
             if (!App.Config.IsAppInit)
             {
+                /*
                 if (!App.ViewModel.IsDataLoaded)
                 {
                     this.busyIndicator_popular.IsRunning = true;
@@ -51,7 +53,14 @@ namespace StarSightings
                     this.busyIndicator_following.IsRunning = true;
                     this.busyIndicator_my.IsRunning = true;
                 }
+                 * */
 
+                if (!NetworkInterface.GetIsNetworkAvailable())
+                {   //if network is not available, we would not continue;                 
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");                        
+                    return;                    
+                }
+                
                 App.Config.InitAppCompletedHandler +=new InitAppHandler(InitAppCompleted);
                 App.Config.InitApp();                
             }			
@@ -63,15 +72,31 @@ namespace StarSightings
             if (!e.Successful)
             {
                 // problem with init, probably because of login, we need to show login page.
-                if (App.ViewModel.AccountType != Constants.ACCOUNT_TYPE_DEVICE)
+                
+                if (e.ErrorCode == Constants.ERROR_LOGIN_USERNAME || e.ErrorCode == Constants.ERROR_LOGIN_PASSWORD)
                 {
-                    this.NavigationService.Navigate(new Uri("/SSLoginPage.xaml", UriKind.RelativeOrAbsolute));
+
+                    if (App.ViewModel.AccountType != Constants.ACCOUNT_TYPE_DEVICE)
+                    {
+                        this.NavigationService.Navigate(new Uri("/LoginOptionsPage.xaml", UriKind.RelativeOrAbsolute));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Errors in application Initialization, please try again or contact us.");
+                    this.NavigationService.Navigate(new Uri("/About.xaml", UriKind.RelativeOrAbsolute));
                 }
             }
             else
             {
                 if (!App.ViewModel.IsDataLoaded)
                 {
+                    this.busyIndicator_popular.IsRunning = true;
+                    this.busyIndicator_latest.IsRunning = true;
+                    this.busyIndicator_nearest.IsRunning = true;
+                    //this.busyIndicator_following.IsRunning = true;
+                    this.busyIndicator_my.IsRunning = true;
+
                     App.ViewModel.PopularItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.LatestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
                     App.ViewModel.NearestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
