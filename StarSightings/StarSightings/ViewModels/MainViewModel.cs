@@ -571,28 +571,49 @@ namespace StarSightings
 
         public void DownloadData()
         {
-            /*
+            
             BackgroundWorker bw0 = new BackgroundWorker();
-            bw0.DoWork += (s, e) => { SearchPopular(true, 0, null); };
+            bw0.DoWork += (s, e) =>
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    SearchPopular(true, 0, null);
+                });
+            };
             bw0.RunWorkerAsync();
 
             BackgroundWorker bw1 = new BackgroundWorker();
-            bw1.DoWork += (s, e) => { SearchLatest(true, 0, null); };
+            bw1.DoWork += (s, e) =>
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                { 
+                   SearchLatest(true, 0, null); 
+                });
+            };
             bw1.RunWorkerAsync();
 
             BackgroundWorker bw2 = new BackgroundWorker();
-            bw2.DoWork += (s, e) => { SearchNearest(true, 0, null); };
+            bw2.DoWork += (s, e) => 
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    SearchNearest(true, 0, null);
+                });
+            };
             bw2.RunWorkerAsync();
 
             BackgroundWorker bw3 = new BackgroundWorker();
             bw3.DoWork += (s, e) =>
             {
-                KeywordType = Constants.KEYWORD_MY;
-                SearchKeywordSearch(true, 0, null);
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    KeywordType = Constants.KEYWORD_MY;
+                    SearchKeywordSearch(true, 0, null);
+                });
             };
             bw3.RunWorkerAsync();
-            */
-            
+                       
+            /*
             SearchPopular(true,0, null);
             SearchLatest(true,0, null);
             SearchNearest(true, 0, null);
@@ -600,7 +621,7 @@ namespace StarSightings
             KeywordType = Constants.KEYWORD_MY;
             SearchKeywordSearch(true, 0, null);
             //SearchFollowing(true, 0, null);
-            
+            */
         }
 
         private bool isUpdatingPopular = false;
