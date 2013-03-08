@@ -52,9 +52,13 @@ namespace StarSightings
         {
             if (e.Successful)
             {
-                App.ViewModel.DeviceId = e.DeviceId;                
+                App.ViewModel.DeviceId = e.DeviceId;
                 Utils.AddOrUpdateIsolatedStorageSettings("DeviceId", App.ViewModel.DeviceId);
                 Login();
+            }
+            else
+            {
+                InitCompleted(false, e.ErrorCode);
             }
         }
 
@@ -113,6 +117,7 @@ namespace StarSightings
             }
         }
 
+        private string loginErrorCode;
         private LoginEventHandler myLoginEventHandler;
         public void LoginCompleted(object sender, LoginEventArgs e)
         {
@@ -129,12 +134,23 @@ namespace StarSightings
             else
             {
                 if (e.ErrorCode == Constants.ERROR_LOGIN_USERNAME)
-                    MessageBox.Show("Cannot login: username doesn't exist.");
+                {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("Cannot login: username doesn't exist.");
+                    });
+                }
                 else if (e.ErrorCode == Constants.ERROR_LOGIN_PASSWORD)
-                    MessageBox.Show("Cannot login: password doesn't match.");
+                {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("Cannot login: password doesn't match.");
+                    });
+                }
             }
             
             loginSuccess = e.Successful;
+            loginErrorCode = e.ErrorCode;
             UpdateAlerts();
         }
 
@@ -168,13 +184,14 @@ namespace StarSightings
             App.ViewModel.KeywordType = Constants.KEYWORD_MY;
             App.ViewModel.SearchKeywordSearch(true, 0, null);
 
-            InitCompleted(loginSuccess);
+            InitCompleted(loginSuccess, loginErrorCode);
         }
 
-        private void InitCompleted(bool success)
+        private void InitCompleted(bool success, string errorCode)
         {
-            IsAppInit = true;
+            IsAppInit = success;
             SSEventArgs se = new SSEventArgs(success);
+            se.ErrorCode = errorCode;
             OnInit(se);
         }
     }
