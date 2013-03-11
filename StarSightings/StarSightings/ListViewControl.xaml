@@ -71,7 +71,7 @@
                                     <SolidColorBrush Color="#010E2A" Opacity="0.5"/>
                                 </Border.Background>
                             </Border>
-                            <TextBlock Text="{Binding Cat}"  MaxWidth="340" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='List'}" FontWeight="Bold"  TextWrapping="Wrap" Margin="12,0,0,0" TextTrimming="WordEllipsis" />
+                            <TextBlock Text="{Binding Cat}" Foreground="White" MaxWidth="340" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='List'}" FontWeight="Bold"  TextWrapping="Wrap" Margin="12,0,0,0" TextTrimming="WordEllipsis" />
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,5,0">
                                 <Image Source="Images/comment_white.png" Stretch="None" VerticalAlignment="Center" />
                                 <TextBlock Text="{Binding CommentsCnt}" FontFamily="Segoe WP" FontSize="21" FontWeight="Bold" Foreground="#ffffff" VerticalAlignment="Center" Margin="5,0,0,0"/>
