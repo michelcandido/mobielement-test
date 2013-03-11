@@ -13,17 +13,17 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
-    shell:SystemTray.IsVisible="True" >
+    shell:SystemTray.IsVisible="False" >
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#000662">
         <!--<Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
         </Grid.Background>-->
-        <!--Pivot Control-->                
-        <controls:Pivot x:Name="pivotControl" >
+        <!--Pivot Control-->
+        <controls:Pivot x:Name="pivotControl" Foreground="White">
             <controls:Pivot.TitleTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" >

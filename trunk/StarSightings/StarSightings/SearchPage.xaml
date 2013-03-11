@@ -10,8 +10,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#000662">
@@ -37,7 +37,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10,0,0,15" Text="Search for" Foreground="#b8b8b8" FontSize="23" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
-                <ListBox Grid.Row="1" Margin="14,0,-12,0" FontSize="35" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
+                <ListBox Grid.Row="1" Margin="10,0,-12,0" FontSize="42" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" Foreground="White">
                     <ListBoxItem Content="Celebrity"/>                    
                     <ListBoxItem Content="Event" />
                     <ListBoxItem Content="Place / Venue" />

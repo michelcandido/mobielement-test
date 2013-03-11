@@ -36,7 +36,7 @@
                             </LinearGradientBrush>                            
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="White"/>
                 </Grid>
             </Grid>
         </DataTemplate>        
@@ -53,7 +53,7 @@
                             </LinearGradientBrush>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="White"/>
                 </Grid>
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Border Height="30" Width="185" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -83,7 +83,7 @@
                             </LinearGradientBrush>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="White"/>
                 </Grid>
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
                     <Border Height="30" Width="185" VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -113,7 +113,7 @@
                             </LinearGradientBrush>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="White"/>
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -129,7 +129,7 @@
                             </LinearGradientBrush>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="White"/>
                 </Grid>
             </Grid>
         </DataTemplate>
@@ -273,7 +273,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Image Grid.Row="0" Source="Images/camera.png" Stretch="None"/>
-                            <TextBlock Grid.Row="1" Text="Post a sighting" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="1" Text="Post a sighting" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold" Foreground="White"/>
                         </Grid>
                     </ListBoxItem>
                     <ListBoxItem>                            
@@ -283,7 +283,7 @@
                         <TextBlock Width="380" Text="You are logged in as a guest. Login to join the celebrity photo stream!" Margin="5,0,0,0" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     </ListBoxItem>
                     <ListBox Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Button Width="390" Margin="-5,0" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3">Login now</Button>
+                        <Button Width="390" Margin="-5,0" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3" BorderBrush="White" Foreground="White">Login now</Button>
                     </ListBox>
                     <ListBoxItem Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Vertical">
