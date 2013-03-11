@@ -45,6 +45,10 @@ namespace StarSightings
 
         public void ObtainLocationSuggestions(string query)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {                
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_SUGGEST;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
@@ -91,6 +95,10 @@ namespace StarSightings
 
         public void ObtainPlaceSuggestions(string query)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_SUGGEST;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
@@ -128,6 +136,10 @@ namespace StarSightings
 
         public void ObtainEventSuggestions(string query)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_SUGGEST;
             Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
@@ -249,6 +261,17 @@ namespace StarSightings
 
         public void RegisterDevice()
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                RegisterEventArgs re = new RegisterEventArgs(false);
+                re.ErrorCode = Constants.ERROR_NONETWORK;
+                OnRegister(re);
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_REGISTER_DEVICE;
             string query = "device_id=3_" /*+ Convert.ToBase64String(Utils.GetDeviceUniqueID())*//*GetWindowsLiveAnonymousID()*/ + "&device_token="+Utils.GetManufacturer();
@@ -292,8 +315,32 @@ namespace StarSightings
                     }
                     OnRegister(re);
                 }
+                else if (errorCode != string.Empty)
+                {
+                    if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Errors in registering your device, please try again later or contact us. Error Code:" + errorCode);
+                        });
+                    }
+                    RegisterEventArgs re = new RegisterEventArgs(false);
+                    re.ErrorCode = errorCode;
+                    OnRegister(re);
+                }
                 else
                 {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {                        
+                        MessageBox.Show("Errors in registering your device, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);                        
+                    });
                     RegisterEventArgs re = new RegisterEventArgs(false);
                     re.ErrorCode = Constants.ERROR_UNKNOWN;
                     OnRegister(re);
@@ -304,6 +351,17 @@ namespace StarSightings
 
         public void UnregisterDevice()
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                RegisterEventArgs re = new RegisterEventArgs(false);
+                re.ErrorCode = Constants.ERROR_NONETWORK;
+                OnRegister(re);
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_UNREGISTER_DEVICE;
             string query = "device_id=" + (string)Utils.GetIsolatedStorageSettings("DeviceId");
@@ -321,15 +379,17 @@ namespace StarSightings
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
                     // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    MessageBox.Show("Errors in unregistering your device, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
                 RegisterEventArgs re = new RegisterEventArgs(false);
+                re.ErrorCode = Constants.ERROR_UNKNOWN;
                 OnRegister(re);
             }
             else
             {                
                 XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
+                string errorCode = GetErrorFromXML(xmlResponse);
                 XElement xmlStatus = xmlResponse.Element("status");
 
                 if (xmlStatus != null && String.Compare(xmlStatus.Value, "OK", StringComparison.CurrentCultureIgnoreCase) == 0)
@@ -338,11 +398,33 @@ namespace StarSightings
                     Utils.RemoveIsolatedStorageSettings("DeviceId");                    
                     OnRegister(re);
                 }
+                else if (errorCode != string.Empty)
+                {
+                    if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Errors in unregistering your device, please try again later or contact us. Error Code:" + errorCode);                        
+                    }
+                    RegisterEventArgs re = new RegisterEventArgs(false);
+                    re.ErrorCode = errorCode;
+                    OnRegister(re);
+                }
                 else
                 {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {                       
+                        MessageBox.Show("Errors in unregistering your device, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);                        
+                    });
                     RegisterEventArgs re = new RegisterEventArgs(false);
+                    re.ErrorCode = Constants.ERROR_UNKNOWN;
                     OnRegister(re);
-                }                
+                }                         
             }
         }       
 
@@ -358,6 +440,17 @@ namespace StarSightings
 
         public void RegisterUser()
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue; 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                RegisterEventArgs re = new RegisterEventArgs(false);
+                re.ErrorCode = Constants.ERROR_NONETWORK;
+                OnRegister(re);
+                return;
+            }
             WebClient webClient = GetWebClient();
             webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
 
@@ -377,11 +470,12 @@ namespace StarSightings
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
                     // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    MessageBox.Show("Errors in registering you, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
                 RegisterEventArgs re = new RegisterEventArgs(false);
-                OnRegister(re);
+                re.ErrorCode = Constants.ERROR_UNKNOWN;
+                OnRegister(re);                
             }
             else
             {
@@ -399,15 +493,57 @@ namespace StarSightings
                     OnRegister(re);
                 }
                 else if (errorCode != string.Empty)
-                {                    
+                {
+                    if (errorCode == Constants.ERROR_REGISTER_USERNAME)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Cannot register: username has been used by others. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_REGISTER_EMAIL_INVALID)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Cannot login: invalid email address. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_REGISTER_EMAIL_UNAVAILABLE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Cannot login: email address has been registered by others. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Errors in registering you, please try again later or contact us. Error Code:" + errorCode);
+                        });
+                    }
                     RegisterEventArgs re = new RegisterEventArgs(false);
                     re.ErrorCode = errorCode;
                     OnRegister(re);
                 }
                 else
                 {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        // Showing the exact error message is useful for debugging. In a finalized application, 
+                        // output a friendly and applicable string to the user instead. 
+                        MessageBox.Show("Errors in registering you, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);                        
+                    });
                     RegisterEventArgs re = new RegisterEventArgs(false);
-                    OnRegister(re);
+                    re.ErrorCode = Constants.ERROR_UNKNOWN;
+                    OnRegister(re);                         
                 }                                
             }
         }
@@ -446,7 +582,18 @@ namespace StarSightings
         }
 
         public void DoSearch(SearchParams searchParams, SearchToken token)
-        {            
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue; 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                SearchEventArgs se = new SearchEventArgs(false);
+                se.ErrorCode = Constants.ERROR_NONETWORK;
+                OnSearch(se);                
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri;
             if (token.searchGroup == Constants.SEARCH_POPULAR)
@@ -469,16 +616,18 @@ namespace StarSightings
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
                     // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    MessageBox.Show("Errors in searching sightings, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
                 SearchEventArgs se = new SearchEventArgs(false);
+                se.ErrorCode = Constants.ERROR_UNKNOWN;
                 se.SearchToken = (SearchToken)e.UserState;
                 OnSearch(se);
             }
             else
             {
                 XElement xmlResponse = XElement.Parse(e.Result);
+                string errorCode = GetErrorFromXML(xmlResponse);
                 XElement xmlItems = xmlResponse.Element("items");
 
                 if (xmlItems != null)
@@ -499,9 +648,41 @@ namespace StarSightings
                     se.SearchToken = (SearchToken)e.UserState;
                     OnSearch(se);
                 }
+                else if (errorCode != string.Empty)
+                {
+                    if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_PHOTO_TOO_LARGE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("The photo file size is too large, please try a smaller one. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Errors in searching sightings, please try again later or contact us. Error Code:" + errorCode);
+                        });
+                    }
+                    SearchEventArgs se = new SearchEventArgs(false);
+                    se.ErrorCode = errorCode;
+                    OnSearch(se);
+                }
                 else
                 {
-                    SearchEventArgs se = new SearchEventArgs(false);                    
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("Errors in searching sightings, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
+                    });
+                    SearchEventArgs se = new SearchEventArgs(false);
+                    se.ErrorCode = Constants.ERROR_UNKNOWN;
                     OnSearch(se);
                 }                
             }
@@ -544,7 +725,6 @@ namespace StarSightings
             item.LocalTime = getElementValue(xmlItem,"local_time");
             item.LocalOffset = getElementValue(xmlItem,"local_offset");
 
-//#if (DEBUG)
             if (xmlItem.Element("comments") != null && xmlItem.Element("comments").Attribute("count") != null) 
                 item.CommentsCnt = xmlItem.Element("comments").Attribute("count").Value.Trim();
             
@@ -569,38 +749,7 @@ namespace StarSightings
                 item.CommentsSummaryList.Source = item.Comments;
                 item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
             }
-//#else
-            /*
-                        item.CommentsCnt = xmlItem.Element("comments_count").Value;
-                        XElement xmlComments = xmlItem.Element("comments");
-                        ObservableCollection<CommentViewModel> comments = new ObservableCollection<CommentViewModel>();
-                        if (xmlComments != null)
-                        {
-                            foreach (XElement xmlComment in xmlComments.Elements("comment"))
-                            {
-                                CommentViewModel comment = new CommentViewModel();
-                                comment.CommentId = xmlComment.Element("comment_id").Value;
-                                comment.Time = xmlComment.Element("time").Value;
-                                comment.CommentType = xmlComment.Element("comment_type").Value;
-                                comment.Promoted = xmlComment.Element("promoted").Value == "1";                                
-                                comment.CommentValue = xmlComment.Element("value").Value;
-                                comment.UserId = xmlComment.Element("user_id").Value;
-                                comment.User = xmlComment.Element("user").Value;
-                                comment.UserLevel = xmlComment.Element("user_level").Value;
-                                if (xmlComment.Element("facebook_uid") != null)
-                                    comment.FacebookUid = xmlComment.Element("facebook_uid").Value;
-                                if (xmlComment.Element("button_template_id") != null)
-                                    comment.ButtonTemplateId = xmlComment.Element("button_template_id").Value;
-                                if (xmlComment.Element("button_template_prompt") != null)
-                                    comment.ButtonTemplatePrompt = xmlComment.Element("button_template_prompt").Value;
-                                comments.Add(comment);
-                            }
-                            item.Comments = comments;
-                            item.CommentsSummaryList.Source = item.Comments;
-                            item.CommentsSummaryList.Filter += (s, a) => a.Accepted = item.Comments.IndexOf((CommentViewModel)a.Item) < Constants.COMMENT_COUNT;
-                        }
-             * */
-//#endif
+
             if (xmlItem.Element("votes") != null && xmlItem.Element("votes").Attribute("prompt") != null)
                 item.VotesPrompt = xmlItem.Element("votes").Attribute("prompt").Value.Trim();
 
@@ -714,7 +863,18 @@ namespace StarSightings
         }
 
         public void Login(int accountType, string query)
-        {            
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                LoginEventArgs le = new LoginEventArgs(false);
+                le.ErrorCode = Constants.ERROR_NONETWORK;
+                OnLogin(le);               
+                return;
+            }
             WebClient webClient = GetWebClient();
             webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
             
@@ -733,12 +893,13 @@ namespace StarSightings
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
-                    // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    // output a friendly and applicable string to the user instead.                                         
+                    MessageBox.Show("Errors in login, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
                 LoginEventArgs le = new LoginEventArgs(false);
-                OnLogin(le);
+                le.ErrorCode = Constants.ERROR_UNKNOWN;
+                OnLogin(le);                
             }
             else
             {
@@ -753,14 +914,47 @@ namespace StarSightings
                     OnLogin(le);
                 }
                 else if (errorCode != string.Empty)
-                {                    
+                {
+                    if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_LOGIN_USERNAME)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Cannot login: username doesn't exist. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_LOGIN_PASSWORD)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Cannot login: password doesn't match. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Errors in login, please try again later or contact us. Error Code:" + errorCode);
+                        });
+                    }
                     LoginEventArgs le = new LoginEventArgs(false);
                     le.ErrorCode = errorCode;
                     OnLogin(le);                    
                 }
                 else
                 {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("Errors in login, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
+                    });
                     LoginEventArgs le = new LoginEventArgs(false);
+                    le.ErrorCode = Constants.ERROR_UNKNOWN;
                     OnLogin(le);
                 }
             }
@@ -768,6 +962,17 @@ namespace StarSightings
 
         public void Logout()
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                LoginEventArgs le = new LoginEventArgs(false);
+                le.ErrorCode = Constants.ERROR_NONETWORK;
+                OnLogin(le);
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_LOGOUT;
             string query = "";
@@ -784,12 +989,13 @@ namespace StarSightings
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
-                    // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    // output a friendly and applicable string to the user instead.                                         
+                    MessageBox.Show("Errors in logout, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
-                LoginEventArgs re = new LoginEventArgs(false);
-                OnLogin(re);
+                LoginEventArgs le = new LoginEventArgs(false);
+                le.ErrorCode = Constants.ERROR_UNKNOWN;
+                OnLogin(le);
             }
             else
             {
@@ -806,15 +1012,34 @@ namespace StarSightings
                     OnLogin(re);
                 }
                 else if (errorCode != string.Empty)
-                {                    
+                {
+                    if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Errors in logout, please try again later or contact us. Error Code:" + errorCode);
+                        });
+                    }
                     LoginEventArgs le = new LoginEventArgs(false);
                     le.ErrorCode = errorCode;
                     OnLogin(le);
                 }
                 else
                 {
-                    LoginEventArgs re = new LoginEventArgs(false);
-                    OnLogin(re);
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("Errors in logout, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
+                    });
+                    LoginEventArgs le = new LoginEventArgs(false);
+                    le.ErrorCode = Constants.ERROR_UNKNOWN;
+                    OnLogin(le);
                 }
                 //UpdateFeedList(e.Result);                
             }
@@ -831,6 +1056,17 @@ namespace StarSightings
 
         public void Alert(string alertMethod, string subjectType, string subjectName)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                AlertEventArgs ae = new AlertEventArgs(false);
+                ae.ErrorCode = Constants.ERROR_NONETWORK;
+                OnAlert(ae);                
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri;
             if (string.IsNullOrEmpty(subjectType))
@@ -852,10 +1088,11 @@ namespace StarSightings
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
                     // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    MessageBox.Show("Errors in updating alerts, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
                 AlertEventArgs ae = new AlertEventArgs(false);
+                ae.ErrorCode = Constants.ERROR_UNKNOWN;
                 OnAlert(ae);
             }
             else
@@ -865,6 +1102,7 @@ namespace StarSightings
 
                 XElement xmlResponse = XElement.Parse(e.Result);//Load(new StringReader(e.Result));
                 XElement xmlAlerts = xmlResponse.Element("alerts");
+                string errorCode = GetErrorFromXML(xmlResponse);
 
                 if (xmlAlerts != null)
                 {
@@ -872,9 +1110,34 @@ namespace StarSightings
                     ae.Alerts = UpdateAlerts(xmlAlerts);
                     OnAlert(ae);
                 }
+                else if (errorCode != string.Empty)
+                {
+                    if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Errors in updating alerts, please try again later or contact us. Error Code:" + errorCode);
+                        });
+                    }
+                    AlertEventArgs ae = new AlertEventArgs(false);
+                    ae.ErrorCode = errorCode;
+                    OnAlert(ae);
+                }
                 else
                 {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("Errors in updating alerts, please try again later or contact us. Error Code:" + errorCode);
+                    });
                     AlertEventArgs ae = new AlertEventArgs(false);
+                    ae.ErrorCode = Constants.ERROR_UNKNOWN;
                     OnAlert(ae);
                 }                 
             }
@@ -914,6 +1177,13 @@ namespace StarSightings
 
         public void Keyword(string page, string q)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                                 
+                KeywordEventArgs ke = new KeywordEventArgs(false);
+                ke.ErrorCode = Constants.ERROR_NONETWORK;
+                OnKeyword(ke);                
+                return;
+            }
             WebClient webClient = GetWebClient();
             string baseUri = Constants.SERVER_NAME + Constants.URL_KEYWORD;
             string query = "page=" + page + "&device_id="+App.ViewModel.DeviceId + "&q=" + HttpUtility.UrlEncode(q);
@@ -982,6 +1252,17 @@ namespace StarSightings
 
         public void SetVote(string value, int selected)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                CommentEventArgs ce = new CommentEventArgs(false);
+                ce.ErrorCode = Constants.ERROR_NONETWORK;
+                OnComment(ce);                
+                return;
+            }
             WebClient webClient = GetWebClient();
             webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
 
@@ -992,21 +1273,20 @@ namespace StarSightings
             webClient.UploadStringCompleted += new UploadStringCompletedEventHandler(HandleNewComment);
             webClient.UploadStringAsync(uri, query);
         }
-
-        
-        /*
-        public event CommentEventHandler CommentHandler;
-
-        protected virtual void OnComment(CommentEventArgs e)
-        {
-            if (CommentHandler != null)
-            {
-                CommentHandler(this, e);
-            }
-        }
-        */
+               
         public void NewComment(string comment)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                CommentEventArgs ce = new CommentEventArgs(false);
+                ce.ErrorCode = Constants.ERROR_NONETWORK;
+                OnComment(ce);
+                return;
+            }
             WebClient webClient = GetWebClient();
             webClient.Headers["Content-Type"] = "application/x-www-form-urlencoded";
 
@@ -1026,10 +1306,11 @@ namespace StarSightings
                 {
                     // Showing the exact error message is useful for debugging. In a finalized application, 
                     // output a friendly and applicable string to the user instead. 
-                    //MessageBox.Show(e.Error.Message);
+                    MessageBox.Show("Errors in updating comments or votes, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     App.Logger.log(LogLevel.error, e.Error.Message);
                 });
                 CommentEventArgs ce = new CommentEventArgs(false);
+                ce.ErrorCode = Constants.ERROR_UNKNOWN;
                 OnComment(ce);
             }
             else
@@ -1052,14 +1333,61 @@ namespace StarSightings
                     OnComment(ce);
                 } 
                 else if (errorCode != string.Empty)
-                {                    
+                {
+                    if (errorCode == Constants.ERROR_MAINTENANCE)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_VOTE_LIMIT)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("You can only vote at most 3 times. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_VOTE_DENIED)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Your voting request is denied. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_COMMENT_LIMIT)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("You has reached your comment limit. Error Code:" + errorCode);
+                        });
+                    }
+                    else if (errorCode == Constants.ERROR_COMMENT_DENIED)
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Your commenting request is denied. Error Code:" + errorCode);
+                        });
+                    }
+                    else
+                    {
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Errors in updating comments or votes, please try again later or contact us. Error Code:" + errorCode);
+                        });
+                    }
                     CommentEventArgs ce = new CommentEventArgs(false);
                     ce.ErrorCode = errorCode;
                     OnComment(ce);
                 }
                 else
                 {
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("Errors in updating comments or votes, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
+                    });
                     CommentEventArgs ce = new CommentEventArgs(false);
+                    ce.ErrorCode = Constants.ERROR_UNKNOWN;
                     OnComment(ce);
                 }
             }
@@ -1077,6 +1405,10 @@ namespace StarSightings
 
         public void PostOnFacebook()
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                                                 
+                return;
+            }
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_NewPostFB);
             bw.RunWorkerAsync();
@@ -1126,6 +1458,16 @@ namespace StarSightings
 
         public void NewPost(bool test)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                PostEventArgs pe = new PostEventArgs(false);
+                OnNewPost(pe);
+                return;
+            }
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_NewPost);
             bw.RunWorkerAsync(test);
@@ -1450,6 +1792,16 @@ namespace StarSightings
 
         public void NewPost2(bool test)
         {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   //if network is not available, we would not continue;                 
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                });
+                PostEventArgs pe = new PostEventArgs(false);
+                OnNewPost(pe);
+                return;
+            }
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_NewPost2);
             bw.RunWorkerAsync(test);

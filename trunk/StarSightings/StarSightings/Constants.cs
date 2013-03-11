@@ -88,8 +88,12 @@ namespace StarSightings
         public const string ERROR_REGISTER_USERNAME = "202";
         public const string ERROR_REGISTER_EMAIL_INVALID = "205";
         public const string ERROR_REGISTER_EMAIL_UNAVAILABLE = "206";
+        public const string ERROR_PHOTO_TOO_LARGE = "403";
 
         public const string ERROR_UNKNOWN = "900";
+        public const string ERROR_MAINTENANCE = "901";
+        public const string ERROR_UPGRADE = "9999";
+        public const string ERROR_NONETWORK = "9000";
 
         public const string ICON_URI_BACK = "/Images/appbar.back.rest.png";
         public const string ICON_URI_NEXT = "/Images/appbar.next.rest.png";

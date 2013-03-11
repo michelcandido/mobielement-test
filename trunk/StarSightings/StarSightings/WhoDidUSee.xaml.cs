@@ -88,7 +88,7 @@ namespace StarSightings
         {
             if (!NetworkInterface.GetIsNetworkAvailable())
             {
-                MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                //MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
                 return;
             }
             string inputString = this.provider.InputString;

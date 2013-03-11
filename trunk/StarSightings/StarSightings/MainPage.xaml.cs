@@ -81,9 +81,13 @@ namespace StarSightings
                         this.NavigationService.Navigate(new Uri("/LoginOptionsPage.xaml", UriKind.RelativeOrAbsolute));
                     }
                 }
+                else if (e.ErrorCode == Constants.ERROR_MAINTENANCE || e.ErrorCode == Constants.ERROR_NONETWORK)
+                {
+                    return;
+                }
                 else
                 {
-                    MessageBox.Show("Errors in application Initialization, please try again or contact us.");
+                    MessageBox.Show("Errors in application Initialization, please try again later or contact us.");
                     this.NavigationService.Navigate(new Uri("/About.xaml", UriKind.RelativeOrAbsolute));
                 }
             }

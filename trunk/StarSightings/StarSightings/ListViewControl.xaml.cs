@@ -42,7 +42,7 @@ namespace StarSightings
             
             if (!NetworkInterface.GetIsNetworkAvailable())
             {
-                MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
+                //MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");
                 return;
             }
 
@@ -91,10 +91,10 @@ namespace StarSightings
         {
             //FiveHundredPxAPI.BeginGetPhotosByCategory("fresh", this.loadedPagesCount, this.PhotoDataDelivered);
             //currentStartIndex = 0;
-            if (this.requestIssued)
+            if (this.requestIssued || !NetworkInterface.GetIsNetworkAvailable())
             {
                 return;
-            }
+            }            
             switch (this.SearchGroup)
             {
                 case Constants.SEARCH_POPULAR:
@@ -122,7 +122,7 @@ namespace StarSightings
 
         private void OnListBox_DataRequested(object sender, EventArgs e)
         {
-            if (this.requestIssued)
+            if (this.requestIssued || !NetworkInterface.GetIsNetworkAvailable())
             {
                 return;
             }

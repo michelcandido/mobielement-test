@@ -131,6 +131,7 @@ namespace StarSightings
                 else
                     App.ViewModel.NeedLogin = false;
             }
+            /*
             else
             {
                 if (e.ErrorCode == Constants.ERROR_LOGIN_USERNAME)
@@ -148,7 +149,7 @@ namespace StarSightings
                     });
                 }
             }
-            
+            */
             loginSuccess = e.Successful;
             loginErrorCode = e.ErrorCode;
             UpdateAlerts();
