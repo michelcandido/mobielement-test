@@ -22,6 +22,7 @@ namespace StarSightings
             InitializeComponent();
         }        
 
+        /*
         private void button_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(this.tbComment.Text))
@@ -34,7 +35,7 @@ namespace StarSightings
                 });                   
             }
         }
-
+        */
          public void CommentCompleted(object sender, CommentEventArgs e)
         {
             App.SSAPI.CommentHandler -= commentHandler;
@@ -43,6 +44,7 @@ namespace StarSightings
                 //App.ViewModel.SelectedItem = e.Item;
                 this.NavigationService.GoBack();
             }
+                /*
             else
             {
                 if (!string.IsNullOrEmpty(e.ErrorCode))
@@ -65,6 +67,7 @@ namespace StarSightings
                     MessageBox.Show("Errors in commenting, please try again.");
                 }
             }
+                 * */
         }
 
          private void OnPost(object sender, EventArgs e)

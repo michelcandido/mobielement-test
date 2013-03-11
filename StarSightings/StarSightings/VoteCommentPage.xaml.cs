@@ -90,6 +90,7 @@ namespace StarSightings
             {
                 UIElement marker = markers.Dequeue();
                 marker.Visibility = marker.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+                /*
                 if (!string.IsNullOrEmpty(e.ErrorCode))
                 {
                     if (e.ErrorCode == Constants.ERROR_VOTE_LIMIT)
@@ -109,7 +110,7 @@ namespace StarSightings
                 {
                     MessageBox.Show("Errors in voting, please try again.");
                 }
-                
+                */
             }
         }
 

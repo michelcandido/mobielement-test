@@ -70,6 +70,7 @@ namespace StarSightings
 
             App.SSAPI.SearchHandler += new SearchEventHandler(SearchCompleted);
             App.SSAPI.CommentHandler += new CommentEventHandler(CommentCompleted);
+            App.SSAPI.NewPostHandler += new PostEventHandler(PostCompleted);
 
             App.GeoWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
             App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
@@ -772,11 +773,9 @@ namespace StarSightings
             token.isFresh = fresh;
             token.start = start;
             isUpdatingKeywordSearch = true;
-            //App.ViewModel.KeywordSearchItems.Clear();
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                App.SSAPI.DoSearch(param, token);
-            });
+            //App.ViewModel.KeywordSearchItems.Clear();            
+            App.SSAPI.DoSearch(param, token);
+            
         }
 
         public void SearchCompleted(object sender, SearchEventArgs e)
@@ -1049,7 +1048,34 @@ namespace StarSightings
 
                 App.ViewModel.SelectedItem.Votes = e.Item.Votes;
             }            
-        }        
+        }
+
+        public void PostCompleted(object sender, PostEventArgs e)
+        {            
+            if (e.Successful)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    MessageBox.Show("Your post has been submitted successfully.");
+                });
+                App.ViewModel.SearchLatest(true, 0, null);
+                App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                App.ViewModel.SearchKeywordSearch(true, 0, null);
+                App.ViewModel.StoryTime = new DateTime(0);
+            }
+            else
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    MessageBox.Show("Errors in your submission, please try again.");
+                });
+
+            }
+        }
 
         // Event handler for the GeoCoordinateWatcher.StatusChanged event.
         void watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)

@@ -76,8 +76,8 @@ namespace StarSightings
             nvc.Add("token" , App.ViewModel.User.Token);
             */
             
-            postHandler = new PostEventHandler(PostCompleted);
-            App.SSAPI.NewPostHandler += postHandler;
+            //postHandler = new PostEventHandler(PostCompleted);
+            //App.SSAPI.NewPostHandler += postHandler;
 
             if (App.ViewModel.PostMode == 1)
             {                
@@ -96,8 +96,8 @@ namespace StarSightings
             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear&screen=2", UriKind.RelativeOrAbsolute));
         }
 
-        private PostEventHandler postHandler;
-        
+        //private PostEventHandler postHandler;
+        /*
         public void PostCompleted(object sender, PostEventArgs e)
         {
             App.SSAPI.NewPostHandler -= postHandler;
@@ -123,29 +123,9 @@ namespace StarSightings
                     MessageBox.Show("Errors in your submission, please try again.");
                 });         
 
-            }
-            /*
-            this.busyIndicator.IsRunning = false;
-            App.SSAPI.NewPostHandler -= postHandler;
-            if (e.Successful && e.Items.Any(i=>i.Hidden==false))
-            {                
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    MessageBox.Show("New sighting has been posted successfully.");
-                });
-                App.ViewModel.SearchLatest(true, 0, null);
-                this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
-            }
-            else
-            {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    MessageBox.Show("Failed in posting new sightings, please try again.");
-                });
-                
-            }
-             * */
+            }            
         }
+         * */
 
         protected void OnNavigatedFrom(NavigationEventArgs e)
         {
