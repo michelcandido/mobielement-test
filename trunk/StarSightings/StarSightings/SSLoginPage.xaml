@@ -33,9 +33,9 @@
             <!--Pivot item one-->
             <controls:PivotItem Header="login">
                 <Grid >
-                    <telerikPrimitives:RadTextBox Watermark="Username" HorizontalAlignment="Left" Margin="6,29,0,0" Name="tbLoginUserName" VerticalAlignment="Top" Width="460" MaxLength="20" Foreground="White"/>
-                    <telerikPrimitives:RadTextBox Watermark="Password" HorizontalAlignment="Left" Margin="6,129,0,0" Name="tbLoginPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" Foreground="White"/>
-                    <PasswordBox Margin="6,129,0,0" HorizontalAlignment="Left" Name="pbLoginPassword" VerticalAlignment="Top" Width="460" LostFocus="LoginPasswordLostFocus" Opacity="0" GotFocus="LoginPasswordGotFocus" MaxLength="20" Foreground="White"/>
+                    <telerikPrimitives:RadTextBox Watermark="Username" HorizontalAlignment="Left" Margin="6,29,0,0" Name="tbLoginUserName" VerticalAlignment="Top" Width="460" MaxLength="20" Style="{StaticResource MyRadTextBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
+                    <telerikPrimitives:RadTextBox Watermark="Password" HorizontalAlignment="Left" Margin="6,129,0,0" Name="tbLoginPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" Style="{StaticResource MyRadTextBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
+                    <PasswordBox Margin="6,129,0,0" HorizontalAlignment="Left" Name="pbLoginPassword" VerticalAlignment="Top" Width="460" LostFocus="LoginPasswordLostFocus" Opacity="0" GotFocus="LoginPasswordGotFocus" MaxLength="20" Style="{StaticResource MyPasswordBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
                     <TextBlock Text="Forgot password?" FontWeight="Bold" FontSize="25" Foreground="#ffffff" Margin="16,219,0,0" Tap="TextBlock_Tap" />
                 </Grid>                                   
             </controls:PivotItem>
@@ -43,12 +43,12 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="new user">
                 <Grid >
-                    <telerikPrimitives:RadTextBox Watermark="Username (3 - 20 characters)" HorizontalAlignment="Left" Margin="6,29,0,0" Name="tbUserName" VerticalAlignment="Top" Width="460" MaxLength="20" Text="{Binding UserName, Mode=TwoWay}" KeyDown="tbUserName_KeyDown" LostFocus="UsernameLostFocus" Foreground="White"/>
-                    <telerikPrimitives:RadTextBox Watermark="Password (6 - 20 characters)" HorizontalAlignment="Left" Margin="6,129,0,0" Name="tbPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" Foreground="White"/>
-                    <PasswordBox Margin="6,129,0,0" HorizontalAlignment="Left" Name="pbPassword" VerticalAlignment="Top" Width="460" LostFocus="PasswordLostFocus" Opacity="0" GotFocus="PasswordGotFocus" Password="{Binding Password, Mode=TwoWay}" MaxLength="20" KeyDown="pbPassword_KeyDown" Foreground="White"/>
-                    <telerikPrimitives:RadTextBox Watermark="Verify Password" HorizontalAlignment="Left" Margin="6,229,0,0" Name="tbVerifyPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" Foreground="White"/>
-                    <PasswordBox Margin="6,229,0,0" HorizontalAlignment="Left" Name="pbVerifyPassword" VerticalAlignment="Top" Width="460" LostFocus="VerifyPasswordLostFocus" Opacity="0" GotFocus="VerifyPasswordGotFocus" Password="{Binding PasswordConfirm, Mode=TwoWay}" MaxLength="20" KeyDown="pbVerifyPassword_KeyDown" Foreground="White"/>
-                    <telerikPrimitives:RadTextBox Watermark="Email" HorizontalAlignment="Left" Margin="6,329,0,0" Name="tbEmail" VerticalAlignment="Top" Width="460" LostFocus="EmailLostFocus" Text="{Binding UserEmail, Mode=TwoWay}" KeyDown="tbEmail_KeyDown" Foreground="White"/>
+                    <telerikPrimitives:RadTextBox Watermark="Username (3 - 20 characters)" HorizontalAlignment="Left" Margin="6,29,0,0" Name="tbUserName" VerticalAlignment="Top" Width="460" MaxLength="20" Text="{Binding UserName, Mode=TwoWay}" KeyDown="tbUserName_KeyDown" LostFocus="UsernameLostFocus" Style="{StaticResource MyRadTextBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
+                    <telerikPrimitives:RadTextBox Watermark="Password (6 - 20 characters)" HorizontalAlignment="Left" Margin="6,129,0,0" Name="tbPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" Style="{StaticResource MyRadTextBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
+                    <PasswordBox Margin="6,129,0,0" HorizontalAlignment="Left" Name="pbPassword" VerticalAlignment="Top" Width="460" LostFocus="PasswordLostFocus" Opacity="0" GotFocus="PasswordGotFocus" Password="{Binding Password, Mode=TwoWay}" MaxLength="20" KeyDown="pbPassword_KeyDown" Style="{StaticResource MyPasswordBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
+                    <telerikPrimitives:RadTextBox Watermark="Verify Password" HorizontalAlignment="Left" Margin="6,229,0,0" Name="tbVerifyPasswordWatermark" VerticalAlignment="Top" Width="460" MaxLength="20" Style="{StaticResource MyRadTextBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
+                    <PasswordBox Margin="6,229,0,0" HorizontalAlignment="Left" Name="pbVerifyPassword" VerticalAlignment="Top" Width="460" LostFocus="VerifyPasswordLostFocus" Opacity="0" GotFocus="VerifyPasswordGotFocus" Password="{Binding PasswordConfirm, Mode=TwoWay}" MaxLength="20" KeyDown="pbVerifyPassword_KeyDown" Style="{StaticResource MyPasswordBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
+                    <telerikPrimitives:RadTextBox Watermark="Email" HorizontalAlignment="Left" Margin="6,329,0,0" Name="tbEmail" VerticalAlignment="Top" Width="460" LostFocus="EmailLostFocus" Text="{Binding UserEmail, Mode=TwoWay}" KeyDown="tbEmail_KeyDown" Style="{StaticResource MyRadTextBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
                 </Grid>                
             </controls:PivotItem>
         </controls:Pivot>

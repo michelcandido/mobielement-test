@@ -30,10 +30,8 @@
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" >
-        <Grid.Background>
-            <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
-        </Grid.Background>
+    <Grid x:Name="LayoutRoot" Background="#000662">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -41,10 +39,14 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome" />
             <TextBlock x:Name="ApplicationTitle" Text="More than one celebrity in the photo?" FontSize="23" Foreground="#b8b8b8"/>
         </StackPanel>
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" >
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -56,7 +58,7 @@
                     </Style>
                 </telerikPrimitives:RadTextBox.ActionButtonStyle>
             </telerikPrimitives:RadTextBox>-->
-            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter another celebname"  ClearButtonVisibility="Visible" ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap">
+            <telerikInput:RadAutoCompleteBox Grid.Row="0" Margin="10,0,12,0" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter another celebname"  ClearButtonVisibility="Visible" ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap" Foreground="Black" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF">
                 <telerikPrimitives:RadTextBox.ActionButtonStyle>
                     <Style TargetType="telerikTextBox:TextBoxActionButton">
                         <Setter Property="RestStateImageSource" Value="/Images/appbar.add.rest.png"/>

@@ -24,7 +24,7 @@
         </Grid.Background>-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome" />
-            <TextBlock x:Name="ApplicationTitle" Text="scoop" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Visibility="Collapsed"/>            
+            <TextBlock x:Name="ApplicationTitle" Text="scoop" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Visibility="Collapsed" Foreground="White"/>            
         </StackPanel>
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,-50,0,0" Visibility="Visible">
@@ -34,10 +34,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>                
             </Grid.RowDefinitions>
-            <Button Content="Take Picture(s)" Height="71" Name="takePictureButton" Margin="87,199,82,453" Click="TakePictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25"/>
-            <Button Content="Select a Picture" Height="71" Margin="87,311,82,341" Name="selectPictureButton" Click="SelectPictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25"/>
-            <Button Content="No Picture" Height="71" Margin="87,431,82,221" Name="noPictureButton" Opacity="1" Click="noPictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25"/>
-            <Button Content="Cancel" Height="71" Margin="87,546,82,106" Name="cancelButton" Click="CancelButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25" />
+            <Button Content="Take Picture(s)" Height="71" Name="takePictureButton" Margin="87,199,82,453" Click="TakePictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25" Foreground="White" BorderBrush="White"/>
+            <Button Content="Select a Picture" Height="71" Margin="87,311,82,341" Name="selectPictureButton" Click="SelectPictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25" Foreground="White" BorderBrush="White"/>
+            <Button Content="No Picture" Height="71" Margin="87,431,82,221" Name="noPictureButton" Opacity="1" Click="noPictureButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25" Foreground="White" BorderBrush="White"/>
+            <Button Content="Cancel" Height="71" Margin="87,546,82,106" Name="cancelButton" Click="CancelButton_Click" Background="#140e2a" FontFamily="Segoe WP" FontWeight="Bold" FontSize="25" Foreground="White" BorderBrush="White"/>
         </Grid>
         <Grid x:Name="ContentPanelChooser" Grid.Row="1"  Visibility="Collapsed">
             <Image  HorizontalAlignment="Center"  Name="pictureToShow1" Stretch="UniformToFill" VerticalAlignment="Top" >
@@ -53,7 +53,7 @@
                             <SolidColorBrush Color="#140E2A" Opacity="0.5"/>
                         </Border.Background>
                     </Border>
-                    <TextBlock Text="Add Details" MaxWidth="440" MaxHeight="120" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="31" FontWeight="Bold" />
+                    <TextBlock Text="Add Details" Foreground="White" MaxWidth="440" MaxHeight="120" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,0,0" FontFamily="Segoe WP" FontSize="31" FontWeight="Bold" />
                 </Grid>
             </Grid>
         </Grid>

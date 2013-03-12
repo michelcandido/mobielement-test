@@ -52,6 +52,11 @@ namespace StarSightings
                     this.datePicker.SelectedValue = App.ViewModel.StoryTime.ToLocalTime();
                 }                
             }
-        }        
+        }
+
+        private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
+        }    
     }
 }
