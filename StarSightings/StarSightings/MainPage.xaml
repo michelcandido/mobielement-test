@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"         
+    xmlns:funControls="clr-namespace:Coding4Fun.Phone.Controls;assembly=Coding4Fun.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
@@ -134,7 +135,7 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="FollowingsSummaryItemTemplate">
-            <Grid  Background="#010E2A" Margin="0,0,0,5">
+            <Grid   Margin="0,0,0,5">
                 <Grid.ColumnDefinitions>                    
                     <ColumnDefinition Width="360"/>
                     <ColumnDefinition Width="Auto"/>
@@ -227,12 +228,13 @@
             <controls:PanoramaItem Margin="10,0,0,0" Header="following" HeaderTemplate="{StaticResource MyPanoramaItemHeaderTemplate}" Orientation="Horizontal">
                 <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400" >
                             <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebrities" Width="305"/>
                             <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />-->
-                            <Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
+                            <!--<Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
                                 <Image Source="/Images/appbar.add.rest.png"  Stretch="UniformToFill"  VerticalAlignment="Center"  Tap="AddFollowing" />
-                            </Border>
+                            </Border>-->
+                            <funControls:RoundButton ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing"/>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem >
@@ -247,9 +249,10 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
                         <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members" Width="305"/>
                         <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>-->
-                        <Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
+                        <!--<Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
                             <Image Source="/Images/appbar.add.rest.png"  Stretch="UniformToFill" VerticalAlignment="Center" Tap="AddFollowing2" />
-                        </Border>
+                        </Border>-->
+                        <funControls:RoundButton ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing2"/>
                     </StackPanel>
                     <ListBoxItem >
                         <TextBlock Width="400" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}, ConverterParameter='0toshow'}" Text="You are not following any member yet. Tap on &quot;+&quot; button to search for members to follow."/>

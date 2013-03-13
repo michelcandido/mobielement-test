@@ -20,6 +20,7 @@ using System.Net;
 using Microsoft.Phone.BackgroundTransfer;
 using Microsoft.Phone.Net.NetworkInformation;
 
+
 namespace StarSightings
 {
     public class MainViewModel : INotifyPropertyChanged
@@ -73,7 +74,7 @@ namespace StarSightings
             App.SSAPI.NewPostHandler += new PostEventHandler(PostCompleted);
 
             App.GeoWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
-            App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            App.GeoWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);            
             
        
             PopularItemsSummaryList = new CollectionViewSource();

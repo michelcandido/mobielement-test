@@ -80,10 +80,15 @@
             </controls:Pivot.TitleTemplate>
             <!--Pivot item one-->
             <controls:PivotItem Header="vote">
-                <StackPanel Orientation="Vertical" Margin="0,-20,0,0">
-                    <TextBlock Text="{Binding SelectedItem.VotesPrompt}" FontSize="25" Foreground="#FFFFFF" Margin="12,0,0,12"/>
-                    <ListBox ItemsSource="{Binding SelectedItem.Votes}" ItemsPanel="{StaticResource VoteItemsPanelTemplate}" ItemTemplate="{StaticResource VoteItemTemplate}" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" />                    
-                </StackPanel>
+                <ListBox Margin="0,-20,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListBoxItem>
+                        <TextBlock Text="{Binding SelectedItem.VotesPrompt}" FontSize="25" Foreground="#FFFFFF" Margin="12,0,0,12"/>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <ListBox ItemsSource="{Binding SelectedItem.Votes}" ItemsPanel="{StaticResource VoteItemsPanelTemplate}" ItemTemplate="{StaticResource VoteItemTemplate}" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                    </ListBoxItem>
+                    <ListBoxItem Height="25"/>
+                </ListBox>
             </controls:PivotItem>
 
             <!--Pivot item two-->
