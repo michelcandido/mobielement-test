@@ -32,7 +32,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
-            <telerikPrimitives:RadTextBox Watermark="What say you?" HorizontalAlignment="Left" Margin="0,10,0,0" Name="tbComment" VerticalAlignment="Top" Width="460" Height="200" AcceptsReturn="True" TextWrapping="Wrap" Foreground="White"/>
+            <telerikPrimitives:RadTextBox Watermark="What say you?" HorizontalAlignment="Left" Margin="0,10,0,0" Name="tbComment" VerticalAlignment="Top" Width="460" Height="200" AcceptsReturn="True" TextWrapping="Wrap" Style="{StaticResource MyRadTextBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF"/>
             <!--<Button Content="Post" Height="72" HorizontalAlignment="Left" Margin="21,224,0,0" Name="button" VerticalAlignment="Top" Width="417" Click="button_Click" />-->
         </Grid>
     </Grid>

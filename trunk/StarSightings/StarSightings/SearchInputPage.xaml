@@ -12,8 +12,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#000662">
@@ -40,14 +40,14 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock x:Name="SearchFor" Grid.Row="0" Margin="{StaticResource PhoneHorizontalMargin}" Text="Search" Foreground="#b8b8b8" FontSize="21" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
-                <telerikInput:RadAutoCompleteBox Grid.Row="1"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" ClearButtonVisibility="Visible">
+                <telerikInput:RadAutoCompleteBox Grid.Row="1"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" ClearButtonVisibility="Visible" Style="{StaticResource MyRadAutoCompleteBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF">
                     <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"/>
                         </DataTemplate>
                     </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                 </telerikInput:RadAutoCompleteBox>
-                <Button Grid.Row="2" Click="Button_Click">Search</Button>
+                <Button Grid.Row="2" Click="Button_Click" Foreground="White" BorderBrush="White">Search</Button>
             </Grid>
         </Grid>
     </Grid>

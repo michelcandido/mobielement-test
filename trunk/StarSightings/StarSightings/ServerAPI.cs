@@ -740,6 +740,10 @@ namespace StarSightings
                     comment.Promoted = getElementAttribute(xmlComment, "p") == "1";
                     comment.Time = getElementValue(xmlComment, "time");
                     comment.CommentValue = getElementValue(xmlComment, "value");
+                    if (!comment.CommentValue.StartsWith("<") && !comment.CommentValue.EndsWith(">"))
+                    {
+                        comment.CommentValue = "<H2>" + comment.CommentValue + "</H2>";
+                    }
                     comment.UserId = getElementValue(xmlComment, "user_id");
                     comment.User = getElementValue(xmlComment, "user");
                     comments.Insert(0,comment);

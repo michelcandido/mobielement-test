@@ -11,8 +11,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True">
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#000662">
@@ -27,16 +27,16 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome"/>            
-            <TextBlock x:Name="PageTitle" Text="filters" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="filters" Margin="0,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="White"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
-            <toolkitPrimitives:LoopingSelector Grid.Column="1" x:Name="selectorCategory" ItemMargin="5" ItemSize="320,160" FontSize="38" IsExpanded="True">
+            <toolkitPrimitives:LoopingSelector Grid.Column="1" x:Name="selectorCategory" ItemMargin="5" ItemSize="320,160" FontSize="38" IsExpanded="True" Foreground="White" BorderBrush="White">
                 <toolkitPrimitives:LoopingSelector.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
                         </Grid>
                     </DataTemplate>
                 </toolkitPrimitives:LoopingSelector.ItemTemplate>
