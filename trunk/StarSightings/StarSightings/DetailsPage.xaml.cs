@@ -65,22 +65,29 @@ namespace StarSightings
 
         private void Wiki_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            /*
             WebBrowserTask webBrowserTask = new WebBrowserTask();
 
             webBrowserTask.Uri = new Uri("http://en.m.wikipedia.org/wiki/" + ((string)((sender as Grid).Tag)).Trim(), UriKind.Absolute);
 
             webBrowserTask.Show();
+             * */
+            this.NavigationService.Navigate(new Uri(string.Format("/WebPage.xaml?url={0}", "http://en.m.wikipedia.org/wiki/" + ((string)((sender as Grid).Tag)).Trim()), UriKind.RelativeOrAbsolute));
         }
 
         private void Source_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            /*
             WebBrowserTask webBrowserTask = new WebBrowserTask();
             webBrowserTask.Uri = new Uri(((string)((sender as ListBoxItem).Tag)).Trim(), UriKind.Absolute);
             webBrowserTask.Show();
+            */
+            this.NavigationService.Navigate(new Uri(string.Format("/WebPage.xaml?url={0}", ((string)((sender as ListBoxItem).Tag)).Trim()), UriKind.RelativeOrAbsolute));
         }
 
         private void htmlTextBlock_NavigationRequested(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
+            /*
             WebBrowserTask webBrowserTask = new WebBrowserTask();
 
             try
@@ -93,8 +100,8 @@ namespace StarSightings
                 
                 //throw;
             }
-
-            
+            */
+            this.NavigationService.Navigate(new Uri(string.Format("/WebPage.xaml?url={0}", ((e.Content as Hyperlink).CommandParameter as string)), UriKind.RelativeOrAbsolute));     
         }
 
         private AlertEventHandler followAlertEventHandler;
@@ -208,7 +215,7 @@ namespace StarSightings
         {
             App.ViewModel.SelectedItem = this.slideView.SelectedItem as ItemViewModel;
             string url;
-            WebBrowserTask webBrowserTask = new WebBrowserTask();
+            //WebBrowserTask webBrowserTask = new WebBrowserTask();
             if (!string.IsNullOrEmpty(App.ViewModel.SelectedItem.SourceUrl))
             {
                 url = App.ViewModel.SelectedItem.SourceUrl;

@@ -52,7 +52,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Grid x:Name="Follow_Sightings" Margin="10,0,0,10" Grid.Row="0" Background="{Binding SearchKeywords, Converter={StaticResource FollowingStatusConverter}, ConverterParameter='@Color'}" Width="380" Height="60" HorizontalAlignment="Left" Tap="Follow_Tap">
+                    <Grid x:Name="Follow_Sightings" Margin="10,0,0,10" Grid.Row="0" Background="{Binding SearchKeywords, Converter={StaticResource FollowingStatusConverter}, ConverterParameter='@Color'}" Width="380" Height="60" HorizontalAlignment="Left" Tap="Follow_Tap" Visibility="{Binding KeywordSearchItems,Converter={StaticResource SightingsVisibleConverter}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="3*"/>
