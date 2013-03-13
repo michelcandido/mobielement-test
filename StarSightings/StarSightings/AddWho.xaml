@@ -58,7 +58,7 @@
                     </Style>
                 </telerikPrimitives:RadTextBox.ActionButtonStyle>
             </telerikPrimitives:RadTextBox>-->
-            <telerikInput:RadAutoCompleteBox Grid.Row="0" Margin="10,0,12,0" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter another celebname"  ClearButtonVisibility="Visible" ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap" Foreground="Black" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF">
+            <telerikInput:RadAutoCompleteBox Grid.Row="0" Margin="10,0,12,0" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter another celebname"  ClearButtonVisibility="Visible" ActionButtonVisibility="Visible" ActionButtonTap="OnAddTap" Style="{StaticResource MyRadAutoCompleteBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF">
                 <telerikPrimitives:RadTextBox.ActionButtonStyle>
                     <Style TargetType="telerikTextBox:TextBoxActionButton">
                         <Setter Property="RestStateImageSource" Value="/Images/appbar.add.rest.png"/>
@@ -70,7 +70,7 @@
                     </DataTemplate>
                 </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
             </telerikInput:RadAutoCompleteBox>
-            <ListBox Grid.Row="1" HorizontalAlignment="Left"  Name="listBox1" VerticalAlignment="Top" Width="460" ItemsSource="{Binding Path=CelebNameList}" ItemTemplate="{StaticResource CelebViewItemTemplate}" Tap="OnTap"  />
+            <ListBox Margin="10,0,12,0" Grid.Row="1" HorizontalAlignment="Left"  Name="listBox1" VerticalAlignment="Top" Width="460" ItemsSource="{Binding Path=CelebNameList}" ItemTemplate="{StaticResource CelebViewItemTemplate}" Tap="OnTap"  />
         </Grid>
     </Grid>
  

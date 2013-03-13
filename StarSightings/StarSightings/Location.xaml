@@ -24,10 +24,8 @@
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" >
-        <Grid.Background>
-            <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
-        </Grid.Background>
+    <Grid x:Name="LayoutRoot" Background="#000662">
+        
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -35,25 +33,28 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">            
-            <TextBlock x:Name="ApplicationTitle" Text="What is the location?" FontSize="23" Foreground="#b8b8b8"/>
-            
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome" />
+            <TextBlock x:Name="ApplicationTitle" Text="What is the location?" FontSize="23" Foreground="#b8b8b8"/>            
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" >
+            <Grid.Background>
+                <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <telerikInput:RadAutoCompleteBox Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter city, state, or country" TextChanged="onTextChange" Text="{Binding StoryLocation}" ClearButtonVisibility="Visible">
+            <telerikInput:RadAutoCompleteBox Margin="10,0,12,0" Grid.Row="0"  AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter city, state, or country" TextChanged="onTextChange" Text="{Binding StoryLocation}" ClearButtonVisibility="Visible" Style="{StaticResource MyRadAutoCompleteBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF">
                 <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}"/>
                     </DataTemplate>
                 </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
-            </telerikInput:RadAutoCompleteBox>            
-            <ListBox Grid.Row="1" HorizontalAlignment="Left"  Name="listBox1" VerticalAlignment="Top" Width="460" ItemsSource="{Binding Path=LocationList}" ItemTemplate="{StaticResource LocationViewItemTemplate}" Tap="Location_Tap"  />
+            </telerikInput:RadAutoCompleteBox>
+            <ListBox Margin="10,0,12,0" Grid.Row="1" HorizontalAlignment="Left"  Name="listBox1" VerticalAlignment="Top" Width="460" ItemsSource="{Binding Path=LocationList}" ItemTemplate="{StaticResource LocationViewItemTemplate}" Tap="Location_Tap"  />
         </Grid>
     </Grid>
  

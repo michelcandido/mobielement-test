@@ -40,7 +40,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
                 <!--<telerikPrimitives:RadTextBox Grid.Row="1" Watermark="Enter celebname" HorizontalAlignment="Center"  Name="tbName" VerticalAlignment="Top" Width="460" FontSize="25" Text="{Binding CelebName, Mode=TwoWay}" TextChanged="onTextChange" />-->
-            <telerikInput:RadAutoCompleteBox Grid.Row="0" Margin="10,0,12,0" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter celebname"  ClearButtonVisibility="Visible"  Text="{Binding CelebName, Mode=TwoWay}" TextChanged="onTextChange" Foreground="Black" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF">
+            <telerikInput:RadAutoCompleteBox Grid.Row="0" Margin="10,0,12,0" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" x:Name="radAutoCompleteBox"  AutoCompleteMode="Contains" Watermark="Enter celebname"  ClearButtonVisibility="Visible"  Text="{Binding CelebName, Mode=TwoWay}" TextChanged="onTextChange" Style="{StaticResource MyRadAutoCompleteBoxStyle}" Background="#BFFFFFFF" BorderBrush="#BFFFFFFF">
                 <telerikPrimitives:RadTextBox.ActionButtonStyle>
                     <Style TargetType="telerikTextBox:TextBoxActionButton">
                         <Setter Property="RestStateImageSource" Value="/Images/appbar.add.rest.png"/>

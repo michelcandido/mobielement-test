@@ -29,7 +29,7 @@
                     <TextBlock   Text="{Binding User}" FontSize="23" FontWeight="Bold" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Left" TextTrimming="WordEllipsis" Tap="User_Tap" />
                     <Image  Source="Images/Commentbox_tail.png"  Stretch="None" Margin="20,0,0,0" HorizontalAlignment="Left"/>
                     <Grid Width="400" Margin="10,0,0,0" HorizontalAlignment="Left" Background="#010e2a" >
-                        <krempel:HtmlTextBlock Html="{Binding CommentValue}" Width="360"  FontSize="23"   Margin="5" NavigationRequested="htmlTextBlock_NavigationRequested" Foreground="White" H1Foreground="White" H2Foreground="White" H3Foreground="White"/>
+                        <krempel:HtmlTextBlock Html="{Binding CommentValue}" Width="360"  FontSize="23"   Margin="5" NavigationRequested="htmlTextBlock_NavigationRequested" Style="{StaticResource MyHtmlTextBlockStyle}"/>
                     </Grid>
                 </StackPanel>
             </Grid>
