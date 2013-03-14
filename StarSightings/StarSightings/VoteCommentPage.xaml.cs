@@ -25,6 +25,7 @@ namespace StarSightings
 
         private void htmlTextBlock_NavigationRequested(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
+            /*
             WebBrowserTask webBrowserTask = new WebBrowserTask();
 
             try
@@ -37,6 +38,8 @@ namespace StarSightings
 
                 //throw;
             }
+             * */
+            this.NavigationService.Navigate(new Uri(string.Format("/WebPage.xaml?url={0}", ((e.Content as Hyperlink).CommandParameter as string)), UriKind.RelativeOrAbsolute));     
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
