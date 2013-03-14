@@ -91,7 +91,7 @@ namespace StarSightings
                 //this.ApplicationBar.IsVisible = true;
                 
                 getPicDateTime(info);
-                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "library", (App.ViewModel.StoryTime.CompareTo(new DateTime(0)) <= 0) ? "user" : "exif", "asset");
+                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "library", (App.ViewModel.StoryTime.CompareTo(new DateTime(0)) <= 0) ? "user" : "exif", (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)?"exif":"nil");
                 //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
             }
             
@@ -155,7 +155,7 @@ namespace StarSightings
                 ContentPanelScoop.Visibility = Visibility.Visible;//.Collapsed;
                 ApplicationTitle.Visibility = Visibility.Visible;
 
-                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "app", "asset", "app");
+                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "app", "app", "app");
                 //this.ApplicationBar.IsVisible = true;
                 
                 //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));                                
@@ -228,8 +228,7 @@ namespace StarSightings
                 App.ViewModel.StoryLat = 0;
                 App.ViewModel.StoryLng = 0;
             }
-            App.ViewModel.StoryLat = 47.6097;
-            App.ViewModel.StoryLng = -122.1879;
+            
             /*
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
