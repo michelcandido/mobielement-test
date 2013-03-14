@@ -604,6 +604,16 @@ namespace StarSightings
             };
             bw2.RunWorkerAsync();
 
+            BackgroundWorker bw4 = new BackgroundWorker();
+            bw4.DoWork += (s, e) =>
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    SearchFollowing(true, 0, null);
+                });
+            };
+            bw4.RunWorkerAsync();
+
             BackgroundWorker bw3 = new BackgroundWorker();
             bw3.DoWork += (s, e) =>
             {

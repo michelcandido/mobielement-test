@@ -180,10 +180,10 @@ namespace StarSightings
                 
             }
             App.ViewModel.UpdateMyFollowings();
-            App.ViewModel.SearchFollowing(true, 0, null);
+            //App.ViewModel.SearchFollowing(true, 0, null);
 
-            App.ViewModel.KeywordType = Constants.KEYWORD_MY;
-            App.ViewModel.SearchKeywordSearch(true, 0, null);
+            //App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+            //App.ViewModel.SearchKeywordSearch(true, 0, null);
 
             InitCompleted(loginSuccess, loginErrorCode);
         }

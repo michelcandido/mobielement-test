@@ -1511,6 +1511,7 @@ namespace StarSightings
             }
 
             nvc.Add("camera_info", App.ViewModel.CameraInfo);
+            nvc.Add("device_id", App.ViewModel.DeviceId);
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
             //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
@@ -1826,6 +1827,7 @@ namespace StarSightings
             }
 
             nvc.Add("camera_info", App.ViewModel.CameraInfo);
+            nvc.Add("device_id", App.ViewModel.DeviceId);
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
             //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
