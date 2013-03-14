@@ -179,9 +179,9 @@
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Margin="0,-24,0,24" Tap="GoToList" Tag="0" >popular</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <Grid>                                
-                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_popular" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />                            
+                            <Grid>                                                                
                                 <ListBox Tag="0" Margin="0,0,-12,0" ItemsSource="{Binding PopularItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" />
+                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_popular" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
                             </Grid>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="0" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
@@ -190,9 +190,9 @@
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="1" Margin="0,60,0,0">latest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <Grid>
-                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_latest" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
+                            <Grid>                                
                                 <ListBox  Tag="1" Margin="0,0,-12,0" ItemsSource="{Binding LatestItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyLatestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
+                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_latest" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
                             </Grid>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="1" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
@@ -201,9 +201,9 @@
                         <StackPanel>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="2" Margin="0,60,0,0">nearest</TextBlock>
                             <!--Double line list with image placeholder and text wrapping-->
-                            <Grid>
-                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_nearest" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
+                            <Grid>                                
                                 <ListBox  Tag="2" Margin="0,0,-12,0" ItemsSource="{Binding NearestItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyNearestSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
+                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_nearest" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
                             </Grid>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="2" Margin="0,30,0,0">more...</TextBlock>
                         </StackPanel>
@@ -213,9 +213,9 @@
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="72" Tap="GoToList" Tag="3" Margin="0,60,0,0">following</TextBlock>
                             <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="19"  Margin="0,30,0,0" Width="400" TextWrapping="Wrap" Text="Your following feed appears here. You are currently not following any celebrity." Visibility="{Binding FollowingItems, Converter={StaticResource SightingsVisibleConverter}, ConverterParameter='0toshow'}"/>
                             <TextBlock FontFamily="Segoe WP" Foreground="#ffffff" FontSize="29"  Margin="0,30,0,0" Width="400" TextWrapping="Wrap" Text="Add your favorites!" Visibility="{Binding FollowingItems, Converter={StaticResource SightingsVisibleConverter}, ConverterParameter='0toshow'}" Tap="AddFollowing"/>
-                            <Grid>
-                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_following" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
+                            <Grid>                                
                                 <ListBox  Tag="3" Margin="0,0,-12,0" ItemsSource="{Binding FollowingItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MyFollowingSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}"/>
+                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_following" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
                             </Grid>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="3" Margin="0,30,0,0" Text="more..." Visibility="{Binding FollowingItems, Converter={StaticResource SightingsVisibleConverter}}"/>
                         </StackPanel>
@@ -296,9 +296,9 @@
                     </ListBoxItem>
                     <ListBoxItem>                    
                         <StackPanel>                                                
-                            <Grid>
-                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_my" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
+                            <Grid>                                
                                 <ListBox Tag="4" Margin="0,0,-12,0" ItemsSource="{Binding MySightingsItemsSummaryList.View}" ItemsPanel="{StaticResource MySummaryItemsPanelTemplate}" ItemTemplate="{StaticResource MySightingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" />
+                                <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_my" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" />
                             </Grid>
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,0" Tap="GoToMyList" Visibility="{Binding MySightingsItems, Converter={StaticResource SightingsVisibleConverter}}">more...</TextBlock>
                         </StackPanel>
@@ -343,6 +343,7 @@
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#0021a2">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.camera.rest.png" Text="post" Click="GoToCameraMode"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.search.rest.png" Text="search" Click="GoToSearch"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.rest.png" Text="refresh" Click="Refresh" />
             <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>

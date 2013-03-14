@@ -68,7 +68,7 @@ namespace StarSightings
 
         private void InitAppCompleted(Object sender, SSEventArgs e)
         {
-            this.busyIndicator_following.IsRunning = false;
+            //this.busyIndicator_following.IsRunning = false;
             if (!e.Successful)
             {
                 // problem with init, probably because of login, we need to show login page.
@@ -95,44 +95,66 @@ namespace StarSightings
             {
                 if (!App.ViewModel.IsDataLoaded)
                 {
-                    this.busyIndicator_popular.IsRunning = true;
-                    this.busyIndicator_latest.IsRunning = true;
-                    this.busyIndicator_nearest.IsRunning = true;
-                    //this.busyIndicator_following.IsRunning = true;
-                    this.busyIndicator_my.IsRunning = true;
-
-                    App.ViewModel.PopularItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
-                    App.ViewModel.LatestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
-                    App.ViewModel.NearestItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);
-                    //App.ViewModel.FollowingItemsLoadReday +=new SearchCompletedCallback(ViewModel_ItemsLoadReday);
-                    App.ViewModel.MySightingsItemsLoadReday += new SearchCompletedCallback(ViewModel_ItemsLoadReday);                    
-
-                    App.ViewModel.LoadData();                    
+                    loadAll();
                 }
             }
         }
+
+        private void loadAll()
+        {
+            this.busyIndicator_popular.IsRunning = true;
+            this.busyIndicator_latest.IsRunning = true;
+            this.busyIndicator_nearest.IsRunning = true;
+            this.busyIndicator_following.IsRunning = true;
+            this.busyIndicator_my.IsRunning = true;
+
+            popularSearchCompleted = new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+            latestSearchCompleted = new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+            nearestSearchCompleted = new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+            followingSearchCompleted = new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+            mySearchCompleted = new SearchCompletedCallback(ViewModel_ItemsLoadReday);
+
+            App.ViewModel.PopularItemsLoadReday += popularSearchCompleted;
+            App.ViewModel.LatestItemsLoadReday += latestSearchCompleted;
+            App.ViewModel.NearestItemsLoadReday += nearestSearchCompleted;
+            App.ViewModel.FollowingItemsLoadReday += followingSearchCompleted;
+            App.ViewModel.MySightingsItemsLoadReday += mySearchCompleted;
+
+            App.ViewModel.LoadData();                    
+        }
+
+        private SearchCompletedCallback popularSearchCompleted;
+        private SearchCompletedCallback latestSearchCompleted;
+        private SearchCompletedCallback nearestSearchCompleted;
+        private SearchCompletedCallback followingSearchCompleted;
+        private SearchCompletedCallback mySearchCompleted;
 
         private void ViewModel_ItemsLoadReday(object sender, SearchEventArgs e)
         {
             if (e.SearchToken.searchGroup == Constants.SEARCH_POPULAR)
             {
                 this.busyIndicator_popular.IsRunning = false;
+                App.ViewModel.PopularItemsLoadReday -= popularSearchCompleted;
             }
-            if (e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
+            else if (e.SearchToken.searchGroup == Constants.SEARCH_LATEST)
             {
                 this.busyIndicator_latest.IsRunning = false;
+                App.ViewModel.LatestItemsLoadReday -= latestSearchCompleted;
             }
-            if (e.SearchToken.searchGroup == Constants.SEARCH_NEAREST)
+            else if (e.SearchToken.searchGroup == Constants.SEARCH_NEAREST)
             {
                 this.busyIndicator_nearest.IsRunning = false;
+                App.ViewModel.NearestItemsLoadReday -= nearestSearchCompleted;
             }
-            if (e.SearchToken.searchGroup == Constants.SEARCH_FOLLOWING)
+            else if (e.SearchToken.searchGroup == Constants.SEARCH_FOLLOWING)
             {
                 this.busyIndicator_following.IsRunning = false;
+                App.ViewModel.FollowingItemsLoadReday -= followingSearchCompleted;
             }
-            if (e.SearchToken.searchGroup == Constants.SEARCH_KEYWORDSEARCH && App.ViewModel.KeywordType == Constants.KEYWORD_MY)
+            else if (e.SearchToken.searchGroup == Constants.SEARCH_KEYWORDSEARCH && App.ViewModel.KeywordType == Constants.KEYWORD_MY)
             {
                 this.busyIndicator_my.IsRunning = false;
+                App.ViewModel.MySightingsItemsLoadReday -= mySearchCompleted;
             }
         }
 
@@ -310,7 +332,18 @@ namespace StarSightings
                 }
             }
              * */
-        }        
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            this.busyIndicator_popular.IsRunning = false;
+            this.busyIndicator_latest.IsRunning = false;
+            this.busyIndicator_nearest.IsRunning = false;
+            this.busyIndicator_following.IsRunning = false;
+            this.busyIndicator_my.IsRunning = false;
+        }
+
 
         private void clearBackEntry(object sender, DoWorkEventArgs ea)
         {
@@ -392,6 +425,11 @@ namespace StarSightings
         private void GoToSettings(object sender, System.Windows.Input.GestureEventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Refresh(object sender, EventArgs e)
+        {
+            loadAll();
         }        
     }
 }
