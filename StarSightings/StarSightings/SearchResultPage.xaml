@@ -72,20 +72,26 @@
                             <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />-->
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem x:Name="NoCeleb" Margin="0,0,0,30">
+                        <TextBlock  Width="400" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Text="Not following any celebrity yet."/>
+                    </ListBoxItem>
                     <ListBoxItem>
                         <ListBox x:Name="CelebsList"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
-                    <ListBoxItem>
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
+                    <ListBoxItem x:Name="MoreCeleb">
+                        <TextBlock  FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
                     </ListBoxItem>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
                         <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members" Width="305"/>
                         <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>-->
                     </StackPanel>
+                    <ListBoxItem x:Name="NoUser">
+                        <TextBlock  Width="400" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Text="Not following any member yet."/>
+                    </ListBoxItem>
                     <ListBoxItem>
                         <ListBox x:Name="UsersList"   ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem x:Name="MoreUser">
                         <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,30,0,0">more...</TextBlock>
                     </ListBoxItem>
                 </ListBox>
