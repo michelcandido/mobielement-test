@@ -62,7 +62,7 @@ namespace StarSightings
             }
         }
 
-        private bool loginSuccess;
+        public bool loginSuccess;
         public void Login()
         {
             bool needLogin = false;

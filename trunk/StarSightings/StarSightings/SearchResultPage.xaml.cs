@@ -68,7 +68,28 @@ namespace StarSightings
             else
             {
             }
-            
+
+            if (this.CelebsList.Items.Count == 0)
+            {
+                this.NoCeleb.Visibility = Visibility.Visible;
+                this.MoreCeleb.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.NoCeleb.Visibility = Visibility.Collapsed;
+                this.MoreCeleb.Visibility = Visibility.Visible;
+            }
+
+            if (this.UsersList.Items.Count == 0)
+            {
+                this.NoUser.Visibility = Visibility.Visible;
+                this.MoreUser.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.NoUser.Visibility = Visibility.Collapsed;
+                this.MoreUser.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>

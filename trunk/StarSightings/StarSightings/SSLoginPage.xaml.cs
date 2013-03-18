@@ -217,6 +217,10 @@ namespace StarSightings
                 App.ViewModel.User = e.User;
                 Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
                 Utils.AddOrUpdateIsolatedStorageSettings("AccountType", App.ViewModel.AccountType);                
+                
+
+                App.Config.loginSuccess = true;
+                App.ViewModel.IsDataLoaded = false;
                 App.ViewModel.NeedLogin = false;
 
                 App.Config.UpdateAlerts();
@@ -224,16 +228,21 @@ namespace StarSightings
                 App.ViewModel.KeywordType = Constants.KEYWORD_MY;
                 App.ViewModel.SearchKeywordSearch(true, 0, null);                
                 */
+                /*
                 NavigationService.RemoveBackEntry();
                 this.NavigationService.GoBack();
+                 * */
+                GoHome(this, null);
             }
             else
             {
                 App.ViewModel.NeedLogin = true;
+                /*
                 if (e.ErrorCode == Constants.ERROR_LOGIN_USERNAME)
                     MessageBox.Show("Cannot login: username doesn't exist.");
                 else if (e.ErrorCode == Constants.ERROR_LOGIN_PASSWORD)
                     MessageBox.Show("Cannot login: password doesn't match.");
+                 * */
             }
         }
 
@@ -271,12 +280,14 @@ namespace StarSightings
 
         private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            /*
             WebBrowserTask webBrowserTask = new WebBrowserTask();
 
             webBrowserTask.Uri = new Uri(Constants.SERVER_NAME + "/forum/ucp.php?mode=sendpassword", UriKind.Absolute);
 
             webBrowserTask.Show();
-            
+            */
+            this.NavigationService.Navigate(new Uri(Constants.SERVER_NAME + "/forum/ucp.php?mode=sendpassword", UriKind.Absolute));     
         }
 
         private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)

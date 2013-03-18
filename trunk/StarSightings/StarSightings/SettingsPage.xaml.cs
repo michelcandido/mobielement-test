@@ -56,7 +56,9 @@ namespace StarSightings
                 Utils.RemoveIsolatedStorageSettings("User");
 
                 App.ViewModel.NeedLogin = true;
+                App.ViewModel.IsDataLoaded = false;
                 App.Config.Login();
+                GoHome(this, null);
             }
             else
             {

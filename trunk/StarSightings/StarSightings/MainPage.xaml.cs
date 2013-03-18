@@ -32,11 +32,13 @@ namespace StarSightings
             DataContext = App.ViewModel;
             
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            
+            bw_clearBackEntry.DoWork += new DoWorkEventHandler(clearBackEntry);
+            App.Config.InitAppCompletedHandler += new InitAppHandler(InitAppCompleted);
+
 			//Shows the rate reminder message, according to the settings of the RateReminder.
             (App.Current as App).rateReminder.Notify();
 
-            bw_clearBackEntry.DoWork += new DoWorkEventHandler(clearBackEntry);            
+            
         }
 
 		void MainPage_Loaded(object sender, RoutedEventArgs e)
@@ -60,8 +62,8 @@ namespace StarSightings
                     MessageBox.Show("No Internet connection. StarSightings needs Internet access to function properly.");                        
                     return;                    
                 }
-                
-                App.Config.InitAppCompletedHandler +=new InitAppHandler(InitAppCompleted);
+
+                //App.Config.InitAppCompletedHandler += new InitAppHandler(InitAppCompleted);
                 App.Config.InitApp();                
             }			
         }

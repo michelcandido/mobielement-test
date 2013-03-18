@@ -538,7 +538,7 @@ namespace StarSightings
         public bool IsDataLoaded
         {
             get;
-            private set;
+            set;
         }
 
         /// <summary>
@@ -1071,10 +1071,14 @@ namespace StarSightings
                     // output a friendly and applicable string to the user instead. 
                     MessageBox.Show("Your post has been submitted successfully.");
                 });
+                /*
                 App.ViewModel.SearchLatest(true, 0, null);
                 App.ViewModel.KeywordType = Constants.KEYWORD_MY;
                 App.ViewModel.SearchKeywordSearch(true, 0, null);
+                 * */
                 App.ViewModel.StoryTime = new DateTime(0);
+                App.ViewModel.IsDataLoaded = false;
+                App.Config.UpdateAlerts();
             }
             else
             {
