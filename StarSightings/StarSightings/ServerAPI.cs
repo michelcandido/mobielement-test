@@ -229,9 +229,9 @@ namespace StarSightings
             String toReturn = "mode=place&cat=";
             toReturn += getCatList(true);
             toReturn += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
-            if (App.ViewModel.StoryLat != 0.0)
+            //if (App.ViewModel.StoryLat != 0.0)
                 toReturn += "&geo_lat=" + App.ViewModel.StoryLat;
-            if (App.ViewModel.StoryLng != 0.0)
+            //if (App.ViewModel.StoryLng != 0.0)
                 toReturn += "&geo_lng=" + App.ViewModel.StoryLng;
             toReturn += "&location=" + HttpUtility.UrlEncode(App.ViewModel.StoryLocation);
             toReturn += "&device_id=" + App.ViewModel.DeviceId;
