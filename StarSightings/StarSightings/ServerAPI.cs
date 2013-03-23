@@ -664,6 +664,16 @@ namespace StarSightings
                             MessageBox.Show("The photo file size is too large, please try a smaller one. Error Code:" + errorCode);
                         });
                     }
+                    else if (errorCode == Constants.ERROR_TOKEN_INVALID)
+                    {
+                        App.ViewModel.User.TokenExpiration = 0;
+                        App.ViewModel.User.Token = string.Empty;
+                        Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Your access token has expired, please restart the application. Error Code:" + errorCode);
+                        });
+                    }
                     else
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -1123,6 +1133,16 @@ namespace StarSightings
                             MessageBox.Show("System is under maintenance, please try again later. Error Code:" + errorCode);
                         });
                     }
+                    else if (errorCode == Constants.ERROR_TOKEN_INVALID)
+                    {
+                        App.ViewModel.User.TokenExpiration = 0;
+                        App.ViewModel.User.Token = string.Empty;
+                        Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Your access token has expired, please restart the application. Error Code:" + errorCode);
+                        });
+                    }
                     else
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -1138,7 +1158,7 @@ namespace StarSightings
                 {
                     Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
-                        MessageBox.Show("Errors in updating alerts, please try again later or contact us. Error Code:" + errorCode);
+                        MessageBox.Show("Errors in updating alerts, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
                     });
                     AlertEventArgs ae = new AlertEventArgs(false);
                     ae.ErrorCode = Constants.ERROR_UNKNOWN;
@@ -1373,6 +1393,16 @@ namespace StarSightings
                             MessageBox.Show("Your commenting request is denied. Error Code:" + errorCode);
                         });
                     }
+                    else if (errorCode == Constants.ERROR_TOKEN_INVALID)
+                    {
+                        App.ViewModel.User.TokenExpiration = 0;
+                        App.ViewModel.User.Token = string.Empty;
+                        Utils.AddOrUpdateIsolatedStorageSettings("User", App.ViewModel.User);
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("Your access token has expired, please restart the application. Error Code:" + errorCode);
+                        });
+                    }
                     else
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -1515,7 +1545,7 @@ namespace StarSightings
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
             //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
-            nvc.Add("time", App.ViewModel.StoryTime.ToLocalTime().ToString());
+            nvc.Add("time", App.ViewModel.StoryTime.ToString());
 
             if (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)
             {
@@ -1831,7 +1861,7 @@ namespace StarSightings
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
             //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
-            nvc.Add("time", App.ViewModel.StoryTime.ToLocalTime().ToString());
+            nvc.Add("time", App.ViewModel.StoryTime.ToString());
 
 
             if (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)

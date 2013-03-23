@@ -69,7 +69,7 @@ namespace StarSightings
             if (Utils.GetIsolatedStorageSettings("User") != null)
             {
                 App.ViewModel.User = (UserViewModel)Utils.GetIsolatedStorageSettings("User");
-                if (Utils.ConvertToUnixTimestamp(DateTime.UtcNow) > App.ViewModel.User.TokenExpiration)
+                if (Utils.ConvertToUnixTimestamp(DateTime.UtcNow) > App.ViewModel.User.TokenExpiration || string.IsNullOrEmpty(App.ViewModel.User.Token))
                     needLogin = true;
             }
             else
@@ -177,9 +177,15 @@ namespace StarSightings
                 {
                     App.ViewModel.Alerts = (ObservableCollection<AlertViewModel>)Utils.GetIsolatedStorageSettings("Alerts");                    
                 }
-                
+
+                if (e.ErrorCode == Constants.ERROR_TOKEN_INVALID || e.ErrorCode == Constants.ERROR_MAINTENANCE)
+                {
+                    loginSuccess = false;
+                    loginErrorCode = e.ErrorCode;
+                }
             }
             App.ViewModel.UpdateMyFollowings();
+
             //App.ViewModel.SearchFollowing(true, 0, null);
 
             //App.ViewModel.KeywordType = Constants.KEYWORD_MY;
