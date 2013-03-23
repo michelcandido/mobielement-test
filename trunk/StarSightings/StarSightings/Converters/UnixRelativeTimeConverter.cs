@@ -20,7 +20,7 @@ namespace StarSightings.Converters
             double time = 0;
             Double.TryParse((string)value, out time);
             RelativeTimeConverter converter = new RelativeTimeConverter();  
-            DateTime source = Utils.ConvertFromUnixTimestamp(time).ToUniversalTime();
+            DateTime source = Utils.ConvertFromUnixTimestamp(time);//.ToUniversalTime();
             return converter.Convert(source, targetType, parameter, culture);            
         }
 

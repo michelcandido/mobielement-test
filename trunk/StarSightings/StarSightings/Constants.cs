@@ -95,6 +95,11 @@ namespace StarSightings
         public const string ERROR_UPGRADE = "9999";
         public const string ERROR_NONETWORK = "9000";
 
+        public const string ERROR_TOKEN_INVALID = "101";
+        
+        public const string ERROR_ALERT_SUBJECT_NOT_EXISTS = "501";
+        public const string ERROR_ALERT_NOT_EXISTS = "502";
+
         public const string ICON_URI_BACK = "/Images/appbar.back.rest.png";
         public const string ICON_URI_NEXT = "/Images/appbar.next.rest.png";
         public const string ICON_URI_CANCEL = "/Images/appbar.close.rest.png";

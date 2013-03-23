@@ -21,8 +21,8 @@ namespace StarSightings.Converters
             Double.TryParse((string)value, out time);
 
             string result;
-            DateTime dt = Utils.ConvertFromUnixTimestamp(time);
-            return dt.ToString("MMMM dd, yyyy h:m tt");
+            DateTime dt = Utils.ConvertFromUnixTimestamp(time).ToLocalTime();
+            return dt.ToString("MMMM dd, yyyy h:mm tt");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

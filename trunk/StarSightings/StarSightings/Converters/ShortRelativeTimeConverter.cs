@@ -73,7 +73,7 @@ namespace StarSightings.Converters
 
             string result;
 
-            DateTime given = (Utils.ConvertFromUnixTimestamp(time));//.ToLocalTime();
+            DateTime given = (Utils.ConvertFromUnixTimestamp(time)).ToLocalTime();
 
             DateTime current = DateTime.Now;
 

@@ -1190,6 +1190,8 @@ namespace StarSightings
          * */
         public void UpdateMyFollowings()
         {
+            if (App.ViewModel.Alerts == null)
+                return;
             IEnumerable<string> query = App.ViewModel.Alerts.Where(alert => alert.Type == "celebrity").Select(alert => alert.Name);
             App.ViewModel.MyFollowingCelebs.Clear();            
             foreach (string name in query)
