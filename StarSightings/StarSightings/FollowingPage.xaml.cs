@@ -57,8 +57,18 @@ namespace StarSightings
         private void DeleteFollowed(object sender, System.Windows.Input.GestureEventArgs e)
         {
             UserViewModel selectedItemData = (sender as Image).DataContext as UserViewModel;
+            /*
+            if (selectedItemData.UserType == Constants.KEYWORD_NAME)
+            {
+                App.ViewModel.MyFollowingCelebs.Remove(selectedItemData);
+            }
+            else if (selectedItemData.UserType == Constants.KEYWORD_USER)
+            {
+                App.ViewModel.MyFollowingUsers.Remove(selectedItemData);
+            }
+             * */
 
-            App.ViewModel.MyFollowingCelebs.Remove(selectedItemData);
+            ((sender as Image).Parent as Grid).Visibility = Visibility.Collapsed;
 
             if (selectedItemData != null)
             {

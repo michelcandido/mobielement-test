@@ -88,12 +88,23 @@ namespace StarSightings
                 App.SSAPI.NewPost2((bool)cbTest.IsChecked);                
             }
 
-            if (this.cbFacebook.IsChecked==true && !string.IsNullOrEmpty(App.ViewModel.User.FBToken))
+            if (this.cbFacebook.IsChecked == true && !string.IsNullOrEmpty(App.ViewModel.User.FBToken) && App.ViewModel.AccountType == Constants.ACCOUNT_TYPE_FACEBOOK)
             {                
                 App.SSAPI.PostOnFacebook();                
             }
 
-            this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear&screen=2", UriKind.RelativeOrAbsolute));
+            //this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear&screen=2", UriKind.RelativeOrAbsolute));
+            App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+            NavigationService.Navigate(new Uri("/SearchResultPage.xaml?clear", UriKind.RelativeOrAbsolute));
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (App.ViewModel.AccountType != Constants.ACCOUNT_TYPE_FACEBOOK)
+            {
+                this.cbFacebook.IsEnabled = false;
+            }
         }
 
         //private PostEventHandler postHandler;

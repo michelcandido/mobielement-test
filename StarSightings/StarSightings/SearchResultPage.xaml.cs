@@ -14,12 +14,14 @@ using System.Windows.Navigation;
 using StarSightings.Events;
 using StarSightings.ViewModels;
 using System.Text;
+using System.ComponentModel;
 
 namespace StarSightings
 {
     public partial class SearchResultPage : PhoneApplicationPage
     {
         private PivotItem followingPivotItem;
+        private BackgroundWorker bw_clearBackEntry = new BackgroundWorker();
 
         public SearchResultPage()
         {
@@ -27,7 +29,7 @@ namespace StarSightings
 
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(SearchResultPage_Loaded);
-
+            bw_clearBackEntry.DoWork += new DoWorkEventHandler(clearBackEntry);
             followingPivotItem = (this.pivotControl.Items.Single(p => ((PivotItem)p).Name == "FollowingPivotItem")) as PivotItem;
         }
 
@@ -45,9 +47,11 @@ namespace StarSightings
             if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
             {
                 if (App.ViewModel.KeywordType != Constants.KEYWORD_MY)
-                    this.pivotControl.Title = App.ViewModel.SearchKeywords.ToUpper();
+                    //this.pivotControl.Title = App.ViewModel.SearchKeywords.ToUpper();
+                    this.Title.Text = App.ViewModel.SearchKeywords.ToUpper();
                 else
-                    this.pivotControl.Title = App.ViewModel.User.UserName.ToUpper();
+                    //this.pivotControl.Title = App.ViewModel.User.UserName.ToUpper();
+                    this.Title.Text = App.ViewModel.User.UserName.ToUpper();
 
                 if (App.ViewModel.KeywordType != Constants.KEYWORD_USER && App.ViewModel.KeywordType != Constants.KEYWORD_MY && followingPivotItem != null)
                 {
@@ -57,6 +61,15 @@ namespace StarSightings
                 if (App.ViewModel.KeywordType == Constants.KEYWORD_MY)
                 {
                     this.Follow_Sightings.Visibility = Visibility.Collapsed;
+                }
+
+                if (App.ViewModel.KeywordType == Constants.KEYWORD_MY || App.ViewModel.KeywordType == Constants.KEYWORD_USER)
+                {                    
+                    this.By.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.By.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -90,6 +103,22 @@ namespace StarSightings
                 this.NoUser.Visibility = Visibility.Collapsed;
                 this.MoreUser.Visibility = Visibility.Visible;
             }
+
+            if (e.NavigationMode == NavigationMode.New && NavigationContext.QueryString.ContainsKey("clear"))
+            {
+                bw_clearBackEntry.RunWorkerAsync();
+            }
+        }
+
+        private void clearBackEntry(object sender, DoWorkEventArgs ea)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            });
         }
 
         /// <summary>
@@ -154,10 +183,31 @@ namespace StarSightings
 
             if (selectedItemData != null)
             {
-                followAlertEventHandler = new AlertEventHandler(DeleteFollowCompleted);
-                App.SSAPI.AlertHandler += followAlertEventHandler;
-                App.SSAPI.Alert(Constants.ALERT_REMOVE, selectedItemData.UserType + "/", selectedItemData.UserName);
+                if (App.ViewModel.KeywordType == Constants.KEYWORD_MY)
+                {
+                    /*
+                    if (selectedItemData.UserType == Constants.KEYWORD_NAME)
+                    {
+                        App.ViewModel.MyFollowingCelebs.Remove(selectedItemData);
+                        App.ViewModel.UpdateMyFollowingCelebsSummaryList();
+                        this.CelebsList.ItemsSource = App.ViewModel.MyFollowingCelebsSummaryList.View;
+                    }
+                    else if (selectedItemData.UserType == Constants.KEYWORD_USER)
+                    {
+                        App.ViewModel.MyFollowingUsers.Remove(selectedItemData);
+                        App.ViewModel.UpdateMyFollowingUsersSummaryList();
+                        this.UsersList.ItemsSource = App.ViewModel.MyFollowingUsersSummaryList.View;
+                    }
+                    */
+                    ((sender as Image).Parent as Grid).Visibility = Visibility.Collapsed;
 
+                    followAlertEventHandler = new AlertEventHandler(DeleteFollowCompleted);
+                    App.SSAPI.AlertHandler += followAlertEventHandler;
+                    App.SSAPI.Alert(Constants.ALERT_REMOVE, selectedItemData.UserType + "/", selectedItemData.UserName);
+                }
+                else
+                {
+                }
             }
         }
 
@@ -168,13 +218,15 @@ namespace StarSightings
             {
                 App.ViewModel.Alerts = e.Alerts;
                 Utils.AddOrUpdateIsolatedStorageSettings("Alerts", App.ViewModel.Alerts);
-                MessageBox.Show("Your request has been set.");
+                MessageBox.Show("Removed from your following list.");
                 App.ViewModel.UpdateMyFollowings();
+                this.CelebsList.ItemsSource = App.ViewModel.MyFollowingCelebsSummaryList.View;
+                this.UsersList.ItemsSource = App.ViewModel.MyFollowingUsersSummaryList.View;
                 App.ViewModel.SearchFollowing(true, 0, null);
             }
             else
             {
-                MessageBox.Show("Your Alert request cannot be fullfilled, please try again.");
+                MessageBox.Show("Cannot remove it from your following list, please try again.");
             }
         }
 
@@ -238,6 +290,22 @@ namespace StarSightings
         private void GoHome(object sender, System.Windows.Input.GestureEventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
-        }        
+        }
+
+
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+
+            base.OnBackKeyPress(e);
+            if (NavigationContext.QueryString.ContainsKey("clear"))
+            {
+                e.Cancel = true;
+                GoHome(this, null);
+            }
+
+        }
+
+  
     }
 }

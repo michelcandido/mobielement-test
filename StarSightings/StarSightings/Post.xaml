@@ -25,7 +25,7 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
             <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome" />
-            <TextBlock x:Name="ApplicationTitle" Text="Share on" FontSize="23" Foreground="#b8b8b8"/>            
+            <TextBlock x:Name="ApplicationTitle" Text="Share" FontSize="23" Foreground="#b8b8b8"/>            
         </StackPanel>
         <!--<CheckBox Content="Facebook" Grid.Row="1" Height="92" HorizontalAlignment="Left" Name="checkBox1" VerticalAlignment="Top" Margin="24,0,0,0" FontSize="29"/>
         <CheckBox Content="Twitter" Grid.Row="1" Height="92" HorizontalAlignment="Left" Margin="303,0,0,0" Name="checkBox2" VerticalAlignment="Top" FontSize="29"/>
@@ -37,7 +37,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" >
             <Grid.Background>
-                <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.1" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="{Binding SelectedImage}" Opacity="0.25" Stretch="UniformToFill" />
             </Grid.Background>
             <Grid Margin="10,0,12,0">
                 <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator" AnimationStyle="AnimationStyle7" IsRunning="False" Foreground="White" Content="Posting..." />
@@ -46,15 +46,15 @@
                         <CheckBox Content="Facebook" Name="cbFacebook" FontSize="29" Margin="0,0,80,0" Foreground="White" BorderBrush="#BFFFFFFF" Background="#BFFFFFFF"/>
                         <!--<CheckBox Content="Twitter" Name="checkBox2" FontSize="29"/>-->
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                        <TextBlock HorizontalAlignment="Left" Text="Is this a real celebrity sighting?" FontSize="23" Foreground="#b8b8b8" Margin="12"/>
-                    <CheckBox Content="Just testing"  HorizontalAlignment="Left" Name="cbTest"  FontSize="29" Foreground="White" BorderBrush="#BFFFFFFF" Background="#BFFFFFFF"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">                        
+                        <CheckBox Content="Just testing"  HorizontalAlignment="Left" Name="cbTest"  FontSize="29" Foreground="White" BorderBrush="#BFFFFFFF" Background="#BFFFFFFF"/>
+                        <TextBlock HorizontalAlignment="Left" Text="Check here if not a real celebrity sighting" FontSize="19" Foreground="#b8b8b8" Margin="50,0,0,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="12,200,0,0" VerticalAlignment="Bottom">
                         <TextBlock  HorizontalAlignment="Left" Name="textBlock2" Text="By posting this picture I certify that I took this photo or otherwise own all rights regarding its distribution."    TextWrapping="Wrap" FontStretch="Normal" FontSize="23" Foreground="#b8b8b8" />
-                        <StackPanel Orientation="Horizontal" Margin="12,50,0,0">
-                            <Button Width="160" Content="cancel" HorizontalAlignment="Left" Name="button1" Tap="OnCancelTap" Margin="0,0,80,0" Foreground="White" BorderBrush="White"/>
-                        <Button Width="160" Content="post now" HorizontalAlignment="Left" Name="button2" Tap="OnPostTap" Foreground="White" BorderBrush="White"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+                            <Button Width="220" Content="cancel" HorizontalAlignment="Left" Name="button1" Tap="OnCancelTap"  Foreground="White" BorderBrush="White"/>
+                            <Button Width="220" Content="post now" HorizontalAlignment="Right" Name="button2" Tap="OnPostTap" Foreground="White" BorderBrush="White"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

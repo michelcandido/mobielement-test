@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"         
     xmlns:local="clr-namespace:StarSightings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,7 +14,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="False">
+    shell:SystemTray.IsVisible="False" >
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="FollowingsSummaryItemTemplate">
@@ -33,19 +34,41 @@
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#000662">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="20,17,0,28">
+            <Image x:Name="icon" Source="Images/SS_logo_small.png" Stretch="None" HorizontalAlignment="Left" Tap="GoHome" />
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="By" Text="by " FontSize="23" Foreground="#b8b8b8"/>
+                    <TextBlock x:Name="Title"  FontSize="22" TextTrimming="WordEllipsis" Foreground="White"/>                
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="uploading" FontSize="25" Foreground="#b8b8b8" />
+                    <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_upload" AnimationStyle="AnimationStyle9" IsRunning="True" Content=""/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
         <!--<Grid.Background>
             <ImageBrush ImageSource="Images/BG_480x800.jpg"></ImageBrush>
         </Grid.Background>-->
         <!--Pivot Control-->
-        <controls:Pivot Title="MY APPLICATION" x:Name="pivotControl" Foreground="White">
-            <controls:Pivot.TitleTemplate>
-                <DataTemplate>
+        <controls:Pivot x:Name="pivotControl" Foreground="White" Grid.Row="1" Margin="0,-50,0,0">
+            <!--<controls:Pivot.TitleTemplate>
+                <DataTemplate x:Name="TitleTemplate">
                     <StackPanel Orientation="Vertical" >
                         <Image x:Name="icon" Source="Images/SS_logo_small.png" Tap="GoHome" Stretch="None" HorizontalAlignment="Left"/>
-                        <TextBlock Text="{Binding}" FontSize="22" TextTrimming="WordEllipsis" Foreground="White"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="By" Text="by " FontSize="23" Foreground="#b8b8b8"/>
+                            <TextBlock Text="{Binding}" FontSize="22" TextTrimming="WordEllipsis" Foreground="White"/>
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
-            </controls:Pivot.TitleTemplate>            
+            </controls:Pivot.TitleTemplate>            -->
             <controls:PivotItem Header="sightings" x:Name="SightingsPivotItem">                
                 <Grid>
                     <Grid.RowDefinitions>
@@ -97,12 +120,12 @@
                 </ListBox>
 
             </controls:PivotItem>
-            <controls:PivotItem Header="followers">
+            <!--<controls:PivotItem Header="followers" >
                 <Grid/>
             </controls:PivotItem>
-            <controls:PivotItem Header="about">
+            <controls:PivotItem Header="about" >
                 <Grid/>
-            </controls:PivotItem>
+            </controls:PivotItem>-->
         </controls:Pivot>
     </Grid>
 

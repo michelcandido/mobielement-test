@@ -38,7 +38,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypePopular, Converter={StaticResource FilterConverter}, ConverterParameter='category'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <StackPanel Margin="10,0,0,10" Orientation="Horizontal" Tap="FilterClick">
+                        <Image Source="/Images/filter_small.png" />
+                        <TextBlock Margin="10,0,0,0" Text="{Binding SearchTypePopular, Converter={StaticResource FilterConverter}, ConverterParameter='category'}" Foreground="#ffffff" FontSize="23"/>
+                    </StackPanel>
                     <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="PopularList" SearchGroup="0" EventForPageNavigation="GoToDetails"/>
                 </Grid>
             </controls:PivotItem>
@@ -48,7 +51,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypeLatest, Converter={StaticResource FilterConverter}, ConverterParameter='category'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <StackPanel Margin="10,0,0,10" Orientation="Horizontal" Tap="FilterClick">
+                        <Image Source="/Images/filter_small.png" />
+                        <TextBlock Margin="10,0,0,0" Text="{Binding SearchTypeLatest, Converter={StaticResource FilterConverter}, ConverterParameter='category'}" Foreground="#ffffff" FontSize="23"/>
+                    </StackPanel>
                     <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="LatestList" SearchGroup="1" EventForPageNavigation="GoToDetails"/>
                 </Grid>
             </controls:PivotItem>
@@ -58,7 +64,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypeNearest, Converter={StaticResource FilterConverter}, ConverterParameter='map'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <StackPanel Margin="10,0,0,10" Orientation="Horizontal" Tap="FilterClick">
+                        <Image Source="/Images/filter_small.png" />
+                        <TextBlock Margin="10,0,0,0" Text="{Binding SearchTypeNearest, Converter={StaticResource FilterConverter}, ConverterParameter='map'}" Foreground="#ffffff" FontSize="23"/>
+                    </StackPanel>
                     <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="NearestList" SearchGroup="2" EventForPageNavigation="GoToDetails"/>
                 </Grid>
             </controls:PivotItem>
@@ -68,7 +77,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="10,0,0,10" Text="{Binding SearchTypeFollowing, Converter={StaticResource FilterConverter}, ConverterParameter='follow'}" Foreground="#b8b8b8" FontSize="19"/>
+                    <StackPanel Margin="10,0,0,10" Orientation="Horizontal" Tap="FilterClick">
+                        <Image Source="/Images/filter_small.png" />
+                        <TextBlock Margin="10,0,0,0" Text="{Binding SearchTypeFollowing, Converter={StaticResource FilterConverter}, ConverterParameter='follow'}" Foreground="#ffffff" FontSize="23"/>
+                    </StackPanel>
                     <local:ListViewControl Grid.Row="1" Margin="10,0,0,0" x:Name="FollowingList" SearchGroup="3" EventForPageNavigation="GoToDetails"/>
                 </Grid>
             </controls:PivotItem>
