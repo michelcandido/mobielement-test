@@ -1860,7 +1860,7 @@ namespace StarSightings
             nvc.Add("device_id", App.ViewModel.DeviceId);
 
             nvc.Add("cat", App.SSAPI.getCatList(false));
-            //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());
+            //nvc.Add("time", Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime).ToString());               
             nvc.Add("time", App.ViewModel.StoryTime.ToString());
 
 

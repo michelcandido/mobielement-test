@@ -76,9 +76,10 @@ namespace StarSightings
              {
                  Deployment.Current.Dispatcher.BeginInvoke(() =>
                  {
-                     commentHandler = new CommentEventHandler(CommentCompleted);
-                     App.SSAPI.CommentHandler += commentHandler;
+                     //commentHandler = new CommentEventHandler(CommentCompleted);
+                     //App.SSAPI.CommentHandler += commentHandler;
                      App.SSAPI.NewComment(this.tbComment.Text.Trim());
+                     this.NavigationService.GoBack();
                  });
              }
 
