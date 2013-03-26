@@ -45,7 +45,7 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock x:Name="By" Text="by " FontSize="23" Foreground="#b8b8b8"/>
-                    <TextBlock x:Name="Title"  FontSize="22" TextTrimming="WordEllipsis" Foreground="White"/>                
+                    <TextBlock x:Name="Title"  Width="400" FontSize="22" TextTrimming="WordEllipsis" Foreground="White"/>                
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                     <TextBlock Text="uploading" FontSize="25" Foreground="#b8b8b8" />

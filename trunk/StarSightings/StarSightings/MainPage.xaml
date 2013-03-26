@@ -285,9 +285,9 @@
                     <ListBoxItem>
                         <TextBlock Width="380" Text="You are logged in as a guest. Login to join the celebrity photo stream!" Margin="5,0,0,0" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     </ListBoxItem>
-                    <ListBox Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ListBoxItem Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Button Width="390" Margin="-5,0" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3" BorderBrush="White" Foreground="White">Login now</Button>
-                    </ListBox>
+                    </ListBoxItem>
                     <ListBoxItem Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="uploading" FontSize="25" Foreground="#b8b8b8" />
