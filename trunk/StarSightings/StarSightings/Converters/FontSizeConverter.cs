@@ -36,6 +36,8 @@ namespace StarSightings.Converters
                     return 25;
                 else if (sizeCase == "List")
                     return 25;
+                else if (sizeCase == "Following")
+                    return 39;
                 else
                     return 23;
             }

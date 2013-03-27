@@ -59,22 +59,22 @@
                 TextWrapping="Wrap" 
                 Foreground="#b8b8b8" 
                 FontSize="21" />
-            <HyperlinkButton 
+            <Button 
                 Grid.Row="2"
                 Content="rate this app" 
                 Margin="0,12,0,0" 
                 HorizontalAlignment="Left" 
                 Foreground="#ffffff" 
                 FontSize="35" 
-                Command="{Binding RateThisAppCommand}"/>
-            <HyperlinkButton 
+                Command="{Binding RateThisAppCommand}" BorderThickness="0" Padding="0,-10" FontFamily="Segoe WP" />
+            <Button 
                 Grid.Row="3" 
                 Content="contact us" 
                 Margin="0,12,0,0" 
                 HorizontalAlignment="Left" 
                 Foreground="#ffffff" 
                 FontSize="35" 
-                Command="{Binding SendAnEmailCommand}"/>
+                Command="{Binding SendAnEmailCommand}" BorderThickness="0" Padding="0,-10" FontFamily="Segoe WP" />            
             
             <StackPanel Grid.Row="4" Margin="12,0,12,25" VerticalAlignment="Bottom">
                 <!--<Image 

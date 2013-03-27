@@ -141,8 +141,8 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Tap="GoToFollowed" Grid.Column="0" Width="360"  Orientation="Horizontal">
-                    <Image   Width="60" Height="60" Source="Images/default_v1_winphone.png" />
-                    <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="385" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <Image Visibility="Collapsed"   Width="60" Height="60" Source="Images/default_v1_winphone.png" />
+                    <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="385" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Following'}"  TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </StackPanel>
                 <!--<TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />-->
                 <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,15,0" Tap="DeleteFollowed" Stretch="None"/>
@@ -220,6 +220,7 @@
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToList" Tag="3" Margin="0,30,0,0" Text="more..." Visibility="{Binding FollowingItems, Converter={StaticResource SightingsVisibleConverter}}"/>
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem Height="30"/>
                 </ListBox>
             </controls:PanoramaItem>
 
@@ -286,11 +287,11 @@
                         <TextBlock Width="380" Text="You are logged in as a guest. Login to join the celebrity photo stream!" Margin="5,0,0,0" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Button Width="390" Margin="-5,0" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3" BorderBrush="White" Foreground="White">Login now</Button>
+                        <Button Width="390" Margin="-5,0,0,10" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3" BorderBrush="White" Foreground="White">Login now</Button>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="uploading" FontSize="25" Foreground="#b8b8b8" />
+                            <TextBlock Text="uploading" Margin="5,0,0,0" FontSize="25" Foreground="#b8b8b8" />
                             <telerikPrimitives:RadBusyIndicator x:Name="busyIndicator_upload" AnimationStyle="AnimationStyle9" IsRunning="True" Content=""/>
                         </StackPanel>
                     </ListBoxItem>
@@ -303,6 +304,7 @@
                             <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,0" Tap="GoToMyList" Visibility="{Binding MySightingsItems, Converter={StaticResource SightingsVisibleConverter}}">more...</TextBlock>
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem Height="30"/>
                 </ListBox>
             </controls:PanoramaItem>
 
