@@ -112,10 +112,25 @@ namespace StarSightings
             isFollowing = App.ViewModel.MyFollowingCelebs.Where(user => user.UserName == name).Count() != 0;
             followAlertEventHandler = new AlertEventHandler(FollowCompleted);
             App.SSAPI.AlertHandler += followAlertEventHandler;
+
+            Grid grid = sender as Grid;
+            Border bo = grid.Children[0] as Border;
+            TextBlock tb = grid.Children[1] as TextBlock;
+            SolidColorBrush scbFollow = new SolidColorBrush(Color.FromArgb(255, 238, 0, 94));
+            SolidColorBrush scbFollowing = new SolidColorBrush(Color.FromArgb(255, 117, 122, 124));
+
             if (isFollowing)
+            {
+                tb.Text = "Follow";
+                bo.Background = scbFollow;
                 App.SSAPI.Alert(Constants.ALERT_REMOVE, Constants.ALERT_TYPE_CELEBRITY, name);
+            }
             else
+            {
+                tb.Text = "Following";
+                bo.Background = scbFollowing;
                 App.SSAPI.Alert(Constants.ALERT_SET, Constants.ALERT_TYPE_CELEBRITY, name);
+            }
         }
 
         public void FollowCompleted(object sender, AlertEventArgs e)

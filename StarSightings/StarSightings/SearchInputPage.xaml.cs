@@ -164,5 +164,10 @@ namespace StarSightings
         {
             this.NavigationService.Navigate(new Uri("/MainPage.xaml?clear", UriKind.RelativeOrAbsolute));
         }
+
+        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.radAutoCompleteBox.Focus();
+        }
     }
 }
