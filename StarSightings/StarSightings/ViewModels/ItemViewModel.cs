@@ -45,7 +45,7 @@ namespace StarSightings
         private string eventSource;
         private string eventSourceMode;
         private string eventFooter;
-	    private string viewCnt;
+	    private int viewCnt;
 	    private string userId;
 	    private Boolean canEdit; //Boolean?
 	    private string thumbUserSmall;
@@ -600,7 +600,7 @@ namespace StarSightings
             }
         }
 
-        public string ViewCnt
+        public int ViewCnt
         {
             get
             {

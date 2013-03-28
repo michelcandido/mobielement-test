@@ -58,6 +58,7 @@ namespace StarSightings
                     string selectedItemId = NavigationContext.QueryString["selectedItemId"];
                     ItemViewModel item = null;
                     item = App.ViewModel.GetItemById(selectedItemId, groupId);
+                    item.ViewCnt++;
                     this.slideView.SelectedItem = item;
                 }
             }

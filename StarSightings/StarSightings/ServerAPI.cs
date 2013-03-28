@@ -714,7 +714,9 @@ namespace StarSightings
             item.EventName = getElementValue(xmlItem,"event");
             item.Place = getElementValue(xmlItem,"place");
             item.SourceUrl = getElementValue(xmlItem,"source_url");
-            item.ViewCnt = getElementValue(xmlItem,"view_cnt");
+            int vc = 0;
+            Int32.TryParse(getElementValue(xmlItem, "view_cnt"), out vc);
+            item.ViewCnt = vc; 
             item.UserId = getElementValue(xmlItem,"user_id");
             item.CanEdit = getElementValue(xmlItem,"can_edit") == "1";
             item.ThumbUserSmall = getElementValue(xmlItem,"thumb_user_small");
