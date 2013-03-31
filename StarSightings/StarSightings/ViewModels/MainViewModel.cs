@@ -21,6 +21,7 @@ using Microsoft.Phone.BackgroundTransfer;
 using Microsoft.Phone.Net.NetworkInformation;
 
 
+
 namespace StarSightings
 {
     public class MainViewModel : INotifyPropertyChanged
@@ -192,6 +193,7 @@ namespace StarSightings
         private ObservableCollection<UserViewModel> myFollowingCelebs;
         private ObservableCollection<UserViewModel> myFollowingUsers;
 
+        public Dictionary<string, int> ViewList = new Dictionary<string, int>();
        
 
         public ObservableCollection<ItemViewModel> Items { get { return items; } private set{if (value != items) {items = value; NotifyPropertyChanged("Items");}} }

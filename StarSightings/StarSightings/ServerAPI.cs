@@ -1070,6 +1070,38 @@ namespace StarSightings
             }
         }
 
+        public void View(string id)
+        {
+            if (!NetworkInterface.GetIsNetworkAvailable())
+            {   
+                return;
+            }
+            WebClient webClient = GetWebClient();
+            string baseUri;
+            if (!string.IsNullOrEmpty(id))
+            {
+                baseUri = Constants.SERVER_NAME + Constants.URL_VIEW + id + "?mobile=1&v=4";
+                string query = "token=" + App.ViewModel.User.Token;
+                Uri uri = Utils.BuildUriWithAppendedParams(baseUri, query);
+                //webClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(HandleView);
+                webClient.DownloadStringAsync(uri);
+            }
+        }
+        private void HandleView(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    // Showing the exact error message is useful for debugging. In a finalized application, 
+                    // output a friendly and applicable string to the user instead. 
+                    MessageBox.Show("Errors in updating view count, please try again later or contact us. Error Code:" + Constants.ERROR_UNKNOWN);
+                    App.Logger.log(LogLevel.error, e.Error.Message);
+                });
+                
+            }
+        }
+
         public void Alert(string alertMethod, string subjectType, string subjectName)
         {
             if (!NetworkInterface.GetIsNetworkAvailable())

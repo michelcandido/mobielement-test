@@ -84,8 +84,7 @@
         <telerikPrimitives:RadSlideView Grid.Row="1"
                                             x:Name="slideView" 
                                             ItemsSource="{Binding Items}" 
-                                            AdjacentItemsPreviewMode="None" 
-                                            >
+                                            AdjacentItemsPreviewMode="None" SelectionChanged="slideView_SelectionChanged">
             <telerikPrimitives:RadSlideView.ItemTemplate>
                 <DataTemplate>
                     <ListBox x:Name="ContentPanel" Grid.Row="1" Background="White" Foreground="Black" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}">
