@@ -214,7 +214,7 @@ namespace StarSightings
                 string[] dt = info.DateTime.Split(new char[]{' '});
                 string[] dates = dt[0].Split(new char[]{':'});
                 string[] times = dt[1].Split(new char[]{':'});
-                App.ViewModel.StoryTime = new DateTime(int.Parse(dates[0]), int.Parse(dates[1]), int.Parse(dates[2]),int.Parse(times[0]), int.Parse(times[1]), int.Parse(times[2]));                
+                App.ViewModel.StoryTime = new DateTime(int.Parse(dates[0]), int.Parse(dates[1]), int.Parse(dates[2]),int.Parse(times[0]), int.Parse(times[1]), int.Parse(times[2])).ToUniversalTime();                
             }
             App.ViewModel.StoryLat = info.GpsLatitude[0] + info.GpsLatitude[1] * 1 / 60.0 + info.GpsLatitude[2] * 1 / 3600.0;
             App.ViewModel.StoryLng = info.GpsLongitude[0] + info.GpsLongitude[1] * 1 / 60.0 + info.GpsLongitude[2] * 1 / 3600.0;

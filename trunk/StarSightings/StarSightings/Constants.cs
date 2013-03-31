@@ -41,6 +41,7 @@ namespace StarSightings
         public const string URL_COMMENT_NEW = "/index.php?page=comment&mode=new&mobile=1&v=4";
         public const string URL_POST_NEW = "/index.php?page=photo&mode=create&mobile=1&v=4";
         public const string URL_VOTE = "/index.php?page=post&mode=vote&mobile=1&v=4";
+        public const string URL_VIEW = "/photo/view/";
 
         public const int LIMIT=15;
         public const int SUMMARY_COUNT = 4;

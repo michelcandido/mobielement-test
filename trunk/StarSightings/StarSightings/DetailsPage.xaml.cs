@@ -23,6 +23,7 @@ namespace StarSightings
 {
     public partial class DetailsPage : PhoneApplicationPage
     {
+        private DateTime startTime;
         public DetailsPage()
         {
             InitializeComponent();
@@ -58,8 +59,30 @@ namespace StarSightings
                     string selectedItemId = NavigationContext.QueryString["selectedItemId"];
                     ItemViewModel item = null;
                     item = App.ViewModel.GetItemById(selectedItemId, groupId);
-                    item.ViewCnt++;
+                    updateViewCnt(item);
+                    startTime = DateTime.Now;
                     this.slideView.SelectedItem = item;
+                }
+            }
+        }
+
+        private void updateViewCnt(ItemViewModel item)
+        {
+            if (item != null)
+            {
+                if (!App.ViewModel.ViewList.ContainsKey(item.PhotoId))
+                {
+                    item.ViewCnt++;
+                    App.ViewModel.ViewList.Add(item.PhotoId, item.ViewCnt);
+                    App.SSAPI.View(item.PhotoId);
+                }
+                else
+                {
+                    int cnt = 0;
+                    if (App.ViewModel.ViewList.TryGetValue(item.PhotoId, out cnt))
+                    {
+                        item.ViewCnt = cnt;
+                    }
                 }
             }
         }
@@ -289,6 +312,17 @@ namespace StarSightings
         private void GoToCameraMode(object sender, EventArgs e)
         {
             this.NavigationService.Navigate(new Uri("/CameraMode.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void slideView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime curTime = DateTime.Now;
+            long delta = (curTime - startTime).Ticks;
+            if (delta > 10000000)
+            {
+                this.updateViewCnt(e.RemovedItems[0] as ItemViewModel);
+            }
+            startTime = curTime;
         } 
     }
 }

@@ -83,7 +83,7 @@ namespace StarSightings
                         this.NavigationService.Navigate(new Uri("/LoginOptionsPage.xaml", UriKind.RelativeOrAbsolute));
                     }
                 }
-                else if (e.ErrorCode == Constants.ERROR_MAINTENANCE || e.ErrorCode == Constants.ERROR_NONETWORK)
+                else if (e.ErrorCode == Constants.ERROR_MAINTENANCE || e.ErrorCode == Constants.ERROR_NONETWORK || e.ErrorCode == Constants.ERROR_TOKEN_INVALID)
                 {
                     return;
                 }

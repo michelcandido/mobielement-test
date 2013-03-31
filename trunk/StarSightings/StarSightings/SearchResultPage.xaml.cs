@@ -73,7 +73,7 @@ namespace StarSightings
                 }
             }
 
-            if (App.ViewModel.KeywordType == Constants.KEYWORD_MY)
+            if (App.ViewModel.KeywordType == Constants.KEYWORD_MY && App.ViewModel.MyFollowingCelebsSummaryList != null && App.ViewModel.MyFollowingUsersSummaryList != null)
             {
                 this.CelebsList.ItemsSource = App.ViewModel.MyFollowingCelebsSummaryList.View;
                 this.UsersList.ItemsSource = App.ViewModel.MyFollowingUsersSummaryList.View;
