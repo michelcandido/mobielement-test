@@ -18,14 +18,14 @@
 
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="FollowingsSummaryItemTemplate">
-            <Grid  Background="#010E2A" Margin="0,0,0,5">
+            <Grid   Margin="0,0,0,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="400"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Tap="GoToFollowed" Grid.Column="0"  Orientation="Horizontal">
                     <Image Visibility="Collapsed"  Width="60" Height="60" Source="Images/default_v1_winphone.png" />
-                    <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="375" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Following'}"  TextWrapping="Wrap" TextTrimming="WordEllipsis" />
+                    <TextBlock  Foreground="#ffffff" Text="{Binding UserName}" MaxWidth="375" MaxHeight="60" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" FontFamily="Segoe WP" FontSize="{Binding UserName, Converter={StaticResource FontSizeConverter}, ConverterParameter='Following'}"  TextWrapping="Wrap" TextTrimming="WordEllipsis" />
                 </StackPanel>
                 <!--<TextBlock Grid.Column="1" Foreground="#ffffff" Text="X" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,5,0" Tap="DeleteFollowed" />-->
                 <Image Grid.Column="1" Source="Images/x.png" Margin="10,0,15,0" Tap="DeleteFollowed" Stretch="None"/>
