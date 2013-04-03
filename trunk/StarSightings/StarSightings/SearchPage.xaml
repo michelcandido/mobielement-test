@@ -37,12 +37,37 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="10,0,0,15" Text="Search for" Foreground="#b8b8b8" FontSize="23" FontFamily="{StaticResource PhoneFontFamilySemiBold}"/>
-                <ListBox Grid.Row="1" Margin="10,0,-12,0" FontSize="42" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" Foreground="White">
-                    <ListBoxItem Content="Celebrity"/>                    
-                    <ListBoxItem Content="Event" />
-                    <ListBoxItem Content="Place / Venue" />
-                    <ListBoxItem Content="Location" />
-                    <ListBoxItem Content="Member"/>
+                <ListBox Grid.Row="1" Margin="10,0,-12,0" FontSize="39" FontFamily="{StaticResource PhoneFontFamilySemiLight}" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="ListBox_SelectionChanged" ItemContainerStyle="{StaticResource ListBoxItemNoHighlightStyle}" Foreground="White">
+                    <ListBoxItem Margin="0,0,0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/36x36_celebrity.png"/>
+                            <TextBlock Text="celebrity" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Margin="0,0,0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/36x36_event.png"/>
+                            <TextBlock Text="event" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Margin="0,0,0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/36x36_place.png"/>
+                            <TextBlock Text="place / venue" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Margin="0,0,0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/36x36_location.png"/>
+                            <TextBlock Text="location" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem Margin="0,0,0,5">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="Images/36x36_member.png"/>
+                            <TextBlock Text="member" Margin="20,0,0,0"/>
+                        </StackPanel>
+                    </ListBoxItem>
                     <!--<ListBoxItem Content="My Sightings" />-->
                 </ListBox>
             </Grid>

@@ -56,7 +56,7 @@
                     </Border>
                     <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="White"/>
                 </Grid>
-                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 12, 12, 0">
                     <Border Height="30" Width="185" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
@@ -86,7 +86,7 @@
                     </Border>
                     <TextBlock Text="{Binding Cat}" MaxWidth="182" MaxHeight="70" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" FontFamily="Segoe WP" FontSize="{Binding Cat, Converter={StaticResource FontSizeConverter}, ConverterParameter='Summary'}" FontWeight="Bold" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="White"/>
                 </Grid>
-                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 10, 10, 0">
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0, 12, 12, 0">
                     <Border Height="30" Width="185" VerticalAlignment="Top" HorizontalAlignment="Left">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
@@ -230,7 +230,7 @@
                 <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400" >
-                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebrities" Width="305"/>
+                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="CELEBRITIES" Width="305"/>
                             <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />-->
                             <!--<Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
                                 <Image Source="/Images/appbar.add.rest.png"  Stretch="UniformToFill"  VerticalAlignment="Center"  Tap="AddFollowing" />
@@ -245,10 +245,10 @@
                         <ListBox  ItemsSource="{Binding MyFollowingCelebsSummaryList.View}" ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding MyFollowingCelebs, Converter={StaticResource FollowingVisibleConverter}}">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing"  Text="more..."/>
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,20,0,30" Tap="GoToMoreFollowing"  Text="more..."/>
                     </ListBoxItem>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
-                        <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members" Width="305"/>
+                        <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="MEMBERS" Width="305"/>
                         <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>-->
                         <!--<Border VerticalAlignment="Center" Margin="55,0,0,0" HorizontalAlignment="Right" BorderThickness="3" BorderBrush="#ee005e"  Width="35" Height="35">
                             <Image Source="/Images/appbar.add.rest.png"  Stretch="UniformToFill" VerticalAlignment="Center" Tap="AddFollowing2" />
@@ -262,8 +262,9 @@
                         <ListBox  ItemsSource="{Binding MyFollowingUsersSummaryList.View}"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding MyFollowingUsers, Converter={StaticResource FollowingVisibleConverter}}">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,30,0,0" Text="more..."/>
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,20,0,0" Text="more..."/>
                     </ListBoxItem>
+                    <ListBoxItem Height="20"/>
                 </ListBox>
                 
             </controls:PanoramaItem>
@@ -280,14 +281,17 @@
                             <TextBlock Grid.Row="1" Text="Post a sighting" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold" Foreground="White"/>
                         </Grid>
                     </ListBoxItem>
-                    <ListBoxItem>                            
-                        <TextBlock Text="{Binding User.UserName}" FontSize="25" Foreground="#1ca7ff" Margin="5,30,0,30" TextTrimming="WordEllipsis" Width="350" Tap="GoToMyList" />                        
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal" Margin="5,30,0,0">
+                            <Image Source="Images/profile_blue.png" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding User.UserName}" VerticalAlignment="Center"  FontSize="35" Foreground="#1ca7ff"  TextTrimming="WordEllipsis" Width="350" Tap="GoToMyList" />
+                        </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <TextBlock Width="380" Text="You are logged in as a guest. Login to join the celebrity photo stream!" Margin="5,0,0,0" Foreground="#b8b8b8" TextWrapping="Wrap" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <Button Width="390" Margin="-5,0,0,10" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3" BorderBrush="White" Foreground="White">Login now</Button>
+                        <Button Width="390" Margin="-5,30,0,10" Tap="GoToLogin" Visibility="{Binding NeedLogin, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}" Padding="0,3,0,5" BorderThickness="3" BorderBrush="White" Foreground="White">Login now</Button>
                     </ListBoxItem>
                     <ListBoxItem Visibility="{Binding IsUploading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                         <StackPanel Orientation="Vertical">

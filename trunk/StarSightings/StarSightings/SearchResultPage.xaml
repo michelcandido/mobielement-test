@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"         
     xmlns:local="clr-namespace:StarSightings"
+    xmlns:funControls="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="728"
@@ -90,9 +91,10 @@
             <controls:PivotItem Header="following" x:Name="FollowingPivotItem">
                 <ListBox Margin="10,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBoxItem>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
-                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="Celebrities" Width="305"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="440">
+                            <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="CELEBRITIES" Width="345"/>
                             <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />-->
+                            <funControls:RoundButton ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing"/>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem x:Name="NoCeleb" Margin="0,0,0,30">
@@ -102,11 +104,12 @@
                         <ListBox x:Name="CelebsList"  ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem x:Name="MoreCeleb">
-                        <TextBlock  FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,30,0,20" Tap="GoToMoreFollowing">more...</TextBlock>
+                        <TextBlock  FontFamily="Segoe WP" Foreground="White" FontSize="35" Tag="0" Margin="0,20,0,30" Tap="GoToMoreFollowing">more...</TextBlock>
                     </ListBoxItem>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="400">
-                        <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="Members" Width="305"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="440">
+                        <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="MEMBERS" Width="345"/>
                         <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>-->
+                        <funControls:RoundButton ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing2"/>
                     </StackPanel>
                     <ListBoxItem x:Name="NoUser">
                         <TextBlock  Width="400" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Text="Not following any member yet."/>
@@ -115,7 +118,7 @@
                         <ListBox x:Name="UsersList"   ItemTemplate="{StaticResource FollowingsSummaryItemTemplate}" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                     </ListBoxItem>
                     <ListBoxItem x:Name="MoreUser">
-                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,30,0,0">more...</TextBlock>
+                        <TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Tap="GoToMoreFollowing" Tag="1" Margin="0,20,0,0">more...</TextBlock>
                     </ListBoxItem>
                 </ListBox>
 
