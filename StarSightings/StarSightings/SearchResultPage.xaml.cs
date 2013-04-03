@@ -323,6 +323,17 @@ namespace StarSightings
 
         }
 
-  
+
+        private void AddFollowing(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            //this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", 0), UriKind.RelativeOrAbsolute));
+        }
+
+        private void AddFollowing2(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            //this.NavigationService.Navigate(new Uri("/SearchPage.xaml", UriKind.RelativeOrAbsolute));
+            this.NavigationService.Navigate(new Uri(string.Format("/SearchInputPage.xaml?page={0}", 4), UriKind.RelativeOrAbsolute));
+        }
     }
 }
