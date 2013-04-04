@@ -74,7 +74,7 @@ namespace StarSightings
             
             if (e.TaskResult == TaskResult.OK)
             {
-                JpegInfo info = ExifLib.ExifReader.ReadJpeg(e.ChosenPhoto, e.OriginalFileName);
+                //JpegInfo info = ExifLib.ExifReader.ReadJpeg(e.ChosenPhoto, e.OriginalFileName);
                 BitmapImage image = new BitmapImage();
                 image.SetSource(e.ChosenPhoto);
                 App.ViewModel.SelectedImage = image;
@@ -87,12 +87,13 @@ namespace StarSightings
                 ContentPanelChooser.Visibility = Visibility.Collapsed;//Visibility.Visible;
                 ContentPanelScoop.Visibility = Visibility.Visible;//.Collapsed;
                 ApplicationTitle.Visibility = Visibility.Visible;
-
-                //this.ApplicationBar.IsVisible = true;
                 
-                getPicDateTime(info);
+                
+                //getPicDateTime(info);
+                e.ChosenPhoto.Position = 0;
+                getPicExifInfo(e.ChosenPhoto);
                 App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "library", (App.ViewModel.StoryTime.CompareTo(new DateTime(0)) <= 0) ? "user" : "exif", (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)?"exif":"nil");
-                //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
+                
             }
             
         }
@@ -113,6 +114,34 @@ namespace StarSightings
                 Picture pic = library.SavePictureToCameraRoll(fileName, e.ChosenPhoto);
 
                 e.ChosenPhoto.Position = 0;
+                ExifReader reader = new ExifReader(e.ChosenPhoto);
+                ushort orientation;
+                if (reader.GetTagValue<ushort>(ExifTags.Orientation, out orientation))
+                {
+                    switch (orientation)
+                    {
+                        case 1:
+                        case 5:
+                            _angle = 0;
+                            break;
+                        case 2:
+                        case 6:
+                            _angle = 90;
+                            break;
+                        case 3:
+                        case 7:
+                            _angle = 180;
+                            break;
+                        case 4:
+                        case 8:
+                            _angle = 270;
+                            break;
+                        default:
+                            _angle = 0;
+                            break;
+                    }
+                }
+                /*
                 JpegInfo info = ExifReader.ReadJpeg(e.ChosenPhoto, e.OriginalFileName);
 
                 switch (info.Orientation)
@@ -131,7 +160,7 @@ namespace StarSightings
                         _angle = 270;
                         break;
                 }
-
+                */
                 if (_angle > 0d)
                 {
                     capturedImage = RotateStream(e.ChosenPhoto, _angle);
@@ -207,6 +236,42 @@ namespace StarSightings
             return targetStream;
         }
 
+        private void getPicExifInfo(Stream stream)
+        {
+            ExifReader reader = new ExifReader(stream);
+            DateTime datePictureTaken;
+            if (reader.GetTagValue<DateTime>(ExifTags.DateTimeOriginal, out datePictureTaken))
+            {
+                App.ViewModel.StoryTime = datePictureTaken.ToUniversalTime();
+            }
+
+            double[] GpsLongArray;
+            double[] GpsLatArray;
+            if (reader.GetTagValue(ExifTags.GPSLongitude, out GpsLongArray) && reader.GetTagValue(ExifTags.GPSLatitude, out GpsLatArray))
+            {
+                App.ViewModel.StoryLng = GpsLongArray[0] + GpsLongArray[1] / 60 + GpsLongArray[2] / 3600;
+                App.ViewModel.StoryLat = GpsLatArray[0] + GpsLatArray[1] / 60 + GpsLatArray[2] / 3600;
+
+                string latRef;
+                if (reader.GetTagValue(ExifTags.GPSLatitudeRef, out latRef) && latRef == "S")
+                {
+                    App.ViewModel.StoryLat = -App.ViewModel.StoryLat;
+                }
+                string lngRef;
+                if (reader.GetTagValue(ExifTags.GPSLongitudeRef, out lngRef) && lngRef == "W")
+                {
+                    App.ViewModel.StoryLng = -App.ViewModel.StoryLng;
+                }
+                /*
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    MessageBox.Show(string.Format("The picture was taken at {0},{1},{2}", App.ViewModel.StoryTime,App.ViewModel.StoryLng, App.ViewModel.StoryLat));
+                });
+                 */
+                 
+            }            
+        }
+        /*
         private void getPicDateTime(JpegInfo info)
         {
             if (!string.IsNullOrEmpty(info.DateTime) && !string.IsNullOrWhiteSpace(info.DateTime))
@@ -234,9 +299,9 @@ namespace StarSightings
             {
                 MessageBox.Show("lat:" + info.GpsLatitude[0] + "///" + info.GpsLatitude[1] + "///" + info.GpsLatitude[2] + "///" + "lng:" + info.GpsLongitude[0] + "///" + info.GpsLongitude[1] + "///" + info.GpsLongitude[2] +"slat:"+App.ViewModel.StoryLat+"///"+"slng:"+App.ViewModel.StoryLng);
             });
-             * */
+            
         }
-
+        */
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.GoBack();// .Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
