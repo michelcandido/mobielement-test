@@ -238,7 +238,17 @@ namespace StarSightings
 
         private void getPicExifInfo(Stream stream)
         {
-            ExifReader reader = new ExifReader(stream);
+            ExifReader reader = null;
+            try
+            {
+                reader = new ExifReader(stream);
+            }
+            catch (Exception)
+            {
+
+                return;
+            }
+
             DateTime datePictureTaken;
             if (reader.GetTagValue<DateTime>(ExifTags.DateTimeOriginal, out datePictureTaken))
             {
