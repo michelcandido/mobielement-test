@@ -17,6 +17,19 @@ namespace StarSightings.Events
         private readonly bool successful = false;
         private ItemViewModel item;
         private ObservableCollection<ItemViewModel> items;
+        bool showResult = true;
+
+        public bool ShowResult
+        {
+            get
+            {
+                return this.showResult;
+            }
+            set
+            {
+                this.showResult = value;
+            }
+        }
 
         public PostEventArgs(bool successful)
         {

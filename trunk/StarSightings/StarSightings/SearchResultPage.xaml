@@ -94,7 +94,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="440">
                             <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="0" VerticalAlignment="Center" Text="CELEBRITIES" Width="345"/>
                             <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing" />-->
-                            <funControls:RoundButton ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing"/>
+                            <funControls:RoundButton x:Name="btnAddFollowing" Visibility="Collapsed" ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing"/>
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem x:Name="NoCeleb" Margin="0,0,0,30">
@@ -109,7 +109,7 @@
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,10" Width="440">
                         <TextBlock FontFamily="Segoe WP" Foreground="#b8b8b8" FontSize="23" Tap="GoToMoreFollowing" Tag="1" VerticalAlignment="Center" Text="MEMBERS" Width="345"/>
                         <!--<TextBlock FontFamily="Segoe WP" Foreground="White" FontSize="35" Text="add" VerticalAlignment="Center" Margin="30,0,0,0" Tap="AddFollowing"/>-->
-                        <funControls:RoundButton ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing2"/>
+                        <funControls:RoundButton x:Name="btnAddFollowing2" Visibility="Collapsed" ImageSource="/Images/appbar.add.rest.png" VerticalAlignment="Center" Margin="35,0,0,0" Tap="AddFollowing2"/>
                     </StackPanel>
                     <ListBoxItem x:Name="NoUser">
                         <TextBlock  Width="400" FontSize="19" Foreground="#b8b8b8" TextWrapping="Wrap" Text="Not following any member yet."/>
