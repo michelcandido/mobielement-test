@@ -61,6 +61,8 @@ namespace StarSightings
                 if (App.ViewModel.KeywordType == Constants.KEYWORD_MY)
                 {
                     this.Follow_Sightings.Visibility = Visibility.Collapsed;
+                    this.btnAddFollowing.Visibility = Visibility.Visible;
+                    this.btnAddFollowing2.Visibility = Visibility.Visible;
                 }
 
                 if (App.ViewModel.KeywordType == Constants.KEYWORD_MY || App.ViewModel.KeywordType == Constants.KEYWORD_USER)
@@ -103,6 +105,16 @@ namespace StarSightings
                 this.NoUser.Visibility = Visibility.Collapsed;
                 this.MoreUser.Visibility = Visibility.Visible;
             }
+
+            if (NavigationContext.QueryString.ContainsKey("pivotItemId"))
+            {
+                string pivotItemId = NavigationContext.QueryString["pivotItemId"];
+                int itemId = 0;
+                if (int.TryParse(pivotItemId, out itemId))
+                {
+                    this.pivotControl.SelectedIndex = itemId;                    
+                }
+            }                
 
             if (e.NavigationMode == NavigationMode.New && NavigationContext.QueryString.ContainsKey("clear"))
             {
@@ -297,6 +309,10 @@ namespace StarSightings
 
                 App.ViewModel.UpdateMyFollowings();
                 App.ViewModel.SearchFollowing(true, 0, null);
+
+                // after we follow one people, the designer wants to show the following list 
+                App.ViewModel.KeywordType = Constants.KEYWORD_MY;
+                NavigationService.Navigate(new Uri("/SearchResultPage.xaml?pivotItemId=1", UriKind.RelativeOrAbsolute));
             }
             else
             {

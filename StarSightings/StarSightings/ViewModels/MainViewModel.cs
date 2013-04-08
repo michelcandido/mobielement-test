@@ -1067,15 +1067,18 @@ namespace StarSightings
         {            
             if (e.Successful)
             {
-                App.ViewModel.StoryTime = new DateTime(0);
-                App.ViewModel.IsDataLoaded = false;
-                App.Config.UpdateAlerts();
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                if (e.ShowResult)
                 {
-                    // Showing the exact error message is useful for debugging. In a finalized application, 
-                    // output a friendly and applicable string to the user instead.                    
-                    MessageBox.Show("Your post has been submitted successfully.");
-                });
+                    App.ViewModel.StoryTime = new DateTime(0);
+                    App.ViewModel.IsDataLoaded = false;
+                    App.Config.UpdateAlerts();
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        // Showing the exact error message is useful for debugging. In a finalized application, 
+                        // output a friendly and applicable string to the user instead.                    
+                        MessageBox.Show("Your post has been submitted successfully.");
+                    });
+                }
                 /*
                 App.ViewModel.SearchLatest(true, 0, null);
                 App.ViewModel.KeywordType = Constants.KEYWORD_MY;

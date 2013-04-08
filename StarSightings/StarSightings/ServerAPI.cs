@@ -1524,7 +1524,8 @@ namespace StarSightings
             });
         }
 
-        public void NewPost(bool test)
+        //public void NewPost(bool test)
+        public void NewPost(string photoID)
         {
             if (!NetworkInterface.GetIsNetworkAvailable())
             {   //if network is not available, we would not continue;                 
@@ -1538,14 +1539,16 @@ namespace StarSightings
             }
             BackgroundWorker bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler(bw_NewPost);
-            bw.RunWorkerAsync(test);
+            
+            //bw.RunWorkerAsync(test);
+            bw.RunWorkerAsync(photoID);
         }
 
         public void bw_NewPost(object sender, DoWorkEventArgs ea)
         {
-            bool test = (bool)ea.Argument;
+            //bool test = (bool)ea.Argument;
             // prepare upload uri
-            string baseUri = Constants.SERVER_NAME + Constants.URL_POST_NEW;
+            
             /*
             string query = "cat=" + App.SSAPI.getCatList(true);
             query += "&time=" + Utils.ConvertToUnixTimestamp(App.ViewModel.StoryTime);
@@ -1567,12 +1570,19 @@ namespace StarSightings
             */
 
             // save the picture to upload location
-            Dictionary<string, string> nvc = new Dictionary<string, string>();
 
+
+            string baseUri = Constants.SERVER_NAME + Constants.URL_POST_UPDATE;
+            Dictionary<string, string> nvc = new Dictionary<string, string>();
+            /*
             if (test)
             {
                 nvc.Add("visible_mode", "4");
             }
+             * */
+            string photoID = (string)ea.Argument;
+            nvc.Add("photo_id", photoID);
+
 
             nvc.Add("camera_info", App.ViewModel.CameraInfo);
             nvc.Add("device_id", App.ViewModel.DeviceId);
@@ -1997,6 +2007,10 @@ namespace StarSightings
                                         }
                                         PostEventArgs pe = new PostEventArgs(true);
                                         pe.Items = items;
+                                        if (App.ViewModel.PostMode == 1)
+                                        {
+                                            pe.ShowResult = false;
+                                        }
                                         OnNewPost(pe);
                                     }
                                     else
@@ -2028,7 +2042,7 @@ namespace StarSightings
         }
         public event PostEventHandler NewPostHandler;
 
-        protected virtual void OnNewPost(PostEventArgs e)
+        public virtual void OnNewPost(PostEventArgs e)
         {
             if (NewPostHandler != null)
             {

@@ -92,7 +92,7 @@ namespace StarSightings
                 //getPicDateTime(info);
                 e.ChosenPhoto.Position = 0;
                 getPicExifInfo(e.ChosenPhoto);
-                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "library", (App.ViewModel.StoryTime.CompareTo(new DateTime(0)) <= 0) ? "user" : "exif", (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0)?"exif":"nil");
+                App.ViewModel.CameraInfo = string.Format("APP winphone:{0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "library", (App.ViewModel.StoryTime.CompareTo(new DateTime(0)) <= 0) ? "user" : "exif", (App.ViewModel.StoryLat != 0.0 && App.ViewModel.StoryLng != 0.0) ? "exif" : "nil");
                 
             }
             
@@ -184,7 +184,7 @@ namespace StarSightings
                 ContentPanelScoop.Visibility = Visibility.Visible;//.Collapsed;
                 ApplicationTitle.Visibility = Visibility.Visible;
 
-                App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "app", "app", "app");
+                App.ViewModel.CameraInfo = string.Format("APP winphone:{0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "app", "app", "app");
                 //this.ApplicationBar.IsVisible = true;
                 
                 //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));                                
@@ -314,7 +314,7 @@ namespace StarSightings
             App.ViewModel.SelectedImage = image;
             //App.ViewModel.WriteableSelectedBitmap = new WriteableBitmap(image);
 
-            App.ViewModel.CameraInfo = string.Format("APP {0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "none", "user", "nil");
+            App.ViewModel.CameraInfo = string.Format("APP winphone:{0};PHOTO {1};TIME {2};COORD {3}", System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0], "none", "user", "nil");
             //this.NavigationService.Navigate(new Uri("/Scoop.xaml", UriKind.RelativeOrAbsolute));
             ContentPanel.Visibility = Visibility.Collapsed;
             ContentPanelChooser.Visibility = Visibility.Collapsed;//Visibility.Visible;
