@@ -711,7 +711,7 @@
             </Setter>
             <Setter Property="H1FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
             <Setter Property="H1FontSize" Value="{StaticResource PhoneFontSizeLarge}"/>
-            <Setter Property="H1FontWeight" Value="Bold"/>
+            <Setter Property="H1FontWeight" Value="Normal"/>
             <Setter Property="H1FontStyle" Value="Normal"/>
             <Setter Property="H2Foreground">
                 <Setter.Value>
@@ -720,7 +720,7 @@
             </Setter>
             <Setter Property="H2FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
             <Setter Property="H2FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
-            <Setter Property="H2FontWeight" Value="Bold"/>
+            <Setter Property="H2FontWeight" Value="Normal"/>
             <Setter Property="H2FontStyle" Value="Normal"/>
             <Setter Property="H3Foreground">
                 <Setter.Value>
@@ -729,7 +729,7 @@
             </Setter>
             <Setter Property="H3FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
             <Setter Property="H3FontSize" Value="{StaticResource PhoneFontSizeNormal}"/>
-            <Setter Property="H3FontWeight" Value="Bold"/>
+            <Setter Property="H3FontWeight" Value="Normal"/>
             <Setter Property="H3FontStyle" Value="Normal"/>
             <Setter Property="HyperlinkForeground">
                 <Setter.Value>
