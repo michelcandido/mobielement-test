@@ -26,8 +26,23 @@ namespace StarSightings
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        public ICommand RateThisAppCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand SendAnEmailCommand
+        {
+            get;
+            private set;
+        }
+
         public MainViewModel()
         {
+            RateThisAppCommand = new RateThisAppCommand();
+            SendAnEmailCommand = new SendAnEmailCommand(); 
+
             this.Items = new ObservableCollection<ItemViewModel>();
             
             this.PopularItems = new ObservableCollection<ItemViewModel>();
