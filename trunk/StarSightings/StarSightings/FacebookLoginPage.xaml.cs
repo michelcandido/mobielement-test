@@ -25,7 +25,7 @@ namespace StarSightings
         /// For extensive list of available extended permissions refer to 
         /// https://developers.facebook.com/docs/reference/api/permissions/
         /// </remarks>
-        private const string ExtendedPermissions = "email, read_friendlists, user_subscriptions";//user_about_me,read_stream,publish_stream";
+        private const string ExtendedPermissions = "email, publish_stream, read_friendlists, user_subscriptions";//user_about_me,read_stream,publish_stream";
 
         private readonly FacebookClient _fb = new FacebookClient();
 
