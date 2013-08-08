@@ -106,7 +106,7 @@ public class GroupDisplayService extends Service {
         return super.onUnbind(intent);
     }
     
- // Initialize chord
+    // Initialize chord
     public void initialize(IGroupDisplayServiceListener listener) throws Exception {
         if (mChord != null) {
             return;
@@ -154,5 +154,8 @@ public class GroupDisplayService extends Service {
 
     }
     
+    public String getPublicChannel() {
+        return ChordManager.PUBLIC_CHANNEL;
+    }
     
 }

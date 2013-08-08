@@ -27,6 +27,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 		setContentView(R.layout.activity_main);
 		
 		startGDService();
+		bindGDService();
 	}
 
 	@Override
@@ -36,10 +37,27 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 		return true;
 	}
 	
+	@Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        Log.v(TAG, TAGClass + "onResume");
+        //refreshInterfaceType();
+    }
+
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        unbindGDService();
+        stopGDService();
+        Log.v(TAG, TAGClass + "onDestroy");
+    }
+	
 	// **********************************************************************
     // Using Service
     // **********************************************************************
-    private GroupDisplayService mChordService = null;
+    private GroupDisplayService mGDService = null;
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -48,23 +66,23 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
             // TODO Auto-generated method stub
             Log.d(TAG, TAGClass + "onServiceConnected()");
             GroupDisplayServiceBinder binder = (GroupDisplayServiceBinder)service;
-            mChordService = binder.getService();
+            mGDService = binder.getService();
             try {
-                mChordService.initialize(MainActivity.this);
+            	mGDService.initialize(MainActivity.this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            refreshInterfaceType();
-            mChannelTestFragment.setService(mChordService);
-            mDataTestFragment.setService(mChordService);
+            //refreshInterfaceType();
+            //mChannelTestFragment.setService(mChordService);
+            //mDataTestFragment.setService(mChordService);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             // TODO Auto-generated method stub
             Log.i(TAG, TAGClass + "onServiceDisconnected()");
-            mChordService = null;
+            mGDService = null;
         }
     };
 	
@@ -74,9 +92,15 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
         startService(intent);
     }
 	
+	private void stopGDService() {
+        Log.i(TAG, TAGClass + "stopService()");
+        Intent intent = new Intent("com.mobielement.groupdisplay.service.GroupDisplayService.SERVICE_STOP");
+        stopService(intent);
+    }
+	
 	private void bindGDService() {
         Log.i(TAG, TAGClass + "bindGDService()");
-        if (mChordService == null) {
+        if (mGDService == null) {
             Intent intent = new Intent(
                     "com.mobielement.groupdisplay.service.GroupDisplayService.SERVICE_BIND");
             bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
@@ -86,61 +110,75 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 	private void unbindGDService() {
         Log.i(TAG, TAGClass + "unbindGDService()");
 
-        if (null != mChordService) {
+        if (null != mGDService) {
             unbindService(mConnection);
         }
-        mChordService = null;
+        mGDService = null;
     }
 
-	@Override
-	public void onReceiveMessage(String node, String channel, String message) {
-		// TODO Auto-generated method stub
-		
-	}
+	// **********************************************************************
+    // IChordServiceListener
+    // **********************************************************************
+    @Override
+    public void onReceiveMessage(String node, String channel, String message) {
+        //mDataTestFragment.onMessageReceived(node, channel, message);
+    }
 
-	@Override
-	public void onFileWillReceive(String node, String channel, String fileName,
-			String exchangeId) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void onFileWillReceive(String node, String channel, String fileName, String exchangeId) {
+        //mDataTestFragment.onFileNotify(node, channel, fileName, exchangeId);
+    }
 
-	@Override
-	public void onFileProgress(boolean bSend, String node, String channel,
-			int progress, String exchangeId) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void onFileProgress(boolean bSend, String node, String channel, int progress,
+            String exchangeId) {
+        //mDataTestFragment.onFileProgress(bSend, node, channel, progress, exchangeId);
 
-	@Override
-	public void onFileCompleted(int reason, String node, String channel,
-			String exchangeId, String fileName) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void onNodeEvent(String node, String channel, boolean bJoined) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void onFileCompleted(int reason, String node, String channel, String exchangeId,
+            String fileName) {
+        //mDataTestFragment.onFileCompleted(reason, node, channel, fileName, exchangeId);
+    }
 
-	@Override
-	public void onNetworkDisconnected() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void onNodeEvent(String node, String channel, boolean bJoined) {
+        if (bJoined) {
+            if (channel.equals(mGDService.getPublicChannel())) {
+                //mChannelTestFragment.onPublicChannelNodeJoined(node);
+                //mDataTestFragment.onNodeJoined(node, channel);
+            } else {
+                //mChannelTestFragment.onJoinedChannelNodeJoined(node);
+                //mDataTestFragment.onNodeJoined(node, channel);
+            }
+            return;
+        }
 
-	@Override
-	public void onUpdateNodeInfo(String nodeName, String ipAddress) {
-		// TODO Auto-generated method stub
-		
-	}
+        if (channel.equals(mGDService.getPublicChannel())) {
+            //mChannelTestFragment.onPublicChannelNodeLeaved(node);
+            //mDataTestFragment.onNodeLeaved(node, channel);
+        } else {
+            //mChannelTestFragment.onJoinedChannelNodeLeaved(node);
+            //mDataTestFragment.onNodeLeaved(node, channel);
+        }
+    }
 
-	@Override
-	public void onConnectivityChanged() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void onNetworkDisconnected() {
+        //mChannelTestFragment.onNetworkDisconnected();
+        //mDataTestFragment.onNetworkDisconnected();
+    }
+
+    @Override
+    public void onUpdateNodeInfo(String nodeName, String ipAddress) {
+        //mChannelTestFragment.setMyNodeInfo(nodeName, ipAddress);
+        //mDataTestFragment.setMyNodeInfo(nodeName, ipAddress);
+    }
+
+    @Override
+    public void onConnectivityChanged() {
+        //refreshInterfaceType();
+    }
 
 }
