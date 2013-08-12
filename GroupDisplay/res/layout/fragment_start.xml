@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"    
+    android:gravity="center"
+    tools:context=".StartFragment" >
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="@string/title"
+        android:textSize="50sp" /> 
+        
+    <LinearLayout
+        android:id="@+id/buttonLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom = "true"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom ="60dp">
+        <Button
+            android:id="@+id/buttonJoinGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"            
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:focusable="false"
+            android:enabled="false"            
+            android:text="@string/join" />
+
+        <Button
+            android:id="@+id/buttonSetupGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"            
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:focusable="false"
+            android:enabled="false"
+            android:text="@string/setup" />
+
+        
+    </LinearLayout>
+
+</RelativeLayout>

@@ -5,9 +5,11 @@ import com.mobielement.groupdisplay.service.GroupDisplayService;
 import com.mobielement.groupdisplay.service.GroupDisplayService.GroupDisplayServiceBinder;
 import com.mobielement.groupdisplay.service.GroupDisplayService.IGroupDisplayServiceListener;
 
+
 import android.os.Bundle;
 import android.os.IBinder;
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,14 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 	private static final String TAG = "[ME][GroupDisplay]";
 
     private static final String TAGClass = "MainActivity : ";
+    
+    private static final int START_FRAGMENT = 1001;
+    
+    private int mCurrentFragment = START_FRAGMENT;
+    
+    private StartFragment mStartFragment;
+    
+    private FragmentTransaction mFragmentTransaction;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +38,13 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 		
 		startGDService();
 		bindGDService();
+		
+		mStartFragment = (StartFragment)getFragmentManager().findFragmentById(R.id.fragment_start);
+		
+		setFragment(START_FRAGMENT);
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -52,6 +67,25 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
         unbindGDService();
         stopGDService();
         Log.v(TAG, TAGClass + "onDestroy");
+    }
+    
+    private void setFragment(int currentFragment) {
+        mCurrentFragment = currentFragment;
+        mFragmentTransaction = getFragmentManager().beginTransaction();
+        if (mCurrentFragment == START_FRAGMENT) {
+            mFragmentTransaction.show(mStartFragment);
+            //mFragmentTransaction.hide(mChannelTestFragment);
+            //mFragmentTransaction.hide(mDataTestFragment);
+        } /*else if (mCurrentFragment == CHANNELTEST_FRAGMENT) {
+            mFragmentTransaction.show(mChannelTestFragment);
+            mFragmentTransaction.hide(mInterfaceTestFragment);
+            mFragmentTransaction.hide(mDataTestFragment);
+        } else if (mCurrentFragment == DATATEST_FRAGMENT) {
+            mFragmentTransaction.show(mDataTestFragment);
+            mFragmentTransaction.hide(mInterfaceTestFragment);
+            mFragmentTransaction.hide(mChannelTestFragment);
+        }*/
+        mFragmentTransaction.commit();
     }
 	
 	// **********************************************************************
