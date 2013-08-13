@@ -154,7 +154,7 @@ public class GroupDisplayService extends Service {
  // Start chord
     public int start(int interfaceType) {
     	
-    	acqureWakeLock();
+    	//acqureWakeLock();
         // #3. set some values before start
         return mChord.start(interfaceType, new IChordManagerListener() {
             @Override

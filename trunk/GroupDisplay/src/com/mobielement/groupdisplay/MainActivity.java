@@ -16,6 +16,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.util.Log;
 import android.view.Menu;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 
 public class MainActivity extends Activity implements IGroupDisplayServiceListener{
 	private static final String TAG = "[ME][GroupDisplay]";
@@ -35,6 +37,11 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 		super.onCreate(savedInstanceState);
 		Log.v(TAG, TAGClass + "onCreate");
 		setContentView(R.layout.activity_main);
+		
+		// keep the screen on
+		Window window = this.getWindow();
+		window.setFlags(LayoutParams.FLAG_FULLSCREEN, LayoutParams.FLAG_FULLSCREEN);
+		window.addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
 		startGDService();
 		bindGDService();
