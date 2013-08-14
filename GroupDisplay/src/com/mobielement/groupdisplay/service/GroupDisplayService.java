@@ -151,7 +151,7 @@ public class GroupDisplayService extends Service {
         });
     }
     
- // Start chord
+    // Start chord
     public int start(int interfaceType) {
     	
     	//acqureWakeLock();
