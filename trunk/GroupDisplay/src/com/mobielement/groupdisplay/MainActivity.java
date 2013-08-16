@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 	// **********************************************************************
     // Using Service
     // **********************************************************************
-    private GroupDisplayService mGDService = null;
+    private GroupDisplayService mChordService = null;
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -107,15 +107,15 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
             // TODO Auto-generated method stub
             Log.d(TAG, TAGClass + "onServiceConnected()");
             GroupDisplayServiceBinder binder = (GroupDisplayServiceBinder)service;
-            mGDService = binder.getService();
+            mChordService = binder.getService();
             try {
-            	mGDService.initialize(MainActivity.this);
+            	mChordService.initialize(MainActivity.this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             //refreshInterfaceType();
-            //mChannelTestFragment.setService(mChordService);
+            mStartFragment.setService(mChordService);
             //mDataTestFragment.setService(mChordService);
         }
 
@@ -123,7 +123,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
         public void onServiceDisconnected(ComponentName name) {
             // TODO Auto-generated method stub
             Log.i(TAG, TAGClass + "onServiceDisconnected()");
-            mGDService = null;
+            mChordService = null;
         }
     };
 	
@@ -141,7 +141,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 	
 	private void bindGDService() {
         Log.i(TAG, TAGClass + "bindGDService()");
-        if (mGDService == null) {
+        if (mChordService == null) {
             Intent intent = new Intent(
                     "com.mobielement.groupdisplay.service.GroupDisplayService.SERVICE_BIND");
             bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
@@ -151,10 +151,10 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 	private void unbindGDService() {
         Log.i(TAG, TAGClass + "unbindGDService()");
 
-        if (null != mGDService) {
+        if (null != mChordService) {
             unbindService(mConnection);
         }
-        mGDService = null;
+        mChordService = null;
     }
 
 	// **********************************************************************
@@ -186,7 +186,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
     @Override
     public void onNodeEvent(String node, String channel, boolean bJoined) {
         if (bJoined) {
-            if (channel.equals(mGDService.getPublicChannel())) {
+            if (channel.equals(mChordService.getPublicChannel())) {
                 //mChannelTestFragment.onPublicChannelNodeJoined(node);
                 //mDataTestFragment.onNodeJoined(node, channel);
             } else {
@@ -196,7 +196,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
             return;
         }
 
-        if (channel.equals(mGDService.getPublicChannel())) {
+        if (channel.equals(mChordService.getPublicChannel())) {
             //mChannelTestFragment.onPublicChannelNodeLeaved(node);
             //mDataTestFragment.onNodeLeaved(node, channel);
         } else {
