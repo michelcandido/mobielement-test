@@ -1,5 +1,8 @@
 package com.mobielement.groupdisplay;
 
+import com.mobielement.groupdisplay.service.GroupDisplayService;
+
+
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +31,8 @@ public class StartFragment extends Fragment implements OnClickListener{
     private Button mBtnJoin;
     
     private Button mBtnSetup;
+    
+    private GroupDisplayService mChordService = null;
     
     
 	// TODO: Rename parameter arguments, choose names that match
@@ -105,5 +110,7 @@ public class StartFragment extends Fragment implements OnClickListener{
 		}
 	}
 	
-
+	public void setService(GroupDisplayService chordService) {
+        mChordService = chordService;
+    }
 }
