@@ -1,6 +1,9 @@
 package com.mobielement.groupdisplay;
 
+import java.util.List;
+
 import com.mobielement.groupdisplay.service.GroupDisplayService;
+import com.samsung.chord.ChordManager;
 
 
 import android.app.Activity;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
@@ -31,6 +35,8 @@ public class StartFragment extends Fragment implements OnClickListener{
     private Button mBtnJoin;
     
     private Button mBtnSetup;
+    
+    private Button mBtnTest;
     
     private GroupDisplayService mChordService = null;
     
@@ -87,6 +93,16 @@ public class StartFragment extends Fragment implements OnClickListener{
 		
 		mBtnJoin = (Button)view.findViewById(R.id.buttonJoinGroup);
         mBtnSetup = (Button)view.findViewById(R.id.buttonSetupGroup);
+        mBtnTest = (Button)view.findViewById(R.id.buttonTest);
+        
+        mBtnJoin.setEnabled(true);
+        mBtnSetup.setEnabled(true);
+        mBtnTest.setEnabled(true);
+        
+        mBtnJoin.setOnClickListener(this);
+        mBtnSetup.setOnClickListener(this);
+        mBtnTest.setOnClickListener(this);
+        
 		return view;
 	}
 
@@ -100,9 +116,18 @@ public class StartFragment extends Fragment implements OnClickListener{
 		switch (v.getId()) {
 			case R.id.buttonJoinGroup:
 				Log.d(TAG, TAGClass + "setOnClickListener() - Join Group");
+				mChordService.start(ChordManager.INTERFACE_TYPE_WIFI);
 				break;
 			case R.id.buttonSetupGroup:
 				Log.d(TAG, TAGClass + "setOnClickListener() - Setup Group");
+				break;
+			case R.id.buttonTest:
+				Log.d(TAG, TAGClass + "setOnClickListener() - Setup Group");
+				List<String> nodes = mChordService.getChordManager().getJoinedChannel(mChordService.getPublicChannel()).getJoinedNodeList();
+				for (String node : nodes) {
+					Log.d(TAG, TAGClass + "node: " + node);
+				}
+				Toast.makeText(this.getActivity(), nodes.toString(), Toast.LENGTH_LONG).show();
 				break;
 			 default:
 	            Log.d(TAG, TAGClass + "setOnClickListener() - default");

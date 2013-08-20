@@ -1,5 +1,7 @@
 package com.mobielement.groupdisplay.service;
 
+import java.util.List;
+
 import com.samsung.chord.ChordManager;
 import com.samsung.chord.IChordChannel;
 import com.samsung.chord.IChordChannelListener;
@@ -177,7 +179,7 @@ public class GroupDisplayService extends Service {
 
                 if (null == channel) {
                     Log.e(TAG, TAGClass + "fail to join public");
-                }
+                } 
             }
 
             @Override
@@ -250,8 +252,11 @@ public class GroupDisplayService extends Service {
 		}
 
 		@Override
-		public void onNodeJoined(String arg0, String arg1) {
-			// TODO Auto-generated method stub
+		public void onNodeJoined(String fromNode, String fromChannel) {
+			Log.v(TAG, TAGClass + "onNodeJoined(), fromNode : " + fromNode + ", fromChannel : "
+                    + fromChannel);
+            if (null != mListener)
+                mListener.onNodeEvent(fromNode, fromChannel, true);
 			
 		}
 
@@ -274,6 +279,10 @@ public class GroupDisplayService extends Service {
     
     public String getPublicChannel() {
         return ChordManager.PUBLIC_CHANNEL;
+    }
+    
+    public ChordManager getChordManager() {
+    	return mChord;
     }
     
     private void acqureWakeLock(){

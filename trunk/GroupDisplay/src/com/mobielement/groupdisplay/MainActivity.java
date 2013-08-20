@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements IGroupDisplayServiceListener{
 	private static final String TAG = "[ME][GroupDisplay]";
@@ -43,8 +44,8 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 		window.setFlags(LayoutParams.FLAG_FULLSCREEN, LayoutParams.FLAG_FULLSCREEN);
 		window.addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
-		startGDService();
-		bindGDService();
+		startChordService();
+		bindChordService();
 		
 		mStartFragment = (StartFragment)getFragmentManager().findFragmentById(R.id.fragment_start);
 		
@@ -71,8 +72,8 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        unbindGDService();
-        stopGDService();
+        unbindChordService();
+        stopChordService();
         Log.v(TAG, TAGClass + "onDestroy");
     }
     
@@ -127,20 +128,20 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
         }
     };
 	
-	private void startGDService() {
-        Log.i(TAG, TAGClass + "startGDService()");
+	private void startChordService() {
+        Log.i(TAG, TAGClass + "startChordService()");
         Intent intent = new Intent("com.mobielement.groupdisplay.service.GroupDisplayService.SERVICE_START");
         startService(intent);
     }
 	
-	private void stopGDService() {
-        Log.i(TAG, TAGClass + "stopService()");
+	private void stopChordService() {
+        Log.i(TAG, TAGClass + "stopChordService()");
         Intent intent = new Intent("com.mobielement.groupdisplay.service.GroupDisplayService.SERVICE_STOP");
         stopService(intent);
     }
 	
-	private void bindGDService() {
-        Log.i(TAG, TAGClass + "bindGDService()");
+	private void bindChordService() {
+        Log.i(TAG, TAGClass + "bindChordService()");
         if (mChordService == null) {
             Intent intent = new Intent(
                     "com.mobielement.groupdisplay.service.GroupDisplayService.SERVICE_BIND");
@@ -148,8 +149,8 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
         }
     }
 	
-	private void unbindGDService() {
-        Log.i(TAG, TAGClass + "unbindGDService()");
+	private void unbindChordService() {
+        Log.i(TAG, TAGClass + "unbindChordService()");
 
         if (null != mChordService) {
             unbindService(mConnection);
@@ -185,6 +186,10 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
 
     @Override
     public void onNodeEvent(String node, String channel, boolean bJoined) {
+    	Log.v(TAG, TAGClass + "onNodeJoined(), fromNode : " + node + ", fromChannel : "
+                + channel + ", joined? : "+ bJoined);
+    	Toast.makeText(this, "onNodeJoined(), fromNode : " + node + ", fromChannel : "
+                + channel + ", joined? : "+ bJoined, Toast.LENGTH_LONG).show();
         if (bJoined) {
             if (channel.equals(mChordService.getPublicChannel())) {
                 //mChannelTestFragment.onPublicChannelNodeJoined(node);
