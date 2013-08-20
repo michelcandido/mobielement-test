@@ -44,6 +44,17 @@
             android:focusable="false"
             android:enabled="false"
             android:text="@string/setup" />
+        
+        <Button
+            android:id="@+id/buttonTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"            
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:focusable="false"
+            android:enabled="false"
+            android:text="QueryGroup" />
 
         
     </LinearLayout>
