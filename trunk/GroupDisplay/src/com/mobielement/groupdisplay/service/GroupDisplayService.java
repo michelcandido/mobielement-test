@@ -1,15 +1,5 @@
 package com.mobielement.groupdisplay.service;
 
-import java.util.List;
-
-import com.samsung.chord.ChordManager;
-import com.samsung.chord.IChordChannel;
-import com.samsung.chord.IChordChannelListener;
-import com.samsung.chord.IChordManagerListener;
-import com.samsung.chord.ChordManager.INetworkListener;
-
-
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +8,15 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.samsung.android.sdk.SsdkUnsupportedException;
+import com.samsung.android.sdk.chord.InvalidInterfaceException;
+import com.samsung.android.sdk.chord.Schord;
+import com.samsung.android.sdk.chord.SchordChannel;
+import com.samsung.android.sdk.chord.SchordManager;
+import com.samsung.android.sdk.chord.SchordManager.NetworkListener;
+
 
 public class GroupDisplayService extends Service {
 	private static final String TAG = "[ME][GroupDisplay]";
@@ -26,7 +25,13 @@ public class GroupDisplayService extends Service {
     
     public static final String chordFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Chord";
     
-    private ChordManager mChord = null;
+    private static final String CHORD_GROUP_DISPLAY_CHANNEL = "com.mobielement.groupdisplay.service.GROUPDISPLAYCHANNEL";
+    
+    private static final String CHORD_GROUP_DISPLAY_MESSAGE_TYPE = "com.mobielement.groupdisplay.service.MESSAGE_TYPE";
+    
+    private Schord mChord = null;
+    
+    private SchordManager mChordManager = null;
     
     private IGroupDisplayServiceListener mListener = null;
     
@@ -121,184 +126,298 @@ public class GroupDisplayService extends Service {
             return;
         }
 
-        // #1. GetInstance
-        mChord = ChordManager.getInstance(this);
-        Log.d(TAG, TAGClass + "[Initialize] Chord Initialized");
-
-        mListener = listener;
-
-        // #2. set some values before start
-        mChord.setTempDirectory(chordFilePath);
-        mChord.setHandleEventLooper(getMainLooper());
-
-        // Optional.
-        // If you need listening network changed, you can set callback before
-        // starting chord.
-        mChord.setNetworkListener(new INetworkListener() {
-
-            @Override
-            public void onConnected(int interfaceType) {
-                if (null != mListener) {
-                    mListener.onConnectivityChanged();
-                }
+        /****************************************************
+         * 1. GetInstance
+         ****************************************************/
+        mChord = new Schord();
+        try {
+        	mChord.initialize(this);
+        } catch (SsdkUnsupportedException e) {
+            if (e.getType() == SsdkUnsupportedException.VENDOR_NOT_SUPPORTED) {
+                // Vender is not SAMSUNG
+                return;
             }
+        }      
+        mChordManager = new SchordManager(this);        
+        Log.d(TAG, TAGClass + "[Initialize] Chord Initialized");
+        
+        /****************************************************
+         * 2. Set some values before start If you want to use secured channel,
+         * you should enable SecureMode. Please refer
+         * UseSecureChannelFragment.java mChordManager.enableSecureMode(true);
+         * 
+         *
+         * Once you will use sendFile or sendMultiFiles, you have to call setTempDirectory  
+         * mChordManager.setTempDirectory(Environment.getExternalStorageDirectory().getAbsolutePath()
+         *       + "/Chord");
+         ****************************************************/
+        mChordManager.setTempDirectory(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/Chord");
+        mChordManager.setLooper(this.getMainLooper());
+
+        /**
+         * Optional. If you need listening network changed, you can set callback
+         * before starting chord.
+         */
+        mListener = listener;
+        mChordManager.setNetworkListener(new NetworkListener() {
 
             @Override
             public void onDisconnected(int interfaceType) {
                 if (null != mListener) {
+                    Toast.makeText(GroupDisplayService.this,
+                            getInterfaceName(interfaceType) + " is disconnected",
+                            Toast.LENGTH_SHORT).show();
                     mListener.onConnectivityChanged();
                 }
             }
 
-        });
+            @Override
+            public void onConnected(int interfaceType) {
+                if (null != mListener) {
+                    Toast.makeText(GroupDisplayService.this,
+                            getInterfaceName(interfaceType) + " is connected",
+                            Toast.LENGTH_SHORT).show();
+                    mListener.onConnectivityChanged();
+                }
+            }
+        });        
     }
     
     // Start chord
-    public int start(int interfaceType) {
+    public void start(int interfaceType) {
     	
     	//acqureWakeLock();
-        // #3. set some values before start
-        return mChord.start(interfaceType, new IChordManagerListener() {
-            @Override
-            public void onStarted(String name, int reason) {
-                Log.d(TAG, TAGClass + "onStarted chord");
-
-                if (null != mListener)
-                    mListener.onUpdateNodeInfo(name, mChord.getIp());
-
-                if (STARTED_BY_RECONNECTION == reason) {
-                    Log.e(TAG, TAGClass + "STARTED_BY_RECONNECTION");
-                    return;
-                }
-                // if(STARTED_BY_USER == reason) : Returns result of calling
-                // start
-
-                // #4.(optional) listen for public channel
-                IChordChannel channel = mChord.joinChannel(ChordManager.PUBLIC_CHANNEL,
-                        mChannelListener);
-
-                if (null == channel) {
-                    Log.e(TAG, TAGClass + "fail to join public");
-                } 
-            }
-
-            @Override
-            public void onNetworkDisconnected() {
-                Log.e(TAG, TAGClass + "onNetworkDisconnected()");
-                if (null != mListener)
-                    mListener.onNetworkDisconnected();
-            }
-
-            @Override
-            public void onError(int error) {
-                // TODO Auto-generated method stub
-
-            }
-
-        });
+        // #3. Start Chord
+    	try {
+            mChordManager.start(interfaceType, mManagerListener);            
+            Log.d(TAG, TAGClass + "    start(" + getInterfaceName(interfaceType) + ")");            
+        } catch (IllegalArgumentException e) {
+        	Log.d(TAG, TAGClass + "    Fail to start -" + e.getMessage());
+        } catch (InvalidInterfaceException e) {
+        	Log.d(TAG, TAGClass + "    There is no such a connection.");
+        } catch (Exception e) {
+        	Log.d(TAG, TAGClass + "    Fail to start -" + e.getMessage());
+        }    	        
     }
     
-    // This interface defines a listener for chord channel events.
-    private IChordChannelListener mChannelListener = new IChordChannelListener() {
+    /**
+     * ChordManagerListener
+     */
+    SchordManager.StatusListener mManagerListener = new SchordManager.StatusListener() {
 
-		@Override
-		public void onDataReceived(String arg0, String arg1, String arg2,
-				byte[][] arg3) {
-			// TODO Auto-generated method stub
-			
-		}
+        @Override
+        public void onStarted(String nodeName, int reason) {
+            /**
+             * 4. Chord has started successfully
+             */            
+            if (reason == STARTED_BY_USER) {
+                // Success to start by calling start() method
+            	Log.d(TAG, TAGClass + "    >onStarted(" + nodeName + ", STARTED_BY_USER)");
+                joinGroupDisplayChannel();
+            } else if (reason == STARTED_BY_RECONNECTION) {
+                // Re-start by network re-connection.
+            	Log.d(TAG, TAGClass + "    >onStarted(" + nodeName + ", STARTED_BY_RECONNECTION)");
+            }
 
-		@Override
-		public void onFileChunkReceived(String arg0, String arg1, String arg2,
-				String arg3, String arg4, String arg5, long arg6, long arg7) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onFileChunkSent(String arg0, String arg1, String arg2,
-				String arg3, String arg4, String arg5, long arg6, long arg7,
-				long arg8) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onFileFailed(String arg0, String arg1, String arg2,
-				String arg3, String arg4, int arg5) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onFileReceived(String arg0, String arg1, String arg2,
-				String arg3, String arg4, String arg5, long arg6, String arg7) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onFileSent(String arg0, String arg1, String arg2,
-				String arg3, String arg4, String arg5) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onFileWillReceive(String arg0, String arg1, String arg2,
-				String arg3, String arg4, String arg5, long arg6) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onNodeJoined(String fromNode, String fromChannel) {
-			Log.v(TAG, TAGClass + "onNodeJoined(), fromNode : " + fromNode + ", fromChannel : "
-                    + fromChannel);
-            if (null != mListener)
-                mListener.onNodeEvent(fromNode, fromChannel, true);
-			
-		}
-
-		@Override
-		public void onNodeLeft(String arg0, String arg1) {
-			// TODO Auto-generated method stub
-			
-		}};
-    
-    // Release chord
-    public void release() throws Exception {
-        if (mChord != null) {
-            mChord.stop();
-            mChord.setNetworkListener(null);
-            mChord = null;
-            Log.d(TAG, TAGClass + "[UNREGISTER] Chord unregistered");
         }
 
+        @Override
+        public void onStopped(int reason) {
+            /**
+             * 8. Chord has stopped successfully
+             */            
+            if (STOPPED_BY_USER == reason) {
+                // Success to stop by calling stop() method
+            	Log.d(TAG, TAGClass + "    >onStopped(STOPPED_BY_USER)");
+            } else if (NETWORK_DISCONNECTED == reason) {
+                // Stopped by network disconnected
+            	Log.d(TAG, TAGClass + "    >onStopped(NETWORK_DISCONNECTED)");
+            }
+        }
+    };
+
+    private void joinGroupDisplayChannel() {
+        SchordChannel channel = null;
+        
+        /**
+         * 5. Join my channel
+         */
+        Log.d(TAG, TAGClass + "    joinChannel");
+        channel = mChordManager.joinChannel(CHORD_GROUP_DISPLAY_CHANNEL, mChannelListener);
+
+        if (channel == null) {
+        	Log.d(TAG, TAGClass + "    Fail to joinChannel");
+        }
+    }
+
+    private void release() throws Exception {
+        if (mChordManager == null)
+            return;
+
+        /**
+         * If you registered NetworkListener, you should unregister it.
+         */
+        mChordManager.setNetworkListener(null);
+
+        /**
+         * 7. Stop Chord. You can call leaveChannel explicitly.
+         * mChordManager.leaveChannel(CHORD_HELLO_TEST_CHANNEL);
+         */
+        Log.d(TAG, TAGClass + "    stop");
+        mChordManager.stop();        
     }
     
-    public String getPublicChannel() {
-        return ChordManager.PUBLIC_CHANNEL;
+ 
+    
+ // ***************************************************
+    // ChordChannelListener
+    // ***************************************************
+    private SchordChannel.StatusListener mChannelListener = new SchordChannel.StatusListener() {
+
+        /**
+         * Called when a node leave event is raised on the channel.
+         */
+        @Override
+        public void onNodeLeft(String fromNode, String fromChannel) {
+        	Log.d(TAG, TAGClass + "    >onNodeLeft(" + fromNode + ")");
+        }
+
+        /**
+         * Called when a node join event is raised on the channel
+         */
+        @Override
+        public void onNodeJoined(String fromNode, String fromChannel) {
+        	Log.d(TAG, TAGClass + "    >onNodeJoined(" + fromNode + ")");
+
+            /**
+             * 6. Send data to joined node
+             */
+            byte[][] payload = new byte[1][];
+            payload[0] = "Hello chord!".getBytes();
+
+            SchordChannel channel = mChordManager.getJoinedChannel(fromChannel);
+            channel.sendData(fromNode, CHORD_GROUP_DISPLAY_MESSAGE_TYPE, payload);
+            Log.d(TAG, TAGClass + "    sendData(" + fromNode + ", " + new String(payload[0]) + ")");
+        }
+
+        /**
+         * Called when the data message received from the node.
+         */
+        @Override
+        public void onDataReceived(String fromNode, String fromChannel, String payloadType,
+                byte[][] payload) {
+
+            /**
+             * 6. Received data from other node
+             */
+            if(payloadType.equals(CHORD_GROUP_DISPLAY_MESSAGE_TYPE)){
+            	Log.d(TAG, TAGClass + "    >onDataReceived(" + fromNode + ", " + new String( payload[0]) + ")");
+            }
+        }
+
+        /**
+         * The following callBacks are not used in this Fragment. Please refer
+         * to the SendFilesFragment.java
+         */
+        @Override
+        public void onMultiFilesWillReceive(String fromNode, String fromChannel, String fileName,
+                String taskId, int totalCount, String fileType, long fileSize) {
+
+        }
+
+        @Override
+        public void onMultiFilesSent(String toNode, String toChannel, String fileName,
+                String taskId, int index, String fileType) {
+
+        }
+
+        @Override
+        public void onMultiFilesReceived(String fromNode, String fromChannel, String fileName,
+                String taskId, int index, String fileType, long fileSize, String tmpFilePath) {
+
+        }
+
+        @Override
+        public void onMultiFilesFinished(String node, String channel, String taskId, int reason) {
+
+        }
+
+        @Override
+        public void onMultiFilesFailed(String node, String channel, String fileName, String taskId,
+                int index, int reason) {
+
+        }
+
+        @Override
+        public void onMultiFilesChunkSent(String toNode, String toChannel, String fileName,
+                String taskId, int index, String fileType, long fileSize, long offset,
+                long chunkSize) {
+
+        }
+
+        @Override
+        public void onMultiFilesChunkReceived(String fromNode, String fromChannel, String fileName,
+                String taskId, int index, String fileType, long fileSize, long offset) {
+
+        }
+
+        @Override
+        public void onFileWillReceive(String fromNode, String fromChannel, String fileName,
+                String hash, String fileType, String exchangeId, long fileSize) {
+
+        }
+
+        @Override
+        public void onFileSent(String toNode, String toChannel, String fileName, String hash,
+                String fileType, String exchangeId) {
+
+        }
+
+        @Override
+        public void onFileReceived(String fromNode, String fromChannel, String fileName,
+                String hash, String fileType, String exchangeId, long fileSize, String tmpFilePath) {
+
+        }
+
+        @Override
+        public void onFileFailed(String node, String channel, String fileName, String hash,
+                String exchangeId, int reason) {
+
+        }
+
+        @Override
+        public void onFileChunkSent(String toNode, String toChannel, String fileName, String hash,
+                String fileType, String exchangeId, long fileSize, long offset, long chunkSize) {
+
+        }
+
+        @Override
+        public void onFileChunkReceived(String fromNode, String fromChannel, String fileName,
+                String hash, String fileType, String exchangeId, long fileSize, long offset) {
+
+        }
+
+    };
+    
+    
+    
+    public String getChannel() {
+        return CHORD_GROUP_DISPLAY_CHANNEL;
     }
     
-    public ChordManager getChordManager() {
-    	return mChord;
-    }
+    public SchordManager getChordManager() {
+    	return mChordManager;
+    }        
     
-    private void acqureWakeLock(){
-		if(null == mWakeLock){
-			PowerManager powerMgr = (PowerManager)getSystemService(Context.POWER_SERVICE);
-			mWakeLock = powerMgr.newWakeLock(PowerManager.FULL_WAKE_LOCK, "ChordApiDemo Lock");
-			Log.d(TAG, "acqureWakeLock : new");
-		}
-	  
-		if(mWakeLock.isHeld()){
-			Log.w(TAG, "acqureWakeLock : already acquire");
-			mWakeLock.release();
-		}
-	  
-		 Log.d(TAG, "acqureWakeLock : acquire");
-		 mWakeLock.acquire();
-	}
+    private String getInterfaceName(int interfaceType) {
+        if (SchordManager.INTERFACE_TYPE_WIFI == interfaceType)
+            return "Wi-Fi";
+        else if (SchordManager.INTERFACE_TYPE_WIFI_AP == interfaceType)
+            return "Mobile AP";
+        else if (SchordManager.INTERFACE_TYPE_WIFI_P2P == interfaceType)
+            return "Wi-Fi Direct";
+
+        return "UNKNOWN";
+    }
     
 }

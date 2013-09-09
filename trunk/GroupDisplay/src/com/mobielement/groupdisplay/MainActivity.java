@@ -191,7 +191,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
     	Toast.makeText(this, "onNodeJoined(), fromNode : " + node + ", fromChannel : "
                 + channel + ", joined? : "+ bJoined, Toast.LENGTH_LONG).show();
         if (bJoined) {
-            if (channel.equals(mChordService.getPublicChannel())) {
+            if (channel.equals(mChordService.getChannel())) {
                 //mChannelTestFragment.onPublicChannelNodeJoined(node);
                 //mDataTestFragment.onNodeJoined(node, channel);
             } else {
@@ -201,7 +201,7 @@ public class MainActivity extends Activity implements IGroupDisplayServiceListen
             return;
         }
 
-        if (channel.equals(mChordService.getPublicChannel())) {
+        if (channel.equals(mChordService.getChannel())) {
             //mChannelTestFragment.onPublicChannelNodeLeaved(node);
             //mDataTestFragment.onNodeLeaved(node, channel);
         } else {
