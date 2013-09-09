@@ -2,21 +2,18 @@ package com.mobielement.groupdisplay;
 
 import java.util.List;
 
-import com.mobielement.groupdisplay.service.GroupDisplayService;
-import com.samsung.chord.ChordManager;
-
-
-import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.mobielement.groupdisplay.service.GroupDisplayService;
+import com.samsung.android.sdk.chord.SchordManager;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
@@ -116,14 +113,14 @@ public class StartFragment extends Fragment implements OnClickListener{
 		switch (v.getId()) {
 			case R.id.buttonJoinGroup:
 				Log.d(TAG, TAGClass + "setOnClickListener() - Join Group");
-				mChordService.start(ChordManager.INTERFACE_TYPE_WIFI);
+				mChordService.start(SchordManager.INTERFACE_TYPE_WIFI);
 				break;
 			case R.id.buttonSetupGroup:
 				Log.d(TAG, TAGClass + "setOnClickListener() - Setup Group");
 				break;
 			case R.id.buttonTest:
 				Log.d(TAG, TAGClass + "setOnClickListener() - Setup Group");
-				List<String> nodes = mChordService.getChordManager().getJoinedChannel(mChordService.getPublicChannel()).getJoinedNodeList();
+				List<String> nodes = mChordService.getChordManager().getJoinedChannel(mChordService.getChannel()).getJoinedNodeList();
 				for (String node : nodes) {
 					Log.d(TAG, TAGClass + "node: " + node);
 				}
